@@ -3,7 +3,28 @@ import React from "react";
 export default function CoffeeCafe() {
     return (
         <>
-        <div>CC</div>
+        <div>
+
+            <div>
+                <div>List</div>
+                <div>
+                    
+
+                </div>
+                    
+                
+            </div>
+
+
+            <div>
+                <div>Map</div>
+            
+            
+            
+            </div>
+
+
+        </div>
         
         
         </>
