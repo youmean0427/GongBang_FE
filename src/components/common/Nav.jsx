@@ -12,7 +12,7 @@ export default function Nav() {
     return (
         <>
         <div className="nav-container">
-            <div className="nav-item">Logo</div>
+            <Link to = {'/'}><div className="nav-item">Logo</div></Link>
             {links.map((link, index) => (
                 <Link to = {link.url} key = {index} className="nav-item">{link.title}</Link>
             ))}
