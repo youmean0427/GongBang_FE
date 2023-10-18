@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { worker } from './mocks/browsers';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 if (process.env.NODE_ENV === 'development') {
-  worker.start();
+  // worker.start();
 }
 
 const queryClient = new QueryClient()
