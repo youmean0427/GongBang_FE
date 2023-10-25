@@ -32,8 +32,17 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'coffeecafes',
-    'rest_framework',
+    'accounts',
 
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
+
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'gongbang.urls'
@@ -129,3 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'accounts.User'
+
+SITE_ID = 1
