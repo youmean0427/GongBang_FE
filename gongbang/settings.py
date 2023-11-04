@@ -140,6 +140,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
-AUTH_USER_MODEL = 'accounts.User'
 
-SITE_ID = 1
+REST_FRAMEWORK = { # 권한 설정
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
