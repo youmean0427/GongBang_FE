@@ -32,8 +32,9 @@ export default function Signup() {
     })
     }
 
-    const[check, setCheck] = useState(true)
 
+    const[check, setCheck] = useState(true)
+    
     useEffect(() => {
         setCheck(!(inputs.name && inputs.login_id && inputs.password && checkEmail(inputs.email) && inputs.nickname))
 

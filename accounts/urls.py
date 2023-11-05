@@ -10,5 +10,4 @@ urlpatterns = [
     path('account/<int:pk>', views.account),
     path('login', views.login),
     path('auth', include('rest_framework.urls', namespace='rest_framework'))
-
 ]

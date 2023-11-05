@@ -12,3 +12,10 @@ export const signupAPI = async (data) => {
       },});
     return response;
 }
+
+export const loginAPI = async (data) => {
+    const response = await axios.post('/accounts/login', data, {headers: {
+        'Content-Type': 'application/json',
+      },});
+    return response;
+}
