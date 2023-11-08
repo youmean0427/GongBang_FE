@@ -5,18 +5,16 @@ import { useQuery } from "@tanstack/react-query";
 import { getCoffeeCafesAPI } from "../../apis/api";
 
 export default function CardContatiner({title}) {
+    const [activeItemIndex, setActiveItemIndex] = useState(0);
+    const chevronWidth = 100
 
     const { isLoading, data } = useQuery({
         queryKey: ['getCoffeeCafes'],
         queryFn: () => getCoffeeCafesAPI(),
       });
-
-    JSON.stringify(data)
-    const chevronWidth = 100
-    const [activeItemIndex, setActiveItemIndex] = useState(0);
-
     if (isLoading) return;
-
+    
+  
     return (
         <>
 
@@ -37,7 +35,6 @@ export default function CardContatiner({title}) {
             <div key={data} className="card-item">{data.title}</div>
 
         ))}
-
         </ItemsCarousel>
     </div>
         </>

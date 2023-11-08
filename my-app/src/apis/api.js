@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const getCoffeeCafesAPI = async () => {
-    const { data } = await axios.get('/api/coffeecafes/');
+    const { data } = await axios.get('/api/coffeecafes');
     return data;
 }
 
@@ -18,4 +18,10 @@ export const loginAPI = async (data) => {
         'Content-Type': 'application/json',
       },});
     return response;
+}
+
+
+export const userInfoAPI = async (id) => {
+  const { data } = await axios.get(`accounts/account/${id}`, id);
+  return data;
 }

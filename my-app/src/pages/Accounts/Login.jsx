@@ -22,7 +22,6 @@ export default function Login() {
 
     const loginMutation = useMutation(['loginAPI'], loginAPI, {
         onSuccess: (res) => {
-
             localStorage.setItem("id", res.data)
             navigate('/')
             window.location.reload()
@@ -34,7 +33,6 @@ export default function Login() {
     })
 
 
-    
 
     const navigate = useNavigate()
 
@@ -46,7 +44,6 @@ export default function Login() {
   
 
       
-        
     }
 
 
@@ -54,7 +51,7 @@ export default function Login() {
 
     useEffect(() => {
         
-        if (localStorage.getItem('login_id')) {
+        if (localStorage.getItem('id')) {
             navigate("/")
         }
 

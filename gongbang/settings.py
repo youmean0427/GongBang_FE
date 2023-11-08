@@ -143,6 +143,9 @@ MEDIA_URL = '/media/'
 
 REST_FRAMEWORK = { # 권한 설정
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        'rest_framework.permissions.DjangoModelPermissions',
+        
+    ],
 }
+
+SITE_ID = 1

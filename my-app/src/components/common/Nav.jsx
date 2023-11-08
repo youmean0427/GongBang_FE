@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import '../common/Nav.css'
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { userInfoAPI } from "../../apis/api";
 
 export default function Nav() {
+    const [id, setId] = useState('')
 
-    const [loginId, setLoginId] = useState("")
-    
-    
+
     useEffect(() => {
-    setLoginId(localStorage.getItem("id"))
-    }, [])
+        setId(localStorage.getItem("id")) 
+    },[id])
 
-    
+    const { isLoading, data } = useQuery({
+        queryKey: ['userInfoAPI'],
+        queryFn: () => userInfoAPI(id),
+        enabled: !!id
+    });
+
     const handleLogout = () => {
         localStorage.clear()
         window.location.reload()
-
     }
 
     const links = [
@@ -32,9 +37,11 @@ export default function Nav() {
             ))}
 
             
-            {loginId ? <div>
+            {data ? <>
+                <div>{data.nickname}</div>
                 <button onClick={handleLogout}>
-                로그아웃</button></div>:
+                로그아웃</button>
+                </>:
             <div><Link to = {'/login'}>로그인</Link></div>
             }
 

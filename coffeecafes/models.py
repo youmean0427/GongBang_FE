@@ -23,3 +23,4 @@ class Review(models.Model):
     score = models.FloatField()
     type = models.IntegerField()
     image = models.ImageField()
+
