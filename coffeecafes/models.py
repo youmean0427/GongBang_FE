@@ -1,5 +1,5 @@
 from django.db import models
-from accounts.models import Account
+
 # Create your models here.
 
 class CoffeeCafe(models.Model):
@@ -16,7 +16,6 @@ class CoffeeCafe(models.Model):
 class Review(models.Model):
     id = models.IntegerField(primary_key=True)
     cafe = models.ForeignKey(CoffeeCafe, on_delete=models.CASCADE)
-    user = models.ForeignKey(Account, on_delete=models.CASCADE)
     title = models.CharField(max_length=50)
     content = models.TextField(max_length=500)
     date = models.DateField()
