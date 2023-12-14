@@ -1,16 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { signupAPI } from "../../apis/api";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Signup() {
+    const navigate = useNavigate()
     const [inputs, setInputs] = useState({
-        name : "",
-        login_id : "",
-        password : "",
+        username : "",
         email : "",
-        nickname : ""
-
+        password1 : "",
+        password2 : "",
     })
 
     const onChange = (e) => {
@@ -21,22 +20,32 @@ export default function Signup() {
         })
     }
 
-    const signupMutation = useMutation(['signupAPI'], signupAPI, {})
+    const signupMutation = useMutation(['signupAPI'], signupAPI, {       
+        onSuccess: (res) => {
+            navigate('/')
+            window.location.reload()
+        },
+        onError: () => {
+            console.log("username, email Check")
+        }
+})
 
     const handleSignup = () => {
-        signupMutation.mutate({name : inputs.name,
-        login_id : inputs.login_id,
-        password : inputs.password,
+        signupMutation.mutate({
+        username : inputs.username,
         email : inputs.email,
-        nickname : inputs.nickname
+        password1 : inputs.password1,
+        password2 : inputs.password2,
+        
     })
     }
 
-
     const[check, setCheck] = useState(true)
-    
+    const[passwordCheck, setPasswordcheck] = useState(0)
+
     useEffect(() => {
-        setCheck(!(inputs.name && inputs.login_id && inputs.password && checkEmail(inputs.email) && inputs.nickname))
+        {inputs.password1.length && inputs.password2.length && inputs.password1 !== inputs.password2 ? setPasswordcheck(1) : setPasswordcheck(0)}
+        setCheck(!(inputs.username && inputs.email && inputs.password1 && inputs.password2 && checkEmail(inputs.email)))
 
     })
 
@@ -51,31 +60,23 @@ export default function Signup() {
 
         <div>
             <div>이름</div>
-            <div><input name = "name" onChange={onChange}/>
+            <div><input name = "username" onChange={onChange}/>
             </div>
-            <div>
-      
-            </div>
-
-            <div>닉네임</div>
-            <div><input name = "nickname" onChange={onChange} /></div>
 
             <div>아이디</div>
-            <div><input name = "login_id" onChange={onChange}/></div>
-
-            <div>비밀번호</div>
-            <div><input type='password' name = "password" onChange={onChange} /></div>
-
-            <div>이메일</div>
             <div><input name = "email" onChange={onChange}/></div>
 
+            <div>비밀번호</div>
+            <div><input type='password' name = "password1" onChange={onChange} /></div>
+
+            <div>비밀번호 확인</div>
+            <div><input type='password' name = "password2" onChange={onChange} /></div>
+            <div>{passwordCheck ? "비밀번호를 확인해주세요" : ""} </div>
+
             <div>회원가입</div>
-            <div><Link to = {'/'}><button onClick={handleSignup} disabled={check}>회원가입</button></Link></div>
+            <div><button onClick={handleSignup} disabled={check}>회원가입</button></div>
         </div>
-
-
     </div>
-    
     
     
     </>

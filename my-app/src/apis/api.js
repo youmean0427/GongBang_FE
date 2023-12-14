@@ -7,14 +7,14 @@ export const getCoffeeCafesAPI = async () => {
 
 
 export const signupAPI = async (data) => {
-    const response = await axios.post('/accounts/signup', data, {headers: {
+    const response = await axios.post('/accounts/registration/', data, {headers: {
         'Content-Type': 'application/json',
       },});
     return response;
 }
 
 export const loginAPI = async (data) => {
-    const response = await axios.post('/accounts/login', data, {headers: {
+    const response = await axios.post('/accounts/login/', data, {headers: {
         'Content-Type': 'application/json',
       },});
     return response;
