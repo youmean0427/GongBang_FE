@@ -1,0 +1,13 @@
+.nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    height: 80px;
+}
+
+.nav-item {
+    margin: 20px;
+
+}
