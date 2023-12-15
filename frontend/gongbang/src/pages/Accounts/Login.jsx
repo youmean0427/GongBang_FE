@@ -24,6 +24,8 @@ export default function Login() {
         onSuccess: (res) => {
             navigate('/')
             window.location.reload()
+            localStorage.setItem('access_token', res.data.access_token)
+
         },
         onError: () => {
             setIsAccount(1)
