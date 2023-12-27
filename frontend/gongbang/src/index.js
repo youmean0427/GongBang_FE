@@ -10,7 +10,7 @@ import { getCookie } from './utils';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 if (process.env.NODE_ENV === 'development') {
-  // worker.start();
+  worker.start();
 }
 
 axios.defaults.xsrfCookieName = 'csrftoken'

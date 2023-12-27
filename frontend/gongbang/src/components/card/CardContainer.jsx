@@ -13,8 +13,7 @@ export default function CardContatiner({title}) {
         queryFn: () => getCoffeeCafesAPI(),
       });
     if (isLoading) return;
-    
-  
+
     return (
         <>
 
@@ -23,7 +22,7 @@ export default function CardContatiner({title}) {
         <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}
-        numberOfCards={5}
+        numberOfCards={4}
         gutter={20}
         leftChevron={<button>{'<'}</button>}
         rightChevron={<button>{'>'}</button>}
@@ -31,8 +30,7 @@ export default function CardContatiner({title}) {
         chevronWidth={chevronWidth}
         >
         {data.map((data) => (
-    
-            <div key={data} className="card-item">{data.title}</div>
+            <div key={data} className="card-item">{data.name}</div>
 
         ))}
         </ItemsCarousel>

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Main from "../pages/Main";
 import CoffeeCafe from "../pages/CoffeeCafe";
 import StudyCafe from "../pages/StudyCafe";
+import CafeDetail from "../pages/CafeDetail";
 import Signup from "../pages/Accounts/Signup";
 import Login from "../pages/Accounts/Login";
 
@@ -13,6 +14,7 @@ export default function Router() {
             <Routes>
                 <Route path="/" element={<Main />}/>
                 <Route path="/coffeecafe" element={<CoffeeCafe />}/>
+                <Route path="/coffeecafe/:id" element={<CafeDetail />}/>
                 <Route path="/studycafe" element={<StudyCafe />}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/signup" element={<Signup />}/>

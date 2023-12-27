@@ -7,6 +7,10 @@ export const getCoffeeCafesAPI = async () => {
     return data;
 }
 
+export const getCoffeeCafeDetailAPI = async (id) => {
+  const { data } = await axios.get(`/api/coffeecafe/${id}`);
+  return data;
+}
 
 
 export const userAPI = async () => {

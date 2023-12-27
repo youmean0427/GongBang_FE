@@ -1,59 +1,81 @@
 export const coffeeCafe =
 [ 
     {
-        title: "커피카페1",
-        score: "80%",
+        id : 1,
+        name : "카페_1",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     },
     {
-        title: "커피카페2",
-        score: "90%",
+        id : 2,
+        name : "카페_2",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     },
     {
-        title: "커피카페3",
-        score: "90%",
+        id : 3,
+        name : "카페_3",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     },
     {
-        title: "커피카페4",
-        score: "90%",
+        id : 4,
+        name : "카페_4",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     },
     {
-        title: "커피카페5",
-        score: "90%",
+        id : 5,
+        name : "카페_5",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     },
     {
-        title: "커피카페6",
-        score: "90%",
-    },
-    {
-        title: "커피카페7",
-        score: "90%",
-    },
-    {
-        title: "커피카페8",
-        score: "90%",
-    },
-    {
-        title: "커피카페9",
-        score: "90%",
-    },
-    {
-        title: "커피카페10",
-        score: "90%",
+        id : 6,
+        name : "카페_6",
+        address : "서울시 서울구",
+        time : "연중무휴",
+        total_score : "5",
+        lat : "00",
+        lng : "00",
+        image : ""
     }
-
 
 ]
 
-export const studyCafe =
-[ 
+export const review =
+[
     {
-        title: "스터디카페1",
-        score: "80%",
-    },
-    {
-        title: "스터디카페2",
-        score: "90%",
+        id : 1,
+        cafe : 1,
+        title : '카페 후기',
+        content : '좋음',
+        data : '2023-01-01',
+        score : 5,
+        type : 1,
+        image : "",
     }
+
 
 
 ]

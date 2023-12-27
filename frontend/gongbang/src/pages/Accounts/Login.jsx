@@ -22,18 +22,15 @@ export default function Login() {
 
     const loginMutation = useMutation(['loginAPI'], loginAPI, {
         onSuccess: (res) => {
+            localStorage.setItem('access_token', res.data.access_token)
             navigate('/')
             window.location.reload()
-            localStorage.setItem('access_token', res.data.access_token)
 
         },
         onError: () => {
             setIsAccount(1)
         }
-
     })
-
-
 
     const handleLogin = () => {
         loginMutation.mutate({
@@ -47,6 +44,8 @@ export default function Login() {
     useEffect(() => {
         setCheck(!(inputs.email && inputs.password))
     })
+
+    
 
 
     return <>

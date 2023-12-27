@@ -7,15 +7,21 @@ export default function CoffeeCafe() {
             lng: 0,
         }
     })
+
+    const [isOpen, setIsOpen] = useState(false)
+    const [clickIdx, setClickIdx] = useState(-1)
+
     // Data 
     const positions = [
         {
-            title: "카카오",
             latlng: {lat :  36.0888342, lng:129.2716482},
+        },
+        {
+            latlng: {lat :  36.0888342, lng:129.3716482},
         }
     ]
 
-
+    console.log(clickIdx)
     
     useEffect(() => {
         if (navigator.geolocation) {
@@ -65,13 +71,7 @@ export default function CoffeeCafe() {
                         }}
                         level={4}
                         >
-                        <MapMarker // 마커를 생성합니다
-                            position={{
-                            // 마커가 표시될 위치입니다
-                            lat: state.center.lat,
-                            lng: state.center.lng,
-                            }}
-                        />
+                    
                          {positions.map((position, index) => (
                             <MapMarker
                             key={`${position.title}-${position.latlng}`}
@@ -83,8 +83,28 @@ export default function CoffeeCafe() {
                                 height: 35
                                 }, // 마커이미지의 크기입니다
                             }}
-                            title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-                            />
+                            clickable = {true}
+                            onClick={() => {setIsOpen(true); setClickIdx(index)}}
+                            >
+                            {isOpen && index === clickIdx && (
+                            <div style={{ minWidth: "150px" }}>
+                                <img
+                                alt="close"
+                                width="14"
+                                height="13"
+                                src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
+                                style={{
+                                    position: "absolute",
+                                    right: "5px",
+                                    top: "5px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={() => setIsOpen(false)}
+                                />
+                                <div style={{ padding: "5px", color: "#000" }}>{position.latlng.lng}</div>
+                            </div>
+                            )}
+                            </MapMarker>
                         ))}
                     </Map>
                 </div>
