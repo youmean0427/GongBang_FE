@@ -10,7 +10,9 @@ export default function CafeDetail(){
         queryFn: () => getCoffeeCafeDetailAPI(id),
       });
     if (isLoading) return;
+
     console.log(data)
+
     return(
         <>
             <div>
@@ -21,7 +23,19 @@ export default function CafeDetail(){
                 <div> {data.time} </div>
                 <div> {data.lat} </div>
                 <div> {data.lng} </div>
+                <div> {data.image} </div>
+                <div>
 
+                </div>
+                <div>
+                    {data.review_set.map((x) => (
+                        <>
+                        <div>{x.title}</div>
+
+                        </>
+                    ))
+                    }
+                </div>
 
 
 
