@@ -24,15 +24,16 @@ export default function CafeDetail(){
                 <div> {data.lat} </div>
                 <div> {data.lng} </div>
                 <div> {data.image} </div>
+                <img src={data.image} alt="Cafe" />
                 <div>
 
                 </div>
                 <div>
-                    {data.review_set.map((x) => (
-                        <>
-                        <div>{x.title}</div>
+                    {data.review_set.map((x, index) => (
+                      
+                        <div key={index}>{x.title}</div>
 
-                        </>
+                       
                     ))
                     }
                 </div>

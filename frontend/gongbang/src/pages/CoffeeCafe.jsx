@@ -21,7 +21,6 @@ export default function CoffeeCafe() {
         }
     ]
 
-    console.log(clickIdx)
     
     useEffect(() => {
         if (navigator.geolocation) {
@@ -74,7 +73,7 @@ export default function CoffeeCafe() {
                     
                          {positions.map((position, index) => (
                             <MapMarker
-                            key={`${position.title}-${position.latlng}`}
+                            key={index}
                             position={position.latlng} // 마커를 표시할 위치
                             image={{
                                 src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다

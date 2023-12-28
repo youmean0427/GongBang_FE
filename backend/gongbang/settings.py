@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 새로 추가한 앱
     'accounts',
+    
     # 설치한 라이브러리들
+    'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
     
 ]
 
@@ -176,3 +179,7 @@ SIMPLE_JWT = {
 }
 
 CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:8000/", "http://localhost:3000/"]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
