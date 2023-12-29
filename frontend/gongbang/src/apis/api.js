@@ -12,6 +12,14 @@ export const getCoffeeCafeDetailAPI = async (id) => {
   return data;
 }
 
+export const getCoffeeCafeDetailReviewCreateAPI = async (id, data) => {
+  const response = await axios.post(`/api/coffeecafe/${id}/review/create`, data, {headers: {
+      'Content-Type': 'multipart/form-data',
+    },});
+  return response;
+}
+
+
 
 export const userAPI = async () => {
   const { data } = await axios.get('/accounts/user/');

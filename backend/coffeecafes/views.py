@@ -33,6 +33,10 @@ def coffee_cafe_detail_review(request, id):
         data['cafe'] = id
         data['id'] = review_cnt + 1
 
+        image_file = request.FILES.get('image')
+        if image_file:
+            data['image'] = image_file
+
         serializer_coffeecafe_detail_reivew = ReviewSerializer(data=data)
         if serializer_coffeecafe_detail_reivew.is_valid():
             serializer_coffeecafe_detail_reivew.save()

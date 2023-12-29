@@ -31,7 +31,15 @@ export default function CafeDetail(){
                 <div>
                     {data.review_set.map((x, index) => (
                       
-                        <div key={index}>{x.title}</div>
+                        <div key={index}>
+                            
+                            
+                            {x.title}
+                            <img src={x.image} alt="Cafe" />
+                            
+                            
+                            </div>
+                        
 
                        
                     ))
