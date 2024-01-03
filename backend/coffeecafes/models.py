@@ -9,6 +9,9 @@ class CoffeeCafe(models.Model):
     total_score = models.FloatField()
     lat = models.FloatField()
     lng = models.FloatField()
+
+class CoffeeCafeImage(models.Model):
+    cafe = models.ForeignKey(CoffeeCafe, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/', null=True, blank = True)
 
 
@@ -21,4 +24,8 @@ class Review(models.Model):
     date = models.DateField()
     score = models.FloatField()
     type = models.IntegerField()
+    
+
+class ReviewImage(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/', null=True, blank = True)

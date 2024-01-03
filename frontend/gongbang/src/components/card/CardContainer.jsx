@@ -3,6 +3,7 @@ import '../card/Card.css'
 import ItemsCarousel from 'react-items-carousel'
 import { useQuery } from "@tanstack/react-query";
 import { getCoffeeCafesAPI } from "../../apis/api";
+import { Link } from "react-router-dom";
 
 export default function CardContatiner({title}) {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -30,8 +31,12 @@ export default function CardContatiner({title}) {
         chevronWidth={chevronWidth}
         >
         {data.map((data) => (
-            <div key={data} className="card-item">{data.name}</div>
-
+            <Link to= {`coffeecafe/${data.id}`}  key={data}>
+            <div className="card-item" >
+                <div>{data.name}</div>
+                
+            </div>
+            </Link>
         ))}
         </ItemsCarousel>
     </div>

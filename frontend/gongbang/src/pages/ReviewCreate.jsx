@@ -36,15 +36,14 @@ export default function ReviewCreate() {
             formData.append('image', imageList[i]);
         }
         // * FormData Check *
-        for (let value of formData.values()) {
-            console.log(value)
-        }
+        // for (let value of formData.values()) {
+        //     console.log(value)
+        // }
 
         reviewCreateMutation.mutate(formData)
 
     }
     const { id } = useParams();
-
     const reviewCreateMutation = useMutation
     (['getCoffeeCafeDetailReviewCreateAPI'],
     (formData) => getCoffeeCafeDetailReviewCreateAPI(id, formData),
@@ -84,11 +83,11 @@ export default function ReviewCreate() {
            <div><input name = "score" onChange={onChange}/></div>
            <div>타입</div>
            <div><input name = "type" onChange={onChange}/></div>
-           <div>타입</div>
+           <div>User</div>
            <div><input name = "user" onChange={onChange}/></div>
            <div>사진</div>
            <div>
-            <input type="file" accept="image/*" onChange= {handleImageChange}/>
+            <input type="file" accept="image/*" multiple onChange= {handleImageChange}/>
 
            </div>
         </div>

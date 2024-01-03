@@ -20,7 +20,6 @@ export const getCoffeeCafeDetailReviewCreateAPI = async (id, data) => {
 }
 
 
-
 export const userAPI = async () => {
   const { data } = await axios.get('/accounts/user/');
   return data;
