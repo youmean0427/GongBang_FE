@@ -6,7 +6,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.http import HttpResponse, JsonResponse
 from rest_framework.parsers import JSONParser
-from django.shortcuts import get_object_or_404
+from django.db.models import Max
+
 # Create your views here.
 # @api_view(['GET'])
 # @permission_classes([AllowAny])
@@ -23,26 +24,49 @@ def coffee_cafe_detail(request, id):
         return JsonResponse(serializer_coffeecafe_detail.data, safe=False)
 
 
-def coffee_cafe_detail_review(request, id):
+# Review Create
+def coffee_cafe_detail_review(request, id, type):
     if request.method == 'POST':
-        review_cnt = Review.objects.count()
+        review_cnt = Review.objects.aggregate(Max('id'))['id__max']
         
         data = request.POST.copy() 
         data['cafe'] = id
-        data['id'] = review_cnt + 1
-    
+        if type == 0:
+            data['id'] = review_cnt + 1
+            serializer_coffeecafe_detail_reivew = ReviewSerializer(data=data)
+        else:
+            existing_review = Review.objects.filter(id=type).first()
+            serializer_coffeecafe_detail_reivew = ReviewSerializer(existing_review, data=data, partial=True)
+
         images = request.FILES.getlist('image')
     
-        serializer_coffeecafe_detail_reivew = ReviewSerializer(data=data)
         if serializer_coffeecafe_detail_reivew.is_valid():
             review = serializer_coffeecafe_detail_reivew.save()
-
             for i, image in enumerate(images):
                  review_image_data = {'review' : review.id, 'image' : image}
                  serializer_review_image = ReviewImageSerializer(data=review_image_data)
                  if serializer_review_image.is_valid():
                     serializer_review_image.save()
-  
+        else:
+            print(serializer_coffeecafe_detail_reivew.errors)
         return JsonResponse(serializer_coffeecafe_detail_reivew.data, safe=False)
 
-  
+# Review Delete
+def review_delete(request, id):
+    if request.method == 'DELETE':
+        review = Review.objects.get(id=id)
+        review.delete()
+    return JsonResponse("Review Deleted", safe=False)
+
+
+# Review Get
+def review_get(request, id):
+    review = Review.objects.get(id=id)
+    if request.method == 'GET':
+        serializer_review = ReviewSerializer(review)
+        return JsonResponse(serializer_review.data, safe=False)
+
+
+# Review Update
+def review_update(request, id):
+    pass

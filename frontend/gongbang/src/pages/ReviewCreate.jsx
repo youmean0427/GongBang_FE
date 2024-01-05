@@ -1,9 +1,15 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, {useState} from "react"
-import { getCoffeeCafeDetailReviewCreateAPI } from "../apis/api";
+import { getCoffeeCafeDetailReviewCreateAPI, userAPI } from "../apis/api";
 import { useParams } from "react-router-dom";
 
 export default function ReviewCreate() {
+    const { id } = useParams();
+    const {isLoading, data} = useQuery( {
+        queryKey: ['userInfo'],
+        queryFn: () => userAPI()
+    })
+
 
     const [inputs, setInputs] = useState({
         title : "title",
@@ -11,8 +17,8 @@ export default function ReviewCreate() {
         date : "2023-12-29",
         score : "5",
         type : "1",
-        user : "test"
     })
+
     const [imageList, setImageList] = useState([]);
     
     const onChange = (e) => {
@@ -22,6 +28,7 @@ export default function ReviewCreate() {
             [name] : value
         })
     }
+
     console.log(inputs)
 
     const onClick = () => {
@@ -31,7 +38,7 @@ export default function ReviewCreate() {
         formData.append('date', inputs.date);
         formData.append('score', inputs.score);
         formData.append('type', inputs.type);
-        formData.append('user', inputs.user);
+        formData.append('user', data.username);
         for (let i = 0; i < imageList.length; i++) {
             formData.append('image', imageList[i]);
         }
@@ -43,10 +50,10 @@ export default function ReviewCreate() {
         reviewCreateMutation.mutate(formData)
 
     }
-    const { id } = useParams();
+  
     const reviewCreateMutation = useMutation
     (['getCoffeeCafeDetailReviewCreateAPI'],
-    (formData) => getCoffeeCafeDetailReviewCreateAPI(id, formData),
+    (formData) => getCoffeeCafeDetailReviewCreateAPI(id, formData, 0),
     {
         onSuccess: (res) => {
             console.log(res, "Success")
@@ -56,7 +63,7 @@ export default function ReviewCreate() {
         }
     }
      )
-    
+     
     const handleImageChange = (event) => {
         const files = event.target.files;
         let imageUrl = []
@@ -67,7 +74,6 @@ export default function ReviewCreate() {
         }
         setImageList(imageUrl)
     };
-
 
 
     return (
@@ -84,11 +90,17 @@ export default function ReviewCreate() {
            <div>타입</div>
            <div><input name = "type" onChange={onChange}/></div>
            <div>User</div>
-           <div><input name = "user" onChange={onChange}/></div>
+           <div>
+            {data ? <input disabled name = "user" value={data.username} onChange={onChange}/> : <div>no</div>
+            }</div>
            <div>사진</div>
            <div>
             <input type="file" accept="image/*" multiple onChange= {handleImageChange}/>
-
+            <div>
+             {imageList.map((image, index) => (
+                    <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                ))}
+                </div>
            </div>
         </div>
         <div><button onClick={onClick}>제출</button></div>
