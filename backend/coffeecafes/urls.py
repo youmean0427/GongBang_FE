@@ -10,5 +10,6 @@ urlpatterns = [
     # review
     path('coffeecafe/review/<int:id>', views.review_get),
     path('coffeecafe/review/<int:id>/delete', views.review_delete),
- 
+    path('coffeecafe/review/image/<int:id>', views.review_image_delete)
+
 ]

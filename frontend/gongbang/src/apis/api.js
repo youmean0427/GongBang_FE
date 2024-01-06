@@ -29,6 +29,11 @@ export const deleteReview = async(id) => {
   return response
 }
 
+export const deleteReviewImage = async(id) => {
+  const response = await axios.delete(`/api/coffeecafe/review/image/${id}`)
+  return response
+}
+
 
 // Account
 

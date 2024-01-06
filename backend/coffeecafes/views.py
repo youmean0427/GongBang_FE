@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import CoffeeCafe, Review
+from .models import CoffeeCafe, Review, ReviewImage
 from rest_framework.decorators import api_view, permission_classes
 from .serializers import CoffeeCafeSerializer, ReviewSerializer, ReviewImageSerializer
 from rest_framework.permissions import AllowAny
@@ -24,7 +24,7 @@ def coffee_cafe_detail(request, id):
         return JsonResponse(serializer_coffeecafe_detail.data, safe=False)
 
 
-# Review Create
+# Review Create, Update
 def coffee_cafe_detail_review(request, id, type):
     if request.method == 'POST':
         review_cnt = Review.objects.aggregate(Max('id'))['id__max']
@@ -39,10 +39,10 @@ def coffee_cafe_detail_review(request, id, type):
             serializer_coffeecafe_detail_reivew = ReviewSerializer(existing_review, data=data, partial=True)
 
         images = request.FILES.getlist('image')
-    
         if serializer_coffeecafe_detail_reivew.is_valid():
             review = serializer_coffeecafe_detail_reivew.save()
             for i, image in enumerate(images):
+              
                  review_image_data = {'review' : review.id, 'image' : image}
                  serializer_review_image = ReviewImageSerializer(data=review_image_data)
                  if serializer_review_image.is_valid():
@@ -67,6 +67,10 @@ def review_get(request, id):
         return JsonResponse(serializer_review.data, safe=False)
 
 
-# Review Update
-def review_update(request, id):
-    pass
+def review_image_delete(request, id):
+    if request.method == 'DELETE':
+        review_image = ReviewImage.objects.get(id=id)
+        review_image.delete()
+    return JsonResponse("Review Image Deleted", safe=False)
+
+

@@ -98,7 +98,10 @@ export default function ReviewCreate() {
             <input type="file" accept="image/*" multiple onChange= {handleImageChange}/>
             <div>
              {imageList.map((image, index) => (
-                    <img key={index} src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                <div key={index}>
+                    <div>{image.id}</div>
+                    <img  src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                </div>
                 ))}
                 </div>
            </div>

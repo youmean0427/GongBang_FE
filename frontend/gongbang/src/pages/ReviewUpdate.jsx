@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, {useEffect, useState} from "react"
-import { getCoffeeCafeDetailReviewCreateAPI, getReview, userAPI } from "../apis/api";
+import { deleteReviewImage, getCoffeeCafeDetailReviewCreateAPI, getReview, userAPI } from "../apis/api";
 import { useParams } from "react-router-dom";
 
 export default function ReviewUpdate() {
@@ -23,6 +23,8 @@ export default function ReviewUpdate() {
         queryFn: () => getReview(id),
       });
 
+
+
     useEffect(() => {
         if (data) {
             setInputs({
@@ -39,6 +41,9 @@ export default function ReviewUpdate() {
         }
     }, [data])
 
+ 
+
+ 
     const reviewCreateMutation = useMutation
     (['getCoffeeCafeDetailReviewCreateAPI'],
     (formData) => getCoffeeCafeDetailReviewCreateAPI(data.cafe, formData, data.id),
@@ -52,6 +57,16 @@ export default function ReviewUpdate() {
     }
     )
  
+    const imageDeleteMutation = useMutation 
+    (['deleteReviewImage'],  (x) => deleteReviewImage(x), {
+        onSuccess: () => {
+        }
+    }
+    )
+
+
+
+ 
     if (isLoading) return
     
  
@@ -62,6 +77,19 @@ export default function ReviewUpdate() {
             ...inputs,
             [name] : value
         })
+    }
+
+    const handleDelete = (x) => {
+        // const image = []
+        // imageList.forEach(item => {
+        //     if (item.id != x) {
+        //         image.push(item)
+        //     }
+        // })
+        // setImageList(image) 
+        setImageList(image => image.filter(item => item.id !== x))
+
+        imageDeleteMutation.mutate(x)
     }
 
     const onClick = () => {
@@ -86,7 +114,7 @@ export default function ReviewUpdate() {
 
     const handleImageChange = (event) => {
         const files = event.target.files;
-        let imageUrl = []
+        let imageUrl = [...imageList]
         for (let i = 0; i < files.length; i++) {
             imageUrl.push(files[i])
             // * Blob *
@@ -94,10 +122,6 @@ export default function ReviewUpdate() {
         }
         setImageList(imageUrl)
     };
-
-    console.log(data)
-    console.log(imageList)
-
 
     return (
         <>
@@ -123,7 +147,15 @@ export default function ReviewUpdate() {
 
            <div>{ imageList.map((x, idx) => (
             <div key = {idx}>
-                <img src = {x.image}/>
+             
+                {x.id ? <div><button onClick={() => handleDelete(x.id)}>Del</button> </div> : 
+                <div>x</div>}
+                
+                <div>{x.id}</div>
+                {x.id ? <div><img src = {x.image}/> </div>: <div>
+                    <img src={URL.createObjectURL(x)}/>
+                    </div>}
+                
             </div>
            ))}</div>
         </div>
