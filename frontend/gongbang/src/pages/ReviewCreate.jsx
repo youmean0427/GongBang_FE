@@ -3,11 +3,14 @@ import React, {useState} from "react"
 import { getCoffeeCafeDetailReviewCreateAPI, userAPI } from "../apis/api";
 import { useParams } from "react-router-dom";
 
+
 export default function ReviewCreate() {
     const { id } = useParams();
+    let accessToken = localStorage.getItem("access_token")
     const {isLoading, data} = useQuery( {
         queryKey: ['userInfo'],
-        queryFn: () => userAPI()
+        queryFn: () => userAPI(),
+        enabled: !!localStorage.getItem("access_token"),
     })
 
 
@@ -74,7 +77,7 @@ export default function ReviewCreate() {
         }
         setImageList(imageUrl)
     };
-
+    if (!accessToken) return <></>;
 
     return (
         <>

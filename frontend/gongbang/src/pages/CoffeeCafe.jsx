@@ -1,32 +1,47 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
+import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { getCoffeeCafesAPI } from "../apis/api";
+import { Link } from "react-router-dom";
 export default function CoffeeCafe() {
+
+    const [isOpen, setIsOpen] = useState(false)
+    const [clickIdx, setClickIdx] = useState(-1)
+
     const [state, setState] = useState( {
         center : {
             lat: 0,
             lng: 0,
         }
     })
-
-    const [isOpen, setIsOpen] = useState(false)
-    const [clickIdx, setClickIdx] = useState(-1)
-
-    // Data 
-    const positions = [
-        {
-            latlng: {lat :  36.0888342, lng:129.2716482},
-        },
-        {
-            latlng: {lat :  36.0888342, lng:129.3716482},
+    const [moveState, setMoveState] = useState({
+        center : {
+            lat : 0,
+            lng : 0,
         }
-    ]
+    })
 
-    
+    const { isLoading, data } = useQuery({
+        queryKey: ['getCoffeeCafes'],
+        queryFn: () => getCoffeeCafesAPI(),
+      });
+
+    console.log(data)
+
+
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition (
                 position => {
                     setState(prev => ({
+                        ...prev,
+                        center: {
+                          lat: position.coords.latitude,
+                          lng: position.coords.longitude,
+                        },
+                        isLoading: false,
+                    }))
+                    setMoveState(prev => ({
                         ...prev,
                         center: {
                           lat: position.coords.latitude,
@@ -44,7 +59,9 @@ export default function CoffeeCafe() {
             }));
         }
     }, []);
+    console.log(state, moveState)
 
+    if (isLoading) return<></>
     return (
         <>
         <div>
@@ -69,12 +86,37 @@ export default function CoffeeCafe() {
                             height: "450px",
                         }}
                         level={4}
+                        onClick= {(_t, mouseEvent) => setMoveState({ center: {
+                            lat: mouseEvent.latLng.getLat(),
+                            lng: mouseEvent.latLng.getLng(),
+                          }})}
+                        
                         >
+                        
                     
-                         {positions.map((position, index) => (
+                        <Circle
+                                center={state.center}
+                                radius={5000}
+                                strokeWeight={1}
+                                strokeColor="#ffd80b"
+                                strokeOpacity={0.1}
+                                strokeStyle="solid"
+                                fillColor="#ffd80b"
+                                fillOpacity={0.2}
+                            />
+                        <MapMarker
+                            position = {state.center}
+                        
+                        ></MapMarker>
+                        <MapMarker
+                            position = {moveState.center}
+                        
+                        ></MapMarker>
+                         {data.map((cafe, index) => (
+        
                             <MapMarker
                             key={index}
-                            position={position.latlng} // 마커를 표시할 위치
+                            position={{lat:cafe.lat, lng:cafe.lng}} // 마커를 표시할 위치
                             image={{
                                 src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
                                 size: {
@@ -100,7 +142,11 @@ export default function CoffeeCafe() {
                                 }}
                                 onClick={() => setIsOpen(false)}
                                 />
-                                <div style={{ padding: "5px", color: "#000" }}>{position.latlng.lng}</div>
+                                 <Link to= {`/coffeecafe/${cafe.id}`}>
+                                <div style={{ padding: "5px", color: "#000" }}>{cafe.name}</div>
+                                </Link>
+                                {cafe.coffeecafeimage_set.length ? 
+                                <div><img src={cafe.coffeecafeimage_set[0].image}/></div>:<div></div>}
                             </div>
                             )}
                             </MapMarker>

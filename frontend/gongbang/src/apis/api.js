@@ -34,6 +34,13 @@ export const deleteReviewImage = async(id) => {
   return response
 }
 
+export const coffeeCafeCreateAPI = async (data) => {
+  const response = await axios.post(`/api/coffeecafe/create`, data,
+  {headers: {
+    'Content-Type' : 'multipart/form-data',
+  },})
+  return response
+}
 
 // Account
 

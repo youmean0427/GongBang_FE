@@ -1,18 +1,25 @@
 import React from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCoffeeCafeDetailAPI } from "../apis/api";
+import { getCoffeeCafeDetailAPI, userAPI } from "../apis/api";
 import {  deleteReview } from "../apis/api";
 import { Link, useParams } from 'react-router-dom';
 
 export default function CafeDetail(){
-
+    let accessToken = localStorage.getItem("access_token")
     const { id } = useParams();
 
     const { isFetching, data } = useQuery({
         queryKey: ['getCoffeeCafeDetail'],
         queryFn: () => getCoffeeCafeDetailAPI(id),
+        
       });
     
+    const { isLoading, data : userInfo } = useQuery({
+        queryKey: ['userInfo'],
+        queryFn: () => userAPI(),
+        enabled: !!localStorage.getItem("access_token"),
+      }); 
+   
     const reviewDeleteMutation = useMutation 
     (['deleteReview'],  (x) => deleteReview(x), {
         onSuccess: () => {
@@ -26,12 +33,17 @@ export default function CafeDetail(){
         reviewDeleteMutation.mutate(x)
     }
 
+    // console
+    console.log(userInfo)
+    console.log(data)
+
+    // if (isLoading)  return <></>
     if (isFetching) return <></>
     return(
         <>
             <div>
                 <div>
-                    <Link to = {`/coffeecafe/${data.id}/review`}>Review Test</Link>
+                    {accessToken ? <Link to = {`/coffeecafe/${data.id}/review`}>Review Test</Link> : <div></div>}
                 </div>
                 <div> {data.name} </div>
                 <div> {data.address} </div>
@@ -39,10 +51,18 @@ export default function CafeDetail(){
                 <div> {data.time} </div>
                 <div> {data.lat} </div>
                 <div> {data.lng} </div>
-                <div>
+                <div> {data.coffeecafeimage_set.map((x, index) => (
+                    <div key = {index}>
+                        <img src = {x.image}/>
+                    </div>
 
+                ))}
+                <div> {}</div>
                 </div>
  
+
+                
+                // Review
                 <div>
                     {data.review_set.map((x, index) => (
                             <div key={x.id}>
@@ -50,13 +70,18 @@ export default function CafeDetail(){
                                 {x.title}
                                 {x.reviewimage_set.map((x, index) => (
                                     <div key = {x.id}>
+                                    
                                       <img src={x.image} alt="Cafe" />
                                     </div>
                                 ))}
-                               
+                                {userInfo ? <>
+                                {userInfo.username === x.user ? <>
+
                                 <Link to = {`/review/${x.id}`}><button >Update</button></Link>
                                 
                                 <button onClick={() => handleDelete(x.id)}>Del</button> 
+                                </> : <></>}</>: <></> }
+
                                 <hr/>
                             </div>
                     ))

@@ -6,6 +6,7 @@ urlpatterns = [
     path('coffeecafes/', views.coffee_cafes),
     path('coffeecafe/<int:id>', views.coffee_cafe_detail),
     path('coffeecafe/<int:id>/review/<int:type>', views.coffee_cafe_detail_review),
+    path('coffeecafe/create', views.coffee_cafe_create),
 
     # review
     path('coffeecafe/review/<int:id>', views.review_get),

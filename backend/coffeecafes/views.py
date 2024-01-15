@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .models import CoffeeCafe, Review, ReviewImage
 from rest_framework.decorators import api_view, permission_classes
-from .serializers import CoffeeCafeSerializer, ReviewSerializer, ReviewImageSerializer
+from .serializers import CoffeeCafeSerializer, ReviewSerializer, ReviewImageSerializer, CoffeeCafeImageSerializer
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.http import HttpResponse, JsonResponse
@@ -66,7 +66,7 @@ def review_get(request, id):
         serializer_review = ReviewSerializer(review)
         return JsonResponse(serializer_review.data, safe=False)
 
-
+# Review Delete
 def review_image_delete(request, id):
     if request.method == 'DELETE':
         review_image = ReviewImage.objects.get(id=id)
@@ -74,3 +74,26 @@ def review_image_delete(request, id):
     return JsonResponse("Review Image Deleted", safe=False)
 
 
+# Coffeecafe Create
+def coffee_cafe_create(request):
+    if request.method == 'POST':
+        coffee_cafe_cnt = CoffeeCafe.objects.aggregate(Max('id'))['id__max']
+
+
+        data = request.POST.copy()
+        data['id'] = coffee_cafe_cnt + 1
+        serializer_coffeecafe = CoffeeCafeSerializer(data=data)
+        images = request.FILES.getlist('image')
+     
+
+        if serializer_coffeecafe.is_valid():
+            coffeecafe = serializer_coffeecafe.save()
+            for i, image in enumerate(images):
+                coffeecafe_images = {'cafe' : coffeecafe.id, 'image' : image}
+                serializer_coffeecafe_image = CoffeeCafeImageSerializer(data = coffeecafe_images)
+                if serializer_coffeecafe_image.is_valid():
+                    serializer_coffeecafe_image.save()
+        else:
+            print(serializer_coffeecafe.errors)
+
+    return JsonResponse(serializer_coffeecafe.data, safe=False)

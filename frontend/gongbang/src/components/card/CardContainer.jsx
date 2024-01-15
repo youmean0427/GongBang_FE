@@ -13,6 +13,8 @@ export default function CardContatiner({title}) {
         queryKey: ['getCoffeeCafes'],
         queryFn: () => getCoffeeCafesAPI(),
       });
+
+
     if (isLoading) return;
 
     return (
@@ -33,6 +35,8 @@ export default function CardContatiner({title}) {
         {data.map((data) => (
             <Link to= {`coffeecafe/${data.id}`}  key={data}>
             <div className="card-item" >
+                {data.coffeecafeimage_set.length ?
+                <img src = {data.coffeecafeimage_set[0].image} alt="Cafe" />: <></>}
                 <div>{data.name}</div>
                 
             </div>

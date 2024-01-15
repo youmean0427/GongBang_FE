@@ -8,6 +8,7 @@ import Signup from "../pages/Accounts/Signup";
 import Login from "../pages/Accounts/Login";
 import ReviewCreate from "../pages/ReviewCreate";
 import ReviewUpdate from "../pages/ReviewUpdate";
+import CoffeCafeCreate from "../pages/CoffeCafeCreate";
 
 
 export default function Router() {
@@ -22,6 +23,7 @@ export default function Router() {
                 <Route path="/studycafe" element={<StudyCafe />}/>
                 <Route path="/login" element={<Login />}/>
                 <Route path="/signup" element={<Signup />}/>
+                <Route path= "/admin/coffeecafe/create" element = {<CoffeCafeCreate/>}/>
             </Routes>
         </>
     );
