@@ -36,28 +36,33 @@ export default function Nav() {
     return (
         <>
         <div className="nav-container">
-            <Link to = {'/'}><div className="nav-item">Logo</div></Link>
-            {links.map((link, index) => (
-                <Link to = {link.url} key = {index} className="nav-item">{link.title}</Link>
-            ))}
-            
-      
-         
-            {!!!isLoading? 
-            <div>
-                <div>{data.username}</div>
-                <div onClick= {handleLogout}>로그아웃</div>
+            <div className="nav-link">
+                <Link to = {'/'}><div className="nav-link-item">Logo</div></Link>
+
+                {links.map((link, index) => (
+                    <Link to = {link.url} key = {index} className="nav-link-item">{link.title}</Link>
+                ))}
             </div>
-             : !!localStorage.getItem("access_token") ? 
-             <div>
-                isLoading
-             </div>
-             :
             <div>
-                <div><Link to = {'/login'}>로그인</Link></div>
-                <div><Link to = {'/signup'}>회원가입</Link></div>
+                {!!!isLoading? 
+                // After 로그인
+                <div className="nav-login">
+                    <div className="nav-login-item">{data.username}</div>
+                    <div className="nav-login-item" onClick= {handleLogout}>로그아웃</div>
+                </div>
+                : !!localStorage.getItem("access_token") ? 
+                // Loading
+                <div>
+                    isLoading
+                </div>
+                :
+                // Before 로그인
+                <div className="nav-login">
+                    <div className="nav-login-item" ><Link to = {'/login'}>로그인</Link></div>
+                    <div className="nav-login-item" ><Link to = {'/signup'}>회원가입</Link></div>
+                </div>
+                }
             </div>
-            }
 
         </div>
         

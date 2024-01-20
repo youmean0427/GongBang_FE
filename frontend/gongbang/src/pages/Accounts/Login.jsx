@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { loginAPI } from "../../apis/api";
 import { Link, useNavigate } from "react-router-dom";
+import './Login.css'
 
 export default function Login() {
     const navigate = useNavigate()
@@ -49,23 +50,27 @@ export default function Login() {
 
 
     return <>
-        <div>
-            <div>공방</div>
-            <div>아이디</div>
-            <div><input name='email' onChange={onChange} /></div>
-
-            <div>비밀번호</div>
-            <div><input type='password' name='password' onChange={onChange} /></div>
-
+        <div className="login">
             <div>
-            {isAccount ?  "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
-            </div>
+                <div className="login-title">공방</div>
+                
+                <div className="login-sub-title">이메일</div>
+                <div><input name='email' className= "login-input" onChange={onChange} /></div>
+
+                <div className="login-sub-title">비밀번호</div>
+                <div><input type='password' className= "login-input" name='password' onChange={onChange} /></div>
+
+                <div className="login-error">
+                    {isAccount ?  "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
+                </div>
             
-             <div>
-                <button onClick={handleLogin} disabled={check}>로그인</button>
+                <div>
+                    <button className="login-bnt" onClick={handleLogin} disabled={check}>로그인</button>
+                </div>
             </div>
 
         </div>
+    
     </>
 
 }

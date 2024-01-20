@@ -3,17 +3,22 @@ import React, { useEffect, useState } from "react";
 import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getCoffeeCafesAPI } from "../apis/api";
 import { Link } from "react-router-dom";
+import "./CoffeeCafe.css"
 export default function CoffeeCafe() {
 
     const [isOpen, setIsOpen] = useState(false)
     const [clickIdx, setClickIdx] = useState(-1)
+    const [filteredCafe, setFilteredCafe] = useState([])
 
+    // 현재 위치
     const [state, setState] = useState( {
         center : {
             lat: 0,
             lng: 0,
         }
     })
+
+    // 마커 위치
     const [moveState, setMoveState] = useState({
         center : {
             lat : 0,
@@ -26,40 +31,27 @@ export default function CoffeeCafe() {
         queryFn: () => getCoffeeCafesAPI(),
       });
 
-    console.log(data)
-
-
+    useEffect(() => {
+        if (data) {
+            const filtered = data.filter(cafe => {
+                const distance = CalculateDistance(moveState.center.lat, moveState.center.lng, cafe.lat, cafe.lng)
+                return distance <= 5  // km
+            })
+            setFilteredCafe(filtered)
+        }
+    }, [moveState, data]);
+    
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition (
                 position => {
-                    setState(prev => ({
-                        ...prev,
-                        center: {
-                          lat: position.coords.latitude,
-                          lng: position.coords.longitude,
-                        },
-                        isLoading: false,
-                    }))
-                    setMoveState(prev => ({
-                        ...prev,
-                        center: {
-                          lat: position.coords.latitude,
-                          lng: position.coords.longitude,
-                        },
-                        isLoading: false,
-                    }))
-                }
-            )
+                    setState( prev => ({ ...prev, center: {lat: position.coords.latitude, lng: position.coords.longitude,}, isLoading: false,}))
+                    setMoveState(prev => ({...prev, center: {lat: position.coords.latitude, lng: position.coords.longitude,}, isLoading: false,}))
+                })
         } else {
-            setState(prev => ({
-              ...prev,
-              errMsg: '현재 위치 정보를 받아올 수 없습니다',
-              isLoading: false,
-            }));
-        }
-    }, []);
-    console.log(state, moveState)
+            setState(prev => ({...prev, errMsg: '현재 위치 정보를 받아올 수 없습니다', isLoading: false, }));
+    }}, [])
+
 
     if (isLoading) return<></>
     return (
@@ -83,19 +75,18 @@ export default function CoffeeCafe() {
                         style={{
                             // 지도의 크기
                             width: "100%",
-                            height: "450px",
+                            height: "80vh",
                         }}
-                        level={4}
+                        level={5}
                         onClick= {(_t, mouseEvent) => setMoveState({ center: {
                             lat: mouseEvent.latLng.getLat(),
                             lng: mouseEvent.latLng.getLng(),
                           }})}
                         
                         >
-                        
                     
                         <Circle
-                                center={state.center}
+                                center={moveState.center}
                                 radius={5000}
                                 strokeWeight={1}
                                 strokeColor="#ffd80b"
@@ -104,15 +95,15 @@ export default function CoffeeCafe() {
                                 fillColor="#ffd80b"
                                 fillOpacity={0.2}
                             />
+
                         <MapMarker
                             position = {state.center}
-                        
                         ></MapMarker>
                         <MapMarker
                             position = {moveState.center}
-                        
                         ></MapMarker>
-                         {data.map((cafe, index) => (
+
+                         {filteredCafe.map((cafe, index) => (
         
                             <MapMarker
                             key={index}
@@ -127,26 +118,23 @@ export default function CoffeeCafe() {
                             clickable = {true}
                             onClick={() => {setIsOpen(true); setClickIdx(index)}}
                             >
+
                             {isOpen && index === clickIdx && (
-                            <div style={{ minWidth: "150px" }}>
-                                <img
-                                alt="close"
-                                width="14"
-                                height="13"
-                                src="https://t1.daumcdn.net/localimg/localimages/07/mapjsapi/2x/bt_close.gif"
-                                style={{
-                                    position: "absolute",
-                                    right: "5px",
-                                    top: "5px",
-                                    cursor: "pointer",
-                                }}
-                                onClick={() => setIsOpen(false)}
-                                />
-                                 <Link to= {`/coffeecafe/${cafe.id}`}>
-                                <div style={{ padding: "5px", color: "#000" }}>{cafe.name}</div>
-                                </Link>
+                            <div className="coffeecafe-map-modal">
+                               
+                               <div className="coffeecafe-map-modal-close" onClick={() => setIsOpen(false)}>X</div>
                                 {cafe.coffeecafeimage_set.length ? 
-                                <div><img src={cafe.coffeecafeimage_set[0].image}/></div>:<div></div>}
+                                <div className="coffeecafe-map-modal-image-container"><img className = "coffeecafe-map-modal-image"src={cafe.coffeecafeimage_set[0].image}/></div>:<div></div>}
+                                <div className="coffeecafe-map-modal-info">
+                                    <Link to= {`/coffeecafe/${cafe.id}`}>
+                                        <div className="coffeecafe-map-modal-info-flex">
+                                            <div className="coffeecafe-map-modal-name">{cafe.name}</div>
+                                            <div className="coffeecafe-map-modal-score">{cafe.total_score}</div>
+                                        </div>
+                                        <div className="coffeecafe-map-modal-info-flex">
+                                            <div className="coffeecafe-map-modal-address">{cafe.address}</div></div>
+                                    </Link>
+                                </div>
                             </div>
                             )}
                             </MapMarker>
@@ -172,3 +160,18 @@ export default function CoffeeCafe() {
         </>
     );
 }
+
+
+function CalculateDistance(lat1, lon1, lat2, lon2) {
+    
+    const R = 6371
+    const dLat = deg2rad(lat2 - lat1)
+    const dLon = deg2rad(lon2 - lon1)
+
+    const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.sin(dLon/2) * Math.sin(dLon/2)
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))
+
+    return R * c
+}
+
+function deg2rad(deg) { return deg * (Math.PI/180)}

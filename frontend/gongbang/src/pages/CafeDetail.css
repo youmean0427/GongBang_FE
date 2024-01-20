@@ -1,0 +1,16 @@
+.cafedetail {
+    margin: 0px 300px 0px 300px;
+}
+
+.cafedetail-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cafedetail-info-info {
+    flex: 1
+}
+.cafedetail-info-image {
+    flex : 1
+}

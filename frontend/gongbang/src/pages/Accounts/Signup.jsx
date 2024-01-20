@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { signupAPI } from "../../apis/api";
 import { Link, useNavigate } from "react-router-dom";
+import './Login.css'
 
 export default function Signup() {
     const navigate = useNavigate()
@@ -55,26 +56,28 @@ export default function Signup() {
     }
 
     return <>
-    <div>
-        <div>공방</div>
+    <div className="login">
+        <div>
+        <div className="login-title">공방</div>
 
         <div>
-            <div>이름</div>
-            <div><input name = "username" onChange={onChange}/>
+            <div className="login-sub-title">이름</div>
+            <div><input className= "login-input"  name = "username" onChange={onChange}/>
             </div>
 
-            <div>아이디</div>
-            <div><input name = "email" onChange={onChange}/></div>
+            <div className="login-sub-title">아이디</div>
+            <div><input className= "login-input" name = "email" onChange={onChange}/></div>
 
-            <div>비밀번호</div>
-            <div><input type='password' name = "password1" onChange={onChange} /></div>
+            <div className="login-sub-title">비밀번호</div>
+            <div><input className= "login-input"  type='password' name = "password1" onChange={onChange} /></div>
 
-            <div>비밀번호 확인</div>
-            <div><input type='password' name = "password2" onChange={onChange} /></div>
-            <div>{passwordCheck ? "비밀번호를 확인해주세요" : ""} </div>
+            <div className="login-sub-title">비밀번호 확인</div>
+            <div><input className= "login-input"  type='password' name = "password2" onChange={onChange} /></div>
+            <div className="login-error" >{passwordCheck ? "비밀번호를 확인해주세요" : ""} </div>
 
-            <div>회원가입</div>
-            <div><button onClick={handleSignup} disabled={check}>회원가입</button></div>
+           
+            <div><button className="login-bnt" onClick={handleSignup} disabled={check}>회원가입</button></div>
+        </div>
         </div>
     </div>
     
