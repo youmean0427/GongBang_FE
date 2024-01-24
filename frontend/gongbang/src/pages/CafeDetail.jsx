@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCoffeeCafeDetailAPI, userAPI } from "../apis/api";
+import { getCoffeeCafeDetailAPI, getReview, userAPI } from "../apis/api";
 import {  deleteReview } from "../apis/api";
 import { Link, useParams } from 'react-router-dom';
 import "./CafeDetail.css"
+import CardContainer from "../components/card/CardContainer";
+import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
 export default function CafeDetail(){
     let accessToken = localStorage.getItem("access_token")
     const { id } = useParams();
+    const title = ["통합 리뷰", "분위기", "좌석", "콘센트"]
+    const [filteredReviewOne, setFilteredReviewOne ] = useState([])
 
     const { isFetching, data } = useQuery({
         queryKey: ['getCoffeeCafeDetail'],
@@ -20,21 +24,21 @@ export default function CafeDetail(){
         enabled: !!localStorage.getItem("access_token"),
       }); 
    
-    const reviewDeleteMutation = useMutation 
-    (['deleteReview'],  (x) => deleteReview(x), {
-        onSuccess: () => {
-            window.location.reload()
+
+
+ 
+
+    useEffect(() => {
+        if (data) {
+            const filteredOne = data.review_set.filter(review => review.type === 1)
+            setFilteredReviewOne(filteredOne)
         }
-    }
-    )
+      
+    }, [data])
 
-
-    const handleDelete = (x) => {
-        reviewDeleteMutation.mutate(x)
-    }
 
     // console
-    console.log(userInfo)
+
     console.log(data)
 
     // if (isLoading)  return <></>
@@ -42,20 +46,41 @@ export default function CafeDetail(){
     return(
         <>
             <div className="cafedetail">
-                <div>
-                    {accessToken ? <Link to = {`/coffeecafe/${data.id}/review`}>Review Test</Link> : <div></div>}
-                </div>
+               
                 <div className="cafedetail-info">
                     <div className="cafedetail-info-image">
                         <img src= {data.coffeecafeimage_set[0].image}/>
                     </div>
                     <div className="cafedetail-info-info">
-                        <div> {data.name} </div>
-                        <div> {data.address} </div>
-                        <div> {data.total_score} </div>
-                        <div> {data.time} </div>
-                        <div> {data.lat} </div>
-                        <div> {data.lng} </div>
+                        <div className="cafedetail-info-total-score"> {data.total_score} </div>
+                        <div className="cafedetail-info-name"> {data.name} </div>
+                        <div className="cafedetail-info-address"> {data.address} </div>
+                        <div className="cafedetail-info-time"> {data.time} </div>
+                        {/* <div> {data.lat} </div>
+                        <div> {data.lng} </div> */}
+                        <div className="cafedetail-info-con">편의시설</div>
+                        <div className="cafedetail-info-opt">
+                            <div>
+                                <div>옵션1</div>
+                                <div>옵션2</div>
+                                <div>옵션3</div>
+                            </div>
+                            <div>
+                                <div>옵션1</div>
+                                <div>옵션2</div>
+                                <div>옵션3</div>
+                            </div>
+                            <div>
+                                <div>옵션4</div>
+                                <div>옵션5</div>
+                                <div>옵션6</div>
+                            </div>
+                            <div>
+                                <div>옵션1</div>
+                                <div>옵션2</div>
+                                <div>옵션3</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -66,38 +91,43 @@ export default function CafeDetail(){
                 ))} </div> */}
  
 
-                
-                // Review
+                <div></div>
+
                 <div>
-                    {data.review_set.map((x, index) => (
-                            <div key={x.id}>
-                            
-                                {x.title}
-                                {x.reviewimage_set.map((x, index) => (
-                                    <div key = {x.id}>
-                                    
-                                      <img src={x.image} alt="Cafe" />
-                                    </div>
-                                ))}
-                                {userInfo ? <>
-                                {userInfo.username === x.user ? <>
-
-                                <Link to = {`/review/${x.id}`}><button >Update</button></Link>
-                                
-                                <button onClick={() => handleDelete(x.id)}>Del</button> 
-                                </> : <></>}</>: <></> }
-
-                                <hr/>
-                            </div>
-                    ))
-                    }
+                    {accessToken ? <Link to = {`/coffeecafe/${data.id}/review`}>Review Test</Link> : <div></div>}
                 </div>
-                <hr/>
-
-
-
-
-
+                <div>
+                    <CardContainer title={title[0]} data={data.review_set} type={2} userInfo={userInfo}/>
+                    <div></div>
+                </div>
+                
+                <div className="cafedetail-map">
+                    <Map
+                        center={{
+                            lat: data.lat,
+                            lng: data.lng,
+                        }}
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                        }}
+                        level={3}
+                        draggable= {false}
+                        >
+                       
+                        <MapMarker
+                            position = {{
+                                lat: data.lat,
+                                lng: data.lng,
+                            }}
+                        ></MapMarker>
+                    </Map>
+                  
+                </div>
+                
+                <div>  
+                    <CardContainer title={title[1]} data={filteredReviewOne} type={2} userInfo={userInfo}/>
+                </div>
 
 
             </div>

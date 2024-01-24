@@ -2,8 +2,8 @@ import axios from 'axios';
 
 
 
-export const getCoffeeCafesAPI = async () => {
-    const { data } = await axios.get('/api/coffeecafes');
+export const getCoffeeCafesAPI = async (type) => {
+    const { data } = await axios.get(`/api/coffeecafes/${type}`);
     return data;
 }
 
@@ -40,6 +40,11 @@ export const coffeeCafeCreateAPI = async (data) => {
     'Content-Type' : 'multipart/form-data',
   },})
   return response
+}
+
+export const getAllReveiw = async () => {
+  const { data } = await axios.get('/api/coffeecafe/review')
+  return data
 }
 
 // Account

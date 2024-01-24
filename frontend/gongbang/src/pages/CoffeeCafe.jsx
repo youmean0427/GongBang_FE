@@ -4,6 +4,7 @@ import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getCoffeeCafesAPI } from "../apis/api";
 import { Link } from "react-router-dom";
 import "./CoffeeCafe.css"
+import CardContainer from "../components/card/CardContainer";
 export default function CoffeeCafe() {
 
     const [isOpen, setIsOpen] = useState(false)
@@ -28,7 +29,7 @@ export default function CoffeeCafe() {
 
     const { isLoading, data } = useQuery({
         queryKey: ['getCoffeeCafes'],
-        queryFn: () => getCoffeeCafesAPI(),
+        queryFn: () => getCoffeeCafesAPI(1),
       });
 
     useEffect(() => {
@@ -56,16 +57,15 @@ export default function CoffeeCafe() {
     if (isLoading) return<></>
     return (
         <>
-        <div>
+        <div className="coffeecafe">
+
+         
+              
+           
+          
+
 
             <div>
-                <div>List</div>
-                <div>
-
-                    ListBox
-                </div>
-
-                <div>
                     <Map // 지도를 표시할 Container
                         center={{
                             // 지도의 중심좌표
@@ -140,18 +140,11 @@ export default function CoffeeCafe() {
                             </MapMarker>
                         ))}
                     </Map>
-                </div>
+            </div>
                     
                 
-            </div>
+       
 
-
-            <div>
-                <div>Map</div>
-            
-            
-            
-            </div>
 
 
         </div>

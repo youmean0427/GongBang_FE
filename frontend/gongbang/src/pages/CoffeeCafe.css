@@ -1,3 +1,7 @@
+.coffeecafe {
+    position: relative
+}
+
 .coffeecafe-map-modal {
     height: 300px;
     width: 300px;
@@ -42,4 +46,14 @@
     left : 90%;
     top : 5%
     
+}
+
+.coffeecafe-card {
+    position: absolute;
+    left: 70%;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    position: fixed;
+    z-index: 2;
 }

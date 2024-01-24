@@ -11,8 +11,14 @@ from django.db.models import Max
 # Create your views here.
 # @api_view(['GET'])
 # @permission_classes([AllowAny])
-def coffee_cafes(request):
-    coffeecafes = CoffeeCafe.objects.all()
+def coffee_cafes(request, type):
+    # type_1 : 인기순 
+    # type_2 : 옵션순
+    # type_3 : 신상
+    if type == 1:
+        coffeecafes = CoffeeCafe.objects.order_by('-total_score')[:10]
+    elif type == 3:
+        coffeecafes = CoffeeCafe.objects[-1:-10:-1]
     if request.method == 'GET':
         serializer_coffeecafes = CoffeeCafeSerializer(coffeecafes, many = True)
         return JsonResponse(serializer_coffeecafes.data, safe=False)
@@ -28,7 +34,8 @@ def coffee_cafe_detail(request, id):
 def coffee_cafe_detail_review(request, id, type):
     if request.method == 'POST':
         review_cnt = Review.objects.aggregate(Max('id'))['id__max']
-        
+        if review_cnt == None:
+            review_cnt = 0
         data = request.POST.copy() 
         data['cafe'] = id
         if type == 0:
@@ -65,6 +72,14 @@ def review_get(request, id):
     if request.method == 'GET':
         serializer_review = ReviewSerializer(review)
         return JsonResponse(serializer_review.data, safe=False)
+
+# Review All
+def review_all_get(request):
+    review = Review.objects.all()
+    if request.method == 'GET':
+        serializer_review = ReviewSerializer(review)
+        return JsonResponse(serializer_review.data, safe=False)
+
 
 # Review Delete
 def review_image_delete(request, id):

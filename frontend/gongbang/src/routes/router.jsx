@@ -9,6 +9,7 @@ import Login from "../pages/Accounts/Login";
 import ReviewCreate from "../pages/ReviewCreate";
 import ReviewUpdate from "../pages/ReviewUpdate";
 import CoffeCafeCreate from "../pages/CoffeCafeCreate";
+import Review from "../pages/Reveiw";
 
 
 export default function Router() {
@@ -24,6 +25,7 @@ export default function Router() {
                 <Route path="/login" element={<Login />}/>
                 <Route path="/signup" element={<Signup />}/>
                 <Route path= "/admin/coffeecafe/create" element = {<CoffeCafeCreate/>}/>
+                <Route path= "coffeecafe/:id/review/all" element={<Review/>}/>
             </Routes>
         </>
     );

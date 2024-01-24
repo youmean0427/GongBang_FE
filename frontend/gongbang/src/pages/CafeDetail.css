@@ -1,5 +1,5 @@
 .cafedetail {
-    margin: 0px 300px 0px 300px;
+    margin: 20px 300px 0px 300px;
 }
 
 .cafedetail-info {
@@ -13,4 +13,48 @@
 }
 .cafedetail-info-image {
     flex : 1
+}
+.cafedetail-info-image > img {
+    width: 70%;
+    object-fit: cover;
+}
+
+.cafedetail-info-name {
+    font-size: 30px ;
+    margin: 5px 0 5px 0;
+}
+.cafedetail-info-total-score {
+    font-size: 28px;
+    margin: 5px 0 5px 0;
+}
+.cafedetail-info-address {
+    font-size: 20px;
+    margin: 5px 0 5px 0;
+}
+.cafedetail-info-time {
+    font-size: 20px;
+    margin: 5px 0 5px 0;
+}
+
+.cafedetail-info-opt {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    font-size: 18px;
+}
+
+.cafedetail-info-opt > div > div {
+   width: 50px;
+}
+
+.cafedetail-map {
+    width: 100%;
+    height: 400px;
+    margin : 50px 0px 50px 0
+}
+
+.cafedetail-info-con {
+    font-size: 18px;
+    margin : 20px 0px 10px 0
 }
