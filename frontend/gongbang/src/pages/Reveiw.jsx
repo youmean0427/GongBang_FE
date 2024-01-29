@@ -15,7 +15,14 @@ export default function Review() {
     return (
     <div>
         <div>
-            {data ? data.review_set.map((x) => (<div>{x.id}</div>)):<></>}
+            <div>전체 리뷰</div>
+            {data ? data.review_set.map((x) => (
+            <div>
+                <div>{x.user}</div>
+                <div>{x.title}</div>
+                <div>{x.content}</div>
+            
+            </div>)):<></>}
             <div>hi</div>
             <div></div>
         </div>

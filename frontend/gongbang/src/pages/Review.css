@@ -1,0 +1,33 @@
+.reviewcreate {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 300px 0 300px;
+    font-size: 20px;
+    flex-direction: column;
+}
+
+.reviewcreate_image_input {
+    width: 100px;
+}
+
+.review-image-list {
+    display: flex;
+    justify-items: flex-start;
+}
+
+.review-image-card {
+    width: 200px;
+    height: 200px;
+}
+.review-image-card > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.review-image-input {
+    width: 200px;
+    height: 200px;
+    background-color: gray;
+}

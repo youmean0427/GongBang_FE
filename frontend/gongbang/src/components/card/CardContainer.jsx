@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../card/Card.css'
 import ItemsCarousel from 'react-items-carousel'
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { deleteReview, getCoffeeCafesAPI } from "../../apis/api";
+import { deleteReview, getCoffeeCafesAPI, userAPI } from "../../apis/api";
 import { Link } from "react-router-dom";
 import Review from "../../pages/Reveiw";
 
@@ -16,6 +16,14 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
         }
     }
     )
+
+    const { isLoading, data : logined } = useQuery({
+        queryKey: ['userInfo'],
+        queryFn: () => userAPI(),
+        enabled: !!localStorage.getItem("access_token"),
+      }); 
+   
+
     const handleDelete = (x) => {
         reviewDeleteMutation.mutate(x)
     }
@@ -24,7 +32,9 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
         <>
 
         <div className= "cardcontainer" style={{ padding: `0 ${chevronWidth}px` }}>
-        <div className="cardcontainer-title">{title}</div>
+     
+         <div className="cardcontainer-title">{title}</div>
+    
 
         <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
@@ -59,8 +69,13 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
     if (type== 2) return (<>
 
         <div className= "cardcontainer" style={{ padding: `0 0px` }}>
-        <div className="cardcontainer-title">{title}</div>
-
+        <div className="cardcontainer-title-container">
+            <div className="cardcontainer-title">{title}</div>
+            <div className="cardcontainer-title-container-review">
+                {logined ? <div className="cardcontainer-review-create"><Link to = {`review`}>리뷰 작성하기</Link></div> : <div></div>}
+                <div className="cardcontainer-review-all"><Link to={`review/all`} >모든 리뷰 보기</Link></div>
+            </div>
+        </div>
         <ItemsCarousel
         requestToChangeActive={setActiveItemIndex}
         activeItemIndex={activeItemIndex}

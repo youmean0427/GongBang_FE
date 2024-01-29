@@ -101,6 +101,10 @@ export default function CafeDetail(){
                     <div></div>
                 </div>
                 
+
+                <hr/>
+
+                <div className="cafedetail-map-title">카페 위치</div>
                 <div className="cafedetail-map">
                     <Map
                         center={{
@@ -124,7 +128,7 @@ export default function CafeDetail(){
                     </Map>
                   
                 </div>
-                
+                <hr/>
                 <div>  
                     <CardContainer title={title[1]} data={filteredReviewOne} type={2} userInfo={userInfo}/>
                 </div>
