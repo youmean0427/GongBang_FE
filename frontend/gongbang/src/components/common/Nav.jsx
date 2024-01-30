@@ -37,7 +37,7 @@ export default function Nav() {
         <>
         <div className="nav-container">
             <div className="nav-link">
-                <Link to = {'/'}><div className="nav-link-item">Logo</div></Link>
+                <Link to = {'/'}><div className="nav-link-item">공방</div></Link>
 
                 {links.map((link, index) => (
                     <Link to = {link.url} key = {index} className="nav-link-item">{link.title}</Link>

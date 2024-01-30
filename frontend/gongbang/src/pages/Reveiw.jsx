@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import React from "react"
-import { getAllReveiw, getCoffeeCafeDetailAPI, getReview } from "../apis/api"
+import { getAllReveiw, getCoffeeCafeDetailAPI, getReview, userAPI } from "../apis/api"
 import { useParams } from "react-router-dom";
+import ListContainer from "../components/list/ListContainer";
+import "./Review.css"
 
 export default function Review() {
     const { id } = useParams();
@@ -10,20 +12,28 @@ export default function Review() {
         queryKey: ['getCoffeeCafeDetail'],
         queryFn: () => getCoffeeCafeDetailAPI(id),
       });
-    
+
+    const { isFetched, data : userInfo } = useQuery({
+    queryKey: ['userInfo'],
+    queryFn: () => userAPI(),
+    enabled: !!localStorage.getItem("access_token"),
+    }); 
+
     console.log(data)
+    if (isLoading) return;
     return (
-    <div>
+    <div className="review">
         <div>
-            <div>전체 리뷰</div>
+            <div>{data.name}</div>
+            <div>{data.total_score}</div>
+            <div>{data.review_set.length}개의 리뷰</div>
+
             {data ? data.review_set.map((x) => (
             <div>
-                <div>{x.user}</div>
-                <div>{x.title}</div>
-                <div>{x.content}</div>
+                <ListContainer data={x} userInfo={userInfo} />
             
             </div>)):<></>}
-            <div>hi</div>
+    
             <div></div>
         </div>
     </div>

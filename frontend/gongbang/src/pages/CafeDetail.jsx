@@ -11,6 +11,7 @@ export default function CafeDetail(){
     const { id } = useParams();
     const title = ["통합 리뷰", "분위기", "좌석", "콘센트"]
     const [filteredReviewOne, setFilteredReviewOne ] = useState([])
+    const [nowImage, setNowImage] = useState()
 
     const { isFetching, data } = useQuery({
         queryKey: ['getCoffeeCafeDetail'],
@@ -25,12 +26,16 @@ export default function CafeDetail(){
       }); 
    
 
-
+    const handleNowImage = (x) => {
+        setNowImage(x)
+    }
+    
  
 
     useEffect(() => {
         if (data) {
             const filteredOne = data.review_set.filter(review => review.type === 1)
+            setNowImage(data.coffeecafeimage_set[0].image)
             setFilteredReviewOne(filteredOne)
         }
       
@@ -49,8 +54,20 @@ export default function CafeDetail(){
                
                 <div className="cafedetail-info">
                     <div className="cafedetail-info-image">
-                        <img src= {data.coffeecafeimage_set[0].image}/>
+                        <div className="cafedetail-info-image-col">
+                                {data.coffeecafeimage_set.map(x => (
+                                <div onClick={() => {handleNowImage(x.image)}}>
+                                    <img src= {x.image}/>
+                                </div>
+                                ))}
+                        </div>
+                    
+                   
+                        <div className="cafedetail-info-image-main">
+                           <img src= {nowImage}/>
+                        </div>
                     </div>
+
                     <div className="cafedetail-info-info">
                         <div className="cafedetail-info-total-score"> {data.total_score} </div>
                         <div className="cafedetail-info-name"> {data.name} </div>
@@ -61,24 +78,24 @@ export default function CafeDetail(){
                         <div className="cafedetail-info-con">편의시설</div>
                         <div className="cafedetail-info-opt">
                             <div>
-                                <div>옵션1</div>
-                                <div>옵션2</div>
-                                <div>옵션3</div>
+                                <div>분위기</div>
+                                <div>음료</div>
+                    
                             </div>
                             <div>
-                                <div>옵션1</div>
-                                <div>옵션2</div>
-                                <div>옵션3</div>
+                                <div>5</div>
+                                <div>5</div>
+                            
                             </div>
                             <div>
-                                <div>옵션4</div>
-                                <div>옵션5</div>
-                                <div>옵션6</div>
+                                <div>좌석</div>
+                                <div>콘센트</div>
+                                
                             </div>
                             <div>
-                                <div>옵션1</div>
-                                <div>옵션2</div>
-                                <div>옵션3</div>
+                                <div>5</div>
+                                <div>5</div>
+                              
                             </div>
                         </div>
                     </div>
@@ -93,9 +110,7 @@ export default function CafeDetail(){
 
                 <div></div>
 
-                <div>
-                    {accessToken ? <Link to = {`/coffeecafe/${data.id}/review`}>Review Test</Link> : <div></div>}
-                </div>
+               
                 <div>
                     <CardContainer title={title[0]} data={data.review_set} type={2} userInfo={userInfo}/>
                     <div></div>

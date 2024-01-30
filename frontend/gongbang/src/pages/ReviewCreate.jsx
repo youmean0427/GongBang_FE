@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React, {useState} from "react"
 import { getCoffeeCafeDetailReviewCreateAPI, userAPI } from "../apis/api";
 import { useParams } from "react-router-dom";
+import "../components/list/ListContainer.css"
 import "./Review.css"
 
 
@@ -82,45 +83,63 @@ export default function ReviewCreate() {
     if (!accessToken) return <></>;
 
     return (
-        <div className="reviewcreate">
-            <div className="reviewcreate-image">
-                <div>
-                    <div>사진</div>
+        <div className="review">
+            <div>
+                <div className="listcontainer-info-title">제목</div>
+                <div><input name = "title" onChange={onChange}/></div>
+                <div className="listcontainer-info">
+                    <div>
+                        <div>타입</div>
+                        <div><input name = "type" onChange={onChange}/></div>
+                        <div>점수</div>
+                        <div><input name = "score" onChange={onChange}/></div>
+                    </div>
+                    <div>
+                        <div>User</div>
                         <div>
-                            <div className="review-image-list">
-                                {imageList.map((image, index) => (
-                                <div className="review-image-card" key={index}>
-                                    <img  src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
-                                </div>
-                                ))}
-                                <div className="review-image-input">
-                                <input className="reviewcreate_image_input" type="file" accept="image/*" multiple onChange= {handleImageChange}/>
+                            {data ? <input disabled name = "user" value={data.username} onChange={onChange}/> : <div>no</div>
+                            }</div>
+                         <div>날짜</div> 
+                        <div><input name = "date" onChange={onChange}/></div>
+                    </div>
+                    </div>
+
+                    
+                    <div>
+                        <div className="listcontainer-image-list">사진</div>
+                            <div>
+                                <div className="review-image-list">
+                                    {imageList.map((image, index) => (
+                                    <div className="review-image-card" key={index}>
+                                        <img  src={URL.createObjectURL(image)} alt={`Preview ${index + 1}`} />
+                                    </div>
+                                    ))}
+                                    
+                                    {imageList.length < 3 ? <div className="review-image-input"><input className="reviewcreate_image_input" type="file" accept="image/*" multiple onChange= {handleImageChange}/></div> : <></>}
+                                    
                                 </div>
                             </div>
-                        </div>
-                </div>
-                </div>
-            <div className="reviewcreate-info">
-                <div>
-                    <div>제목</div>
-                    <div><input name = "title" onChange={onChange}/></div>
-                    <div>내용</div> 
-                    <div><input name = "content" onChange={onChange}/></div>
-                    <div>날짜</div> 
-                    <div><input name = "date" onChange={onChange}/></div>
-                    <div>점수</div>
-                    <div><input name = "score" onChange={onChange}/></div>
-                    <div>타입</div>
-                    <div><input name = "type" onChange={onChange}/></div>
-                    <div>User</div>
-                    <div>
-                        {data ? <input disabled name = "user" value={data.username} onChange={onChange}/> : <div>no</div>
-                        }</div>
-                
-                    <div><button onClick={onClick}>제출</button></div>
                     </div>
+
+
+
+
+
+                    <div>
+                        <div>내용</div> 
+                        <div><input name = "content" onChange={onChange}/>
+                    </div>
+                   
+                  
+                  
+                
+
+                    <div>
+                        <button onClick={onClick}>제출</button>
+                    </div>
+                    </div>
+             
                 </div>
-          
         </div>
     )
 }

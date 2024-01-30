@@ -1,0 +1,24 @@
+.listcontainer {
+}
+
+
+.listcontainer-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+}
+
+.listcontainer-info-title {
+    font-size: 20px;
+}
+
+.listcontainer-image-list {
+    display: flex;
+}
+.listcontainer-image-list > div {
+    width: 200px;
+}
+.listcontainer-image-list > div > img {
+    width: 100%
+}

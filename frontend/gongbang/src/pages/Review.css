@@ -1,3 +1,12 @@
+.review {
+    margin: 0 600px 0 600px;
+}
+.review > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .reviewcreate {
     min-height: 80vh;
     display: flex;
