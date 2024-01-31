@@ -5,6 +5,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteReview, getCoffeeCafesAPI, userAPI } from "../../apis/api";
 import { Link } from "react-router-dom";
 import Review from "../../pages/Reveiw";
+import ListContainer from "../list/ListContainer";
 
 export default function CardContainer({title, data, type, chevronWidth, userInfo} ) {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
@@ -73,6 +74,7 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
             <div className="cardcontainer-title">{title}</div>
             <div className="cardcontainer-title-container-review">
                 {logined ? <div className="cardcontainer-review-create"><Link to = {`review`}>리뷰 작성하기</Link></div> : <div></div>}
+                <div>|</div>
                 <div className="cardcontainer-review-all"><Link to={`review/all`} >모든 리뷰 보기</Link></div>
             </div>
         </div>
@@ -102,7 +104,10 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
                 <></>} </>: <></> }</div>
 
             </div>
-          
+            {/* Modal */}
+            <div><ListContainer data={data} userInfo={userInfo}/></div>
+
+            
             </Link>
         ))}
         </ItemsCarousel>

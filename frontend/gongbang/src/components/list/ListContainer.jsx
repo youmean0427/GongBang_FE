@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import "../list/ListContainer.css"
 export default function ListContainer({data, userInfo}) {
+    const typeCode = {1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트"}
     const [images, setImages] = useState([])
 
     const reviewDeleteMutation = useMutation 
@@ -27,16 +28,27 @@ export default function ListContainer({data, userInfo}) {
     return (
     <div className="listcontainer">
         <div>
-            <div className="listcontainer-info-title">{data.title}</div>
+            <div className="listcontainer-info-title-line">
+                <div className="listcontainer-info-title">{data.title}</div>
+                <div>
+                    {userInfo ? <> {userInfo.username === data.user ? <>
+                    <Link to = {`/review/${data.id}`}><button >Update</button></Link>
+                    <button onClick={() => handleDelete(data.id)}>Del</button> </> : 
+                    <></>} </>: <></> }
+                </div>
+
+            </div>
+            
             <div className="listcontainer-info">
             
                 <div>
-                    <div>{data.type}</div>
+                    
+                    <div>{typeCode[data.type]}</div>
                     <div className="listcontainer-info-score">{data.score}</div>
                 </div>
                 <div>
                     <div className="listcontainer-info-user">{data.user}</div>
-                    <div className="listcontainer-info-data">{data.date}</div>
+                    <div className="listcontainer-info-date">{data.date}</div>
                 </div>
             </div>
             
@@ -53,16 +65,12 @@ export default function ListContainer({data, userInfo}) {
                     { data.reviewimage_set.length == 1 ? <><div></div><div></div></> : <></>}
                 </div>
             </div>
-            <div>
+
+            <div className="listcontainer-info-content">
                 {data.content}
             </div>
-            <div>
-            {userInfo ? <> {userInfo.username === data.user ? <>
-                <Link to = {`/review/${data.id}`}><button >Update</button></Link>
-                <button onClick={() => handleDelete(data.id)}>Del</button> </> : 
-                <></>} </>: <></> }
-            </div>
 
+            
 
 
 

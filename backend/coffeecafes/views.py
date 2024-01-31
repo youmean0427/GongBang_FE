@@ -29,6 +29,32 @@ def coffee_cafe_detail(request, id):
         serializer_coffeecafe_detail = CoffeeCafeSerializer(coffecafe_detail)
         return JsonResponse(serializer_coffeecafe_detail.data, safe=False)
 
+# Coffeecafe Create
+def coffee_cafe_create(request):
+    if request.method == 'POST':
+        coffee_cafe_cnt = CoffeeCafe.objects.aggregate(Max('id'))['id__max']
+
+
+        data = request.POST.copy()
+        data['id'] = coffee_cafe_cnt + 1
+        serializer_coffeecafe = CoffeeCafeSerializer(data=data)
+        images = request.FILES.getlist('image')
+     
+
+        if serializer_coffeecafe.is_valid():
+            coffeecafe = serializer_coffeecafe.save()
+            for i, image in enumerate(images):
+                coffeecafe_images = {'cafe' : coffeecafe.id, 'image' : image}
+                serializer_coffeecafe_image = CoffeeCafeImageSerializer(data = coffeecafe_images)
+                if serializer_coffeecafe_image.is_valid():
+                    serializer_coffeecafe_image.save()
+        else:
+            print(serializer_coffeecafe.errors)
+
+    return JsonResponse(serializer_coffeecafe.data, safe=False)
+
+# Coffee
+
 
 # Review Create, Update
 def coffee_cafe_detail_review(request, id, type):
@@ -89,26 +115,3 @@ def review_image_delete(request, id):
     return JsonResponse("Review Image Deleted", safe=False)
 
 
-# Coffeecafe Create
-def coffee_cafe_create(request):
-    if request.method == 'POST':
-        coffee_cafe_cnt = CoffeeCafe.objects.aggregate(Max('id'))['id__max']
-
-
-        data = request.POST.copy()
-        data['id'] = coffee_cafe_cnt + 1
-        serializer_coffeecafe = CoffeeCafeSerializer(data=data)
-        images = request.FILES.getlist('image')
-     
-
-        if serializer_coffeecafe.is_valid():
-            coffeecafe = serializer_coffeecafe.save()
-            for i, image in enumerate(images):
-                coffeecafe_images = {'cafe' : coffeecafe.id, 'image' : image}
-                serializer_coffeecafe_image = CoffeeCafeImageSerializer(data = coffeecafe_images)
-                if serializer_coffeecafe_image.is_valid():
-                    serializer_coffeecafe_image.save()
-        else:
-            print(serializer_coffeecafe.errors)
-
-    return JsonResponse(serializer_coffeecafe.data, safe=False)

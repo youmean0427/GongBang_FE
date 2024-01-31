@@ -1,4 +1,5 @@
 .listcontainer {
+    margin: 0 0 40px 0;
 }
 
 
@@ -7,10 +8,40 @@
     justify-content: space-between;
     align-items: center;
     justify-items: center;
+    width: 600px;
+
 }
 
 .listcontainer-info-title {
     font-size: 20px;
+    margin: 5px 0 5px 0
+}
+
+.listcontainer-info-score {
+    font-size: 18px;
+    margin: 5px 0 5px 0
+}
+
+.listcontainer-info-user {
+    font-size: 15px;
+    margin: 5px 0 5px 0
+}
+
+.listcontainer-info-date{
+    font-size: 15px;
+    margin: 5px 0 5px 0
+}
+
+.listcontainer-info-content {
+    font-size: 18px;
+    margin: 5px 0 5px 0
+}
+
+.listcontainer-info-title-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
 }
 
 .listcontainer-image-list {

@@ -1,14 +1,26 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, {useState} from "react"
-import { getCoffeeCafeDetailReviewCreateAPI, userAPI } from "../apis/api";
-import { useParams } from "react-router-dom";
+import { getCoffeeCafeDetailAPI, getCoffeeCafeDetailReviewCreateAPI, userAPI } from "../apis/api";
+import { useNavigate, useParams } from "react-router-dom";
 import "../components/list/ListContainer.css"
 import "./Review.css"
 
 
 export default function ReviewCreate() {
     const { id } = useParams();
+    const getDate = new Date()
+    const navigate = useNavigate();
+
+    const today = `${getDate.getFullYear()}-${getDate.getMonth()+1 >= 10 ? getDate.getMonth() + 1  : '0' + (getDate.getMonth() + 1)}-${getDate.getDate()}`
+  
     let accessToken = localStorage.getItem("access_token")
+
+    const { isLoading: coffeeLoading, data:coffeeCafe } = useQuery({
+        queryKey: ['getCoffeeCafeDetail'],
+        queryFn: () => getCoffeeCafeDetailAPI(id),
+      });
+
+
     const {isLoading, data} = useQuery( {
         queryKey: ['userInfo'],
         queryFn: () => userAPI(),
@@ -17,11 +29,11 @@ export default function ReviewCreate() {
 
 
     const [inputs, setInputs] = useState({
-        title : "title",
-        content : "content",
-        date : "2023-12-29",
-        score : "5",
-        type : "1",
+        title : "",
+        content : "",
+        date : "",
+        score : "",
+        type : "",
     })
 
     const [imageList, setImageList] = useState([]);
@@ -40,7 +52,7 @@ export default function ReviewCreate() {
         const formData = new FormData();
         formData.append('title', inputs.title);
         formData.append('content', inputs.content);
-        formData.append('date', inputs.date);
+        formData.append('date', today);
         formData.append('score', inputs.score);
         formData.append('type', inputs.type);
         formData.append('user', data.username);
@@ -53,7 +65,8 @@ export default function ReviewCreate() {
         // }
 
         reviewCreateMutation.mutate(formData)
-
+        navigate(`/coffeecafe/${id}`)
+        window.location.reload()
     }
   
     const reviewCreateMutation = useMutation
@@ -81,30 +94,25 @@ export default function ReviewCreate() {
     };
     console.log(imageList)
     if (!accessToken) return <></>;
-
+    if (coffeeLoading) return <></>
     return (
         <div className="review">
             <div>
-                <div className="listcontainer-info-title">제목</div>
-                <div><input name = "title" onChange={onChange}/></div>
+                <div className="review-cafename">{coffeeCafe.name}</div>
+
+                <div className="reviewcreate-title-container"><input name = "title" className= "reviewcreate-title" placeholder="제목" onChange={onChange}/></div>
                 <div className="listcontainer-info">
                     <div>
-                        <div>타입</div>
-                        <div><input name = "type" onChange={onChange}/></div>
-                        <div>점수</div>
-                        <div><input name = "score" onChange={onChange}/></div>
+                        <div><input name = "type" onChange={onChange} placeholder="타입"/></div>
+                        <div><input name = "score" onChange={onChange} placeholder="점수"/></div>
                     </div>
                     <div>
-                        <div>User</div>
-                        <div>
-                            {data ? <input disabled name = "user" value={data.username} onChange={onChange}/> : <div>no</div>
-                            }</div>
-                         <div>날짜</div> 
-                        <div><input name = "date" onChange={onChange}/></div>
+                        <div>{data.username}</div>
+                        <div>{today}</div>
                     </div>
                     </div>
 
-                    
+                </div>
                     <div>
                         <div className="listcontainer-image-list">사진</div>
                             <div>
@@ -126,8 +134,8 @@ export default function ReviewCreate() {
 
 
                     <div>
-                        <div>내용</div> 
-                        <div><input name = "content" onChange={onChange}/>
+ 
+                        <div><textarea className= "reviewcreate_content" name="content" id="" cols="30" rows="10" onChange={onChange}></textarea></div>
                     </div>
                    
                   
@@ -137,9 +145,9 @@ export default function ReviewCreate() {
                     <div>
                         <button onClick={onClick}>제출</button>
                     </div>
-                    </div>
+                  
              
-                </div>
+              
         </div>
     )
 }
