@@ -4,6 +4,7 @@ import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { getCoffeeCafesAPI } from "../apis/api";
 import { Link } from "react-router-dom";
 import "./CoffeeCafe.css"
+import logoImage from '../images/gongbang_logo.png';
 import CardContainer from "../components/card/CardContainer";
 export default function CoffeeCafe() {
 
@@ -141,7 +142,9 @@ export default function CoffeeCafe() {
                         ))}
                     </Map>
             </div>
-                    
+            <div>
+                
+            </div>
                 
        
 

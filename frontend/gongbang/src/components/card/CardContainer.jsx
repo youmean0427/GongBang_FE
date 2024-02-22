@@ -6,9 +6,12 @@ import { deleteReview, getCoffeeCafesAPI, userAPI } from "../../apis/api";
 import { Link } from "react-router-dom";
 import Review from "../../pages/Reveiw";
 import ListContainer from "../list/ListContainer";
+import Stars from "../common/Stars";
 
-export default function CardContainer({title, data, type, chevronWidth, userInfo} ) {
+export default function CardContainer({title, data, type, chevronWidth, userInfo, }) {
     const [activeItemIndex, setActiveItemIndex] = useState(0);
+    const [toggleReviewModal, setToggleReviewModal] = useState(0)
+    const [reviewModalData, setReviewModalData] = useState("")
 
     const reviewDeleteMutation = useMutation 
     (['deleteReview'],  (x) => deleteReview(x), {
@@ -28,7 +31,17 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
     const handleDelete = (x) => {
         reviewDeleteMutation.mutate(x)
     }
+  
+
+    const setReviewDetail = (x) => {
+        setReviewModalData(x)
+        setToggleReviewModal(1)
+    }
     
+    const handleReviewModal = () => {
+        setReviewModalData("")
+    }
+
     if (type === 1) return (
         <>
 
@@ -53,7 +66,8 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
             <div>
                 <div className="cardcontainer-card-item"> {data.coffeecafeimage_set.length ?
                     <img className="cardcontainer-coffecafe-image" src = {data.coffeecafeimage_set[0].image} alt="Cafe" />: <div></div>}</div>
-                <div>{data.total_score}</div>
+
+                <div><Stars score={data.total_score} size={0}/></div>
                 <div>{data.name}</div>
                 <div>{data.address}</div>
                 
@@ -68,7 +82,7 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
     );
 
     if (type== 2) return (<>
-
+  
         <div className= "cardcontainer" style={{ padding: `0 0px` }}>
         <div className="cardcontainer-title-container">
             <div className="cardcontainer-title">{title}</div>
@@ -90,10 +104,11 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
         >
 
         {data.map((data) => (
-            <Link to= {``}  style={{ textDecoration: "none" }} key={data}>
-            <div>
+            <>
+            <div onClick={() => setReviewDetail(data)}>
                 <div className="cardcontainer-card-item"> {data.reviewimage_set.length ?
                     <img className="cardcontainer-coffecafe-image" src = {data.reviewimage_set[0].image} alt="Cafe" />: <div></div>}</div>
+                {/* <div>{data.id}</div> */}
                 <div>{data.score}</div>
                 <div>{data.title}</div>
                 <div>{data.user}</div>
@@ -104,13 +119,24 @@ export default function CardContainer({title, data, type, chevronWidth, userInfo
                 <></>} </>: <></> }</div>
 
             </div>
-            {/* Modal */}
-            <div><ListContainer data={data} userInfo={userInfo}/></div>
-
+        
             
-            </Link>
+            </>
         ))}
         </ItemsCarousel>
+        {/* Modal */}
+        <div >
+            {reviewModalData ? 
+            <div className="review-Modal">
+                <div className="review-Modal-List">
+                    <div>
+                        <div onClick={handleReviewModal}>X</div>
+                        <ListContainer data={reviewModalData} userInfo={userInfo}/>
+                    </div>
+                </div>
+            </div> 
+            : null}
+        </div>
     </div>
     
     

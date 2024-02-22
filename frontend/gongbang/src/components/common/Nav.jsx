@@ -4,8 +4,7 @@ import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { userAPI, logoutAPI } from "../../apis/api";
 import { useMutation } from "@tanstack/react-query";
-
-
+import logoImage from '../../images/gongbang_logo.png';
 export default function Nav() {
 
 
@@ -37,7 +36,8 @@ export default function Nav() {
         <>
         <div className="nav-container">
             <div className="nav-link">
-                <Link to = {'/'}><div className="nav-link-item">공방</div></Link>
+              
+                <Link to = {'/'}><div className="nav-link-item"><img className="nav-logo" src={logoImage}/></div></Link>
 
                 {links.map((link, index) => (
                     <Link to = {link.url} key = {index} className="nav-link-item">{link.title}</Link>

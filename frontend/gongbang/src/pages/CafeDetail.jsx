@@ -6,6 +6,10 @@ import { Link, useParams } from 'react-router-dom';
 import "./CafeDetail.css"
 import CardContainer from "../components/card/CardContainer";
 import { Circle, Map, MapMarker } from 'react-kakao-maps-sdk';
+import fullStar from '../images/full_star.png';
+import ListContainer from "../components/list/ListContainer";
+import Stars from "../components/common/Stars";
+
 export default function CafeDetail(){
     let accessToken = localStorage.getItem("access_token")
     const { id } = useParams();
@@ -17,11 +21,13 @@ export default function CafeDetail(){
     const [nowImage, setNowImage] = useState()
 
  
-    const [totalScore, settotalScore] = useState(0)
     const [oneScore, setOneScore] = useState(0)
     const [twoScore, setTwoScore] = useState(0)
     const [thrScore, setThrScore] = useState(0)
     const [fouScore, setFouScore] = useState(0)
+
+    
+
 
     const { isFetching, data } = useQuery({
         queryKey: ['getCoffeeCafeDetail'],
@@ -41,7 +47,6 @@ export default function CafeDetail(){
     }
     
  
-
     useEffect(() => {
         if (data) {
             setNowImage(data.coffeecafeimage_set[0].image)
@@ -55,40 +60,10 @@ export default function CafeDetail(){
             const filteredFou = data.review_set.filter(review => review.type === 4)
             setFilteredReviewFou(filteredFou)
 
-
-
-            if (data.review_set.length) {
-                const totalScoreArr = []
-                data.review_set.map(x => {
-                    totalScoreArr.push(x.score)
-                })
-                const totalScoreVal = totalScoreArr.reduce((a, b) => a += b)
-                settotalScore(Math.round(totalScoreVal / totalScoreArr.length))
-            }
-
-
-            setOneScore(ReviewCount(filteredOne))
-            setTwoScore(ReviewCount(filteredTwo))
-            setThrScore(ReviewCount(filteredThr))
-            setFouScore(ReviewCount(filteredFou))
-            
-
         }
       
     }, [data])
 
-    function ReviewCount(data) {
-        if (data.length) {
-            const scoreArr = []
-            data.map(x => {
-                scoreArr.push(x.score)
-            })
-            const scoreVal = scoreArr.reduce((a, b) => a+= b)
-            return Math.round(scoreVal / data.length)}
-        else {
-            return 0
-        }
-    }
 
 
     if (isFetching) return <></>
@@ -115,7 +90,11 @@ export default function CafeDetail(){
                     </div>
 
                     <div className="cafedetail-info-info">
-                        <div className="cafedetail-info-total-score"> {totalScore} </div>
+                        <div className="cafedetail-total-score-cont">
+                            {/* <div className="cafedetail-info-total-score"> {data.total_score} </div> */}
+                            <div><Stars score={data.total_score} size={1}/></div>
+                           
+                        </div>
                         <div className="cafedetail-info-name"> {data.name} </div>
                         <div className="cafedetail-info-address"> {data.address} </div>
                         <div className="cafedetail-info-time"> {data.time} </div>
@@ -125,23 +104,24 @@ export default function CafeDetail(){
                         <div className="cafedetail-info-con">편의시설</div>
                         <div className="cafedetail-info-opt">
                             <div>
-                                <div className="cafedetail-info-opt-title" >분위기</div>
-                                <div className="cafedetail-info-opt-title">음료</div>
+                                <div className="cafedetail-info-opt-title">☁️ 분위기</div>
+                                <div className="cafedetail-info-opt-title">☕ 음료</div>
                     
                             </div>
                             <div>
-                                <div className="cafedetail-info-opt-score">{oneScore}</div>
-                                <div className="cafedetail-info-opt-score">{thrScore}</div>
+                                <div className="cafedetail-info-opt-score"><Stars score={oneScore} size ={0}/> </div>
+                                <div className="cafedetail-info-opt-score"><Stars score={thrScore} size ={0}/></div>
                             
                             </div>
+                         
                             <div>
-                                <div className="cafedetail-info-opt-title">좌석</div>
-                                <div className="cafedetail-info-opt-title">콘센트</div>
+                                <div className="cafedetail-info-opt-title">🪑 좌석</div>
+                                <div className="cafedetail-info-opt-title">🔌 콘센트</div>
                                 
                             </div>
                             <div>
-                                <div className="cafedetail-info-opt-score">{twoScore}</div>
-                                <div className="cafedetail-info-opt-score">{fouScore}</div>
+                                <div className="cafedetail-info-opt-score"><Stars score={twoScore} size ={0}/></div>
+                                <div className="cafedetail-info-opt-score"><Stars score={fouScore} size ={0}/></div>
                               
                             </div>
                         </div>
@@ -178,7 +158,7 @@ export default function CafeDetail(){
 
                
                 <div>
-                    <CardContainer title={title[0]} data={data.review_set} type={2} userInfo={userInfo}/>
+                    <CardContainer title={title[0]} data={data.review_set} type={2} userInfo={userInfo} />
                     <div></div>
                 </div>
                 
@@ -211,8 +191,9 @@ export default function CafeDetail(){
                 </div>
                 <hr/>
                 <div>  
-                    <CardContainer title={title[1]} data={filteredReviewOne} type={2} userInfo={userInfo}/>
-                    <CardContainer title={title[2]} data={filteredReviewTwo} type={2} userInfo={userInfo}/>
+                    <CardContainer title={title[1]} data={filteredReviewOne} type={2} userInfo={userInfo} />
+                    <CardContainer title={title[2]} data={filteredReviewTwo} type={2} userInfo={userInfo}
+                    />
                     <CardContainer title={title[3]} data={filteredReviewThr} type={2} userInfo={userInfo}/>
                     <CardContainer title={title[4]} data={filteredReviewFou} type={2} userInfo={userInfo}/>
 
@@ -221,7 +202,7 @@ export default function CafeDetail(){
 
             </div>
         
-        
+         
         
         </>
     );

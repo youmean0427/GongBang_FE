@@ -51,12 +51,11 @@
 
 .cafedetail-info-name {
     font-size: 30px ;
-    
+    font-weight: normal;
     margin: 5px 0 5px 0;
 }
 .cafedetail-info-total-score {
-    font-size: 28px;
-    margin: 5px 0 5px 0;
+   
 }
 .cafedetail-info-address {
     font-size: 20px;
@@ -108,5 +107,17 @@
 }
 
 
+.cafedetail-total-score-cont {
+    display: flex;
+    align-items: center;
+    
+}
+.cafedetail-logo {
+    height: 30px;
+    margin-right: 3px;
+}
 
-
+.cafedetail-info-star{
+    background-color: red;
+    width: 0px
+}

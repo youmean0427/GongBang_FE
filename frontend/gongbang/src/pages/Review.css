@@ -76,7 +76,24 @@
 }
 
 .reviewcreate_content {
+    margin: 0px 0 0 0;
     width: 600px;
     font-size: 18px;
     font-family: "GowunDodum-Regular";
+}
+
+.reviewcreate-images {
+    margin: 20px 0 20px 0
+}
+
+.reviewcreate-type-select {
+    width: 100px;
+    margin: 10px 0 10px 0;
+    font-size: 18px;
+    font-family: "GowunDodum-Regular";
+}
+
+.reviewcreate-address {
+    margin: 0 0 10px 0;
+    font-size: 18px;
 }

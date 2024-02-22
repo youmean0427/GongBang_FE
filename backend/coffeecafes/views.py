@@ -11,6 +11,8 @@ from django.db.models import Max
 # Create your views here.
 # @api_view(['GET'])
 # @permission_classes([AllowAny])
+
+# Coffeecafe Get
 def coffee_cafes(request, type):
     # type_1 : 인기순 
     # type_2 : 옵션순
@@ -23,6 +25,7 @@ def coffee_cafes(request, type):
         serializer_coffeecafes = CoffeeCafeSerializer(coffeecafes, many = True)
         return JsonResponse(serializer_coffeecafes.data, safe=False)
 
+# Coffeecafe Detail
 def coffee_cafe_detail(request, id):
     coffecafe_detail = CoffeeCafe.objects.get(id = id)
     if request.method == 'GET':
@@ -53,7 +56,8 @@ def coffee_cafe_create(request):
 
     return JsonResponse(serializer_coffeecafe.data, safe=False)
 
-# Coffee
+# CoffeeCafe Score
+
 
 
 # Review Create, Update
