@@ -8,6 +8,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom'
 import '../components/list/ListContainer.css'
 import './Review.css'
+import { LuCamera } from 'react-icons/lu'
 
 export default function ReviewCreate({ coffeeCafe, userInfo }) {
   const { id } = useParams()
@@ -57,7 +58,7 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
     })
   }
 
-  console.log(inputs)
+  console.log(inputs, userInfo)
 
   const onClick = () => {
     const formData = new FormData()
@@ -66,7 +67,8 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
     formData.append('date', today)
     formData.append('score', inputs.score)
     formData.append('type', inputs.type)
-    formData.append('user', userInfo.username)
+    formData.append('user', userInfo.pk)
+    formData.append('name', userInfo.username)
     for (let i = 0; i < imageList.length; i++) {
       formData.append('image', imageList[i])
     }
@@ -77,7 +79,6 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
 
     reviewCreateMutation.mutate(formData)
     navigate(`/coffeecafe/${id}`)
-    window.location.reload()
   }
 
   const reviewCreateMutation = useMutation(
@@ -198,7 +199,7 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
             className="reviewcreate_content"
             name="content"
             id=""
-            cols="30"
+            cols="10"
             rows="10"
             onChange={onChange}
           ></textarea>

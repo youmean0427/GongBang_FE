@@ -27,24 +27,21 @@ export default function Review({ data }) {
 
   return (
     <div className="review">
-      <div>
+      <div className="review-fix">
         <div className="review-cafename">{data.name}</div>
         <Stars score={data.total_score} size={1} />
         <div className="review-count">{data.review_set.length}개의 리뷰</div>
-
+      </div>
+      <div>
         {data ? (
           data.review_set.map((x, i) => (
             <div key={i}>
-              <br />
               <ListContainer data={x} userInfo={userInfo} />
-              <hr />
             </div>
           ))
         ) : (
           <></>
         )}
-
-        <div></div>
       </div>
     </div>
   )

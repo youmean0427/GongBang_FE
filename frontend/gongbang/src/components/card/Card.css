@@ -1,10 +1,10 @@
 .cardcontainer {
   font-size: 20px;
+  width: 1300px;
 }
 
 .cardcontainer-card-item {
   height: 300px;
-  background-color: gray;
   margin: 0px 0px 10px 0;
 }
 
@@ -12,9 +12,11 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 25px;
 }
 
 .cardcontainer-title {
+  font-weight: 700;
   margin: 50px 0px 20px 0px;
   font-size: 25px;
 }
@@ -39,18 +41,24 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
 .review-Modal-List {
-  width: 40%;
-  height: 50%;
+  width: 700px;
+  height: 450px;
   background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 15px;
 }
 .review-deail-Modal-x {
   text-align: end;
+}
+
+.cardcontaioner-data-title {
+  font-weight: 700;
 }

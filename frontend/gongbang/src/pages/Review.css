@@ -1,6 +1,9 @@
 .review {
-  margin: 0 600px 0 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 .review > div {
   display: flex;
   flex-direction: column;
@@ -39,6 +42,7 @@
   width: 200px;
   height: 200px;
   background-color: gray;
+  border-radius: 10px;
 }
 .review-image-input > input {
   width: 100%;
@@ -51,7 +55,7 @@
   font-size: 25px;
   width: 100%;
   text-align: center;
-  margin: 25px 0 5px 0;
+  margin: 5px 0 5px 0;
 }
 .review-cafescore {
   width: 100%;
@@ -80,6 +84,7 @@
 .reviewcreate_content {
   margin: 0px 0 0 0;
   width: 600px;
+  height: 150px;
   font-size: 18px;
   font-family: 'GowunDodum-Regular';
 }

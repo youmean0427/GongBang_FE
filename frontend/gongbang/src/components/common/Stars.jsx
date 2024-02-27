@@ -1,47 +1,43 @@
-import fullStar from '../../images/full_star.png';
+import fullStar from '../../images/full_star.png'
 import emStar from '../../images/em_star.png'
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 import './Star.css'
 
-export default function Stars({score, size}) {
+export default function Stars({ score, size }) {
+  const [stars, setStars] = useState([false, false, false, false, false])
 
-    const [stars, setStars] = useState([false, false, false, false, false])
+  useEffect(() => {
+    let arr = [false, false, false, false, false]
+    for (let i = 0; i < Math.floor(parseInt(score)); i++) {
+      arr[i] = true
+    }
+    setStars(arr)
+  }, [score])
 
-    useEffect(() => {
-        
-        let arr = [false, false, false, false, false]
-        for (let i = 0; i < Math.floor(parseInt(score)); i++) {
-            arr[i] = true
-        }
-        setStars(arr)
-
-    }, [])
-
-
-    return ( <>
-        <div className='stars-total'>
-        <div className={size ? 'stars-cont' : 'stars-cont-small' }>
-            <div className={size ? 'score' : 'score-small' }>{score}</div>
-            <div className={size ? 'stars' : 'stars-small' }>
-                <div>
-                    {stars[0] ? <img src={fullStar}/> : <img src={emStar}/>}
-                </div>
-                <div>
-                    {stars[1] ? <img src={fullStar}/> : <img src={emStar}/>}
-                </div>
-                <div>
-                    {stars[2] ? <img src={fullStar}/> : <img src={emStar}/>}
-                </div>
-                <div>
-                    {stars[3] ? <img src={fullStar}/> : <img src={emStar}/>}
-                </div>
-                <div>
-                    {stars[4] ? <img src={fullStar}/> : <img src={emStar}/>}
-                </div>
+  return (
+    <>
+      <div className="stars-total">
+        <div className={size ? 'stars-cont' : 'stars-cont-small'}>
+          <div className={size ? 'score' : 'score-small'}>{score}</div>
+          <div className={size ? 'stars' : 'stars-small'}>
+            <div>
+              {stars[0] ? <img src={fullStar} /> : <img src={emStar} />}
             </div>
+            <div>
+              {stars[1] ? <img src={fullStar} /> : <img src={emStar} />}
+            </div>
+            <div>
+              {stars[2] ? <img src={fullStar} /> : <img src={emStar} />}
+            </div>
+            <div>
+              {stars[3] ? <img src={fullStar} /> : <img src={emStar} />}
+            </div>
+            <div>
+              {stars[4] ? <img src={fullStar} /> : <img src={emStar} />}
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
     </>
-
-    )
+  )
 }

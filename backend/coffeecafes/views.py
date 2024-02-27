@@ -37,9 +37,11 @@ def coffee_cafe_create(request):
     if request.method == 'POST':
         coffee_cafe_cnt = CoffeeCafe.objects.aggregate(Max('id'))['id__max']
 
-
         data = request.POST.copy()
-        data['id'] = coffee_cafe_cnt + 1
+        if coffee_cafe_cnt:
+            data['id'] = coffee_cafe_cnt + 1
+        else:
+            data['id'] = 1
         serializer_coffeecafe = CoffeeCafeSerializer(data=data)
         images = request.FILES.getlist('image')
      
@@ -60,16 +62,51 @@ def coffee_cafe_create(request):
 
 
 
+
 # Review Create, Update
 def coffee_cafe_detail_review(request, id, type):
+    # id : cafe.id
+    # type : id → update / 0 → create
     if request.method == 'POST':
         review_cnt = Review.objects.aggregate(Max('id'))['id__max']
+
         if review_cnt == None:
             review_cnt = 0
         data = request.POST.copy() 
         data['cafe'] = id
-        if type == 0:
+        if type == 0:  
             data['id'] = review_cnt + 1
+            # total_score Algo
+            coffee_cafe = CoffeeCafe.objects.get(id=id)
+            review_set = Review.objects.filter(cafe_id=id)
+            print(coffee_cafe.total_score, len(review_set))
+            total_score = float(coffee_cafe.total_score) * len(review_set) + float(data['score'])
+            coffee_cafe.total_score = round(total_score / (len(review_set)+1), 2) 
+            coffee_cafe.save()
+
+            if data['type'] == "1":
+                vibe_set = Review.objects.filter(cafe_id=id, type=1)
+                vibe_score = float(coffee_cafe.vibe) * len(vibe_set) + float(data['score'])
+                coffee_cafe.vibe = round(vibe_score / (len(vibe_set)+1), 2)
+                coffee_cafe.save()
+            elif data['type'] == "2":
+                seat_set = Review.objects.filter(cafe_id=id, type=2)
+                seat_score = float(coffee_cafe.seat) * len(seat_set) + float(data['score'])
+                coffee_cafe.seat = round(seat_score / (len(seat_set)+1), 2)
+                coffee_cafe.save()
+            elif data['type'] == "3":
+                coffee_set = Review.objects.filter(cafe_id=id, type=3)
+                coffee_score = float(coffee_cafe.coffee) * len(coffee_set) + float(data['score'])
+                coffee_cafe.coffee = round(coffee_score / (len(coffee_set)+1), 2)
+                coffee_cafe.save()
+            elif data['type'] == "4":
+                plug_set = Review.objects.filter(cafe_id=id, type=4)
+                plug_score = float(coffee_cafe.plug) * len(plug_set) + float(data['score'])
+                coffee_cafe.plug = round(plug_score / (len(plug_set)+1), 2)
+                coffee_cafe.save()
+
+            print(coffee_cafe.vibe, coffee_cafe.seat, coffee_cafe.coffee, coffee_cafe.plug)
+            #
             serializer_coffeecafe_detail_reivew = ReviewSerializer(data=data)
         else:
             existing_review = Review.objects.filter(id=type).first()
@@ -91,8 +128,58 @@ def coffee_cafe_detail_review(request, id, type):
 # Review Delete
 def review_delete(request, id):
     if request.method == 'DELETE':
+        #
         review = Review.objects.get(id=id)
+        review_set = Review.objects.filter(cafe_id=review.cafe_id)
+        coffee_cafe = CoffeeCafe.objects.get(id=review.cafe_id)
+        total_score = float(coffee_cafe.total_score) * (len(review_set)) - float(review.score)
+        
+        if (len(review_set)-1):
+            coffee_cafe.total_score = round(total_score / (len(review_set)-1), 2) 
+        else:
+            coffee_cafe.total_score = 0
+        coffee_cafe.save()
+
+        review_type = str(review.type)
+        print(review_type)
+        if review_type == "1":
+            vibe_set = Review.objects.filter(cafe_id=review.cafe_id, type=1)
+            vibe_score = float(coffee_cafe.vibe) * len(vibe_set) - float(review.score)
+            if (len(vibe_set)-1):
+                coffee_cafe.vibe = round(vibe_score / (len(vibe_set)-1), 2)
+            else:
+                coffee_cafe.vibe = 0
+            coffee_cafe.save()
+
+        elif review_type == "2":
+            seat_set = Review.objects.filter(cafe_id=review.cafe_id, type=2)
+            seat_score = float(coffee_cafe.seat) * len(seat_set) - float(review.score)
+            if (len(seat_set)-1):
+                coffee_cafe.seat = round(seat_score / (len(seat_set)-1), 2)
+            else:
+                coffee_cafe.seat = 0
+            coffee_cafe.save()
+
+        elif review_type == "3":
+            coffee_set = Review.objects.filter(cafe_id=review.cafe_id, type=3)
+            coffee_score = float(coffee_cafe.coffee) * len(coffee_set) - float(review.score)
+            if (len(coffee_set)-1):
+                coffee_cafe.coffee = round(coffee_score / (len(coffee_set)-1), 2)
+            else:
+                coffee_cafe.coffee = 0
+            coffee_cafe.save()
+        elif review_type == "4":
+            plug_set = Review.objects.filter(cafe_id=review.cafe_id, type=4)
+            plug_score = float(coffee_cafe.plug) * len(plug_set) - float(review.score)
+            if (len(plug_set)-1):
+                coffee_cafe.plug = round(plug_score / (len(plug_set)-1), 2)
+            else:
+                coffee_cafe.plug = 0
+            coffee_cafe.save()
+
+        #
         review.delete()
+      
     return JsonResponse("Review Deleted", safe=False)
 
 

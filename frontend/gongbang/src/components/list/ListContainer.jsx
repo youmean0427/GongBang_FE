@@ -27,7 +27,7 @@ export default function ListContainer({ data, userInfo }) {
       setImages([...images, x])
     })
   }, [])
-  console.log(images)
+
   return (
     <div className="listcontainer">
       <div>
@@ -35,21 +35,20 @@ export default function ListContainer({ data, userInfo }) {
           <div className="listcontainer-info-title">{data.title}</div>
           <div>
             {userInfo ? (
-              <>
-                {' '}
-                {userInfo.username === data.user ? (
-                  <>
+              <div>
+                {userInfo.name === data.username ? (
+                  <div>
                     <Link to={`/review/${data.id}`}>
                       <button>Update</button>
                     </Link>
                     <button onClick={() => handleDelete(data.id)}>Del</button>{' '}
-                  </>
+                  </div>
                 ) : (
-                  <></>
-                )}{' '}
-              </>
+                  <div></div>
+                )}
+              </div>
             ) : (
-              <></>
+              <div></div>
             )}
           </div>
         </div>

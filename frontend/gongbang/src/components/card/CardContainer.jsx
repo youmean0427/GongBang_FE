@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import Review from '../../pages/Reveiw'
 import ListContainer from '../list/ListContainer'
 import Stars from '../common/Stars'
-
+import { LuX } from 'react-icons/lu'
 export default function CardContainer({
   title,
   data,
@@ -111,13 +111,16 @@ export default function CardContainer({
             <div className="cardcontainer-title-container-review">
               {logined ? (
                 <div className="cardcontainer-review-create">
-                  <Link to={`review`}>리뷰 작성하기</Link>
-                  <div onClick={isCreateModal}>TTTTTTTTTTT</div>
+                  <div onClick={isCreateModal}>리뷰 작성하기</div>
                 </div>
               ) : (
                 <div></div>
               )}
-              <div>|</div>
+              {logined ? (
+                <div style={{ margin: '0 10px 0 10px' }}> | </div>
+              ) : (
+                <div></div>
+              )}
               <div className="cardcontainer-review-all" onClick={isReviewModal}>
                 모든 리뷰 보기
               </div>
@@ -133,9 +136,9 @@ export default function CardContainer({
             outsideChevron
             chevronWidth={chevronWidth}
           >
-            {data.map((data) => (
+            {data.map((data, i) => (
               <>
-                <div onClick={() => setReviewDetail(data)}>
+                <div key={i} onClick={() => setReviewDetail(data)}>
                   <div className="cardcontainer-card-item">
                     {' '}
                     {data.reviewimage_set.length ? (
@@ -152,29 +155,9 @@ export default function CardContainer({
                   <div>
                     <Stars score={data.score} type={0} />
                   </div>
-                  <div>{data.title}</div>
-                  <div>{data.user}</div>
-                  <div>
-                    {userInfo ? (
-                      <>
-                        {' '}
-                        {userInfo.username === data.user ? (
-                          <>
-                            <Link to={`/review/${data.id}`}>
-                              <button>Update</button>
-                            </Link>
-                            <button onClick={() => handleDelete(data.id)}>
-                              Del
-                            </button>{' '}
-                          </>
-                        ) : (
-                          <></>
-                        )}{' '}
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </div>
+                  <div className="cardcontaioner-data-title">{data.title}</div>
+                  <div>{data.name}</div>
+                  <div></div>
                 </div>
               </>
             ))}
@@ -183,14 +166,11 @@ export default function CardContainer({
           <div>
             {reviewModalData ? (
               <div className="review-Modal">
+                <div onClick={handleReviewModal}>
+                  <LuX size={30} />
+                </div>
                 <div className="review-Modal-List">
                   <div>
-                    <div
-                      className="review-deail-Modal-x"
-                      onClick={handleReviewModal}
-                    >
-                      X
-                    </div>
                     <ListContainer data={reviewModalData} userInfo={userInfo} />
                   </div>
                 </div>

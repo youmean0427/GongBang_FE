@@ -13,28 +13,28 @@
 .listcontainer-info-title {
   font-weight: 700;
   font-size: 20px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 8px 0;
 }
 
 .listcontainer-info-score {
   font-size: 18px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 8px 0;
 }
 
 .listcontainer-info-user {
   text-align: end;
   font-size: 15px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 8px 0;
 }
 
 .listcontainer-info-date {
   font-size: 15px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 8px 0;
 }
 
 .listcontainer-info-content {
   font-size: 18px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 8px 0;
 }
 
 .listcontainer-info-title-line {
@@ -45,11 +45,14 @@
 }
 
 .listcontainer-image-list {
+  margin: 8px 0 8px 0;
   display: flex;
 }
 .listcontainer-image-list > div {
   width: 200px;
+  margin: 0 5px 0 5px;
 }
 .listcontainer-image-list > div > img {
   width: 100%;
+  border-radius: 15px;
 }

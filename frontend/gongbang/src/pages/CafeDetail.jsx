@@ -11,6 +11,16 @@ import ListContainer from '../components/list/ListContainer'
 import Stars from '../components/common/Stars'
 import Review from './Reveiw'
 import ReviewCreate from './ReviewCreate'
+import { LuX } from 'react-icons/lu'
+import {
+  LuHome,
+  LuArmchair,
+  LuCoffee,
+  LuPlug,
+  LuWifi,
+  LuParkingSquare,
+  LuTrash,
+} from 'react-icons/lu'
 
 export default function CafeDetail() {
   let accessToken = localStorage.getItem('access_token')
@@ -22,14 +32,9 @@ export default function CafeDetail() {
   const [filteredReviewFou, setFilteredReviewFou] = useState([])
   const [nowImage, setNowImage] = useState()
 
-  const [oneScore, setOneScore] = useState(0)
-  const [twoScore, setTwoScore] = useState(0)
-  const [thrScore, setThrScore] = useState(0)
-  const [fouScore, setFouScore] = useState(0)
-
   const [reviewModal, setReviewModal] = useState(false)
   const [reviewCreateModal, setReviewCreateModal] = useState(false)
-
+  const [options, setOptions] = useState(['X', 'X', 'X', 'X'])
   const { isLoading, isFetching, data } = useQuery({
     queryKey: ['getCoffeeCafeDetail'],
     queryFn: () => getCoffeeCafeDetailAPI(id),
@@ -55,7 +60,17 @@ export default function CafeDetail() {
   useEffect(() => {
     if (data) {
       setNowImage(data.coffeecafeimage_set[0].image)
-
+      console.log(data.wifi)
+      if (data.wifi) {
+        options[0] = 'O'
+      }
+      if (data.toilet) {
+        options[1] = 'O'
+      }
+      if (data.parking) {
+        options[2] = 'O'
+      }
+      console.log(options)
       const filteredOne = data.review_set.filter((review) => review.type === 1)
       setFilteredReviewOne(filteredOne)
       const filteredTwo = data.review_set.filter((review) => review.type === 2)
@@ -72,7 +87,7 @@ export default function CafeDetail() {
   }, [data])
 
   if (isFetching && reviewCreateModal === false) return <></>
-  if (isLoading) return <>ggggggggg</>
+  if (isLoading) return <></>
   return (
     <>
       <div className="cafedetail">
@@ -127,47 +142,61 @@ export default function CafeDetail() {
             <div className="cafedetail-info-con">편의시설</div>
             <div className="cafedetail-info-opt">
               <div>
-                <div className="cafedetail-info-opt-title">☁️ 분위기</div>
-                <div className="cafedetail-info-opt-title">☕ 음료</div>
+                <div className="cafedetail-info-opt-title">
+                  <LuHome /> 분위기
+                </div>
+                <div className="cafedetail-info-opt-title">
+                  <LuCoffee /> 음료
+                </div>
               </div>
               <div>
                 <div className="cafedetail-info-opt-score">
-                  <Stars score={oneScore} size={0} />{' '}
+                  <Stars score={data.vibe} size={0} />{' '}
                 </div>
                 <div className="cafedetail-info-opt-score">
-                  <Stars score={thrScore} size={0} />
+                  <Stars score={data.coffee} size={0} />
                 </div>
               </div>
 
               <div>
-                <div className="cafedetail-info-opt-title">🪑 좌석</div>
-                <div className="cafedetail-info-opt-title">🔌 콘센트</div>
+                <div className="cafedetail-info-opt-title">
+                  <LuArmchair /> 좌석
+                </div>
+                <div className="cafedetail-info-opt-title">
+                  <LuPlug /> 콘센트
+                </div>
               </div>
               <div>
                 <div className="cafedetail-info-opt-score">
-                  <Stars score={twoScore} size={0} />
+                  <Stars score={data.seat} size={0} />
                 </div>
                 <div className="cafedetail-info-opt-score">
-                  <Stars score={fouScore} size={0} />
+                  <Stars score={data.plug} size={0} />
                 </div>
               </div>
             </div>
             <div className="cafedetail-info-opt">
               <div>
-                <div className="cafedetail-info-opt-title">와이파이</div>
+                <div className="cafedetail-info-opt-title">
+                  <LuWifi /> 와이파이
+                </div>
+                <div className="cafedetail-info-opt-title">
+                  <LuParkingSquare /> 주차
+                </div>
+              </div>
+              <div>
+                <div className="cafedetail-info-opt-score">{options[0]}</div>
+                <div className="cafedetail-info-opt-score">{options[1]}</div>
+              </div>
+              <div>
+                <div className="cafedetail-info-opt-title">
+                  <LuTrash /> 화장실
+                </div>
                 <div className="cafedetail-info-opt-title">주차</div>
               </div>
               <div>
-                <div className="cafedetail-info-opt-score">유</div>
-                <div className="cafedetail-info-opt-score">유</div>
-              </div>
-              <div>
-                <div className="cafedetail-info-opt-title">화장실</div>
-                <div className="cafedetail-info-opt-title">주차</div>
-              </div>
-              <div>
-                <div className="cafedetail-info-opt-score">유</div>
-                <div className="cafedetail-info-opt-score">무</div>
+                <div className="cafedetail-info-opt-score">{options[2]}</div>
+                <div className="cafedetail-info-opt-score">{options[3]}</div>
               </div>
             </div>
           </div>
@@ -238,28 +267,32 @@ export default function CafeDetail() {
             type={2}
             userInfo={userInfo}
           />
-          <CardContainer
-            title={title[4]}
-            data={filteredReviewFou}
-            type={2}
-            userInfo={userInfo}
-          />
+          {filteredReviewFou.length ? (
+            <CardContainer
+              title={title[4]}
+              data={filteredReviewFou}
+              type={2}
+              userInfo={userInfo}
+            />
+          ) : (
+            <div>nothing</div>
+          )}
         </div>
       </div>
 
       {/* Modal */}
       {reviewModal ? (
         <div className="review-all-Modal">
+          <div
+            className="review-Modal-x"
+            onClick={() => {
+              setReviewModal(false)
+            }}
+          >
+            <LuX size={30} />
+          </div>
           <div className="review-all-Modal-List">
             <div className="review-all-Modal-content">
-              <div
-                className="review-Modal-x"
-                onClick={() => {
-                  setReviewModal(false)
-                }}
-              >
-                <div className="review-Modal-x-box">xxx</div>
-              </div>
               <div>
                 <Review data={data} />
               </div>
@@ -269,16 +302,16 @@ export default function CafeDetail() {
       ) : null}
       {reviewCreateModal ? (
         <div className="review-all-Modal">
+          <div
+            className="review-Modal-x"
+            onClick={() => {
+              setReviewCreateModal(false)
+            }}
+          >
+            <LuX size={30} />
+          </div>
           <div className="review-all-Modal-List">
             <div className="review-all-Modal-content">
-              <div
-                className="review-Modal-x"
-                onClick={() => {
-                  setReviewCreateModal(false)
-                }}
-              >
-                <div className="review-Modal-x-box">xxx</div>
-              </div>
               <div>
                 <ReviewCreate coffeeCafe={data} userInfo={userInfo} />
               </div>
