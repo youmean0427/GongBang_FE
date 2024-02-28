@@ -141,7 +141,7 @@ export default function CafeDetail() {
             <hr />
             <div className="cafedetail-info-con">편의시설</div>
             <div className="cafedetail-info-opt">
-              <div>
+              <div className="cafedetail-info-opt-bet">
                 <div className="cafedetail-info-opt-title">
                   <LuHome /> 분위기
                 </div>
@@ -149,7 +149,7 @@ export default function CafeDetail() {
                   <LuCoffee /> 음료
                 </div>
               </div>
-              <div>
+              <div className="cafedetail-info-opt-bet-star">
                 <div className="cafedetail-info-opt-score">
                   <Stars score={data.vibe} size={0} />{' '}
                 </div>
@@ -158,7 +158,7 @@ export default function CafeDetail() {
                 </div>
               </div>
 
-              <div>
+              <div className="cafedetail-info-opt-bet">
                 <div className="cafedetail-info-opt-title">
                   <LuArmchair /> 좌석
                 </div>
@@ -222,8 +222,6 @@ export default function CafeDetail() {
           />
           <div></div>
         </div>
-
-        <hr />
 
         <div className="cafedetail-map-title">카페 위치</div>
         <div className="cafedetail-map">

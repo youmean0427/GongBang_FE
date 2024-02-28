@@ -33,24 +33,23 @@ export default function ListContainer({ data, userInfo }) {
       <div>
         <div className="listcontainer-info-title-line">
           <div className="listcontainer-info-title">{data.title}</div>
-          <div>
-            {userInfo ? (
-              <div>
-                {userInfo.name === data.username ? (
-                  <div>
-                    <Link to={`/review/${data.id}`}>
-                      <button>Update</button>
-                    </Link>
-                    <button onClick={() => handleDelete(data.id)}>Del</button>{' '}
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
-            ) : (
-              <div></div>
-            )}
-          </div>
+          {userInfo ? (
+            <div>
+              {userInfo.name === data.username ? (
+                <div className="listcontainer-update-del">
+                  <Link to={`/review/${data.id}`}>
+                    <span>수정</span>
+                  </Link>
+                  {'   '} | {'   '}
+                  <span onClick={() => handleDelete(data.id)}>삭제</span>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+          ) : (
+            <div></div>
+          )}
         </div>
 
         <div className="listcontainer-info">
@@ -61,7 +60,7 @@ export default function ListContainer({ data, userInfo }) {
             </div>
           </div>
           <div>
-            <div className="listcontainer-info-user">{data.user}</div>
+            <div className="listcontainer-info-user">{data.name}</div>
             <div className="listcontainer-info-date">{data.date}</div>
           </div>
         </div>

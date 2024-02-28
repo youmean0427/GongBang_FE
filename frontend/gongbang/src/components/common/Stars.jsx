@@ -18,7 +18,9 @@ export default function Stars({ score, size }) {
     <>
       <div className="stars-total">
         <div className={size ? 'stars-cont' : 'stars-cont-small'}>
-          <div className={size ? 'score' : 'score-small'}>{score}</div>
+          <div className={size ? 'score' : 'score-small'}>
+            {score.toFixed(2)}
+          </div>
           <div className={size ? 'stars' : 'stars-small'}>
             <div>
               {stars[0] ? <img src={fullStar} /> : <img src={emStar} />}

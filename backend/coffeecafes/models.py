@@ -19,7 +19,6 @@ class CoffeeCafe(models.Model):
     parking = models.FloatField(default=0)
     note = models.FloatField(default=0) # 비고
 
-
 class CoffeeCafeImage(models.Model):
     cafe = models.ForeignKey(CoffeeCafe, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/', null=True, blank = True)

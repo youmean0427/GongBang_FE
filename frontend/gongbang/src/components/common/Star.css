@@ -59,10 +59,9 @@
 }
 .score-small {
   font-size: 20px;
-  width: 10px;
-  max-width: 20px;
+  max-width: 50px;
   /* font-weight: 600; */
-  margin-right: 20px;
+  margin-right: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

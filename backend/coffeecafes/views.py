@@ -58,10 +58,6 @@ def coffee_cafe_create(request):
 
     return JsonResponse(serializer_coffeecafe.data, safe=False)
 
-# CoffeeCafe Score
-
-
-
 
 # Review Create, Update
 def coffee_cafe_detail_review(request, id, type):
@@ -76,10 +72,11 @@ def coffee_cafe_detail_review(request, id, type):
         data['cafe'] = id
         if type == 0:  
             data['id'] = review_cnt + 1
+
             # total_score Algo
             coffee_cafe = CoffeeCafe.objects.get(id=id)
             review_set = Review.objects.filter(cafe_id=id)
-            print(coffee_cafe.total_score, len(review_set))
+
             total_score = float(coffee_cafe.total_score) * len(review_set) + float(data['score'])
             coffee_cafe.total_score = round(total_score / (len(review_set)+1), 2) 
             coffee_cafe.save()
@@ -104,9 +101,8 @@ def coffee_cafe_detail_review(request, id, type):
                 plug_score = float(coffee_cafe.plug) * len(plug_set) + float(data['score'])
                 coffee_cafe.plug = round(plug_score / (len(plug_set)+1), 2)
                 coffee_cafe.save()
-
-            print(coffee_cafe.vibe, coffee_cafe.seat, coffee_cafe.coffee, coffee_cafe.plug)
             #
+                
             serializer_coffeecafe_detail_reivew = ReviewSerializer(data=data)
         else:
             existing_review = Review.objects.filter(id=type).first()
@@ -128,7 +124,8 @@ def coffee_cafe_detail_review(request, id, type):
 # Review Delete
 def review_delete(request, id):
     if request.method == 'DELETE':
-        #
+
+        # total_score Algo
         review = Review.objects.get(id=id)
         review_set = Review.objects.filter(cafe_id=review.cafe_id)
         coffee_cafe = CoffeeCafe.objects.get(id=review.cafe_id)
@@ -141,7 +138,7 @@ def review_delete(request, id):
         coffee_cafe.save()
 
         review_type = str(review.type)
-        print(review_type)
+
         if review_type == "1":
             vibe_set = Review.objects.filter(cafe_id=review.cafe_id, type=1)
             vibe_score = float(coffee_cafe.vibe) * len(vibe_set) - float(review.score)
@@ -176,8 +173,8 @@ def review_delete(request, id):
             else:
                 coffee_cafe.plug = 0
             coffee_cafe.save()
-
         #
+            
         review.delete()
       
     return JsonResponse("Review Deleted", safe=False)
@@ -197,12 +194,9 @@ def review_all_get(request):
         serializer_review = ReviewSerializer(review)
         return JsonResponse(serializer_review.data, safe=False)
 
-
-# Review Delete
+# Review Image Delete
 def review_image_delete(request, id):
     if request.method == 'DELETE':
         review_image = ReviewImage.objects.get(id=id)
         review_image.delete()
     return JsonResponse("Review Image Deleted", safe=False)
-
-

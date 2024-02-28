@@ -1,5 +1,5 @@
 .listcontainer {
-  margin: 0 0 40px 0;
+  margin: 0 0 20px 0;
 }
 
 .listcontainer-info {
@@ -8,6 +8,11 @@
   align-items: center;
   justify-items: center;
   width: 600px;
+}
+
+.listcontainer-update-del {
+  font-size: 18px;
+  margin-right: 25px;
 }
 
 .listcontainer-info-title {
@@ -25,6 +30,7 @@
   text-align: end;
   font-size: 15px;
   margin: 8px 0 8px 0;
+  font-weight: 700;
 }
 
 .listcontainer-info-date {

@@ -78,7 +78,7 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
     // }
 
     reviewCreateMutation.mutate(formData)
-    navigate(`/coffeecafe/${id}`)
+    window.location.reload()
   }
 
   const reviewCreateMutation = useMutation(
@@ -118,50 +118,10 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
   if (!accessToken) return <></>
   // if (coffeeLoading) return <></>
   return (
-    <div className="review">
+    <div className="review-create">
       <div>
         <div className="review-cafename">{coffeeCafe.name}</div>
         <div className="reviewcreate-address">{coffeeCafe.address}</div>
-        <div className="reviewcreate-title-container">
-          <input
-            name="title"
-            className="reviewcreate-title"
-            placeholder="제목"
-            onChange={onChange}
-          />
-        </div>
-        <div className="listcontainer-info">
-          <div>
-            {/* <div><input name = "type" onChange={onChange} placeholder="타입"/></div> */}
-            <select
-              className="reviewcreate-type-select"
-              onChange={handleTypeSelect}
-              value={typeSelect}
-            >
-              {typeList.map((item) => {
-                return (
-                  <option value={item.value} key={item.value}>
-                    {item.name}
-                  </option>
-                )
-              })}
-            </select>
-          </div>
-          <div>
-            <div>
-              <input
-                className="reviewcreate-type-select"
-                name="score"
-                onChange={onChange}
-                placeholder="점수"
-              />
-            </div>
-
-            <div>{/* 점수 */}</div>
-            {/* <div>{data.username}</div>
-                        <div>{today}</div> */}
-          </div>
-        </div>
       </div>
       <div className="reviewcreate-images">
         <div className="listcontainer-image-list"></div>
@@ -178,18 +138,65 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
 
             {imageList.length < 3 ? (
               <div className="review-image-input">
-                <input
-                  className="reviewcreate_image_input"
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageChange}
-                />
+                <label className="review-image-input-icon">
+                  <LuCamera size={10} color="gray" />
+                  <input
+                    className="reviewcreate_image_input"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={handleImageChange}
+                  />
+                </label>
               </div>
             ) : (
               <></>
             )}
           </div>
+        </div>
+      </div>
+
+      <div className="review-create">
+        <div className="reviewcreate-title-container">
+          <input
+            name="title"
+            className="reviewcreate-title"
+            placeholder="제목"
+            onChange={onChange}
+          />
+        </div>
+        <div>
+          <div className="listcontainer-info">
+            <div>
+              {/* <div><input name = "type" onChange={onChange} placeholder="타입"/></div> */}
+              <select
+                className="reviewcreate-type-select"
+                onChange={handleTypeSelect}
+                value={typeSelect}
+              >
+                {typeList.map((item) => {
+                  return (
+                    <option value={item.value} key={item.value}>
+                      {item.name}
+                    </option>
+                  )
+                })}
+              </select>
+            </div>
+            <div>
+              <input
+                className="reviewcreate-type-select"
+                name="score"
+                onChange={onChange}
+                placeholder="점수"
+              />
+            </div>
+          </div>
+        </div>
+        <div>
+          <div>{/* 점수 */}</div>
+          {/* <div>{data.username}</div>
+                        <div>{today}</div> */}
         </div>
       </div>
 
@@ -207,7 +214,9 @@ export default function ReviewCreate({ coffeeCafe, userInfo }) {
       </div>
 
       <div>
-        <button onClick={onClick}>제출</button>
+        <div className="review-create-bnt" onClick={onClick}>
+          작성
+        </div>
       </div>
     </div>
   )
