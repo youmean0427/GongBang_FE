@@ -14,12 +14,11 @@ from django.db.models import Max
 
 # Coffeecafe Get
 def coffee_cafes(request, type):
-    # type_1 : 인기순 
-    # type_2 : 옵션순
-    # type_3 : 신상
-    if type == 1:
+    if type == 1: # Stars
         coffeecafes = CoffeeCafe.objects.order_by('-total_score')[:10]
-    elif type == 3:
+    elif type == 2: # Options
+        pass
+    elif type == 3: # New
         coffeecafes = CoffeeCafe.objects[-1:-10:-1]
     if request.method == 'GET':
         serializer_coffeecafes = CoffeeCafeSerializer(coffeecafes, many = True)
@@ -73,14 +72,14 @@ def coffee_cafe_detail_review(request, id, type):
         if type == 0:  
             data['id'] = review_cnt + 1
 
-            # total_score Algo
+            # total_score Algoritm
             coffee_cafe = CoffeeCafe.objects.get(id=id)
             review_set = Review.objects.filter(cafe_id=id)
 
             total_score = float(coffee_cafe.total_score) * len(review_set) + float(data['score'])
             coffee_cafe.total_score = round(total_score / (len(review_set)+1), 2) 
             coffee_cafe.save()
-
+            
             if data['type'] == "1":
                 vibe_set = Review.objects.filter(cafe_id=id, type=1)
                 vibe_score = float(coffee_cafe.vibe) * len(vibe_set) + float(data['score'])
@@ -176,7 +175,6 @@ def review_delete(request, id):
         #
             
         review.delete()
-      
     return JsonResponse("Review Deleted", safe=False)
 
 
