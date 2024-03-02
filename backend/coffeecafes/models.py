@@ -23,7 +23,6 @@ class CoffeeCafeImage(models.Model):
     cafe = models.ForeignKey(CoffeeCafe, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/', null=True, blank = True)
 
-
 class Review(models.Model):
     id = models.IntegerField(primary_key=True)
     cafe = models.ForeignKey(CoffeeCafe, on_delete=models.CASCADE)
@@ -35,7 +34,6 @@ class Review(models.Model):
     type = models.IntegerField()
     name = models.TextField(max_length=10)
     
-
 class ReviewImage(models.Model):
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='images/', null=True, blank = True)
