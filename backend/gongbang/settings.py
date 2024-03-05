@@ -72,6 +72,7 @@ MIDDLEWARE = [
      'whitenoise.middleware.WhiteNoiseMiddleware',
     
 ]
+
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
