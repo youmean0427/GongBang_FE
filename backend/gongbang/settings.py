@@ -73,8 +73,8 @@ MIDDLEWARE = [
     
 ]
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+# # Activate Django-Heroku.
+# django_heroku.settings(locals())
 
 ROOT_URLCONF = 'gongbang.urls'
 
