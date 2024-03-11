@@ -3,7 +3,7 @@ import React from "react";
 export default function Banner() {
   return (
     <>
-      <div className="banner-container">배너</div>
+      <div className="h-72 bg-slate-400">배너</div>
     </>
   );
 }

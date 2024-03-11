@@ -7,7 +7,7 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
 import { getCookie } from "./utils";
-
+import { worker } from "./mocks/workers";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -15,6 +15,10 @@ axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 const queryClient = new QueryClient();
+
+if (process.env.NODE_ENV === "development") {
+  worker.start();
+}
 root.render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>

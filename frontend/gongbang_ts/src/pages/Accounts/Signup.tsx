@@ -75,54 +75,54 @@ export default function Signup() {
 
   return (
     <>
-      <div className="flex justify-center items-center h-screen w-full">
+      <div className="flex items-center justify-center w-full h-full">
         <div>
           <div className="text-3xl text-center m-7">공방</div>
 
           <div className="w-72">
-            <div className="text-lg mb-3 mt-3">이름</div>
+            <div className="mt-3 mb-3 text-lg">이름</div>
 
             <input
-              className="input input-bordered w-full"
+              className="w-full input input-bordered"
               name="username"
               onChange={handleChange}
             />
 
-            <div className="text-lg mb-3 mt-3">이메일</div>
+            <div className="mt-3 mb-3 text-lg">이메일</div>
             <div>
               <input
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 name="email"
                 onChange={handleChange}
               />
             </div>
 
-            <div className="text-lg mb-3 mt-3">비밀번호</div>
+            <div className="mt-3 mb-3 text-lg">비밀번호</div>
             <div>
               <input
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 type="password"
                 name="password"
                 onChange={handleChange}
               />
             </div>
 
-            <div className="text-lg mb-3 mt-3">비밀번호 확인</div>
+            <div className="mt-3 mb-3 text-lg">비밀번호 확인</div>
             <div>
               <input
-                className="input input-bordered w-full"
+                className="w-full input input-bordered"
                 type="password"
                 name="passwordMatch"
                 onChange={handleChange}
               />
             </div>
-            <div className="text-lg mb-3 mt-3">
+            <div className="mt-3 mb-3 text-lg">
               {isPasswordMatch ? "" : "비밀번호를 확인해주세요"}{" "}
             </div>
 
             <div>
               <button
-                className="btn  text-xl w-72 mt-10"
+                className="mt-10 text-xl btn w-72"
                 onClick={handleSignup}
                 disabled={isValid}
               >

@@ -61,35 +61,35 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center h-screen w-full">
+      <div className="flex flex-col items-center justify-center w-full h-full">
         <div className="text-3xl text-center m-7">공방</div>
 
         <div className="w-72">
-          <div className="text-lg mb-3">이메일</div>
+          <div className="mb-3 text-lg">이메일</div>
           <input
             name="email"
-            className="input input-bordered w-full"
+            className="w-full input input-bordered"
             onChange={handleChange}
           />
         </div>
 
         <div className="w-72">
-          <div className="text-lg mb-3 mt-3">비밀번호</div>
+          <div className="mt-3 mb-3 text-lg">비밀번호</div>
           <input
             type="password"
-            className="input input-bordered w-full "
+            className="w-full input input-bordered "
             name="password"
             onChange={handleChange}
           />
         </div>
 
-        <div className="text-lg mb-3 mt-3">
+        <div className="mt-3 mb-3 text-lg">
           {loginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
         </div>
 
         <div>
           <button
-            className="btn  text-xl w-72 mt-10"
+            className="mt-10 text-xl btn w-72"
             onClick={handleLogin}
             disabled={isValid}
           >

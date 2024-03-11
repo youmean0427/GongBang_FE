@@ -15,7 +15,7 @@ interface CardData {
   title: string;
   data: any;
   type: number;
-  chevronWidth: number;
+  chevronWidth?: number;
   userInfo?: number;
   isReviewModal?: any;
   isCreateModal?: any;
@@ -60,11 +60,8 @@ export default function CardContainer({
   if (type === 1)
     return (
       <>
-        <div
-          className="cardcontainer"
-          style={{ padding: `0 ${chevronWidth}px` }}
-        >
-          <div className="cardcontainer-title">{title}</div>
+        <div className="mt-12 mb-10" style={{ padding: `0 ${chevronWidth}px` }}>
+          <div className="text-2xl mb-7">{title}</div>
 
           <ItemsCarousel
             requestToChangeActive={setActiveItemIndex}
@@ -82,12 +79,11 @@ export default function CardContainer({
                 style={{ textDecoration: "none" }}
                 key={data}
               >
-                <div>
-                  <div className="cardcontainer-card-item">
-                    {" "}
+                <div className="text-lg ">
+                  <div className="mb-5 h-80">
                     {data.coffeecafeimage_set.length ? (
                       <img
-                        className="cardcontainer-coffecafe-image"
+                        className="w-full h-full bg-slate-950"
                         src={data.coffeecafeimage_set[0].image}
                         alt="Cafe"
                       />

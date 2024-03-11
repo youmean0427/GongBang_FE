@@ -1,4 +1,3 @@
-import React from "react";
 import Banner from "../components/common/Banner";
 import CardContainer from "../components/common/CardContainer";
 
@@ -10,7 +9,7 @@ export default function Main() {
     queryKey: ["getCoffeeCafes"],
     queryFn: () => getCoffeeCafesAPI(1),
   });
-  console.log(data);
+
   if (isLoading) return <></>;
   return (
     <>
@@ -18,7 +17,7 @@ export default function Main() {
         <div>
           <Banner />
         </div>
-        <div className="main-cardcontainer">
+        <div className="">
           <CardContainer
             title={"🔥 핫플, 인기 있는 카페"}
             data={data}
@@ -26,7 +25,7 @@ export default function Main() {
             chevronWidth={300}
           />
         </div>
-        <div className="main-cardcontainer">
+        <div className="">
           <CardContainer
             title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
             data={data}
@@ -34,7 +33,7 @@ export default function Main() {
             chevronWidth={300}
           />
         </div>
-        <div className="main-cardcontainer">
+        <div className="">
           <CardContainer
             title={"✨ 새로운, 최근 오픈 신상 카페"}
             data={data}

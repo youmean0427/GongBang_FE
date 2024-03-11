@@ -5,7 +5,7 @@ export const getCoffeeCafesAPI = async (type: number) => {
   return data;
 };
 
-export const getCoffeeCafeDetailAPI = async (id: number) => {
+export const getCoffeeCafeDetailAPI = async (id: any) => {
   const { data } = await axios.get(`/api/coffeecafe/${id}`);
   return data;
 };
