@@ -46,7 +46,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className="flex justify-between items-center text-xl h-20 bg-slate-300 ">
+      <div className="flex items-center justify-between h-20 text-xl bg-slate-300 ">
         {/* Logo & Link */}
         <div className="flex items-center">
           <Link to={"/"}>

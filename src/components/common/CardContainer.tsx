@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import { LuX } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import Stars from "./Stars";
+import ListContainer from "./ListContainer";
 
 interface CardData {
   title: string;
@@ -48,7 +50,7 @@ export default function CardContainer({
     reviewDeleteMutation.mutate(x);
   };
 
-  const handelReviewDetail = (x: string) => {
+  const handelReviewDetail = (x: any) => {
     setReviewModalData(x);
     setIsOpenReviewDetailModal(true);
   };
@@ -60,7 +62,7 @@ export default function CardContainer({
   if (type === 1)
     return (
       <>
-        <div className="mt-12 mb-10" style={{ padding: `0 ${chevronWidth}px` }}>
+        <div className="mt-12 mb-10" style={{ padding: `0 ${0}px` }}>
           <div className="text-2xl mb-7">{title}</div>
 
           <ItemsCarousel
@@ -92,7 +94,9 @@ export default function CardContainer({
                     )}
                   </div>
 
-                  <div>{/* <Stars score={data.total_score} size={0} /> */}</div>
+                  <div>
+                    <Stars score={data.total_score} size={0} />
+                  </div>
                   <div>{data.name}</div>
                   <div>{data.address}</div>
                 </div>
@@ -105,23 +109,19 @@ export default function CardContainer({
 
   return (
     <>
-      <div className="cardcontainer" style={{ padding: `0 0px` }}>
-        <div className="cardcontainer-title-container">
-          <div className="cardcontainer-title">{title}</div>
-          <div className="cardcontainer-title-container-review">
+      <div className="" style={{ padding: `0 0px` }}>
+        <div className="flex items-center justify-between">
+          <div className="text-2xl">{title}</div>
+          <div className="">
             {username ? (
-              <div className="cardcontainer-review-create">
-                <div onClick={isCreateModal}>리뷰 작성하기</div>
+              <div className="">
+                <div onClick={isCreateModal}>리뷰 작성하기 |</div>
               </div>
             ) : (
               <div></div>
             )}
-            {username ? (
-              <div style={{ margin: "0 10px 0 10px" }}> | </div>
-            ) : (
-              <div></div>
-            )}
-            <div className="cardcontainer-review-all" onClick={isReviewModal}>
+
+            <div className="text-xl" onClick={isReviewModal}>
               모든 리뷰 보기
             </div>
           </div>
@@ -139,11 +139,10 @@ export default function CardContainer({
           {data.map((data: any, i: any) => (
             <>
               <div key={i} onClick={() => handelReviewDetail(data)}>
-                <div className="cardcontainer-card-item">
-                  {" "}
+                <div className="">
                   {data.reviewimage_set.length ? (
                     <img
-                      className="cardcontainer-coffecafe-image"
+                      className=""
                       src={data.reviewimage_set[0].image}
                       alt="Cafe"
                     />
@@ -152,8 +151,10 @@ export default function CardContainer({
                   )}
                 </div>
                 {/* <div>{data.id}</div> */}
-                <div>{/* <Stars score={data.score} type={0} /> */}</div>
-                <div className="cardcontaioner-data-title">{data.title}</div>
+                <div>
+                  <Stars score={data.score} size={0} />
+                </div>
+                <div className="">{data.title}</div>
                 <div>{data.name}</div>
                 <div></div>
               </div>
@@ -169,7 +170,7 @@ export default function CardContainer({
               </div>
               <div className="review-Modal-List">
                 <div>
-                  {/* <ListContainer data={reviewModalData} userInfo={userInfo} /> */}
+                  <ListContainer data={reviewModalData} userInfo={userInfo} />
                 </div>
               </div>
             </div>

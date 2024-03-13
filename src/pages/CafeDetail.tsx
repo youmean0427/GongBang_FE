@@ -12,7 +12,6 @@ import CardContainer from "../components/common/CardContainer";
 // import { Circle, Map, MapMarker } from "react-kakao-maps-sdk";
 import fullStar from "../images/full_star.png";
 // import ListContainer from "../components/list/ListContainer";
-// import Stars from "../components/common/Stars";
 // import Review from "./Reveiw";
 // import ReviewCreate from "./ReviewCreate";
 import { LuX } from "react-icons/lu";
@@ -25,22 +24,25 @@ import {
   LuParkingSquare,
   LuTrash,
 } from "react-icons/lu";
+import Stars from "../components/common/Stars";
+import Review from "./Reveiw";
 
 export default function CafeDetail() {
   let accessToken = localStorage.getItem("access_token");
   const { id } = useParams();
   const title = ["통합 리뷰", "분위기", "좌석", "음료", "콘센트"];
-  const [filteredReviewOne, setFilteredReviewOne] = useState([]);
-  const [filteredReviewTwo, setFilteredReviewTwo] = useState([]);
-  const [filteredReviewThr, setFilteredReviewThr] = useState([]);
-  const [filteredReviewFou, setFilteredReviewFou] = useState([]);
+
   const [nowImage, setNowImage] = useState();
 
-  const [reviewModal, setReviewModal] = useState(false);
-  const [reviewCreateModal, setReviewCreateModal] = useState(false);
+  const [toggleReviewModal, setToggleReviewModal] = useState(false);
+  const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
   const [options, setOptions] = useState(["X", "X", "X", "X"]);
 
-  const { isLoading, isFetching, data } = useQuery({
+  const {
+    isLoading,
+    isFetching,
+    data: coffecafeDetail,
+  } = useQuery({
     queryKey: ["getCoffeeCafeDetail"],
     queryFn: () => getCoffeeCafeDetailAPI(id),
   });
@@ -55,165 +57,108 @@ export default function CafeDetail() {
     setNowImage(x);
   };
 
-  const isReviewModal = (x: any) => {
-    setReviewModal(true);
+  const handleReviewModal = (x: any) => {
+    setToggleReviewModal(true);
   };
-  const isReviewCreateMdoal = (x: any) => {
-    setReviewCreateModal(true);
+  const handleReviewCreateMdoal = (x: any) => {
+    setToggleReviewCreateModal(true);
   };
 
   useEffect(() => {
-    if (data) {
-      setNowImage(data.coffeecafeimage_set[0].image);
-      console.log(data.wifi);
-      if (data.wifi) {
+    if (coffecafeDetail) {
+      setNowImage(coffecafeDetail.coffeecafeimage_set[0].image);
+
+      if (coffecafeDetail.wifi) {
         options[0] = "O";
       }
-      if (data.toilet) {
+      if (coffecafeDetail.toilet) {
         options[1] = "O";
       }
-      if (data.parking) {
+      if (coffecafeDetail.parking) {
         options[2] = "O";
       }
-      console.log(options);
-      const filteredOne = data.review_set.filter(
-        (review: any) => review.type === 1
-      );
-      setFilteredReviewOne(filteredOne);
-      const filteredTwo = data.review_set.filter(
-        (review: any) => review.type === 2
-      );
-      setFilteredReviewTwo(filteredTwo);
-      const filteredThr = data.review_set.filter(
-        (review: any) => review.type === 3
-      );
-      setFilteredReviewThr(filteredThr);
-      const filteredFou = data.review_set.filter(
-        (review: any) => review.type === 4
-      );
-      setFilteredReviewFou(filteredFou);
 
-      data.review_set.sort(
+      // Review 최신순 정렬
+      coffecafeDetail.review_set.sort(
         (a: any, b: any) =>
           new Date(b.date).getTime() - new Date(a.date).getTime()
       );
     }
-  }, [data]);
+  }, [coffecafeDetail]);
 
-  if (isFetching && reviewCreateModal === false) return <></>;
+  if (isFetching && toggleReviewCreateModal === false) return <></>;
   if (isLoading) return <></>;
   return (
     <>
-      <div className="cafedetail">
-        <div className="cafedetail-info">
-          <div className="cafedetail-info-image">
-            <div className="cafedetail-info-image-col">
-              {data.coffeecafeimage_set.map((x: any, i: any) => (
+      <div>
+        <div className="grid grid-cols-2 mt-16">
+          <div className="flex items-center justify-center h-3/4">
+            <div className="h-full">
+              {coffecafeDetail.coffeecafeimage_set.map((x: any, i: any) => (
                 <div
+                  className="flex flex-col h-1/3"
                   key={i}
                   onClick={() => {
                     handleNowImage(x.image);
                   }}
                 >
-                  <img src={x.image} />
+                  <img className="h-full" src={x.image} />
                 </div>
               ))}
-              {data.coffeecafeimage_set.length === 1 ? (
-                <>
-                  <div></div>
-                  <div></div>
-                </>
-              ) : (
-                <></>
-              )}
-              {data.coffeecafeimage_set.length === 2 ? (
-                <>
-                  <div></div>
-                </>
-              ) : (
-                <></>
-              )}
             </div>
 
-            <div className="cafedetail-info-image-main">
-              <img src={nowImage} />
+            <div className="h-full">
+              <img className="h-full" src={nowImage} />
             </div>
           </div>
 
-          <div className="cafedetail-info-info">
-            <div className="cafedetail-total-score-cont">
-              {/* <div className="cafedetail-info-total-score"> {data.total_score} </div> */}
-              <div>{/* <Stars score={data.total_score} size={1} /> */}</div>
-            </div>
-            <div className="cafedetail-info-name"> {data.name} </div>
-            <div className="cafedetail-info-address"> {data.address} </div>
-            <div className="cafedetail-info-time"> {data.time} </div>
+          <div className="">
+            <div className="text-3xl"> {coffecafeDetail.name} </div>
+            <Stars score={coffecafeDetail.total_score} size={1} />
+            <div className="text-xl"> {coffecafeDetail.address} </div>
+            <div className="text-xl"> {coffecafeDetail.time} </div>
             {/* <div> {data.lat} </div>
                         <div> {data.lng} </div> */}
             <hr />
-            <div className="cafedetail-info-con">편의시설</div>
-            <div className="cafedetail-info-opt">
-              <div className="cafedetail-info-opt-bet">
-                <div className="cafedetail-info-opt-title">
-                  <LuHome /> 분위기
-                </div>
-                <div className="cafedetail-info-opt-title">
-                  <LuCoffee /> 음료
-                </div>
-              </div>
-              <div className="cafedetail-info-opt-bet-star">
-                <div className="cafedetail-info-opt-score">
-                  {/* <Stars score={data.vibe} size={0} />{" "} */}
-                </div>
-                <div className="cafedetail-info-opt-score">
-                  {/* <Stars score={data.coffee} size={0} /> */}
-                </div>
+            <div className="text-xl cafedetail-info-con">편의시설</div>
+            <div className="grid grid-cols-2 text-lg">
+              <div className="flex items-center">
+                <LuHome />
+                <div>분위기</div>
+                <Stars score={coffecafeDetail.vibe} size={0} />
               </div>
 
-              <div className="cafedetail-info-opt-bet">
-                <div className="cafedetail-info-opt-title">
-                  <LuArmchair /> 좌석
-                </div>
-                <div className="cafedetail-info-opt-title">
-                  <LuPlug /> 콘센트
-                </div>
+              <div className="flex items-center">
+                <LuCoffee /> 음료
+                <Stars score={coffecafeDetail.coffee} size={0} />
               </div>
-              <div>
-                <div className="cafedetail-info-opt-score">
-                  {/* <Stars score={data.seat} size={0} /> */}
-                </div>
-                <div className="cafedetail-info-opt-score">
-                  {/* <Stars score={data.plug} size={0} /> */}
-                </div>
+              <div className="flex items-center">
+                <LuArmchair /> 좌석
+                <Stars score={coffecafeDetail.seat} size={0} />
               </div>
-            </div>
-            <div className="cafedetail-info-opt">
-              <div>
-                <div className="cafedetail-info-opt-title">
-                  <LuWifi /> 와이파이
-                </div>
-                <div className="cafedetail-info-opt-title">
-                  <LuParkingSquare /> 주차
-                </div>
+              <div className="flex items-center">
+                <LuPlug /> 콘센트
+                <Stars score={coffecafeDetail.plug} size={0} />
               </div>
-              <div>
-                <div className="cafedetail-info-opt-score">{options[0]}</div>
-                <div className="cafedetail-info-opt-score">{options[1]}</div>
+              <div className="flex items-center">
+                <LuWifi /> 와이파이
+                <div>{options[0]}</div>
               </div>
-              <div>
-                <div className="cafedetail-info-opt-title">
-                  <LuTrash /> 화장실
-                </div>
-                <div className="cafedetail-info-opt-title">주차</div>
+              <div className="flex items-center">
+                <LuParkingSquare /> 주차
+                <div>{options[1]}</div>
               </div>
-              <div>
-                <div className="cafedetail-info-opt-score">{options[2]}</div>
-                <div className="cafedetail-info-opt-score">{options[3]}</div>
+              <div className="flex items-center">
+                <LuTrash /> 화장실
+                <div>{options[2]}</div>
+              </div>
+              <div className="flex items-center">
+                {/* <div>주차</div> */}
+                {/* <div>{options[3]}</div> */}
               </div>
             </div>
           </div>
         </div>
-
         {/* <div> {data.coffeecafeimage_set.map((x, index) => (
                     <div key = {index}>
                         <img src = {x.image}/>
@@ -225,11 +170,11 @@ export default function CafeDetail() {
         <div>
           <CardContainer
             title={title[0]}
-            data={data.review_set}
+            data={coffecafeDetail.review_set}
             type={2}
             userInfo={userInfo}
-            isReviewModal={isReviewModal}
-            isCreateModal={isReviewCreateMdoal}
+            isReviewModal={handleReviewModal}
+            isCreateModal={toggleReviewCreateModal}
             chevronWidth={100}
           />
           <div></div>
@@ -259,7 +204,7 @@ export default function CafeDetail() {
         </div>
         <hr />
         <div>
-          <CardContainer
+          {/* <CardContainer
             title={title[1]}
             data={filteredReviewOne}
             type={2}
@@ -283,34 +228,35 @@ export default function CafeDetail() {
             data={filteredReviewFou}
             type={2}
             userInfo={userInfo}
-          />
+          /> */}
         </div>
       </div>
-
       {/* Modal */}
-      {reviewModal ? (
+      {toggleReviewModal ? (
         <div className="review-all-Modal">
           <div
             className="review-Modal-x"
             onClick={() => {
-              setReviewModal(false);
+              setToggleReviewModal(false);
             }}
           >
             <LuX size={30} />
           </div>
           <div className="review-all-Modal-List">
             <div className="review-all-Modal-content">
-              <div>{/* <Review data={data} /> */}</div>
+              <div>
+                <Review data={coffecafeDetail} />
+              </div>
             </div>
           </div>
         </div>
       ) : null}
-      {reviewCreateModal ? (
+      {toggleReviewCreateModal ? (
         <div className="review-all-Modal">
           <div
             className="review-Modal-x"
             onClick={() => {
-              setReviewCreateModal(false);
+              setToggleReviewCreateModal(false);
             }}
           >
             <LuX size={30} />

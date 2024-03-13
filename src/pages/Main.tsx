@@ -1,6 +1,6 @@
 import Banner from "../components/common/Banner";
 import CardContainer from "../components/common/CardContainer";
-
+import React from "react";
 import { getCoffeeCafesAPI } from "../apis/api";
 import { useQuery } from "react-query";
 
