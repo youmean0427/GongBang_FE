@@ -28,16 +28,18 @@ export default function Review({ data }: any) {
 
   return (
     <div className="">
-      <div className="">
-        <div className="">{data.name}</div>
-        <Stars score={data.total_score} size={1} />
-        <div className="">{data.review_set.length}개의 리뷰</div>
+      <div className="flex flex-col items-center mb-10">
+        <div className="mb-2 text-2xl font-bold">{data.name}</div>
+        <Stars score={data.total_score} size="small" />
+        <div className="mt-2 text-lg font-bold">
+          {data.review_set.length}개의 리뷰
+        </div>
       </div>
-      <div>
+      <div className="">
         {data ? (
           data.review_set.map((x: any, i: any) => (
             <div key={i}>
-              <ListContainer data={x} userInfo={2} />
+              <ListContainer data={x} />
             </div>
           ))
         ) : (

@@ -12,13 +12,14 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Stars from "./Stars";
 import ListContainer from "./ListContainer";
+import Modal from "./Modal";
 
 interface CardData {
   title: string;
   data: any;
   type: number;
   chevronWidth?: number;
-  userInfo?: number;
+
   isReviewModal?: any;
   isCreateModal?: any;
 }
@@ -28,12 +29,11 @@ export default function CardContainer({
   data,
   type,
   chevronWidth,
-  userInfo,
   isReviewModal,
   isCreateModal,
 }: CardData) {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const [isOpenReviewDetailModal, setIsOpenReviewDetailModal] = useState(false);
+  const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
 
   const reviewDeleteMutation = useMutation(
@@ -50,9 +50,9 @@ export default function CardContainer({
     reviewDeleteMutation.mutate(x);
   };
 
-  const handelReviewDetail = (x: any) => {
+  const handelReviewDetailModal = (x: any) => {
     setReviewModalData(x);
-    setIsOpenReviewDetailModal(true);
+    setToggleReviewDetailModal(true);
   };
 
   const handleReviewModal = () => {
@@ -63,7 +63,7 @@ export default function CardContainer({
     return (
       <>
         <div className="mt-12 mb-10" style={{ padding: `0 ${0}px` }}>
-          <div className="text-2xl mb-7">{title}</div>
+          <div className="text-2xl font-bold mb-7">{title}</div>
 
           <ItemsCarousel
             requestToChangeActive={setActiveItemIndex}
@@ -95,7 +95,7 @@ export default function CardContainer({
                   </div>
 
                   <div>
-                    <Stars score={data.total_score} size={0} />
+                    <Stars score={data.total_score} size="small" />
                   </div>
                   <div>{data.name}</div>
                   <div>{data.address}</div>
@@ -106,26 +106,20 @@ export default function CardContainer({
         </div>
       </>
     );
-
+  // Review Card
   return (
     <>
-      <div className="" style={{ padding: `0 0px` }}>
+      <div className="mt-5 mb-5" style={{ padding: `0 0px` }}>
         <div className="flex items-center justify-between">
-          <div className="text-2xl">{title}</div>
+          <div className="text-2xl font-bold">{title}</div>
           <div className="">
-            {username ? (
-              <div className="">
-                <div onClick={isCreateModal}>리뷰 작성하기 |</div>
-              </div>
-            ) : (
-              <div></div>
-            )}
-
+            <div onClick={isCreateModal}>리뷰 작성하기 |</div>
             <div className="text-xl" onClick={isReviewModal}>
               모든 리뷰 보기
             </div>
           </div>
         </div>
+
         <ItemsCarousel
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
@@ -138,8 +132,9 @@ export default function CardContainer({
         >
           {data.map((data: any, i: any) => (
             <>
-              <div key={i} onClick={() => handelReviewDetail(data)}>
-                <div className="">
+              <div key={i} onClick={() => handelReviewDetailModal(data)}>
+                {/* Images */}
+                <div className="mb-3">
                   {data.reviewimage_set.length ? (
                     <img
                       className=""
@@ -151,31 +146,38 @@ export default function CardContainer({
                   )}
                 </div>
                 {/* <div>{data.id}</div> */}
-                <div>
-                  <Stars score={data.score} size={0} />
-                </div>
-                <div className="">{data.title}</div>
-                <div>{data.name}</div>
+
+                {/* Info */}
+                <Stars score={data.score} size="small" />
+                <div className="text-xl font-bold">{data.title}</div>
+                <div className="text-lg ">{data.name}</div>
                 <div></div>
               </div>
             </>
           ))}
         </ItemsCarousel>
+
+        {reviewModalData ? (
+          <Modal close={handleReviewModal} data={reviewModalData} type={0} />
+        ) : (
+          <></>
+        )}
+
         {/* Modal */}
-        <div>
+        {/* <div>
           {reviewModalData ? (
             <div className="review-Modal">
               <div onClick={handleReviewModal}>
-                <LuX size={30} />
+               
               </div>
               <div className="review-Modal-List">
                 <div>
-                  <ListContainer data={reviewModalData} userInfo={userInfo} />
+                  <ListContainer data={reviewModalData} />
                 </div>
               </div>
             </div>
           ) : null}
-        </div>
+        </div> */}
       </div>
     </>
   );

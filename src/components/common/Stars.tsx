@@ -6,12 +6,22 @@ import emStar from "../../images/em_star.png";
 
 interface Stars {
   score: number;
-  size: number;
+  size: string;
 }
+
+const starsSize: any = {
+  small: "w-7",
+  large: "w-10",
+};
+const textsSize: any = {
+  small: "text-lg mr-2 font-bold text-amber-700",
+  large: "text-xl mr-2 font-bold text-amber-700",
+};
 
 export default function Stars({ score, size }: Stars) {
   const [stars, setStars] = useState([false, false, false, false, false]);
-
+  let starSize = starsSize[size];
+  let textSize = textsSize[size];
   useEffect(() => {
     let arr = [false, false, false, false, false];
     for (let i = 0; i < Math.floor(score); i++) {
@@ -22,13 +32,44 @@ export default function Stars({ score, size }: Stars) {
 
   return (
     <>
-      <div className="flex flex-row items-center">
-        <div className="">{score.toFixed(2)}</div>
-        <div>{stars[0] ? <img src={fullStar} /> : <img src={emStar} />}</div>
-        <div>{stars[1] ? <img src={fullStar} /> : <img src={emStar} />}</div>
-        <div>{stars[2] ? <img src={fullStar} /> : <img src={emStar} />}</div>
-        <div>{stars[3] ? <img src={fullStar} /> : <img src={emStar} />}</div>
-        <div>{stars[4] ? <img src={fullStar} /> : <img src={emStar} />}</div>
+      <div className="flex flex-row items-center ">
+        <div className={`${textSize}`}>{score.toFixed(2)}</div>
+        <div className={`${starSize}`}>
+          {stars[0] ? (
+            <img className="w-full" src={fullStar} />
+          ) : (
+            <img className="w-full" src={emStar} />
+          )}
+        </div>
+        <div className={`${starSize}`}>
+          {stars[1] ? (
+            <img className="w-full" src={fullStar} />
+          ) : (
+            <img className="w-full" src={emStar} />
+          )}
+        </div>
+        <div className={`${starSize}`}>
+          {stars[2] ? (
+            <img className="w-full" src={fullStar} />
+          ) : (
+            <img className="w-full" src={emStar} />
+          )}
+        </div>
+        <div className={`${starSize}`}>
+          {" "}
+          {stars[3] ? (
+            <img className="w-full" src={fullStar} />
+          ) : (
+            <img className="w-full" src={emStar} />
+          )}
+        </div>
+        <div className={`${starSize}`}>
+          {stars[4] ? (
+            <img className="w-full" src={fullStar} />
+          ) : (
+            <img className="w-full" src={emStar} />
+          )}
+        </div>
       </div>
     </>
   );

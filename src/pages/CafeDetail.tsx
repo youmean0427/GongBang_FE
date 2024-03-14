@@ -26,14 +26,13 @@ import {
 } from "react-icons/lu";
 import Stars from "../components/common/Stars";
 import Review from "./Reveiw";
+import Modal from "../components/common/Modal";
 
 export default function CafeDetail() {
-  let accessToken = localStorage.getItem("access_token");
   const { id } = useParams();
-  const title = ["통합 리뷰", "분위기", "좌석", "음료", "콘센트"];
+  const reviewTitle = ["통합 리뷰", "분위기", "좌석", "음료", "콘센트"];
 
   const [nowImage, setNowImage] = useState();
-
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
   const [options, setOptions] = useState(["X", "X", "X", "X"]);
@@ -47,21 +46,22 @@ export default function CafeDetail() {
     queryFn: () => getCoffeeCafeDetailAPI(id),
   });
 
-  const { data: userInfo } = useQuery({
-    queryKey: ["userInfo"],
-    queryFn: () => userAPI(),
-    enabled: !!localStorage.getItem("access_token"),
-  });
+  // const { data: userInfo } = useQuery({
+  //   queryKey: ["userInfo"],
+  //   queryFn: () => userAPI(),
+  //   enabled: !!localStorage.getItem("access_token"),
+  // });
 
-  const handleNowImage = (x: any) => {
-    setNowImage(x);
+  const handleNowImage = (image: any) => {
+    setNowImage(image);
   };
 
-  const handleReviewModal = (x: any) => {
-    setToggleReviewModal(true);
+  const handleReviewModal = () => {
+    setToggleReviewModal(!toggleReviewModal);
   };
-  const handleReviewCreateMdoal = (x: any) => {
-    setToggleReviewCreateModal(true);
+
+  const handleReviewCreateMdoal = () => {
+    setToggleReviewCreateModal(!toggleReviewCreateModal);
   };
 
   useEffect(() => {
@@ -90,8 +90,9 @@ export default function CafeDetail() {
   if (isLoading) return <></>;
   return (
     <>
-      <div>
-        <div className="grid grid-cols-2 mt-16">
+      <div className="">
+        <div className="grid items-center grid-cols-2 mt-1">
+          {/* Images */}
           <div className="flex items-center justify-center h-3/4">
             <div className="h-full">
               {coffecafeDetail.coffeecafeimage_set.map((x: any, i: any) => (
@@ -111,45 +112,53 @@ export default function CafeDetail() {
               <img className="h-full" src={nowImage} />
             </div>
           </div>
-
+          {/*  Info */}
           <div className="">
-            <div className="text-3xl"> {coffecafeDetail.name} </div>
-            <Stars score={coffecafeDetail.total_score} size={1} />
-            <div className="text-xl"> {coffecafeDetail.address} </div>
-            <div className="text-xl"> {coffecafeDetail.time} </div>
+            <div className="mb-3 text-3xl"> {coffecafeDetail.name} </div>
+            <Stars score={coffecafeDetail.total_score} size="large" />
+            <div className="mt-2 mb-1 text-xl"> {coffecafeDetail.address} </div>
+            <div className="mb-2 text-xl"> {coffecafeDetail.time} </div>
             {/* <div> {data.lat} </div>
                         <div> {data.lng} </div> */}
             <hr />
-            <div className="text-xl cafedetail-info-con">편의시설</div>
+            <div className="mt-3 mb-2 text-xl cafedetail-info-con">
+              편의시설
+            </div>
             <div className="grid grid-cols-2 text-lg">
-              <div className="flex items-center">
-                <LuHome />
-                <div>분위기</div>
-                <Stars score={coffecafeDetail.vibe} size={0} />
+              <div className="flex items-center mt-1 mb-1">
+                <LuHome className="mr-2" />
+                <div className="w-20 ">분위기</div>
+                <Stars score={coffecafeDetail.vibe} size="small" />
               </div>
 
-              <div className="flex items-center">
-                <LuCoffee /> 음료
-                <Stars score={coffecafeDetail.coffee} size={0} />
+              <div className="flex items-center mt-1 mb-1">
+                <LuCoffee className="mr-2" />
+                <div className="w-20 ">음료</div>
+                <Stars score={coffecafeDetail.coffee} size="small" />
               </div>
-              <div className="flex items-center">
-                <LuArmchair /> 좌석
-                <Stars score={coffecafeDetail.seat} size={0} />
+              <div className="flex items-center mt-1 mb-1">
+                <LuArmchair className="mr-2" />
+                <div className="w-20 ">좌석</div>
+                <Stars score={coffecafeDetail.seat} size="small" />
               </div>
-              <div className="flex items-center">
-                <LuPlug /> 콘센트
-                <Stars score={coffecafeDetail.plug} size={0} />
+              <div className="flex items-center mt-1 mb-1">
+                <LuPlug className="mr-2" />
+                <div className="w-20 ">콘센트</div>
+                <Stars score={coffecafeDetail.plug} size="small" />
               </div>
-              <div className="flex items-center">
-                <LuWifi /> 와이파이
+              <div className="flex items-center mt-3 mb-1">
+                <LuWifi className="mr-2" />
+                <div className="w-20">와이파이</div>
                 <div>{options[0]}</div>
               </div>
-              <div className="flex items-center">
-                <LuParkingSquare /> 주차
+              <div className="flex items-center mt-1 mb-1">
+                <LuParkingSquare className="mr-2" />
+                <div className="w-20">주차</div>
                 <div>{options[1]}</div>
               </div>
-              <div className="flex items-center">
-                <LuTrash /> 화장실
+              <div className="flex items-center mt-1 mb-1">
+                <LuTrash className="mr-2" />
+                <div className="w-20">화장실</div>
                 <div>{options[2]}</div>
               </div>
               <div className="flex items-center">
@@ -166,15 +175,14 @@ export default function CafeDetail() {
                 ))} </div> */}
 
         <div></div>
-
+        {/* 통합 리뷰 */}
         <div>
           <CardContainer
-            title={title[0]}
+            title={reviewTitle[0]}
             data={coffecafeDetail.review_set}
             type={2}
-            userInfo={userInfo}
             isReviewModal={handleReviewModal}
-            isCreateModal={toggleReviewCreateModal}
+            isCreateModal={handleReviewCreateMdoal}
             chevronWidth={100}
           />
           <div></div>
@@ -233,6 +241,22 @@ export default function CafeDetail() {
       </div>
       {/* Modal */}
       {toggleReviewModal ? (
+        <div>
+          {" "}
+          <Modal close={handleReviewModal} data={coffecafeDetail} type={1} />
+        </div>
+      ) : (
+        <></>
+      )}
+      {toggleReviewCreateModal ? (
+        <div>
+          <Modal close={handleReviewCreateMdoal} type={3} />
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {/* {toggleReviewModal ? (
         <div className="review-all-Modal">
           <div
             className="review-Modal-x"
@@ -244,13 +268,11 @@ export default function CafeDetail() {
           </div>
           <div className="review-all-Modal-List">
             <div className="review-all-Modal-content">
-              <div>
-                <Review data={coffecafeDetail} />
-              </div>
+              <div></div>
             </div>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
       {toggleReviewCreateModal ? (
         <div className="review-all-Modal">
           <div

@@ -7,10 +7,9 @@ import Stars from "../common/Stars";
 
 interface ListContainer {
   data: any;
-  userInfo: any;
 }
 
-export default function ListContainer({ data, userInfo }: ListContainer) {
+export default function ListContainer({ data }: ListContainer) {
   const typeCode: any = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const [images, setImages] = useState<any>([]);
 
@@ -33,60 +32,37 @@ export default function ListContainer({ data, userInfo }: ListContainer) {
       setImages([...images, x]);
     });
   }, []);
-
+  console.log(data);
   return (
-    <div className="">
-      <div>
-        <div className="">
-          <div className="">{data.title}</div>
-
-          {userInfo ? (
-            <div>
-              {userInfo.name === data.username ? (
-                <div className="">
-                  <Link to={`/review/${data.id}`}>
-                    <span>수정</span>
-                  </Link>
-                  {"   "} | {"   "}
-                  {/* <span onClick={() => handleDelete(data.id)}>삭제</span> */}
-                </div>
-              ) : (
-                <div></div>
-              )}
-            </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
-
-        <div className="">
-          <div>{typeCode[data.type]}</div>
-          <div className="">{data.name}</div>
-          <div className="">{data.date}</div>
-          <Stars score={data.score} size={0} />
-        </div>
-
+    <div className="mt-5 mb-8 ml-8 mr-8">
+      {/* Info */}
+      <div className="grid grid-cols-2 mb-5">
+        <div className="text-2xl font-bold">{data.title}</div>
         <div>
-          <div className="">
-            {data.reviewimage_set.map((x: any, i: any) => (
-              <div key={i}>
-                <img src={x.image} />
-              </div>
-            ))}
-            {data.reviewimage_set.length == 2 ? <div></div> : <></>}
-            {data.reviewimage_set.length == 1 ? (
-              <>
-                <div></div>
-                <div></div>
-              </>
-            ) : (
-              <></>
-            )}
+          <div className=" text-end">
+            <Link to={`/review/${data.id}`}>
+              <span>수정</span>
+            </Link>
+
+            {/* <span onClick={() => handleDelete(data.id)}>삭제</span> */}
           </div>
         </div>
 
-        <div className="">{data.content}</div>
+        <Stars score={data.score} size="small" />
+
+        <div className=" text-end">{data.name}</div>
+        <div>{typeCode[data.type]}</div>
+        <div className=" text-end">{data.date}</div>
       </div>
+      {/* Image */}
+      <div className="flex mb-5">
+        {data.reviewimage_set.map((x: any, i: any) => (
+          <div className="w-1/3" key={i}>
+            <img src={x.image} />
+          </div>
+        ))}
+      </div>
+      <div className="">{data.content}</div>
     </div>
   );
 }
