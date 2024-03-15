@@ -13,16 +13,7 @@ import { RootState } from "../../redux/store";
 import Stars from "./Stars";
 import ListContainer from "./ListContainer";
 import Modal from "./Modal";
-
-interface CardData {
-  title: string;
-  data: any;
-  type: number;
-  chevronWidth?: number;
-
-  isReviewModal?: any;
-  isCreateModal?: any;
-}
+import { CardData } from "../../types/type";
 
 export default function CardContainer({
   title,
@@ -46,11 +37,12 @@ export default function CardContainer({
     }
   );
   const username = useSelector((state: RootState) => state.user.username);
+
   const handleDelete = (x: number) => {
     reviewDeleteMutation.mutate(x);
   };
 
-  const handelReviewDetailModal = (x: any) => {
+  const handelReviewDetailModal = (x: string) => {
     setReviewModalData(x);
     setToggleReviewDetailModal(true);
   };
@@ -75,11 +67,11 @@ export default function CardContainer({
             outsideChevron
             chevronWidth={chevronWidth}
           >
-            {data.map((data: any) => (
+            {data.map((data, i) => (
               <Link
                 to={`coffeecafe/${data.id}`}
                 style={{ textDecoration: "none" }}
-                key={data}
+                key={i}
               >
                 <div className="text-lg ">
                   <div className="mb-5 h-80">
@@ -130,7 +122,7 @@ export default function CardContainer({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {data.map((data: any, i: any) => (
+          {data.map((data: any, i) => (
             <>
               <div key={i} onClick={() => handelReviewDetailModal(data)}>
                 {/* Images */}

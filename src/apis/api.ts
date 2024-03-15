@@ -1,22 +1,43 @@
 import axios from "axios";
+axios.defaults.baseURL = process.env.BASE_URL;
 
 export const getCoffeeCafesAPI = async (type: number) => {
-  const { data } = await axios.get(`/api/coffeecafes/${type}`);
+  const { data } = await axios.get(
+    `https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/api/coffeecafes/all/${type}`
+  );
   return data;
 };
 
-export const getCoffeeCafeDetailAPI = async (id: any) => {
-  const { data } = await axios.get(`/api/coffeecafe/${id}`);
+export const getCoffeeCafeDetailAPI = async (id: string | undefined) => {
+  const { data } = await axios.get(`/api/coffeecafes/detail/${id}`);
   return data;
 };
 
-export const getCoffeeCafeDetailReviewCreateAPI = async (
+export const createcoffeeCafeAPI = async (data: FormData) => {
+  const response = await axios.post(`/api/coffeecafes/create`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response;
+};
+
+export const getReveiwsAllAPI = async () => {
+  const { data } = await axios.get("/api/coffeecafes/review");
+  return data;
+};
+
+export const getReviewDetailAPI = async (id: number) => {
+  const { data } = await axios.get(`/api/coffeecafes/review/${id}`);
+  return data;
+};
+export const postCoffeeCafeDetailReviewAPI = async (
   id: number,
   data: FormData,
   type: number
 ) => {
   const response = await axios.post(
-    `/api/coffeecafe/${id}/review/${type}`,
+    `/api/coffeecafe/detail/${id}/review/${type}`,
     data,
     {
       headers: {
@@ -27,33 +48,14 @@ export const getCoffeeCafeDetailReviewCreateAPI = async (
   return response;
 };
 
-export const getReviewDetailAPI = async (id: number) => {
-  const { data } = await axios.get(`/api/coffeecafe/review/${id}`);
-  return data;
-};
-
 export const deleteReviewAPI = async (id: number) => {
-  const response = await axios.delete(`/api/coffeecafe/review/${id}/delete`);
+  const response = await axios.delete(`/api/coffeecafes/review/${id}/delete`);
   return response;
 };
 
 export const deleteReviewImageAPI = async (id: number) => {
-  const response = await axios.delete(`/api/coffeecafe/review/image/${id}`);
+  const response = await axios.delete(`/api/coffeecafes/review/image/${id}`);
   return response;
-};
-
-export const creaetcoffeeCafeAPI = async (data: FormData) => {
-  const response = await axios.post(`/api/coffeecafe/create`, data, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response;
-};
-
-export const getReveiwsAPI = async () => {
-  const { data } = await axios.get("/api/coffeecafe/review");
-  return data;
 };
 
 // Account

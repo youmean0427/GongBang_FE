@@ -250,7 +250,7 @@ export default function CafeDetail() {
       )}
       {toggleReviewCreateModal ? (
         <div>
-          <Modal close={handleReviewCreateMdoal} type={3} />
+          <Modal close={handleReviewCreateMdoal} type={2} />
         </div>
       ) : (
         <></>
