@@ -17,7 +17,7 @@ axios.defaults.headers.common["X-CSRFToken"] = getCookie("csrftoken");
 const queryClient = new QueryClient();
 
 if (process.env.NODE_ENV === "development") {
-  worker.start();
+  // worker.start();
 }
 root.render(
   <QueryClientProvider client={queryClient}>

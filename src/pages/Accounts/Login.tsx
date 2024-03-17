@@ -4,6 +4,8 @@ import { loginAPI, userAPI } from "../../apis/api";
 import { Await, Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import userSlice from "../../redux/userSlice";
+import { AccessToken } from "../../recoil/atom";
+import { useRecoilState } from "recoil";
 
 interface Login {
   email: String;
@@ -18,9 +20,11 @@ interface UserData {
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [loginError, setLoginError] = useState(false);
+
+  const [isLoginError, setIsLoginError] = useState(false);
   const [isValid, setIsValid] = useState(false);
-  const [logininputs, setLoginInputs] = useState<Login>({
+  const [accessToken, setAccessToken] = useRecoilState(AccessToken);
+  const [loginInputs, setLoginInputs] = useState<Login>({
     email: "",
     password: "",
   });
@@ -28,7 +32,7 @@ export default function Login() {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setLoginInputs({
-      ...logininputs,
+      ...loginInputs,
       [name]: value, // [name] : event.target.name / name : inputs의 key
     });
   };
@@ -36,6 +40,7 @@ export default function Login() {
   const loginMutation = useMutation(["loginAPI"], loginAPI, {
     onSuccess: async (res) => {
       localStorage.setItem("access_token", res.data.access_token);
+      setAccessToken(res.data.access_token);
       try {
         const userData = await userAPI();
         dispatch(userSlice.actions.post(userData.username));
@@ -44,19 +49,19 @@ export default function Login() {
       //   window.location.reload();
     },
     onError: () => {
-      setLoginError(true);
+      setIsLoginError(true);
     },
   });
 
   const handleLogin = () => {
     loginMutation.mutate({
-      email: logininputs.email,
-      password: logininputs.password,
+      email: loginInputs.email,
+      password: loginInputs.password,
     });
   };
 
   useEffect(() => {
-    setIsValid(!(logininputs.email && logininputs.password));
+    setIsValid(!(loginInputs.email && loginInputs.password));
   });
 
   return (
@@ -84,7 +89,7 @@ export default function Login() {
         </div>
 
         <div className="mt-3 mb-3 text-lg">
-          {loginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
+          {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
         </div>
 
         <div>

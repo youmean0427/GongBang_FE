@@ -7,9 +7,10 @@ import logoImage from "../../images/gongbang_logo.png";
 import { logoutAPI, userAPI } from "../../apis/api";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-
+import { useRecoilValue } from "recoil";
 import { RootState } from "../../redux/store";
 import userSlice from "../../redux/userSlice";
+import { AccessToken } from "../../recoil/atom";
 
 interface UserData {
   email: String;
@@ -28,6 +29,7 @@ export default function Nav() {
   //   queryFn: () => userAPI(),
   //   enabled: !!localStorage.getItem("access_token"),
   // });
+  const accessToken = useRecoilValue(AccessToken);
 
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
     onSuccess: () => {

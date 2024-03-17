@@ -8,7 +8,7 @@ export default function Main() {
     queryKey: ["getCoffeeCafes"],
     queryFn: () => getCoffeeCafesAPI(1),
   });
-  console.log(data);
+
   if (isLoading) return <></>;
   return (
     <>

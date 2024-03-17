@@ -4,13 +4,16 @@ import Router from "./routes/router";
 import { Provider, useSelector, useDispatch } from "react-redux";
 import Nav from "./components/common/Nav";
 import store from "./redux/store";
+import { RecoilRoot } from "recoil";
 export default function App() {
   return (
     <>
-      <Provider store={store}>
-        <Nav />
-        <Router />
-      </Provider>
+      <RecoilRoot>
+        <Provider store={store}>
+          <Nav />
+          <Router />
+        </Provider>
+      </RecoilRoot>
     </>
   );
 }

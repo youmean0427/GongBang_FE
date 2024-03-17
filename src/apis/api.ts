@@ -1,10 +1,8 @@
 import axios from "axios";
-axios.defaults.baseURL = process.env.BASE_URL;
+// axios.defaults.baseURL = process.env.BASE_URL;
 
 export const getCoffeeCafesAPI = async (type: number) => {
-  const { data } = await axios.get(
-    `https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/api/coffeecafes/all/${type}`
-  );
+  const { data } = await axios.get(`/api/coffeecafes/all/${type}`);
   return data;
 };
 
@@ -65,7 +63,7 @@ export const userAPI = async () => {
   return data;
 };
 
-export const signupAPI = async (data: Object) => {
+export const signupAPI = async (data: any) => {
   const response = await axios.post("/accounts/registration/", data, {
     headers: {
       "Content-Type": "application/json",
