@@ -54,7 +54,7 @@ export default function Signup() {
 
   useEffect(() => {
     {
-      signupInputs.password1.length && signupInputs.password1.length < 8
+      signupInputs.password1.length && signupInputs.password1.length < 9
         ? setIsPasswordLen8(false)
         : setIsPasswordLen8(true);
     }
@@ -119,7 +119,7 @@ export default function Signup() {
               />
             </div>
             <div className="mt-3 mb-3 text-lg">
-              {isPasswordLen8 ? "" : "8자리 이상 입력해주세요."}{" "}
+              {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
             </div>
 
             <div className="mt-3 mb-3 text-lg">비밀번호 확인</div>

@@ -39,14 +39,15 @@ export default function Login() {
 
   const loginMutation = useMutation(["loginAPI"], loginAPI, {
     onSuccess: async (res) => {
-      localStorage.setItem("access_token", res.data.access_token);
-      setAccessToken(res.data.access_token);
+      localStorage.setItem("access_token", res.data.access);
+      setAccessToken(res.data.access);
       try {
-        const userData = await userAPI();
-        dispatch(userSlice.actions.post(userData.username));
+        const userData = await userAPI(res.data.access);
+        dispatch(userSlice.actions.post(userData.data.last_name));
         navigate("/");
-      } catch (error) {}
-      //   window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     },
     onError: () => {
       setIsLoginError(true);

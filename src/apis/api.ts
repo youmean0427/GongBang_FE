@@ -58,9 +58,15 @@ export const deleteReviewImageAPI = async (id: number) => {
 
 // Account
 
-export const userAPI = async () => {
-  const { data } = await axios.get("/accounts/user/");
-  return data;
+export const userAPI = async (token: string) => {
+  const response = await axios.get("/accounts/user/", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "X-CSRFToken": "{{csrftoken}}",
+    },
+  });
+
+  return response;
 };
 
 export const signupAPI = async (data: any) => {
