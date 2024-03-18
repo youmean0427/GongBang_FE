@@ -35,7 +35,7 @@ export const postCoffeeCafeDetailReviewAPI = async (
   type: number
 ) => {
   const response = await axios.post(
-    `/api/coffeecafe/detail/${id}/review/${type}`,
+    `/api/coffeecafes/detail/${id}/review/${type}`,
     data,
     {
       headers: {

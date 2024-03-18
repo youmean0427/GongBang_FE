@@ -86,18 +86,19 @@ export default function CafeDetail() {
     }
   }, [coffecafeDetail]);
 
+  // console.log(coffecafeDetail);
   if (isFetching && toggleReviewCreateModal === false) return <></>;
   if (isLoading) return <></>;
   return (
     <>
-      <div className="">
-        <div className="grid items-center grid-cols-2 mt-1">
+      <div className=" ml-72 mr-72">
+        <div className="grid items-center grid-cols-2 mt-14">
           {/* Images */}
-          <div className="flex items-center justify-center h-3/4">
+          <div className="flex items-center justify-center h-full">
             <div className="h-full">
               {coffecafeDetail.coffeecafeimage_set.map((x: any, i: any) => (
                 <div
-                  className="flex flex-col h-1/3"
+                  className="flex flex-col mr-5 h-1/3"
                   key={i}
                   onClick={() => {
                     handleNowImage(x.image);
@@ -114,7 +115,9 @@ export default function CafeDetail() {
           </div>
           {/*  Info */}
           <div className="">
-            <div className="mb-3 text-3xl"> {coffecafeDetail.name} </div>
+            <div className="mb-3 text-3xl font-bold">
+              {coffecafeDetail.name}
+            </div>
             <Stars score={coffecafeDetail.total_score} size="large" />
             <div className="mt-2 mb-1 text-xl"> {coffecafeDetail.address} </div>
             <div className="mb-2 text-xl"> {coffecafeDetail.time} </div>
@@ -176,7 +179,7 @@ export default function CafeDetail() {
 
         <div></div>
         {/* 통합 리뷰 */}
-        <div>
+        <div className="mt-14">
           <CardContainer
             title={reviewTitle[0]}
             data={coffecafeDetail.review_set}

@@ -30,12 +30,12 @@ export interface ReveiwImageData {
 }
 
 export interface ReviewData {
-  cafe: number;
+  cafe?: number;
   content: string;
-  data: string;
+  date: string;
   id: number;
   name: string;
-  reviewimage_set: ReveiwImageData[];
+  reviewimage_set?: ReveiwImageData[];
   score: number;
   title: string;
   type: number;

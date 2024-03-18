@@ -6,7 +6,7 @@ import ListContainer from "./ListContainer";
 const modalsSize: any = {
   0: "w-1/2 overflow-y-auto bg-white h-2/3",
   1: "w-1/2 overflow-y-auto bg-white h-4/5",
-  2: "w-1/2 overflow-y-auto bg-white h-4/5",
+  2: "w-1/3 overflow-y-auto bg-white h-4/5",
 };
 
 export default function Modal({ close, data, type }: any) {

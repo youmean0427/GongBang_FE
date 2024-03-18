@@ -1,7 +1,8 @@
 import { useMutation, useQuery } from "react-query";
-import React, { useState } from "react";
+import React, { ReactEventHandler, useEffect, useState } from "react";
 import {
   getCoffeeCafeDetailAPI,
+  postCoffeeCafeDetailReviewAPI,
   // getCoffeeCafeDetailReviewCreateAPI,
   userAPI,
 } from "../apis/api";
@@ -9,25 +10,39 @@ import { useNavigate, useParams } from "react-router-dom";
 // import "../components/list/ListContainer.css";
 // import "./Review.css";
 import { LuCamera } from "react-icons/lu";
-import { CoffeeCafeData } from "../types/type";
+import { CoffeeCafeData, ReviewData } from "../types/type";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { useRecoilValue } from "recoil";
+import { AccessToken } from "../recoil/atom";
 
 interface ReviewCreateData {
   coffeeCafe: CoffeeCafeData;
 }
+interface InputState {
+  title: string;
+  content: string;
+  date: string;
+  score: number;
+  type: number;
+}
 
-export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
-  const { id } = useParams();
-  const getDate = new Date();
-  const navigate = useNavigate();
-
+function getToday(getDate: Date) {
   const today = `${getDate.getFullYear()}-${
     getDate.getMonth() + 1 >= 10
       ? getDate.getMonth() + 1
       : "0" + (getDate.getMonth() + 1)
   }-${getDate.getDate()}`;
-
-  let accessToken = localStorage.getItem("access_token");
-
+  return today;
+}
+export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
+  const { id }: any = useParams();
+  const getDate = new Date();
+  const today = getToday(getDate);
+  const x = useRecoilValue(AccessToken);
+  const username = useSelector((state: RootState) => state.user.username);
+  const userId = useSelector((state: RootState) => state.user.user_id);
+  console.log(username);
   // const { isLoading: coffeeLoading, data: coffeeCafe } = useQuery({
   //   queryKey: ['getCoffeeCafeDetailReviewCreate'],
   //   queryFn: () => getCoffeeCafeDetailAPI(id),
@@ -38,16 +53,15 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
   //   queryFn: () => userAPI(),
   //   enabled: !!localStorage.getItem('access_token'),
   // })
-
-  const [inputs, setInputs]: any = useState({
+  const [imageList, setImageList] = useState([]);
+  const [inputs, setInputs] = useState<InputState>({
     title: "",
     content: "",
     date: "",
-    score: "",
+    score: 5,
     type: 1,
   });
-
-  const [imageList, setImageList] = useState([]);
+  const [typeSelect, setTypeSelect] = useState("분위기");
   const typeList = [
     { value: 1, name: "분위기" },
     { value: 2, name: "좌석" },
@@ -55,7 +69,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     { value: 4, name: "콘센트" },
   ];
 
-  const onChange = (e: any) => {
+  const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setInputs({
       ...inputs,
@@ -75,10 +89,14 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     formData.append("title", inputs.title);
     formData.append("content", inputs.content);
     formData.append("date", today);
-    formData.append("score", inputs.score);
-    formData.append("type", inputs.type);
-    formData.append("user", "1");
-    formData.append("name", "2");
+    formData.append("score", `${inputs.score}`);
+    formData.append("type", `${inputs.type}`);
+    // formData.append("user", `${userId}`);
+    // formData.append("name", username);
+    // Test
+    formData.append("user", `${1}`);
+    formData.append("name", "name");
+
     for (let i = 0; i < imageList.length; i++) {
       formData.append("image", imageList[i]);
     }
@@ -87,22 +105,22 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     //     console.log(value)
     // }
 
-    // reviewCreateMutation.mutate(formData);
-    window.location.reload();
+    reviewCreateMutation.mutate(formData);
+    // window.location.reload();
   };
 
-  // const reviewCreateMutation = useMutation(
-  //   ["getCoffeeCafeDetailReviewCreateAPI"],
-  //   (formData) => getCoffeeCafeDetailReviewCreateAPI(id, formData, 0),
-  //   {
-  //     onSuccess: (res) => {
-  //       console.log(res, "Success");
-  //     },
-  //     onError: (res) => {
-  //       console.log(res, "Error");
-  //     },
-  //   }
-  // );
+  const reviewCreateMutation = useMutation(
+    ["createCoffeeCafeDetailReviewAPI"],
+    (formData: FormData) => postCoffeeCafeDetailReviewAPI(id, formData, 0),
+    {
+      onSuccess: (res) => {
+        console.log(res, "Success");
+      },
+      onError: (res) => {
+        console.log(res, "Error");
+      },
+    }
+  );
 
   const handleImageChange = (event: any) => {
     const files = event.target.files;
@@ -115,8 +133,6 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     setImageList(imageUrl);
   };
 
-  const [typeSelect, setTypeSelect] = useState("분위기");
-
   const handleTypeSelect = (event: any) => {
     setInputs({
       ...inputs,
@@ -125,24 +141,28 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     setTypeSelect(event.target.value);
   };
 
-  console.log(imageList);
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
   return (
     <div className="mt-5 ml-10 mr-10">
-      <div className="flex w-full mb-5 h-44">
+      <div className="mb-5 text-2xl font-bold">리뷰 작성</div>
+      <hr />
+      <div className="flex w-full mt-5 mb-5 h-44">
+        {/* Image */}
         {imageList.map((image, index) => (
-          <div className="w-1/3 h-full" key={index}>
-            <img
-              className="w-full h-full"
-              src={URL.createObjectURL(image)}
-              alt={`Preview ${index + 1}`}
-            />
-          </div>
+          <>
+            <div className="w-1/3 h-full" key={index}>
+              <img
+                className="object-cover w-full h-full rounded-xl"
+                src={URL.createObjectURL(image)}
+                alt={`Preview ${index + 1}`}
+              />
+            </div>
+            <div className="m-1"></div>
+          </>
         ))}
-
         {imageList.length < 3 ? (
-          <div className="w-1/3 h-full border">
+          <div className="w-1/3 h-full border rounded-xl">
             <label className="flex flex-col items-center justify-center h-full ">
               <LuCamera size={50} color="" />
               <input
@@ -158,20 +178,20 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
           <></>
         )}
       </div>
-
+      {/* Review */}
       <div className="">
         <input
           name="title"
-          className="w-full mb-2 input input-bordered"
+          className="w-full mb-2 text-lg input input-bordered"
           placeholder="제목"
-          onChange={onChange}
+          onChange={handleInputChange}
         />
 
         <div className="flex justify-between mb-2">
           {/* Type */}
           <div className="w-full">
             <select
-              className="w-1/2 max-w-xs select select-bordered"
+              className="w-1/2 max-w-xs text-base select select-bordered"
               onChange={handleTypeSelect}
               value={typeSelect}
             >
@@ -286,12 +306,12 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       <div>
         <div>
           <textarea
-            className="w-full textarea textarea-bordered"
+            className="w-full text-base textarea textarea-bordered"
             name="content"
             id=""
             cols={10}
-            rows={3}
-            onChange={onChange}
+            rows={5}
+            onChange={handleInputChange}
           ></textarea>
         </div>
       </div>

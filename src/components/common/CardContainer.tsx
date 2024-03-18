@@ -38,12 +38,12 @@ export default function CardContainer({
   );
   const username = useSelector((state: RootState) => state.user.username);
 
-  const handleDelete = (x: number) => {
-    reviewDeleteMutation.mutate(x);
+  const handleDelete = (review_id: number) => {
+    reviewDeleteMutation.mutate(review_id);
   };
 
-  const handelReviewDetailModal = (x: string) => {
-    setReviewModalData(x);
+  const handelReviewDetailModal = (data: string) => {
+    setReviewModalData(data);
     setToggleReviewDetailModal(true);
   };
 
@@ -51,6 +51,7 @@ export default function CardContainer({
     setReviewModalData("");
   };
 
+  // Cafe Card
   if (type === 1)
     return (
       <>
@@ -104,9 +105,10 @@ export default function CardContainer({
       <div className="mt-5 mb-5" style={{ padding: `0 0px` }}>
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold">{title}</div>
-          <div className="">
-            <div onClick={isCreateModal}>리뷰 작성하기 |</div>
-            <div className="text-xl" onClick={isReviewModal}>
+          <div className="flex text-lg">
+            <div onClick={isCreateModal}>리뷰 작성하기</div>
+            <div> | </div>
+            <div className="" onClick={isReviewModal}>
               모든 리뷰 보기
             </div>
           </div>

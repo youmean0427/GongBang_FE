@@ -44,6 +44,7 @@ export default function Login() {
       try {
         const userData = await userAPI(res.data.access);
         dispatch(userSlice.actions.post(userData.data.last_name));
+        dispatch(userSlice.actions.postId(userData.data.pk));
         navigate("/");
       } catch (error) {
         console.log(error);
