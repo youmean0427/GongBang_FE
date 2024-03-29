@@ -40,6 +40,7 @@ export default function Review({ data }: any) {
           data.review_set.map((x: any, i: any) => (
             <div key={i}>
               <ListContainer data={x} />
+              <hr />
             </div>
           ))
         ) : (

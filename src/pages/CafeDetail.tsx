@@ -91,8 +91,8 @@ export default function CafeDetail() {
   if (isLoading) return <></>;
   return (
     <>
-      <div className=" ml-72 mr-72">
-        <div className="grid items-center grid-cols-2 mt-14">
+      <div className="">
+        <div className="grid items-center grid-cols-2 mt-14 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
           {/* Images */}
           <div className="flex items-center justify-center h-full">
             <div className="h-full">
@@ -215,6 +215,14 @@ export default function CafeDetail() {
         </div>
         <hr />
         <div>
+          <CardContainer
+            title={reviewTitle[1]}
+            data={coffecafeDetail.review_set}
+            type={2}
+            isReviewModal={handleReviewModal}
+            isCreateModal={handleReviewCreateMdoal}
+            chevronWidth={100}
+          />
           {/* <CardContainer
             title={title[1]}
             data={filteredReviewOne}

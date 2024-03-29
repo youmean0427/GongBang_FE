@@ -29,8 +29,8 @@ export default function Nav() {
   //   queryFn: () => userAPI(),
   //   enabled: !!localStorage.getItem("access_token"),
   // });
+  const dispatch = useDispatch();
   const accessToken = useRecoilValue(AccessToken);
-
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
     onSuccess: () => {
       localStorage.clear();
@@ -45,10 +45,13 @@ export default function Nav() {
     { title: "일반 카페", url: "/coffeecafe" },
     { title: "스터디 카페", url: "/studycafe" },
   ];
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+  }, [username]);
 
   return (
     <>
-      <div className="flex items-center justify-between h-20 text-xl bg-slate-300 ">
+      <div className="flex items-center justify-between h-20 text-xl">
         {/* Logo & Link */}
         <div className="flex items-center">
           <Link to={"/"}>
@@ -87,6 +90,7 @@ export default function Nav() {
           )}
         </div>
       </div>
+      <hr />
     </>
   );
 }
