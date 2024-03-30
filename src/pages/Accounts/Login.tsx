@@ -40,6 +40,7 @@ export default function Login() {
   const loginMutation = useMutation(["loginAPI"], loginAPI, {
     onSuccess: async (res) => {
       localStorage.setItem("access_token", res.data.access);
+      localStorage.setItem("refresh_token", res.data.refresh);
       setAccessToken(res.data.access);
       try {
         const userData = await userAPI(res.data.access);

@@ -95,3 +95,23 @@ export const logoutAPI = async (data: Object) => {
   });
   return response;
 };
+
+export const tokenVerifyAPI = async (token: object) => {
+  const response = await axios.post("/accounts/token/verify/", token, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "X-CSRFToken": "{{csrftoken}}",
+    },
+  });
+  return response;
+};
+
+export const tokenRefreshAPI = async (token: object) => {
+  const response = await axios.post("/accounts/token/refresh/", token, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "X-CSRFToken": "{{csrftoken}}",
+    },
+  });
+  return response;
+};

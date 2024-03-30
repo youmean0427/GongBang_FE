@@ -15,6 +15,7 @@ import fullStar from "../images/full_star.png";
 // import Review from "./Reveiw";
 // import ReviewCreate from "./ReviewCreate";
 import { LuX } from "react-icons/lu";
+
 import {
   LuHome,
   LuArmchair,
@@ -27,6 +28,7 @@ import {
 import Stars from "../components/common/Stars";
 import Review from "./Reveiw";
 import Modal from "../components/common/Modal";
+import { Map, MapMarker } from "react-kakao-maps-sdk";
 
 export default function CafeDetail() {
   const { id } = useParams();
@@ -79,10 +81,10 @@ export default function CafeDetail() {
       }
 
       // Review 최신순 정렬
-      coffecafeDetail.review_set.sort(
-        (a: any, b: any) =>
-          new Date(b.date).getTime() - new Date(a.date).getTime()
-      );
+      // coffecafeDetail.review_set.sort(
+      //   (a: any, b: any) =>
+      //     new Date(b.date).getTime() - new Date(a.date).getTime()
+      // );
     }
   }, [coffecafeDetail]);
 
@@ -191,12 +193,15 @@ export default function CafeDetail() {
           <div></div>
         </div>
 
-        <div className="cafedetail-map-title">카페 위치</div>
-        <div className="cafedetail-map">
-          {/* <Map
+        {/* <div className="text-2xl font-bold mb-7 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
+          {" "}
+          카페 위치
+        </div> */}
+        <div className="w-screen h-96">
+          <Map
             center={{
-              lat: data.lat,
-              lng: data.lng,
+              lat: 36.02625012993931,
+              lng: 129.36089331247362,
             }}
             style={{
               width: "100%",
@@ -207,11 +212,11 @@ export default function CafeDetail() {
           >
             <MapMarker
               position={{
-                lat: data.lat,
-                lng: data.lng,
+                lat: 36.02625012993931,
+                lng: 129.36089331247362,
               }}
             ></MapMarker>
-          </Map> */}
+          </Map>
         </div>
         <hr />
         <div>

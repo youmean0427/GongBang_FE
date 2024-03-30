@@ -94,8 +94,8 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     // formData.append("user", `${userId}`);
     // formData.append("name", username);
     // Test
-    formData.append("user", `${1}`);
-    formData.append("name", "name");
+    formData.append("user", `${userId}`);
+    formData.append("name", username);
 
     for (let i = 0; i < imageList.length; i++) {
       formData.append("image", imageList[i]);
@@ -106,7 +106,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     // }
 
     reviewCreateMutation.mutate(formData);
-    // window.location.reload();
+    window.location.reload();
   };
 
   const reviewCreateMutation = useMutation(

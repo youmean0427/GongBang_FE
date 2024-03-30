@@ -4,6 +4,7 @@ import Signup from "../pages/Accounts/Signup";
 import Nav from "../components/common/Nav";
 import Main from "../pages/Main";
 import CafeDetail from "../pages/CafeDetail";
+import CoffeeCafe from "../pages/CoffeeCafe";
 export default function Router() {
   return (
     <>
@@ -12,6 +13,7 @@ export default function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
+        <Route path="/coffeecafe" element={<CoffeeCafe />} />
       </Routes>
     </>
   );

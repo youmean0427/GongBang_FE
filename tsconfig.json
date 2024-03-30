@@ -16,7 +16,8 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "typeRoots": ["./types", "./node_modules/@types"]
-  },
-  "exclude": ["node_modules", "types"],
-  "include": ["src"]
+    // "types": ["./types/react-items-carousel/index.d.ts"]
+  }
+  // "exclude": ["node_modules", "types"],
+  // "include": ["./types/react-items-carousel/index.d.ts", "kakao.map.d.ts"]
 }

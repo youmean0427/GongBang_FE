@@ -7,7 +7,11 @@ import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import axios from "axios";
 import { getCookie } from "./utils";
+
 import { worker } from "./mocks/workers";
+import { RecoilRoot } from "recoil";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
@@ -23,7 +27,11 @@ root.render(
   <QueryClientProvider client={queryClient}>
     <React.StrictMode>
       <BrowserRouter>
-        <App />
+        <RecoilRoot>
+          <Provider store={store}>
+            <App />
+          </Provider>
+        </RecoilRoot>
       </BrowserRouter>
     </React.StrictMode>
   </QueryClientProvider>

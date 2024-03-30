@@ -56,6 +56,7 @@ export default function CardContainer({
     return (
       <>
         <div className="mt-12 mb-10 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
+          {/* <div className="element"> */}
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className=" w-100">
             <ItemsCarousel
@@ -111,10 +112,13 @@ export default function CardContainer({
     <>
       <div className="mt-5 mb-5 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
         <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold">{title}</div>
+          <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex text-lg">
-            <div onClick={isCreateModal}>리뷰 작성하기</div>
-            <div> | </div>
+            {username ? (
+              <div onClick={isCreateModal}>리뷰 작성하기 | </div>
+            ) : (
+              <div></div>
+            )}
             <div className="" onClick={isReviewModal}>
               모든 리뷰 보기
             </div>
@@ -124,7 +128,7 @@ export default function CardContainer({
         <ItemsCarousel
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
-          numberOfCards={5}
+          numberOfCards={4}
           gutter={20}
           leftChevron={<button>{"<"}</button>}
           rightChevron={<button>{">"}</button>}
@@ -138,7 +142,7 @@ export default function CardContainer({
                 <div className="mb-3">
                   {data.reviewimage_set.length ? (
                     <img
-                      className=""
+                      className="w-full"
                       src={data.reviewimage_set[0].image}
                       alt="Cafe"
                     />

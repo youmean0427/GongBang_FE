@@ -4,7 +4,7 @@ import ReviewCreate from "../../pages/ReviewCreate";
 import ListContainer from "./ListContainer";
 
 const modalsSize: any = {
-  0: "w-1/2 overflow-y-auto bg-white h-2/3",
+  0: "w-1/2 overflow-y-auto bg-white h-1.5/2",
   1: "w-1/2 overflow-y-auto bg-white h-4/5",
   2: "w-1/3 overflow-y-auto bg-white h-4/5",
 };

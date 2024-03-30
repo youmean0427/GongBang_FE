@@ -72,7 +72,7 @@ export default function Nav() {
           {username ? (
             // After 로그인
             <div className="flex">
-              <div className="m-8">{username}</div>
+              <div className="m-8 font-bold">{username}</div>
               <div onClick={handleLogout} className="m-8">
                 로그아웃
               </div>
