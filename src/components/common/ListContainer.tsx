@@ -70,8 +70,8 @@ export default function ListContainer({ data }: ListContainer) {
       {/* Image */}
       <div className="flex mb-5">
         {data.reviewimage_set.map((x: any, i: any) => (
-          <div className="w-1/3" key={i}>
-            <img src={x.image} />
+          <div className="w-1/3 " key={i}>
+            <img className="rounded-2xl" src={x.image} />
           </div>
         ))}
       </div>

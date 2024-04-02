@@ -55,6 +55,7 @@ export default function App() {
     <>
       <Nav />
       <Router />
+      {/* Modal */}
     </>
   );
 }

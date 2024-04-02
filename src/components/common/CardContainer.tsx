@@ -54,63 +54,66 @@ export default function CardContainer({
   // Cafe Card
   if (type === 1)
     return (
-      <>
-        <div className="mt-12 mb-10 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
-          {/* <div className="element"> */}
-          <div className="text-2xl font-bold mb-7">{title}</div>
-          <div className=" w-100">
-            <ItemsCarousel
-              requestToChangeActive={setActiveItemIndex}
-              activeItemIndex={activeItemIndex}
-              numberOfCards={4}
-              gutter={10}
-              leftChevron={<button>{"<"}</button>}
-              rightChevron={
-                <button className="w-full h-full hover:bg-slate-600">
-                  {">"}
-                </button>
-              }
-              // outsideChevron
-              chevronWidth={100}
-            >
-              {data.map((data, i) => (
-                <Link
-                  to={`coffeecafe/${data.id}`}
-                  style={{ textDecoration: "none" }}
-                  key={i}
-                >
-                  <div className="text-lg ">
-                    <div className="mb-5 h-80">
-                      {data.coffeecafeimage_set.length ? (
-                        <div className="w-full h-full">
-                          <img
-                            className="object-cover w-full h-full bg-slate-950"
-                            src={data.coffeecafeimage_set[0].image}
-                            alt="Cafe"
-                          />
-                        </div>
-                      ) : (
-                        <div></div>
-                      )}
-                    </div>
+      <div className="w-full mt-12 mb-10 ">
+        {/* <div className="element"> */}
 
-                    <div className="">
-                      <Stars score={data.total_score} size="small" />
+        <div className="w-full">
+          <div className="text-2xl font-bold mb-7">{title}</div>
+          <div className="flex">
+            <div className="w-full">
+              <ItemsCarousel
+                requestToChangeActive={setActiveItemIndex}
+                activeItemIndex={activeItemIndex}
+                numberOfCards={4}
+                gutter={10}
+                leftChevron={<button>{"<"}</button>}
+                rightChevron={
+                  <button className="w-full h-full hover:bg-slate-600">
+                    {">"}
+                  </button>
+                }
+                // outsideChevron
+                chevronWidth={100}
+              >
+                {data.map((data, i) => (
+                  <Link
+                    to={`coffeecafe/${data.id}`}
+                    style={{ textDecoration: "none" }}
+                    key={i}
+                  >
+                    <div className="text-lg ">
+                      <div className="mb-5 h-80">
+                        {data.coffeecafeimage_set.length ? (
+                          <div className="w-full h-full">
+                            <img
+                              className="object-cover w-full h-full rounded-2xl"
+                              src={data.coffeecafeimage_set[0].image}
+                              alt="Cafe"
+                            />
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
+                      </div>
+
+                      <div className="">
+                        <Stars score={data.total_score} size="small" />
+                      </div>
+                      <div className="text-xl font-bold">{data.name}</div>
+                      <div className="text-base ">{data.address}</div>
                     </div>
-                    <div className="text-xl font-bold">{data.name}</div>
-                    <div className="text-base ">{data.address}</div>
-                  </div>
-                </Link>
-              ))}
-            </ItemsCarousel>
+                  </Link>
+                ))}
+              </ItemsCarousel>
+            </div>
           </div>
         </div>
-      </>
+      </div>
     );
   // Review Card
   return (
     <>
-      <div className="mt-5 mb-5 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
+      <div className="mt-5 mb-5 ">
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex text-lg">
@@ -135,30 +138,28 @@ export default function CardContainer({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {data.map((data: any, i) => (
-            <>
-              <div key={i} onClick={() => handelReviewDetailModal(data)}>
-                {/* Images */}
-                <div className="mb-3">
-                  {data.reviewimage_set.length ? (
-                    <img
-                      className="w-full"
-                      src={data.reviewimage_set[0].image}
-                      alt="Cafe"
-                    />
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                {/* <div>{data.id}</div> */}
-
-                {/* Info */}
-                <Stars score={data.score} size="small" />
-                <div className="text-xl font-bold">{data.title}</div>
-                <div className="text-lg ">{data.name}</div>
-                <div></div>
+          {data.map((data: any, i: number) => (
+            <div key={i} onClick={() => handelReviewDetailModal(data)}>
+              {/* Images */}
+              <div className="mb-3">
+                {data.reviewimage_set.length ? (
+                  <img
+                    className="w-full rounded-2xl"
+                    src={data.reviewimage_set[0].image}
+                    alt="Cafe"
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
-            </>
+              {/* <div>{data.id}</div> */}
+
+              {/* Info */}
+              <Stars score={data.score} size="small" />
+              <div className="text-xl font-bold">{data.title}</div>
+              <div className="text-lg ">{data.name}</div>
+              <div></div>
+            </div>
           ))}
         </ItemsCarousel>
 

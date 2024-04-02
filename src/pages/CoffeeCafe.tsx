@@ -1,6 +1,15 @@
 import { useEffect, useState } from "react";
-import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { LuX } from "react-icons/lu";
+import { Circle, Map, MapMarker } from "react-kakao-maps-sdk";
+import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import { getCoffeeCafesAPI } from "../apis/api";
+import Stars from "../components/common/Stars";
+
 export default function CoffeeCafe() {
+  const [filteredCafe, setFilteredCafe] = useState<any[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isClickIdx, setIsClickIdx] = useState(-1);
   // 현재 위치
   const [nowState, setNowState] = useState({
     center: {
@@ -16,6 +25,26 @@ export default function CoffeeCafe() {
       lng: 0,
     },
   });
+
+  const { isLoading, data } = useQuery({
+    queryKey: ["getCoffeeCafes"],
+    queryFn: () => getCoffeeCafesAPI(1),
+  });
+
+  useEffect(() => {
+    if (data) {
+      const filtered = data.filter((cafe: any) => {
+        const distance = CalculateDistance(
+          markerState.center.lat,
+          markerState.center.lng,
+          cafe.lat,
+          cafe.lng
+        );
+        return distance <= 5; // km
+      });
+      setFilteredCafe(filtered);
+    }
+  }, [markerState, data]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -47,36 +76,122 @@ export default function CoffeeCafe() {
     }
   }, []);
 
+  if (isLoading) return <></>;
   return (
-    <>
-      <div>
-        <div className="">
-          <Map
-            center={{
-              // 지도의 중심좌표
-              lat: nowState.center.lat,
-              lng: nowState.center.lng,
-            }}
-            style={{
-              // 지도의 크기
-              width: "100%",
-              height: "90vh",
-            }}
-            level={5}
-            onClick={(_t, mouseEvent) =>
-              setMarkerState({
-                center: {
-                  lat: mouseEvent.latLng.getLat(),
-                  lng: mouseEvent.latLng.getLng(),
-                },
-              })
-            }
-          >
-            <MapMarker position={nowState.center}></MapMarker>
-            <MapMarker position={markerState.center}></MapMarker>
-          </Map>
-        </div>
+    <div className="">
+      <div className="">
+        <Map
+          center={{
+            // 지도의 중심좌표
+            lat: nowState.center.lat,
+            lng: nowState.center.lng,
+          }}
+          style={{
+            // 지도의 크기
+            width: "100%",
+            height: "91vh",
+          }}
+          level={5}
+          onClick={(_t, mouseEvent) =>
+            setMarkerState({
+              center: {
+                lat: mouseEvent.latLng.getLat(),
+                lng: mouseEvent.latLng.getLng(),
+              },
+            })
+          }
+        >
+          <Circle
+            center={markerState.center}
+            radius={5000}
+            strokeWeight={1}
+            strokeColor="#ffd80b"
+            strokeOpacity={0.1}
+            strokeStyle="solid"
+            fillColor="#ffd80b"
+            fillOpacity={0.2}
+          />
+          <MapMarker position={nowState.center}></MapMarker>
+          <MapMarker position={markerState.center}></MapMarker>
+
+          {filteredCafe.map((cafe, index) => (
+            <div>
+              <MapMarker
+                key={index}
+                position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
+                image={{
+                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
+                  size: {
+                    width: 24,
+                    height: 35,
+                  }, // 마커이미지의 크기입니다
+                }}
+                clickable={true}
+                onClick={() => {
+                  setIsOpen(true);
+                  setIsClickIdx(index);
+                }}
+              >
+                {isOpen && index === isClickIdx && (
+                  <div className=" w-72 h-72">
+                    <div
+                      className="absolute right-2 top-2"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      <LuX size={25} />
+                    </div>
+                    <Link to={`/coffeecafe/${cafe.id}`}>
+                      <div className="flex flex-col items-center justify-center w-full h-full mt-1">
+                        {cafe.coffeecafeimage_set.length ? (
+                          <div className="w-2/3 mb-2">
+                            <img
+                              className="object-cover w-full h-full rounded-lg"
+                              src={cafe.coffeecafeimage_set[0].image}
+                            />
+                          </div>
+                        ) : (
+                          <div></div>
+                        )}
+
+                        <div className="text-xl font-bold">{cafe.name}</div>
+                        <div>
+                          <Stars score={cafe.total_score} size="small" />
+                        </div>
+                        <div className="text-base">{cafe.address}</div>
+                      </div>
+                    </Link>
+                  </div>
+                )}
+              </MapMarker>
+            </div>
+          ))}
+        </Map>
       </div>
-    </>
+    </div>
   );
+}
+
+function CalculateDistance(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+) {
+  const R = 6371;
+  const dLat = deg2rad(lat2 - lat1);
+  const dLon = deg2rad(lon2 - lon1);
+
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(deg2rad(lat1)) *
+      Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return R * c;
+}
+
+function deg2rad(deg: number) {
+  return deg * (Math.PI / 180);
 }

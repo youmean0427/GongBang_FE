@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { RootState } from "../../redux/store";
 import userSlice from "../../redux/userSlice";
 import { AccessToken } from "../../recoil/atom";
+import Modal from "./Modal";
 
 interface UserData {
   email: String;
@@ -29,7 +30,16 @@ export default function Nav() {
   //   queryFn: () => userAPI(),
   //   enabled: !!localStorage.getItem("access_token"),
   // });
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
+  const handleLoginModal = () => {
+    setIsOpenLoginModal(!isOpenLoginModal);
+  };
+  const handleSignupModal = () => {
+    setISOpenSignupModal(!isOpenSignupModal);
+  };
+
   const accessToken = useRecoilValue(AccessToken);
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
     onSuccess: () => {
@@ -81,16 +91,22 @@ export default function Nav() {
             // Before 로그인
             <div className="flex">
               <div className="m-8">
-                <Link to={"/login"}>로그인</Link>
+                <div onClick={handleLoginModal}>로그인</div>
+                {/* <Link to={"/login"}>로그인</Link> */}
               </div>
               <div className="m-8">
-                <Link to={"/signup"}>회원가입</Link>
+                <div onClick={handleSignupModal}>회원가입</div>
+                {/* <Link to={"/signup"}>회원가입</Link> */}
               </div>
             </div>
           )}
         </div>
       </div>
       <hr />
+
+      {/* modal */}
+      {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
+      {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
     </>
   );
 }

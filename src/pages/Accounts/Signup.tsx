@@ -34,7 +34,6 @@ export default function Signup() {
 
   const signupMutation = useMutation(["signupAPI"], signupAPI, {
     onSuccess: (res) => {
-      navigate("/");
       window.location.reload();
     },
     onError: () => {

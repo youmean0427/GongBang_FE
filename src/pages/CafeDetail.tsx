@@ -89,146 +89,155 @@ export default function CafeDetail() {
   }, [coffecafeDetail]);
 
   // console.log(coffecafeDetail);
-  if (isFetching && toggleReviewCreateModal === false) return <></>;
-  if (isLoading) return <></>;
+  if (isFetching) return <></>;
+  // if (isLoading) return <></>;
   return (
     <>
-      <div className="">
-        <div className="grid items-center grid-cols-2 mt-14 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
-          {/* Images */}
-          <div className="flex items-center justify-center h-full">
-            <div className="h-full">
-              {coffecafeDetail.coffeecafeimage_set.map((x: any, i: any) => (
-                <div
-                  className="flex flex-col mr-5 h-1/3"
-                  key={i}
-                  onClick={() => {
-                    handleNowImage(x.image);
-                  }}
-                >
-                  <img className="h-full" src={x.image} />
-                </div>
-              ))}
-            </div>
+      <div className="flex flex-row w-full">
+        <div className="w-1/4"></div>
+        <div className="">
+          <div className="grid items-center grid-cols-2 mt-14 w-[1280px]">
+            {/* Images */}
+            <div className="flex items-center justify-center h-full">
+              <div className="h-full">
+                {coffecafeDetail.coffeecafeimage_set.map(
+                  (x: any, i: number) => (
+                    <div
+                      className="flex flex-col mr-5 h-1/3"
+                      key={i}
+                      onClick={() => {
+                        handleNowImage(x.image);
+                      }}
+                    >
+                      <img className="h-full rounded-xl" src={x.image} />
+                    </div>
+                  )
+                )}
+              </div>
 
-            <div className="h-full">
-              <img className="h-full" src={nowImage} />
+              <div className="h-full">
+                <img className="h-full rounded-2xl" src={nowImage} />
+              </div>
             </div>
-          </div>
-          {/*  Info */}
-          <div className="">
-            <div className="mb-3 text-3xl font-bold">
-              {coffecafeDetail.name}
-            </div>
-            <Stars score={coffecafeDetail.total_score} size="large" />
-            <div className="mt-2 mb-1 text-xl"> {coffecafeDetail.address} </div>
-            <div className="mb-2 text-xl"> {coffecafeDetail.time} </div>
-            {/* <div> {data.lat} </div>
+            {/*  Info */}
+            <div className="">
+              <div className="mb-3 text-3xl font-bold">
+                {coffecafeDetail.name}
+              </div>
+              <Stars score={coffecafeDetail.total_score} size="large" />
+              <div className="mt-2 mb-1 text-xl">
+                {" "}
+                {coffecafeDetail.address}{" "}
+              </div>
+              <div className="mb-2 text-xl"> {coffecafeDetail.time} </div>
+              {/* <div> {data.lat} </div>
                         <div> {data.lng} </div> */}
-            <hr />
-            <div className="mt-3 mb-2 text-xl cafedetail-info-con">
-              편의시설
-            </div>
-            <div className="grid grid-cols-2 text-lg">
-              <div className="flex items-center mt-1 mb-1">
-                <LuHome className="mr-2" />
-                <div className="w-20 ">분위기</div>
-                <Stars score={coffecafeDetail.vibe} size="small" />
+              <hr />
+              <div className="mt-3 mb-2 text-xl cafedetail-info-con">
+                편의시설
               </div>
+              <div className="grid grid-cols-2 text-lg">
+                <div className="flex items-center mt-1 mb-1">
+                  <LuHome className="mr-2" />
+                  <div className="w-20 ">분위기</div>
+                  <Stars score={coffecafeDetail.vibe} size="small" />
+                </div>
 
-              <div className="flex items-center mt-1 mb-1">
-                <LuCoffee className="mr-2" />
-                <div className="w-20 ">음료</div>
-                <Stars score={coffecafeDetail.coffee} size="small" />
-              </div>
-              <div className="flex items-center mt-1 mb-1">
-                <LuArmchair className="mr-2" />
-                <div className="w-20 ">좌석</div>
-                <Stars score={coffecafeDetail.seat} size="small" />
-              </div>
-              <div className="flex items-center mt-1 mb-1">
-                <LuPlug className="mr-2" />
-                <div className="w-20 ">콘센트</div>
-                <Stars score={coffecafeDetail.plug} size="small" />
-              </div>
-              <div className="flex items-center mt-3 mb-1">
-                <LuWifi className="mr-2" />
-                <div className="w-20">와이파이</div>
-                <div>{options[0]}</div>
-              </div>
-              <div className="flex items-center mt-1 mb-1">
-                <LuParkingSquare className="mr-2" />
-                <div className="w-20">주차</div>
-                <div>{options[1]}</div>
-              </div>
-              <div className="flex items-center mt-1 mb-1">
-                <LuTrash className="mr-2" />
-                <div className="w-20">화장실</div>
-                <div>{options[2]}</div>
-              </div>
-              <div className="flex items-center">
-                {/* <div>주차</div> */}
-                {/* <div>{options[3]}</div> */}
+                <div className="flex items-center mt-1 mb-1">
+                  <LuCoffee className="mr-2" />
+                  <div className="w-20 ">음료</div>
+                  <Stars score={coffecafeDetail.coffee} size="small" />
+                </div>
+                <div className="flex items-center mt-1 mb-1">
+                  <LuArmchair className="mr-2" />
+                  <div className="w-20 ">좌석</div>
+                  <Stars score={coffecafeDetail.seat} size="small" />
+                </div>
+                <div className="flex items-center mt-1 mb-1">
+                  <LuPlug className="mr-2" />
+                  <div className="w-20 ">콘센트</div>
+                  <Stars score={coffecafeDetail.plug} size="small" />
+                </div>
+                <div className="flex items-center mt-3 mb-1">
+                  <LuWifi className="mr-2" />
+                  <div className="w-20">와이파이</div>
+                  <div>{options[0]}</div>
+                </div>
+                <div className="flex items-center mt-1 mb-1">
+                  <LuParkingSquare className="mr-2" />
+                  <div className="w-20">주차</div>
+                  <div>{options[1]}</div>
+                </div>
+                <div className="flex items-center mt-1 mb-1">
+                  <LuTrash className="mr-2" />
+                  <div className="w-20">화장실</div>
+                  <div>{options[2]}</div>
+                </div>
+                <div className="flex items-center">
+                  {/* <div>주차</div> */}
+                  {/* <div>{options[3]}</div> */}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <div> {data.coffeecafeimage_set.map((x, index) => (
+          {/* <div> {data.coffeecafeimage_set.map((x, index) => (
                     <div key = {index}>
                         <img src = {x.image}/>
                     </div>
                 ))} </div> */}
 
-        <div></div>
-        {/* 통합 리뷰 */}
-        <div className="mt-14">
-          <CardContainer
-            title={reviewTitle[0]}
-            data={coffecafeDetail.review_set}
-            type={2}
-            isReviewModal={handleReviewModal}
-            isCreateModal={handleReviewCreateMdoal}
-            chevronWidth={100}
-          />
           <div></div>
-        </div>
+          {/* 통합 리뷰 */}
 
-        {/* <div className="text-2xl font-bold mb-7 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
+          <div className="mb-10 mt-14">
+            <hr />
+            <CardContainer
+              title={reviewTitle[0]}
+              data={coffecafeDetail.review_set}
+              type={2}
+              isReviewModal={handleReviewModal}
+              isCreateModal={handleReviewCreateMdoal}
+              chevronWidth={100}
+            />
+            <div></div>
+          </div>
+
+          {/* <div className="text-2xl font-bold mb-7 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
           {" "}
           카페 위치
         </div> */}
-        <div className="w-screen h-96">
-          <Map
-            center={{
-              lat: 36.02625012993931,
-              lng: 129.36089331247362,
-            }}
-            style={{
-              width: "100%",
-              height: "100%",
-            }}
-            level={3}
-            draggable={false}
-          >
-            <MapMarker
-              position={{
+          <div className="w-full mt-5 mb-5 h-96">
+            <Map
+              center={{
                 lat: 36.02625012993931,
                 lng: 129.36089331247362,
               }}
-            ></MapMarker>
-          </Map>
-        </div>
-        <hr />
-        <div>
-          <CardContainer
-            title={reviewTitle[1]}
-            data={coffecafeDetail.review_set}
-            type={2}
-            isReviewModal={handleReviewModal}
-            isCreateModal={handleReviewCreateMdoal}
-            chevronWidth={100}
-          />
-          {/* <CardContainer
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
+              level={3}
+              draggable={false}
+            >
+              <MapMarker
+                position={{
+                  lat: 36.02625012993931,
+                  lng: 129.36089331247362,
+                }}
+              ></MapMarker>
+            </Map>
+          </div>
+
+          <div>
+            <CardContainer
+              title={reviewTitle[1]}
+              data={coffecafeDetail.review_set}
+              type={2}
+              isReviewModal={handleReviewModal}
+              isCreateModal={handleReviewCreateMdoal}
+              chevronWidth={100}
+            />
+            {/* <CardContainer
             title={title[1]}
             data={filteredReviewOne}
             type={2}
@@ -253,7 +262,9 @@ export default function CafeDetail() {
             type={2}
             userInfo={userInfo}
           /> */}
+          </div>
         </div>
+        <div className="w-1/4"></div>
       </div>
       {/* Modal */}
       {toggleReviewModal ? (
