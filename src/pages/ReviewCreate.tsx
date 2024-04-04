@@ -42,7 +42,6 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
   const x = useRecoilValue(AccessToken);
   const username = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
-  console.log(username);
   // const { isLoading: coffeeLoading, data: coffeeCafe } = useQuery({
   //   queryKey: ['getCoffeeCafeDetailReviewCreate'],
   //   queryFn: () => getCoffeeCafeDetailAPI(id),

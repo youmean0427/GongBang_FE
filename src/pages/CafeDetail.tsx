@@ -29,6 +29,7 @@ import Stars from "../components/common/Stars";
 import Review from "./Reveiw";
 import Modal from "../components/common/Modal";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import { ReviewData } from "../types/type";
 
 export default function CafeDetail() {
   const { id } = useParams();
@@ -37,7 +38,9 @@ export default function CafeDetail() {
   const [nowImage, setNowImage] = useState();
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
-  const [options, setOptions] = useState(["X", "X", "X", "X"]);
+  const [vibeReviewArr, setVibeReviewArr] = useState<
+    ReviewData[] | undefined
+  >();
 
   const {
     isLoading,
@@ -70,15 +73,9 @@ export default function CafeDetail() {
     if (coffecafeDetail) {
       setNowImage(coffecafeDetail.coffeecafeimage_set[0].image);
 
-      if (coffecafeDetail.wifi) {
-        options[0] = "O";
-      }
-      if (coffecafeDetail.toilet) {
-        options[1] = "O";
-      }
-      if (coffecafeDetail.parking) {
-        options[2] = "O";
-      }
+      setVibeReviewArr([
+        ...coffecafeDetail.review_set.filter((x: ReviewData) => x.type == 2),
+      ]);
 
       // Review 최신순 정렬
       // coffecafeDetail.review_set.sort(
@@ -89,8 +86,8 @@ export default function CafeDetail() {
   }, [coffecafeDetail]);
 
   // console.log(coffecafeDetail);
-  if (isFetching) return <></>;
-  // if (isLoading) return <></>;
+  // if (isFetching) return <></>;
+  if (isLoading) return <></>;
   return (
     <>
       <div className="flex flex-row w-full">
@@ -161,17 +158,17 @@ export default function CafeDetail() {
                 <div className="flex items-center mt-3 mb-1">
                   <LuWifi className="mr-2" />
                   <div className="w-20">와이파이</div>
-                  <div>{options[0]}</div>
+                  <div>{coffecafeDetail.wifi ? "O" : "X"}</div>
                 </div>
                 <div className="flex items-center mt-1 mb-1">
                   <LuParkingSquare className="mr-2" />
                   <div className="w-20">주차</div>
-                  <div>{options[1]}</div>
+                  <div>{coffecafeDetail.parking ? "O" : "X"}</div>
                 </div>
                 <div className="flex items-center mt-1 mb-1">
                   <LuTrash className="mr-2" />
                   <div className="w-20">화장실</div>
-                  <div>{options[2]}</div>
+                  <div>{coffecafeDetail.toliet ? "O" : "X"}</div>
                 </div>
                 <div className="flex items-center">
                   {/* <div>주차</div> */}
@@ -229,14 +226,16 @@ export default function CafeDetail() {
           </div>
 
           <div>
-            <CardContainer
-              title={reviewTitle[1]}
-              data={coffecafeDetail.review_set}
-              type={2}
-              isReviewModal={handleReviewModal}
-              isCreateModal={handleReviewCreateMdoal}
-              chevronWidth={100}
-            />
+            {vibeReviewArr && (
+              <CardContainer
+                title={reviewTitle[1]}
+                data={coffecafeDetail.review_set}
+                type={2}
+                isReviewModal={handleReviewModal}
+                isCreateModal={handleReviewCreateMdoal}
+                chevronWidth={100}
+              />
+            )}
             {/* <CardContainer
             title={title[1]}
             data={filteredReviewOne}

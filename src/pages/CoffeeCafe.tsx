@@ -27,7 +27,7 @@ export default function CoffeeCafe() {
   });
 
   const { isLoading, data } = useQuery({
-    queryKey: ["getCoffeeCafes"],
+    queryKey: ["getCoffeeCafesMap"],
     queryFn: () => getCoffeeCafesAPI(1),
   });
 
