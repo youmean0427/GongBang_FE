@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 // import ListContainer from "../list/ListContainer";
 // import Stars from "../common/Stars";
 import { LuX } from "react-icons/lu";
+import { LuChevronRightCircle } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import Stars from "./Stars";
 import ListContainer from "./ListContainer";
 import Modal from "./Modal";
 import { CardData } from "../../types/type";
-
+import { LuChevronLeftCircle } from "react-icons/lu";
 export default function CardContainer({
   title,
   data,
@@ -66,10 +67,14 @@ export default function CardContainer({
                 activeItemIndex={activeItemIndex}
                 numberOfCards={4}
                 gutter={10}
-                leftChevron={<button>{"<"}</button>}
+                leftChevron={
+                  <button className="h-full">
+                    <LuChevronLeftCircle size={30} />
+                  </button>
+                }
                 rightChevron={
-                  <button className="w-full h-full hover:bg-slate-600">
-                    {">"}
+                  <button className="h-full">
+                    <LuChevronRightCircle size={30} />
                   </button>
                 }
                 // outsideChevron
@@ -133,8 +138,16 @@ export default function CardContainer({
           activeItemIndex={activeItemIndex}
           numberOfCards={4}
           gutter={20}
-          leftChevron={<button>{"<"}</button>}
-          rightChevron={<button>{">"}</button>}
+          leftChevron={
+            <button className="h-full">
+              <LuChevronLeftCircle size={30} />
+            </button>
+          }
+          rightChevron={
+            <button className="h-full">
+              <LuChevronRightCircle size={30} />
+            </button>
+          }
           outsideChevron
           chevronWidth={chevronWidth}
         >
@@ -162,7 +175,11 @@ export default function CardContainer({
             </div>
           ))}
         </ItemsCarousel>
-
+        {!data.length && (
+          <div className="mb-32 text-xl text-center mt-28">
+            리뷰가 없습니다.
+          </div>
+        )}
         {reviewModalData ? (
           <Modal close={handleReviewModal} data={reviewModalData} type={0} />
         ) : (

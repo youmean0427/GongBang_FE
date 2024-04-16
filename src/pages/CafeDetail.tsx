@@ -38,9 +38,6 @@ export default function CafeDetail() {
   const [nowImage, setNowImage] = useState();
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
-  const [vibeReviewArr, setVibeReviewArr] = useState<
-    ReviewData[] | undefined
-  >();
 
   const {
     isLoading,
@@ -72,10 +69,6 @@ export default function CafeDetail() {
   useEffect(() => {
     if (coffecafeDetail) {
       setNowImage(coffecafeDetail.coffeecafeimage_set[0].image);
-
-      setVibeReviewArr([
-        ...coffecafeDetail.review_set.filter((x: ReviewData) => x.type == 2),
-      ]);
 
       // Review 최신순 정렬
       // coffecafeDetail.review_set.sort(
@@ -126,11 +119,11 @@ export default function CafeDetail() {
                 {" "}
                 {coffecafeDetail.address}{" "}
               </div>
-              <div className="mb-2 text-xl"> {coffecafeDetail.time} </div>
+              <div className="mb-4 text-xl"> {coffecafeDetail.time} </div>
               {/* <div> {data.lat} </div>
                         <div> {data.lng} </div> */}
               <hr />
-              <div className="mt-3 mb-2 text-xl cafedetail-info-con">
+              <div className="mt-4 mb-3 text-xl cafedetail-info-con">
                 편의시설
               </div>
               <div className="grid grid-cols-2 text-lg">
@@ -155,6 +148,8 @@ export default function CafeDetail() {
                   <div className="w-20 ">콘센트</div>
                   <Stars score={coffecafeDetail.plug} size="small" />
                 </div>
+                <div className="mt-1 mb-1"></div>
+                <div className="mt-1 mb-1"></div>
                 <div className="flex items-center mt-3 mb-1">
                   <LuWifi className="mr-2" />
                   <div className="w-20">와이파이</div>
@@ -186,8 +181,7 @@ export default function CafeDetail() {
           <div></div>
           {/* 통합 리뷰 */}
 
-          <div className="mb-10 mt-14">
-            <hr />
+          <div className="mt-20 mb-20">
             <CardContainer
               title={reviewTitle[0]}
               data={coffecafeDetail.review_set}
@@ -195,15 +189,16 @@ export default function CafeDetail() {
               isReviewModal={handleReviewModal}
               isCreateModal={handleReviewCreateMdoal}
               chevronWidth={100}
-            />
-            <div></div>
+            />{" "}
           </div>
 
           {/* <div className="text-2xl font-bold mb-7 lg:mr-72 lg:ml-72 md:ml-0 md:mr-0">
           {" "}
           카페 위치
         </div> */}
-          <div className="w-full mt-5 mb-5 h-96">
+
+          <div className="w-full mt-16 mb-16 h-96">
+            <div className="mb-10 text-2xl font-bold">카페 위치</div>
             <Map
               center={{
                 lat: 36.02625012993931,
@@ -224,9 +219,9 @@ export default function CafeDetail() {
               ></MapMarker>
             </Map>
           </div>
-
-          <div>
-            {vibeReviewArr && (
+          {/* 분위기 리뷰 */}
+          <div className="mt-20">
+            {/* {vibeReviewArr && (
               <CardContainer
                 title={reviewTitle[1]}
                 data={coffecafeDetail.review_set}
@@ -235,7 +230,7 @@ export default function CafeDetail() {
                 isCreateModal={handleReviewCreateMdoal}
                 chevronWidth={100}
               />
-            )}
+            )} */}
             {/* <CardContainer
             title={title[1]}
             data={filteredReviewOne}

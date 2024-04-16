@@ -33,11 +33,15 @@ export default function Nav() {
   // const dispatch = useDispatch();
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
+  const [isOpenProfileModal, setISOpenProfileModal] = useState(false);
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
   };
   const handleSignupModal = () => {
     setISOpenSignupModal(!isOpenSignupModal);
+  };
+  const handleProfileModal = () => {
+    setISOpenProfileModal(!isOpenProfileModal);
   };
 
   const accessToken = useRecoilValue(AccessToken);
@@ -82,7 +86,10 @@ export default function Nav() {
           {username ? (
             // After 로그인
             <div className="flex">
-              <div className="m-8 font-bold">{username}</div>
+              <div className="m-8 font-bold" onClick={handleProfileModal}>
+                {username}
+              </div>
+
               <div onClick={handleLogout} className="m-8">
                 로그아웃
               </div>
@@ -107,6 +114,7 @@ export default function Nav() {
       {/* modal */}
       {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
       {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
+      {isOpenProfileModal && <Modal close={handleProfileModal} type={5} />}
     </>
   );
 }

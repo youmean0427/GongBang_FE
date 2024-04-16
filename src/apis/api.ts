@@ -115,3 +115,8 @@ export const tokenRefreshAPI = async (token: object) => {
   });
   return response;
 };
+
+export const getProfileReview = async (user_id: number) => {
+  const { data } = await axios.get(`/api/profile/${user_id}`);
+  return data;
+};

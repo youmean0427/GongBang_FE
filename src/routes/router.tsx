@@ -5,6 +5,7 @@ import Nav from "../components/common/Nav";
 import Main from "../pages/Main";
 import CafeDetail from "../pages/CafeDetail";
 import CoffeeCafe from "../pages/CoffeeCafe";
+import Profile from "../pages/Accounts/Profile";
 export default function Router() {
   return (
     <>
@@ -14,6 +15,7 @@ export default function Router() {
         {/* <Route path="/signup" element={<Signup />} /> */}
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
       </Routes>
     </>
   );
