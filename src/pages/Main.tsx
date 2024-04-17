@@ -24,7 +24,6 @@ export default function Main() {
     queryKey: ["getCoffeeCafesOpt"],
     queryFn: () => getCoffeeCafesAPI(2),
   });
-  console.log(twoData);
   if (isLoading) return <></>;
   return (
     <>

@@ -79,7 +79,7 @@ export default function CardContainer({
                 // outsideChevron
                 chevronWidth={100}
               >
-                {data.map((data, i) => (
+                {data?.map((data, i) => (
                   <Link
                     to={`coffeecafe/${data.id}`}
                     style={{ textDecoration: "none" }}
