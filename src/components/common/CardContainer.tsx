@@ -89,7 +89,7 @@ export default function CardContainer({
                     >
                       <div className="text-lg ">
                         <div className="mb-5 h-80">
-                          {data.coffeecafeimage_set.length ? (
+                          {data.coffeecafeimage_set.length && (
                             <div className="w-full h-full">
                               <img
                                 className="object-cover w-full h-full rounded-2xl"
@@ -97,8 +97,6 @@ export default function CardContainer({
                                 alt="Cafe"
                               />
                             </div>
-                          ) : (
-                            <div></div>
                           )}
                         </div>
 
@@ -155,29 +153,30 @@ export default function CardContainer({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {data.map((data: any, i: number) => (
-            <div key={i} onClick={() => handelReviewDetailModal(data)}>
-              {/* Images */}
-              <div className="mb-3">
-                {data.reviewimage_set.length ? (
-                  <img
-                    className="w-full rounded-2xl"
-                    src={data.reviewimage_set[0].image}
-                    alt="Cafe"
-                  />
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              {/* <div>{data.id}</div> */}
+          {data &&
+            data.map((data: any, i: number) => (
+              <div key={i} onClick={() => handelReviewDetailModal(data)}>
+                {/* Images */}
+                <div className="mb-3">
+                  {data.reviewimage_set.length ? (
+                    <img
+                      className="w-full rounded-2xl"
+                      src={data.reviewimage_set[0].image}
+                      alt="Cafe"
+                    />
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                {/* <div>{data.id}</div> */}
 
-              {/* Info */}
-              <Stars score={data.score} size="small" />
-              <div className="text-xl font-bold">{data.title}</div>
-              <div className="text-lg ">{data.name}</div>
-              <div></div>
-            </div>
-          ))}
+                {/* Info */}
+                <Stars score={data.score} size="small" />
+                <div className="text-xl font-bold">{data.title}</div>
+                <div className="text-lg ">{data.name}</div>
+                <div></div>
+              </div>
+            ))}
         </ItemsCarousel>
         {!data.length && (
           <div className="flex items-center justify-center text-xl text-center h-80">
