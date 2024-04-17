@@ -87,17 +87,16 @@ export default function CardContainer({
                   >
                     <div className="text-lg ">
                       <div className="mb-5 h-80">
-                        {x.coffeecafeimage_set.length ? (
-                          <div className="w-full h-full">
-                            <img
-                              className="object-cover w-full h-full rounded-2xl"
-                              src={x.coffeecafeimage_set[0].image}
-                              alt="Cafe"
-                            />
-                          </div>
-                        ) : (
-                          <></>
-                        )}
+                        {x.coffeecafeimage_set &&
+                          x.coffeecafeimage_set.length > 0 && (
+                            <div className="w-full h-full">
+                              <img
+                                className="object-cover w-full h-full rounded-2xl"
+                                src={x.coffeecafeimage_set[0].image}
+                                alt="Cafe"
+                              />
+                            </div>
+                          )}
                       </div>
 
                       <div className="">
