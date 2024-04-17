@@ -80,7 +80,7 @@ export default function CardContainer({
                 // outsideChevron
                 chevronWidth={100}
               >
-                {data &&
+                {data.length &&
                   data.map((data, i) => (
                     <Link
                       to={`coffeecafe/${data.id}`}
@@ -153,7 +153,7 @@ export default function CardContainer({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {data &&
+          {data.length &&
             data.map((data: any, i: number) => (
               <div key={i} onClick={() => handelReviewDetailModal(data)}>
                 {/* Images */}
