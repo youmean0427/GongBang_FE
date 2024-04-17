@@ -107,12 +107,16 @@ export const tokenVerifyAPI = async (token: object) => {
 };
 
 export const tokenRefreshAPI = async (token: object) => {
-  const response = await axios.post("/accounts/token/refresh/", token, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "X-CSRFToken": "{{csrftoken}}",
-    },
-  });
+  const response = await axios.post(
+    "https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/accounts/token/refresh/",
+    token,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "X-CSRFToken": "{{csrftoken}}",
+      },
+    }
+  );
   return response;
 };
 
