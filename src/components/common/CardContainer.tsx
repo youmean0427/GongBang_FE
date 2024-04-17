@@ -62,7 +62,7 @@ export default function CardContainer({
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex">
             <div className="w-full">
-              {data && (
+              {data.length > 0 && (
                 <ItemsCarousel
                   requestToChangeActive={setActiveItemIndex}
                   activeItemIndex={activeItemIndex}
