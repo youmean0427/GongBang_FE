@@ -30,7 +30,8 @@ import Review from "./Reveiw";
 import Modal from "../components/common/Modal";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { ReviewData } from "../types/type";
-
+import FilterContainer from "../components/common/FilterContainer";
+import cafeMarker from "../../src/images/cafe_marker.png";
 export default function CafeDetail() {
   const { id } = useParams();
   const reviewTitle = ["통합 리뷰", "분위기", "좌석", "음료", "콘센트"];
@@ -77,10 +78,13 @@ export default function CafeDetail() {
       // );
     }
   }, [coffecafeDetail]);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   // console.log(coffecafeDetail);
-  // if (isFetching) return <></>;
-  if (isLoading) return <></>;
+  if (isFetching && !toggleReviewCreateModal) return <>isFetching</>;
+  if (isLoading) return <div>isLoading</div>;
   return (
     <>
       <div className="flex flex-row w-full">
@@ -216,11 +220,19 @@ export default function CafeDetail() {
                   lat: 36.02625012993931,
                   lng: 129.36089331247362,
                 }}
+                image={{
+                  src: cafeMarker,
+                  size: {
+                    width: 80,
+                    height: 80,
+                  },
+                }}
               ></MapMarker>
             </Map>
           </div>
           {/* 분위기 리뷰 */}
-          <div className="mt-20">
+          <div className="mb-20 mt-36">
+            <FilterContainer data={coffecafeDetail.review_set} />
             {/* {vibeReviewArr && (
               <CardContainer
                 title={reviewTitle[1]}

@@ -66,5 +66,5 @@
       "public"
     ]
   },
-  "proxy": "http://127.0.0.1:8000/"
+  "proxy": "https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/"
 }

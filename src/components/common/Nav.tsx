@@ -86,22 +86,25 @@ export default function Nav() {
           {username ? (
             // After 로그인
             <div className="flex">
-              <div className="m-8 font-bold" onClick={handleProfileModal}>
+              <div
+                className="m-8 font-bold cursor-pointer"
+                onClick={handleProfileModal}
+              >
                 {username}
               </div>
 
-              <div onClick={handleLogout} className="m-8">
+              <div onClick={handleLogout} className="m-8 cursor-pointer">
                 로그아웃
               </div>
             </div>
           ) : (
             // Before 로그인
             <div className="flex">
-              <div className="m-8">
+              <div className="m-8 cursor-pointer">
                 <div onClick={handleLoginModal}>로그인</div>
                 {/* <Link to={"/login"}>로그인</Link> */}
               </div>
-              <div className="m-8">
+              <div className="m-8 cursor-pointer">
                 <div onClick={handleSignupModal}>회원가입</div>
                 {/* <Link to={"/signup"}>회원가입</Link> */}
               </div>

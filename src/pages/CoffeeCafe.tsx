@@ -5,7 +5,9 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { getCoffeeCafesAPI } from "../apis/api";
 import Stars from "../components/common/Stars";
-
+import nowMarker from "../../src/images/now_marker.png";
+import moveMarker from "../../src/images/move_marker.png";
+import cafeMarker from "../../src/images/cafe_marker.png";
 export default function CoffeeCafe() {
   const [filteredCafe, setFilteredCafe] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -111,8 +113,26 @@ export default function CoffeeCafe() {
             fillColor="#ffd80b"
             fillOpacity={0.2}
           />
-          <MapMarker position={nowState.center}></MapMarker>
-          <MapMarker position={markerState.center}></MapMarker>
+          <MapMarker
+            position={nowState.center}
+            image={{
+              src: nowMarker,
+              size: {
+                width: 1,
+                height: 1,
+              },
+            }}
+          ></MapMarker>
+          <MapMarker
+            position={markerState.center}
+            image={{
+              src: moveMarker,
+              size: {
+                width: 60,
+                height: 60,
+              },
+            }}
+          ></MapMarker>
 
           {filteredCafe.map((cafe, index) => (
             <div>
@@ -120,10 +140,10 @@ export default function CoffeeCafe() {
                 key={index}
                 position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
                 image={{
-                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
+                  src: cafeMarker, // 마커이미지의 주소입니다
                   size: {
-                    width: 24,
-                    height: 35,
+                    width: 60,
+                    height: 60,
                   }, // 마커이미지의 크기입니다
                 }}
                 clickable={true}

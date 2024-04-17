@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { deleteReviewAPI } from "../../apis/api";
-import { useMutation } from "react-query";
+import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../apis/api";
+import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 // import "../list/ListContainer.css";
 import Stars from "../common/Stars";
@@ -9,10 +9,12 @@ import { RootState } from "../../redux/store";
 
 interface ListContainer {
   data: any;
+  type?: number;
 }
 
-export default function ListContainer({ data }: ListContainer) {
+export default function ListContainer({ type, data }: ListContainer) {
   const typeCode: any = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
+  const [cafeId, setCafeId] = useState(0);
   const [images, setImages] = useState<any>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
   const reviewDeleteMutation = useMutation(
@@ -25,6 +27,14 @@ export default function ListContainer({ data }: ListContainer) {
     }
   );
 
+  const { isLoading, data: cafeData } = useQuery({
+    queryKey: ["listCafeData", data.cafe],
+    queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
+    onSuccess: (x) => {
+      setCafeId(x.id);
+    },
+  });
+
   const handleDelete = (review_id: any) => {
     reviewDeleteMutation.mutate(review_id);
   };
@@ -34,27 +44,36 @@ export default function ListContainer({ data }: ListContainer) {
       setImages([...images, x]);
     });
   }, []);
-
   return (
     <div className="mt-5 mb-8 ml-8 mr-8">
       {/* Info */}
+      {type == 2 && cafeData && cafeId && (
+        <div
+          className="mb-2 text-xl cursor-pointer"
+          onClick={() => {
+            window.location.href = `/coffeecafe/${cafeId}`;
+          }}
+        >
+          {cafeData.name}
+        </div>
+      )}
       <div className="grid grid-cols-2 mb-5">
         <div className="mb-2 text-2xl font-bold">{data.title}</div>
         <div>
           <div className=" text-end">
             {userId === data.user ? (
-              <>
+              <div>
                 {/* <Link to={`/review/${data.id}`}>
                   <span>수정</span>
                 </Link>
                 <span> | </span> */}
-                <span
-                  className="cursor-pointer"
+                <div
+                  className="mt-2 cursor-pointer"
                   onClick={() => handleDelete(data.id)}
                 >
                   삭제
-                </span>
-              </>
+                </div>
+              </div>
             ) : (
               <></>
             )}

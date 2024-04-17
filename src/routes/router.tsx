@@ -6,6 +6,7 @@ import Main from "../pages/Main";
 import CafeDetail from "../pages/CafeDetail";
 import CoffeeCafe from "../pages/CoffeeCafe";
 import Profile from "../pages/Accounts/Profile";
+import FilterContainer from "../components/common/FilterContainer";
 export default function Router() {
   return (
     <>
@@ -15,7 +16,7 @@ export default function Router() {
         {/* <Route path="/signup" element={<Signup />} /> */}
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
-        {/* <Route path="/profile" element={<Profile />} /> */}
+        <Route path="/filter" element={<FilterContainer />} />
       </Routes>
     </>
   );

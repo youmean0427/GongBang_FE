@@ -69,43 +69,41 @@ export default function Login() {
   });
 
   return (
-    <>
-      <div className="flex flex-col items-center justify-center w-full h-full">
-        <div className="text-3xl text-center m-7">공방</div>
+    <div className="flex flex-col items-center justify-center w-full h-full">
+      <div className="text-3xl text-center m-7">공방</div>
 
-        <div className="w-72">
-          <div className="mb-3 text-lg">이메일</div>
-          <input
-            name="email"
-            className="w-full input input-bordered"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="w-72">
-          <div className="mt-3 mb-3 text-lg">비밀번호</div>
-          <input
-            type="password"
-            className="w-full input input-bordered "
-            name="password"
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className="mt-3 mb-3 text-lg">
-          {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
-        </div>
-
-        <div>
-          <button
-            className="mt-10 text-xl btn w-72"
-            onClick={handleLogin}
-            disabled={isValid}
-          >
-            로그인
-          </button>
-        </div>
+      <div className="w-72">
+        <div className="mb-3 text-lg">이메일</div>
+        <input
+          name="email"
+          className="w-full input input-bordered"
+          onChange={handleChange}
+        />
       </div>
-    </>
+
+      <div className="w-72">
+        <div className="mt-3 mb-3 text-lg">비밀번호</div>
+        <input
+          type="password"
+          className="w-full input input-bordered "
+          name="password"
+          onChange={handleChange}
+        />
+      </div>
+
+      <div className="mt-3 mb-3 text-lg">
+        {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
+      </div>
+
+      <div>
+        <button
+          className="mt-10 text-xl btn w-72"
+          onClick={handleLogin}
+          disabled={isValid}
+        >
+          로그인
+        </button>
+      </div>
+    </div>
   );
 }

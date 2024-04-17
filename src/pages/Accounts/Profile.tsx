@@ -21,7 +21,7 @@ export default function Profile() {
       {data &&
         data.map((x: any, i: any) => (
           <div key={i} className="w-full">
-            <ListContainer data={x} />
+            <ListContainer data={x} type={2} />
             <hr />
           </div>
         ))}

@@ -122,14 +122,17 @@ export default function CardContainer({
         <div className="flex items-center justify-between">
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex text-lg">
-            {username ? (
+            {username && type == 2 ? (
               <div onClick={isCreateModal}>리뷰 작성하기 | </div>
             ) : (
               <div></div>
             )}
-            <div className="" onClick={isReviewModal}>
-              모든 리뷰 보기
-            </div>
+            {type == 2 && (
+              <div className="" onClick={isReviewModal}>
+                {" "}
+                모든 리뷰 보기
+              </div>
+            )}
           </div>
         </div>
 
@@ -176,8 +179,8 @@ export default function CardContainer({
           ))}
         </ItemsCarousel>
         {!data.length && (
-          <div className="mb-32 text-xl text-center mt-28">
-            리뷰가 없습니다.
+          <div className="flex items-center justify-center text-xl text-center h-80">
+            <div>리뷰가 없습니다.</div>
           </div>
         )}
         {reviewModalData ? (

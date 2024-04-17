@@ -83,69 +83,67 @@ export default function Signup() {
 
   console.log(signupInputs);
   return (
-    <>
-      <div className="flex items-center justify-center w-full h-full">
-        <div>
-          <div className="text-3xl text-center m-7">공방</div>
+    <div className="flex items-center justify-center w-full h-full">
+      <div>
+        <div className="text-3xl text-center m-7">공방</div>
 
-          <div className="w-72">
-            <div className="mt-3 mb-3 text-lg">닉네임</div>
+        <div className="w-72">
+          <div className="mt-3 mb-3 text-lg">닉네임</div>
 
+          <input
+            className="w-full input input-bordered"
+            name="username"
+            onChange={handleChange}
+          />
+
+          <div className="mt-3 mb-3 text-lg">이메일</div>
+          <div>
             <input
               className="w-full input input-bordered"
-              name="username"
+              name="email"
               onChange={handleChange}
             />
+          </div>
+          <div className="mt-3 mb-3 text-lg">
+            {!isSignupError ? "" : "존재하는 닉네임 또는 이메일입니다."}{" "}
+          </div>
+          <div className="mt-3 mb-3 text-lg">비밀번호</div>
+          <div>
+            <input
+              className="w-full input input-bordered"
+              type="password"
+              name="password1"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mt-3 mb-3 text-lg">
+            {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
+          </div>
 
-            <div className="mt-3 mb-3 text-lg">이메일</div>
-            <div>
-              <input
-                className="w-full input input-bordered"
-                name="email"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mt-3 mb-3 text-lg">
-              {!isSignupError ? "" : "존재하는 닉네임 또는 이메일입니다."}{" "}
-            </div>
-            <div className="mt-3 mb-3 text-lg">비밀번호</div>
-            <div>
-              <input
-                className="w-full input input-bordered"
-                type="password"
-                name="password1"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mt-3 mb-3 text-lg">
-              {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
-            </div>
+          <div className="mt-3 mb-3 text-lg">비밀번호 확인</div>
+          <div>
+            <input
+              className="w-full input input-bordered"
+              type="password"
+              name="password2"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="mt-3 mb-3 text-lg">
+            {isPasswordMatch ? "" : "비밀번호를 확인해주세요."}{" "}
+          </div>
 
-            <div className="mt-3 mb-3 text-lg">비밀번호 확인</div>
-            <div>
-              <input
-                className="w-full input input-bordered"
-                type="password"
-                name="password2"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mt-3 mb-3 text-lg">
-              {isPasswordMatch ? "" : "비밀번호를 확인해주세요."}{" "}
-            </div>
-
-            <div>
-              <button
-                className="mt-10 text-xl btn w-72"
-                onClick={handleSignup}
-                disabled={isValid}
-              >
-                회원가입
-              </button>
-            </div>
+          <div>
+            <button
+              className="mt-10 text-xl btn w-72"
+              onClick={handleSignup}
+              disabled={isValid}
+            >
+              회원가입
+            </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
