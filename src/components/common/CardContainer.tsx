@@ -89,7 +89,7 @@ export default function CardContainer({
                     >
                       <div className="text-lg ">
                         <div className="mb-5 h-80">
-                          {data.coffeecafeimage_set.length && (
+                          {data.coffeecafeimage_set.length ? (
                             <div className="w-full h-full">
                               <img
                                 className="object-cover w-full h-full rounded-2xl"
@@ -97,6 +97,8 @@ export default function CardContainer({
                                 alt="Cafe"
                               />
                             </div>
+                          ) : (
+                            <></>
                           )}
                         </div>
 
