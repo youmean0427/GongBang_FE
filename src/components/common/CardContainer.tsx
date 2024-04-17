@@ -80,35 +80,36 @@ export default function CardContainer({
                 // outsideChevron
                 chevronWidth={100}
               >
-                {data.map((data, i) => (
-                  <Link
-                    to={`coffeecafe/${data.id}`}
-                    style={{ textDecoration: "none" }}
-                    key={i}
-                  >
-                    <div className="text-lg ">
-                      <div className="mb-5 h-80">
-                        {data.coffeecafeimage_set.length ? (
-                          <div className="w-full h-full">
-                            <img
-                              className="object-cover w-full h-full rounded-2xl"
-                              src={data.coffeecafeimage_set[0].image}
-                              alt="Cafe"
-                            />
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-                      </div>
+                {data &&
+                  data.map((data, i) => (
+                    <Link
+                      to={`coffeecafe/${data.id}`}
+                      style={{ textDecoration: "none" }}
+                      key={i}
+                    >
+                      <div className="text-lg ">
+                        <div className="mb-5 h-80">
+                          {data.coffeecafeimage_set.length ? (
+                            <div className="w-full h-full">
+                              <img
+                                className="object-cover w-full h-full rounded-2xl"
+                                src={data.coffeecafeimage_set[0].image}
+                                alt="Cafe"
+                              />
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
+                        </div>
 
-                      <div className="">
-                        <Stars score={data.total_score} size="small" />
+                        <div className="">
+                          <Stars score={data.total_score} size="small" />
+                        </div>
+                        <div className="text-xl font-bold">{data.name}</div>
+                        <div className="text-base ">{data.address}</div>
                       </div>
-                      <div className="text-xl font-bold">{data.name}</div>
-                      <div className="text-base ">{data.address}</div>
-                    </div>
-                  </Link>
-                ))}
+                    </Link>
+                  ))}
               </ItemsCarousel>
             </div>
           </div>
