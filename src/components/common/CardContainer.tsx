@@ -27,7 +27,7 @@ export default function CardContainer({
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
-  const [coffeecafes, setCoffeecafes] = useState([...data]);
+
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
     (id: number) => deleteReviewAPI(id),
@@ -52,7 +52,7 @@ export default function CardContainer({
     setReviewModalData("");
   };
   // Cafe Card
-  console.log(coffeecafes);
+
   if (type === 1)
     return (
       <div className="w-full mt-12 mb-10 ">
@@ -80,7 +80,7 @@ export default function CardContainer({
                 // outsideChevron
                 chevronWidth={100}
               >
-                {coffeecafes.map((x, i) => (
+                {data.map((x, i) => (
                   <Link
                     to={`coffeecafe/${x.id}`}
                     style={{ textDecoration: "none" }}
