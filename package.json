@@ -65,6 +65,6 @@
     "workerDirectory": [
       "public"
     ]
-  }
-  
+  },
+  "proxy": "https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/"
 }
