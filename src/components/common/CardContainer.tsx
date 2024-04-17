@@ -51,7 +51,7 @@ export default function CardContainer({
   const handleReviewModal = () => {
     setReviewModalData("");
   };
-
+  console.log(data);
   // Cafe Card
   if (type === 1)
     return (
@@ -62,56 +62,54 @@ export default function CardContainer({
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex">
             <div className="w-full">
-              {data.length > 0 && (
-                <ItemsCarousel
-                  requestToChangeActive={setActiveItemIndex}
-                  activeItemIndex={activeItemIndex}
-                  numberOfCards={4}
-                  gutter={10}
-                  leftChevron={
-                    <button className="h-full">
-                      <LuChevronLeftCircle size={30} />
-                    </button>
-                  }
-                  rightChevron={
-                    <button className="h-full">
-                      <LuChevronRightCircle size={30} />
-                    </button>
-                  }
-                  // outsideChevron
-                  chevronWidth={100}
-                >
-                  {data.map((data, i) => (
-                    <Link
-                      to={`coffeecafe/${data.id}`}
-                      style={{ textDecoration: "none" }}
-                      key={i}
-                    >
-                      <div className="text-lg ">
-                        <div className="mb-5 h-80">
-                          {data.coffeecafeimage_set.length ? (
-                            <div className="w-full h-full">
-                              <img
-                                className="object-cover w-full h-full rounded-2xl"
-                                src={data.coffeecafeimage_set[0].image}
-                                alt="Cafe"
-                              />
-                            </div>
-                          ) : (
-                            <></>
-                          )}
-                        </div>
-
-                        <div className="">
-                          <Stars score={data.total_score} size="small" />
-                        </div>
-                        <div className="text-xl font-bold">{data.name}</div>
-                        <div className="text-base ">{data.address}</div>
+              <ItemsCarousel
+                requestToChangeActive={setActiveItemIndex}
+                activeItemIndex={activeItemIndex}
+                numberOfCards={4}
+                gutter={10}
+                leftChevron={
+                  <button className="h-full">
+                    <LuChevronLeftCircle size={30} />
+                  </button>
+                }
+                rightChevron={
+                  <button className="h-full">
+                    <LuChevronRightCircle size={30} />
+                  </button>
+                }
+                // outsideChevron
+                chevronWidth={100}
+              >
+                {data.map((data, i) => (
+                  <Link
+                    to={`coffeecafe/${data.id}`}
+                    style={{ textDecoration: "none" }}
+                    key={i}
+                  >
+                    <div className="text-lg ">
+                      <div className="mb-5 h-80">
+                        {data.coffeecafeimage_set.length ? (
+                          <div className="w-full h-full">
+                            <img
+                              className="object-cover w-full h-full rounded-2xl"
+                              src={data.coffeecafeimage_set[0].image}
+                              alt="Cafe"
+                            />
+                          </div>
+                        ) : (
+                          <></>
+                        )}
                       </div>
-                    </Link>
-                  ))}
-                </ItemsCarousel>
-              )}
+
+                      <div className="">
+                        <Stars score={data.total_score} size="small" />
+                      </div>
+                      <div className="text-xl font-bold">{data.name}</div>
+                      <div className="text-base ">{data.address}</div>
+                    </div>
+                  </Link>
+                ))}
+              </ItemsCarousel>
             </div>
           </div>
         </div>
