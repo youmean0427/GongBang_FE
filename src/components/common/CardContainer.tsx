@@ -52,6 +52,7 @@ export default function CardContainer({
     setReviewModalData("");
   };
   // Cafe Card
+  console.log(coffeecafes);
   if (type === 1)
     return (
       <div className="w-full mt-12 mb-10 ">

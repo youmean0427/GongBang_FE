@@ -35,7 +35,7 @@ export default function Main() {
           <div className="flex flex-row w-full">
             <div className="w-1/4"></div>
             <div className="w-[1280px] ">
-              {oneData && (
+              {oneData !== undefined && (
                 <CardContainer
                   title={"🔥 핫플, 인기 있는 카페"}
                   data={oneData}
@@ -44,7 +44,7 @@ export default function Main() {
                 />
               )}
               <hr />
-              {twoData && (
+              {twoData !== undefined && (
                 <CardContainer
                   title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
                   data={twoData}
@@ -53,7 +53,7 @@ export default function Main() {
                 />
               )}
               <hr />
-              {oneData && (
+              {oneData !== undefined && (
                 <CardContainer
                   title={"✨ 새로운, 최근 오픈 신상 카페"}
                   data={oneData}
