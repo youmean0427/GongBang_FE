@@ -27,7 +27,7 @@ export default function CardContainer({
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
-
+  const [coffeecafes, setCoffeecafes] = useState(data);
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
     (id: number) => deleteReviewAPI(id),
@@ -79,19 +79,19 @@ export default function CardContainer({
                 // outsideChevron
                 chevronWidth={100}
               >
-                {data?.map((data, i) => (
+                {coffeecafes.map((x, i) => (
                   <Link
-                    to={`coffeecafe/${data.id}`}
+                    to={`coffeecafe/${x.id}`}
                     style={{ textDecoration: "none" }}
                     key={i}
                   >
                     <div className="text-lg ">
                       <div className="mb-5 h-80">
-                        {data.coffeecafeimage_set.length ? (
+                        {x.coffeecafeimage_set.length ? (
                           <div className="w-full h-full">
                             <img
                               className="object-cover w-full h-full rounded-2xl"
-                              src={data.coffeecafeimage_set[0].image}
+                              src={x.coffeecafeimage_set[0].image}
                               alt="Cafe"
                             />
                           </div>
@@ -101,10 +101,10 @@ export default function CardContainer({
                       </div>
 
                       <div className="">
-                        <Stars score={data.total_score} size="small" />
+                        <Stars score={x.total_score} size="small" />
                       </div>
-                      <div className="text-xl font-bold">{data.name}</div>
-                      <div className="text-base ">{data.address}</div>
+                      <div className="text-xl font-bold">{x.name}</div>
+                      <div className="text-base ">{x.address}</div>
                     </div>
                   </Link>
                 ))}
