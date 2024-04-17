@@ -43,15 +43,14 @@ export default function CardContainer({
     reviewDeleteMutation.mutate(review_id);
   };
 
-  const handelReviewDetailModal = (data: string) => {
-    setReviewModalData(data);
+  const handelReviewDetailModal = (modalData: string) => {
+    setReviewModalData(modalData);
     setToggleReviewDetailModal(true);
   };
 
   const handleReviewModal = () => {
     setReviewModalData("");
   };
-  console.log(data);
   // Cafe Card
   if (type === 1)
     return (

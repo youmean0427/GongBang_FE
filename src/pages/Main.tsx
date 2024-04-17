@@ -33,7 +33,7 @@ export default function Main() {
         <div>
           <Banner />
         </div>
-        <div className="">
+        {/* <div className="">
           <div className="flex flex-row w-full">
             <div className="w-1/4"></div>
             <div className="w-[1280px] ">
@@ -72,7 +72,7 @@ export default function Main() {
             </div>
             <div className="w-1/4 "></div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
