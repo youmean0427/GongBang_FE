@@ -27,7 +27,7 @@ export default function CardContainer({
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
-  const [coffeecafes, setCoffeecafes] = useState(data);
+  const [coffeecafes, setCoffeecafes] = useState([...data]);
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
     (id: number) => deleteReviewAPI(id),
