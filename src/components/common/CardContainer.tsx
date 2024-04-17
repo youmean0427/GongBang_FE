@@ -62,26 +62,26 @@ export default function CardContainer({
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="flex">
             <div className="w-full">
-              <ItemsCarousel
-                requestToChangeActive={setActiveItemIndex}
-                activeItemIndex={activeItemIndex}
-                numberOfCards={4}
-                gutter={10}
-                leftChevron={
-                  <button className="h-full">
-                    <LuChevronLeftCircle size={30} />
-                  </button>
-                }
-                rightChevron={
-                  <button className="h-full">
-                    <LuChevronRightCircle size={30} />
-                  </button>
-                }
-                // outsideChevron
-                chevronWidth={100}
-              >
-                {data.length &&
-                  data.map((data, i) => (
+              {data && (
+                <ItemsCarousel
+                  requestToChangeActive={setActiveItemIndex}
+                  activeItemIndex={activeItemIndex}
+                  numberOfCards={4}
+                  gutter={10}
+                  leftChevron={
+                    <button className="h-full">
+                      <LuChevronLeftCircle size={30} />
+                    </button>
+                  }
+                  rightChevron={
+                    <button className="h-full">
+                      <LuChevronRightCircle size={30} />
+                    </button>
+                  }
+                  // outsideChevron
+                  chevronWidth={100}
+                >
+                  {data.map((data, i) => (
                     <Link
                       to={`coffeecafe/${data.id}`}
                       style={{ textDecoration: "none" }}
@@ -108,7 +108,8 @@ export default function CardContainer({
                       </div>
                     </Link>
                   ))}
-              </ItemsCarousel>
+                </ItemsCarousel>
+              )}
             </div>
           </div>
         </div>
@@ -153,30 +154,29 @@ export default function CardContainer({
           outsideChevron
           chevronWidth={chevronWidth}
         >
-          {data.length &&
-            data.map((data: any, i: number) => (
-              <div key={i} onClick={() => handelReviewDetailModal(data)}>
-                {/* Images */}
-                <div className="mb-3">
-                  {data.reviewimage_set.length ? (
-                    <img
-                      className="w-full rounded-2xl"
-                      src={data.reviewimage_set[0].image}
-                      alt="Cafe"
-                    />
-                  ) : (
-                    <div></div>
-                  )}
-                </div>
-                {/* <div>{data.id}</div> */}
-
-                {/* Info */}
-                <Stars score={data.score} size="small" />
-                <div className="text-xl font-bold">{data.title}</div>
-                <div className="text-lg ">{data.name}</div>
-                <div></div>
+          {data.map((data: any, i: number) => (
+            <div key={i} onClick={() => handelReviewDetailModal(data)}>
+              {/* Images */}
+              <div className="mb-3">
+                {data.reviewimage_set.length ? (
+                  <img
+                    className="w-full rounded-2xl"
+                    src={data.reviewimage_set[0].image}
+                    alt="Cafe"
+                  />
+                ) : (
+                  <div></div>
+                )}
               </div>
-            ))}
+              {/* <div>{data.id}</div> */}
+
+              {/* Info */}
+              <Stars score={data.score} size="small" />
+              <div className="text-xl font-bold">{data.title}</div>
+              <div className="text-lg ">{data.name}</div>
+              <div></div>
+            </div>
+          ))}
         </ItemsCarousel>
         {!data.length && (
           <div className="flex items-center justify-center text-xl text-center h-80">
