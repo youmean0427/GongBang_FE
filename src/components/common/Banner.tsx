@@ -1,9 +1,11 @@
 import React from "react";
-
+import banner from "../../images/banner.png";
 export default function Banner() {
   return (
     <>
-      <div className="h-72 bg-slate-400">배너</div>
+      <div className="w-full h-72">
+        <img className="object-cover w-full h-full " src={banner} />
+      </div>
     </>
   );
 }

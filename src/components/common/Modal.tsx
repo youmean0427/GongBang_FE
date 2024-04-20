@@ -10,8 +10,8 @@ const modalsSize: any = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "w-2/5 overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-1/3 overflow-y-auto bg-white h-4/5 rounded-xl",
-  3: "w-1/3 overflow-y-auto bg-white h-4/5 rounded-xl",
-  4: "w-1/3 overflow-y-auto bg-white h-4/5 rounded-xl",
+  3: "w-[500px] overflow-y-auto bg-white h-[500px] rounded-xl",
+  4: "w-[500px] overflow-y-auto bg-white h-[700px] rounded-xl",
   5: "w-2/5 overflow-y-auto bg-white h-4/5 rounded-xl",
 };
 

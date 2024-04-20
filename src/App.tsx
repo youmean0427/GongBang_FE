@@ -8,6 +8,7 @@ import store from "./redux/store";
 import { tokenRefreshAPI, tokenVerifyAPI, userAPI } from "./apis/api";
 import { error } from "console";
 import userSlice from "./redux/userSlice";
+import Footer from "./components/common/Footer";
 
 export default function App() {
   const accessToken: null | string = localStorage.getItem("access_token");
@@ -55,6 +56,7 @@ export default function App() {
     <>
       <Nav />
       <Router />
+
       {/* Modal */}
     </>
   );

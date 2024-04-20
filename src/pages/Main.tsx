@@ -2,7 +2,6 @@ import Banner from "../components/common/Banner";
 import CardContainer from "../components/common/CardContainer";
 import { getCoffeeCafesAPI } from "../apis/api";
 import { useQueries, useQuery } from "react-query";
-import "./test.css";
 import { useEffect } from "react";
 
 export default function Main() {

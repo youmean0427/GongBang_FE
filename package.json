@@ -10,6 +10,7 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.87",
     "@types/react": "^18.2.64",
+    "@types/react-custom-scrollbars": "^4.0.13",
     "@types/react-dom": "^18.2.21",
     "@types/react-redux": "^7.1.33",
     "@types/redux": "^3.6.0",
@@ -66,5 +67,5 @@
       "public"
     ]
   },
-  "proxy": "https://port-0-gongbang-be-dc9c2mltoikgzj.sel5.cloudtype.app/"
+  "proxy": "http://127.0.0.1:8000/"
 }

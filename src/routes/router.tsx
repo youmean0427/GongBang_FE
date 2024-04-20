@@ -7,6 +7,7 @@ import CafeDetail from "../pages/CafeDetail";
 import CoffeeCafe from "../pages/CoffeeCafe";
 import Profile from "../pages/Accounts/Profile";
 import FilterContainer from "../components/common/FilterContainer";
+import Banner from "../components/common/Banner";
 export default function Router() {
   return (
     <>

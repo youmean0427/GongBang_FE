@@ -12,7 +12,7 @@ import { RootState } from "../../redux/store";
 import userSlice from "../../redux/userSlice";
 import { AccessToken } from "../../recoil/atom";
 import Modal from "./Modal";
-
+import fullStar from "../../images/full_star.png";
 interface UserData {
   email: String;
   pk: Number;
@@ -65,51 +65,57 @@ export default function Nav() {
 
   return (
     <>
-      <div className="flex items-center justify-between h-20 text-xl">
-        {/* Logo & Link */}
-        <div className="flex items-center">
-          <Link to={"/"}>
-            <div className="m-8">
-              <img className="nav-logo" src={logoImage} />
-            </div>
-          </Link>
-
-          {links.map((link, index) => (
-            <Link to={link.url} key={index}>
-              <div className="m-8">{link.title}</div>
+      <div className="flex flex-row w-full">
+        <div className="flex items-center justify-between w-full h-20 text-xl ">
+          {/* Logo & Link */}
+          <div className="flex items-center">
+            <Link to={"/"}>
+              <div className="w-12 h-12 m-8">
+                <img className="nav-logo" src={logoImage} />
+              </div>
             </Link>
-          ))}
-        </div>
 
-        {/* Login / Logout */}
-        <div>
-          {username ? (
-            // After 로그인
-            <div className="flex">
-              <div
-                className="m-8 font-bold cursor-pointer"
-                onClick={handleProfileModal}
-              >
-                {username}
-              </div>
+            {links.map((link, index) => (
+              <Link to={link.url} key={index}>
+                <div className="m-8 font-semibold">{link.title}</div>
+              </Link>
+            ))}
+          </div>
 
-              <div onClick={handleLogout} className="m-8 cursor-pointer">
-                로그아웃
+          {/* Login / Logout */}
+          <div>
+            {username ? (
+              // After 로그인
+              <div className="flex items-baseline justify-center">
+                <img src={fullStar} className="w-5 h-5" />
+                <div
+                  className="ml-2 text-2xl font-bold cursor-pointer "
+                  onClick={handleProfileModal}
+                >
+                  {username}
+                </div>
+                <div className="ml-4 mr-4"> | </div>
+                <div
+                  onClick={handleLogout}
+                  className="mr-8 text-xl cursor-pointer "
+                >
+                  로그아웃
+                </div>
               </div>
-            </div>
-          ) : (
-            // Before 로그인
-            <div className="flex">
-              <div className="m-8 cursor-pointer">
-                <div onClick={handleLoginModal}>로그인</div>
-                {/* <Link to={"/login"}>로그인</Link> */}
+            ) : (
+              // Before 로그인
+              <div className="flex">
+                <div className="m-8 cursor-pointer">
+                  <div onClick={handleLoginModal}>로그인</div>
+                  {/* <Link to={"/login"}>로그인</Link> */}
+                </div>
+                <div className="m-8 cursor-pointer">
+                  <div onClick={handleSignupModal}>회원가입</div>
+                  {/* <Link to={"/signup"}>회원가입</Link> */}
+                </div>
               </div>
-              <div className="m-8 cursor-pointer">
-                <div onClick={handleSignupModal}>회원가입</div>
-                {/* <Link to={"/signup"}>회원가입</Link> */}
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
       <hr />

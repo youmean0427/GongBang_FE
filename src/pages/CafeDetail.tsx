@@ -223,8 +223,8 @@ export default function CafeDetail() {
                 image={{
                   src: cafeMarker,
                   size: {
-                    width: 80,
-                    height: 80,
+                    width: 90,
+                    height: 100,
                   },
                 }}
               ></MapMarker>

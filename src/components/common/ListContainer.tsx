@@ -14,7 +14,7 @@ interface ListContainer {
 
 export default function ListContainer({ type, data }: ListContainer) {
   const typeCode: any = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
-  const [cafeId, setCafeId] = useState(0);
+  const [cafeId, setCafeId] = useState();
   const [images, setImages] = useState<any>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
   const reviewDeleteMutation = useMutation(
@@ -27,7 +27,11 @@ export default function ListContainer({ type, data }: ListContainer) {
     }
   );
 
-  const { isLoading, data: cafeData } = useQuery({
+  const {
+    isFetching,
+    isLoading,
+    data: cafeData,
+  } = useQuery({
     queryKey: ["listCafeData", data.cafe],
     queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
     onSuccess: (x) => {
@@ -44,6 +48,8 @@ export default function ListContainer({ type, data }: ListContainer) {
       setImages([...images, x]);
     });
   }, []);
+
+  if (isLoading || isFetching) return <></>;
   return (
     <div className="mt-5 mb-8 ml-8 mr-8">
       {/* Info */}

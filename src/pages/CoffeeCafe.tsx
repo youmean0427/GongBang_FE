@@ -128,8 +128,8 @@ export default function CoffeeCafe() {
             image={{
               src: moveMarker,
               size: {
-                width: 60,
-                height: 60,
+                width: 90,
+                height: 100,
               },
             }}
           ></MapMarker>
@@ -142,8 +142,8 @@ export default function CoffeeCafe() {
                 image={{
                   src: cafeMarker, // 마커이미지의 주소입니다
                   size: {
-                    width: 60,
-                    height: 60,
+                    width: 80,
+                    height: 90,
                   }, // 마커이미지의 크기입니다
                 }}
                 clickable={true}
