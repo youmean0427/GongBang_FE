@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Card.css";
 import ItemsCarousel from "react-items-carousel";
 import { useMutation, useQuery } from "react-query";
-import { deleteReviewAPI, getCoffeeCafesAPI, userAPI } from "../../apis/api";
+import { deleteReviewAPI, getCoffeeCafesAPI, userAPI } from "../../../apis/api";
 import { Link } from "react-router-dom";
 // import Review from "../../pages/Reveiw";
 // import ListContainer from "../list/ListContainer";
@@ -10,11 +10,11 @@ import { Link } from "react-router-dom";
 import { LuX } from "react-icons/lu";
 import { LuChevronRightCircle } from "react-icons/lu";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 import Stars from "./Stars";
 import ListContainer from "./ListContainer";
 import Modal from "./Modal";
-import { CardData } from "../../types/type";
+import { CardData } from "../../../types/type";
 import { LuChevronLeftCircle } from "react-icons/lu";
 export default function CardContainer({
   title,
@@ -27,6 +27,7 @@ export default function CardContainer({
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
@@ -51,8 +52,18 @@ export default function CardContainer({
   const handleReviewModal = () => {
     setReviewModalData("");
   };
-  // Cafe Card
 
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Cafe Card
   if (type === 1)
     return (
       <div className="w-full mt-12 mb-10 ">
@@ -65,7 +76,7 @@ export default function CardContainer({
               <ItemsCarousel
                 requestToChangeActive={setActiveItemIndex}
                 activeItemIndex={activeItemIndex}
-                numberOfCards={4}
+                numberOfCards={windowWidth < 1280 ? 3 : 4}
                 gutter={10}
                 leftChevron={
                   <button className="h-full">
@@ -118,16 +129,18 @@ export default function CardContainer({
   return (
     <>
       <div className="mt-5 mb-5 ">
-        <div className="flex items-center justify-between">
-          <div className="text-2xl font-bold mb-7">{title}</div>
-          <div className="flex text-lg">
+        <div className="flex items-center justify-between mb-10">
+          {title.length > 0 && (
+            <div className="text-2xl font-bold">📝 {title}</div>
+          )}
+          <div className="flex text-lg cursor-pointer">
             {username && type == 2 ? (
               <div onClick={isCreateModal}>리뷰 작성하기 | </div>
             ) : (
               <div></div>
             )}
             {type == 2 && (
-              <div className="" onClick={isReviewModal}>
+              <div className="cursor-pointer" onClick={isReviewModal}>
                 {" "}
                 모든 리뷰 보기
               </div>
@@ -138,7 +151,7 @@ export default function CardContainer({
         <ItemsCarousel
           requestToChangeActive={setActiveItemIndex}
           activeItemIndex={activeItemIndex}
-          numberOfCards={4}
+          numberOfCards={windowWidth < 1280 ? 3 : 4}
           gutter={20}
           leftChevron={
             <button className="h-full">
@@ -171,14 +184,16 @@ export default function CardContainer({
 
               {/* Info */}
               <Stars score={data.score} size="small" />
-              <div className="text-xl font-bold">{data.title}</div>
-              <div className="text-lg ">{data.name}</div>
+              <div className="w-full mt-3 text-xl font-bold truncate ">
+                {data.title}
+              </div>
+              <div className="mt-1 text-xl">{data.name}</div>
               <div></div>
             </div>
-          ))}
+          ))}{" "}
         </ItemsCarousel>
         {!data.length && (
-          <div className="flex items-center justify-center text-xl text-center h-80">
+          <div className="flex items-center justify-center text-xl text-center h-[350px]">
             <div>리뷰가 없습니다.</div>
           </div>
         )}

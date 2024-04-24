@@ -3,16 +3,16 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "react-query";
 import { useMutation } from "react-query";
-import logoImage from "../../images/gongbang_logo.png";
-import { logoutAPI, userAPI } from "../../apis/api";
+import logoImage from "../../../images/gongbang_logo.png";
+import { logoutAPI, userAPI } from "../../../apis/api";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useRecoilValue } from "recoil";
-import { RootState } from "../../redux/store";
-import userSlice from "../../redux/userSlice";
-import { AccessToken } from "../../recoil/atom";
+import { RootState } from "../../../redux/store";
+import userSlice from "../../../redux/userSlice";
+import { AccessToken } from "../../../recoil/atom";
 import Modal from "./Modal";
-import fullStar from "../../images/full_star.png";
+import fullStar from "../../../images/full_star.png";
 interface UserData {
   email: String;
   pk: Number;
@@ -65,19 +65,19 @@ export default function Nav() {
 
   return (
     <>
-      <div className="flex flex-row w-full">
-        <div className="flex items-center justify-between w-full h-20 text-xl ">
+      <div className="flex flex-row w-full pl-[10%] pr-[10%]">
+        <div className="flex items-center justify-between w-full h-20 text-xl">
           {/* Logo & Link */}
-          <div className="flex items-center">
+          <div className="flex items-center gap-14">
             <Link to={"/"}>
-              <div className="w-12 h-12 m-8">
+              <div className="w-12 h-12 ">
                 <img className="nav-logo" src={logoImage} />
               </div>
             </Link>
 
             {links.map((link, index) => (
               <Link to={link.url} key={index}>
-                <div className="m-8 font-semibold">{link.title}</div>
+                <div className="font-semibold ">{link.title}</div>
               </Link>
             ))}
           </div>
@@ -104,13 +104,23 @@ export default function Nav() {
               </div>
             ) : (
               // Before 로그인
-              <div className="flex">
-                <div className="m-8 cursor-pointer">
-                  <div onClick={handleLoginModal}>로그인</div>
+              <div className="flex gap-5">
+                <div className="cursor-pointer ">
+                  <button
+                    className="text-lg text-black border-black btn"
+                    onClick={handleLoginModal}
+                  >
+                    로그인
+                  </button>
                   {/* <Link to={"/login"}>로그인</Link> */}
                 </div>
-                <div className="m-8 cursor-pointer">
-                  <div onClick={handleSignupModal}>회원가입</div>
+                <div className="cursor-pointer ">
+                  <button
+                    className="text-lg font-semibold text-white btn bg-gongbang"
+                    onClick={handleSignupModal}
+                  >
+                    회원가입
+                  </button>
                   {/* <Link to={"/signup"}>회원가입</Link> */}
                 </div>
               </div>

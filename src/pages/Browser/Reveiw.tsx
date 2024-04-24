@@ -7,10 +7,10 @@ import React from "react";
 //   userAPI,
 // } from "../apis/api";
 import { useParams } from "react-router-dom";
-import ListContainer from "../components/common/ListContainer";
+import ListContainer from "../../components/common/Browser/ListContainer";
 // import ListContainer from "../components/list/ListContainer";
 // import "./Review.css";
-import Stars from "../components/common/Stars";
+import Stars from "../../components/common/Browser/Stars";
 
 export default function Review({ data }: any) {
   const { id } = useParams();

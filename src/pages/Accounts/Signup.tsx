@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import React, { useEffect, useState } from "react";
 import { signupAPI } from "../../apis/api";
 import { Link, useNavigate } from "react-router-dom";
-
+import logoImage from "../../images/gongbang_logo.png";
 interface Signup {
   // Django REST AUTH 변경 금지
   username: string;
@@ -85,7 +85,12 @@ export default function Signup() {
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div>
-        <div className="text-3xl text-center m-7">공방</div>
+        <div className="flex items-center justify-center gap-5 mt-7 mb-7">
+          <div className="w-10 h-10 ">
+            <img src={logoImage} />
+          </div>
+          <div className="text-3xl font-bold text-center">공방</div>
+        </div>
 
         <div className="w-72">
           <div className="mt-3 mb-3 text-lg">닉네임</div>
@@ -104,7 +109,7 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg">
+          <div className="mt-3 mb-3 text-lg font-semibold">
             {!isSignupError ? "" : "존재하는 닉네임 또는 이메일입니다."}{" "}
           </div>
           <div className="mt-3 mb-3 text-lg">비밀번호</div>
@@ -116,7 +121,7 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg">
+          <div className="mt-3 mb-3 text-lg font-semibold">
             {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
           </div>
 
@@ -129,13 +134,13 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg">
+          <div className="mt-3 mb-3 text-lg font-semibold">
             {isPasswordMatch ? "" : "비밀번호를 확인해주세요."}{" "}
           </div>
 
           <div>
             <button
-              className="mt-10 text-xl btn w-72"
+              className="mt-10 text-xl text-white btn w-72 bg-gongbang"
               onClick={handleSignup}
               disabled={isValid}
             >

@@ -3,11 +3,11 @@ import { LuX } from "react-icons/lu";
 import { Circle, Map, MapMarker } from "react-kakao-maps-sdk";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
-import { getCoffeeCafesAPI } from "../apis/api";
-import Stars from "../components/common/Stars";
-import nowMarker from "../../src/images/now_marker.png";
-import moveMarker from "../../src/images/move_marker.png";
-import cafeMarker from "../../src/images/cafe_marker.png";
+import { getCoffeeCafesAPI } from "../../apis/api";
+import Stars from "../../components/common/Browser/Stars";
+import nowMarker from "../../../src/images/now_marker.png";
+import moveMarker from "../../../src/images/move_marker.png";
+import cafeMarker from "../../../src/images/cafe_marker.png";
 export default function CoffeeCafe() {
   const [filteredCafe, setFilteredCafe] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);

@@ -5,16 +5,16 @@ import {
   postCoffeeCafeDetailReviewAPI,
   // getCoffeeCafeDetailReviewCreateAPI,
   userAPI,
-} from "../apis/api";
+} from "../../apis/api";
 import { useNavigate, useParams } from "react-router-dom";
 // import "../components/list/ListContainer.css";
 // import "./Review.css";
 import { LuCamera } from "react-icons/lu";
-import { CoffeeCafeData, ReviewData } from "../types/type";
+import { CoffeeCafeData, ReviewData } from "../../types/type";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
+import { RootState } from "../../redux/store";
 import { useRecoilValue } from "recoil";
-import { AccessToken } from "../recoil/atom";
+import { AccessToken } from "../../recoil/atom";
 
 interface ReviewCreateData {
   coffeeCafe: CoffeeCafeData;
@@ -144,7 +144,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
   // if (coffeeLoading) return <></>
   return (
     <div className="mt-5 ml-10 mr-10">
-      <div className="mb-5 text-2xl font-bold">리뷰 작성</div>
+      <div className="mb-5 text-2xl font-bold">✏️ 리뷰 작성</div>
       <hr />
       <div className="flex w-full mt-5 mb-5 h-44">
         {/* Image */}
@@ -181,7 +181,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       <div className="">
         <input
           name="title"
-          className="w-full mb-2 text-lg input input-bordered"
+          className="w-full mb-2 text-lg font-bold input input-bordered"
           placeholder="제목"
           onChange={handleInputChange}
         />
@@ -190,7 +190,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
           {/* Type */}
           <div className="w-full">
             <select
-              className="w-1/2 max-w-xs text-base select select-bordered"
+              className="w-1/2 max-w-xs text-lg font-semibold select select-bordered"
               onChange={handleTypeSelect}
               value={typeSelect}
             >
@@ -316,7 +316,10 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       </div>
 
       <div className="flex items-center justify-center">
-        <div className="mt-10 text-lg btn w-72" onClick={handleReviewCreate}>
+        <div
+          className="mt-6 mb-5 text-lg text-white btn w-72 bg-gongbang"
+          onClick={handleReviewCreate}
+        >
           작성
         </div>
       </div>

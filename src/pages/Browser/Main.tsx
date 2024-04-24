@@ -1,6 +1,6 @@
-import Banner from "../components/common/Banner";
-import CardContainer from "../components/common/CardContainer";
-import { getCoffeeCafesAPI } from "../apis/api";
+import Banner from "../../components/common/Browser/Banner";
+import CardContainer from "../../components/common/Browser/CardContainer";
+import { getCoffeeCafesAPI } from "../../apis/api";
 import { useQueries, useQuery } from "react-query";
 import { useEffect } from "react";
 
@@ -26,13 +26,12 @@ export default function Main() {
   if (isLoading) return <></>;
   return (
     <>
-      <div>
+      <div className="">
         <div>
           <Banner />
         </div>
-        <div className="">
+        <div className="pl-[10%] pr-[10%]">
           <div className="flex flex-row w-full">
-            <div className="w-1/4"></div>
             <div className="w-[1280px] ">
               {oneData !== undefined && (
                 <CardContainer
@@ -61,7 +60,6 @@ export default function Main() {
                 />
               )}
             </div>
-            <div className="w-1/4 "></div>
           </div>
         </div>
       </div>

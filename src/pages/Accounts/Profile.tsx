@@ -2,7 +2,7 @@ import React from "react";
 import { useQueries, useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { getProfileReview } from "../../apis/api";
-import ListContainer from "../../components/common/ListContainer";
+import ListContainer from "../../components/common/Browser/ListContainer";
 import { RootState } from "../../redux/store";
 import emStar from "../../images/em_star.png";
 export default function Profile() {

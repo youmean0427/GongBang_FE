@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../apis/api";
+import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../../apis/api";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 // import "../list/ListContainer.css";
-import Stars from "../common/Stars";
+import Stars from "./Stars";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 
 interface ListContainer {
   data: any;
@@ -63,34 +63,37 @@ export default function ListContainer({ type, data }: ListContainer) {
           {cafeData.name}
         </div>
       )}
-      <div className="grid grid-cols-2 mb-5">
-        <div className="mb-2 text-2xl font-bold">{data.title}</div>
+      <div className="flex justify-center mb-2 item-center">
+        <div className="w-full h-full col-span-2 text-2xl font-bold ">
+          {data.title}
+        </div>
         <div>
-          <div className=" text-end">
+          <div className="w-10 h-full">
             {userId === data.user ? (
-              <div>
+              <div
+                className="h-full text-base font-bold cursor-pointer"
+                onClick={() => handleDelete(data.id)}
+              >
                 {/* <Link to={`/review/${data.id}`}>
                   <span>수정</span>
                 </Link>
                 <span> | </span> */}
-                <div
-                  className="mt-2 cursor-pointer"
-                  onClick={() => handleDelete(data.id)}
-                >
-                  삭제
-                </div>
+                삭제
               </div>
             ) : (
               <></>
             )}
           </div>
         </div>
-
+      </div>
+      <div className="grid grid-cols-2 mb-5">
         <Stars score={data.score} size="small" />
 
-        <div className="font-bold text-end">{data.name}</div>
-        <div className="mt-2">{typeCode[data.type]}</div>
-        <div className="mt-1 text-end">{data.date}</div>
+        <div className="text-xl font-bold text-end">{data.name}</div>
+        <div className="p-3 mt-3 text-base font-bold badge badge-outline">
+          {typeCode[data.type]}
+        </div>
+        <div className="pb-3 mt-3 text-lg text-end">{data.date}</div>
       </div>
       {/* Image */}
       <div className="flex mb-5">

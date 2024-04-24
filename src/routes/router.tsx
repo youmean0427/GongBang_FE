@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "../pages/Accounts/Login";
 import Signup from "../pages/Accounts/Signup";
-import Nav from "../components/common/Nav";
-import Main from "../pages/Main";
-import CafeDetail from "../pages/CafeDetail";
-import CoffeeCafe from "../pages/CoffeeCafe";
+import Nav from "../components/common/Browser/Nav";
+import Main from "../pages/Browser/Main";
+import CafeDetail from "../pages/Browser/CafeDetail";
+import CoffeeCafe from "../pages/Browser/CoffeeCafe";
 import Profile from "../pages/Accounts/Profile";
-import FilterContainer from "../components/common/FilterContainer";
-import Banner from "../components/common/Banner";
+import FilterContainer from "../components/common/Browser/FilterContainer";
+import Banner from "../components/common/Browser/Banner";
 export default function Router() {
   return (
     <>

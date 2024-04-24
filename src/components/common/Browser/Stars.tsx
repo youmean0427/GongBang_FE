@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import fullStar from "../../images/full_star.png";
-import emStar from "../../images/em_star.png";
+import fullStar from "../../../images/full_star.png";
+import emStar from "../../../images/em_star.png";
 
 // import "./Star.css";
 

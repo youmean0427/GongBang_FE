@@ -2,13 +2,16 @@ import React, { useEffect, useReducer, useState } from "react";
 import "./App.css";
 import Router from "./routes/router";
 import { Provider, useSelector, useDispatch } from "react-redux";
-import Nav from "./components/common/Nav";
+import Nav from "./components/common/Browser/Nav";
 import store from "./redux/store";
+import { BrowserView, MobileView } from "react-device-detect";
 
 import { tokenRefreshAPI, tokenVerifyAPI, userAPI } from "./apis/api";
 import { error } from "console";
 import userSlice from "./redux/userSlice";
-import Footer from "./components/common/Footer";
+import Footer from "./components/common/Browser/Footer";
+import MobileNav from "./components/common/Mobile/MobileNav";
+import MobileFooter from "./components/common/Mobile/MobileFooter";
 
 export default function App() {
   const accessToken: null | string = localStorage.getItem("access_token");
@@ -56,8 +59,6 @@ export default function App() {
     <>
       <Nav />
       <Router />
-
-      {/* Modal */}
     </>
   );
 }

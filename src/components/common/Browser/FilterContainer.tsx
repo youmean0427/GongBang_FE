@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { CoffeeCafeData, ReviewData } from "../../types/type";
+import { ChangeEvent, useEffect, useState } from "react";
+import { CoffeeCafeData, ReviewData } from "../../../types/type";
 import CardContainer from "./CardContainer";
 
 export default function FilterContainer({ data }: any) {
@@ -14,8 +14,8 @@ export default function FilterContainer({ data }: any) {
     { value: 4, name: "콘센트" },
   ];
   // console.log(data);
-  const [typeSelect, setTypeSelect] = useState(1);
-  const handleTypeSelect = (event: any) => {
+  const [typeSelect, setTypeSelect] = useState<number | string>(1);
+  const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     setTypeSelect(event.target.value);
   };
 
@@ -36,6 +36,7 @@ export default function FilterContainer({ data }: any) {
   return (
     <div>
       <div className="w-full">
+        <span className="text-2xl">🪄 </span>
         <select
           className="text-2xl font-bold w-1/8 select select-bordered"
           onChange={handleTypeSelect}

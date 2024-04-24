@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import userSlice from "../../redux/userSlice";
 import { AccessToken } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
+import logoImage from "../../images/gongbang_logo.png";
 
 interface Login {
   email: String;
@@ -70,7 +71,12 @@ export default function Login() {
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full">
-      <div className="text-3xl text-center m-7">공방</div>
+      <div className="flex items-center justify-center gap-5 mb-7">
+        <div className="w-10 h-10 ">
+          <img src={logoImage} />
+        </div>
+        <div className="text-3xl font-bold text-center">공방</div>
+      </div>
 
       <div className="w-72">
         <div className="mb-3 text-lg">이메일</div>
@@ -91,13 +97,13 @@ export default function Login() {
         />
       </div>
 
-      <div className="mt-3 mb-3 text-lg">
+      <div className="h-10 mt-3 text-lg font-semibold">
         {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
       </div>
 
       <div>
         <button
-          className="mt-10 text-xl btn w-72"
+          className="mt-5 text-xl text-white btn bg-gongbang w-72"
           onClick={handleLogin}
           disabled={isValid}
         >
