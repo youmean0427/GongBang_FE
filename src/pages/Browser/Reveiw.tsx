@@ -37,7 +37,7 @@ export default function Review({ data }: any) {
       </div>
       <div className="">
         {data ? (
-          data.review_set.map((x: any, i: any) => (
+          data.review_set.map((x: any, i: number) => (
             <div key={i}>
               <ListContainer data={x} />
               <hr />

@@ -16,6 +16,7 @@ import ListContainer from "./ListContainer";
 import Modal from "./Modal";
 import { CardData } from "../../../types/type";
 import { LuChevronLeftCircle } from "react-icons/lu";
+import { isBrowser } from "react-device-detect";
 export default function CardContainer({
   title,
   data,
@@ -64,7 +65,7 @@ export default function CardContainer({
   }, []);
 
   // Cafe Card
-  if (type === 1)
+  if (type === 1 && isBrowser)
     return (
       <div className="w-full mt-12 mb-10 ">
         {/* <div className="element"> */}
@@ -129,85 +130,89 @@ export default function CardContainer({
       </div>
     );
   // Review Card
-  return (
-    <>
-      <div className="mt-5 mb-5 ">
-        <div className="flex items-center justify-between mb-10">
-          {title.length > 0 && (
-            <div className="text-2xl font-bold">📝 {title}</div>
-          )}
-          <div className="flex text-lg cursor-pointer">
-            {username && type == 2 ? (
-              <div onClick={isCreateModal}>리뷰 작성하기 | </div>
-            ) : (
-              <div></div>
+  if (isBrowser)
+    return (
+      <>
+        <div className="mt-5 mb-5 ">
+          <div className="flex items-center justify-between mb-10">
+            {title.length > 0 && (
+              <div className="text-2xl font-bold">📝 {title}</div>
             )}
-            {type == 2 && (
-              <div className="cursor-pointer" onClick={isReviewModal}>
-                {" "}
-                모든 리뷰 보기
-              </div>
-            )}
-          </div>
-        </div>
-
-        <ItemsCarousel
-          requestToChangeActive={setActiveItemIndex}
-          activeItemIndex={activeItemIndex}
-          numberOfCards={windowWidth < 1280 ? 3 : 4}
-          gutter={20}
-          leftChevron={
-            <button className="h-full">
-              <LuChevronLeftCircle size={30} />
-            </button>
-          }
-          rightChevron={
-            <button className="h-full">
-              <LuChevronRightCircle size={30} />
-            </button>
-          }
-          outsideChevron
-          chevronWidth={chevronWidth}
-        >
-          {data.map((data: any, i: number) => (
-            <div key={i} onClick={() => handelReviewDetailModal(data)}>
-              {/* Images */}
-              <div className="mb-3">
-                {data.reviewimage_set.length ? (
-                  <img
-                    className="w-full rounded-2xl"
-                    src={data.reviewimage_set[0].image}
-                    alt="Cafe"
-                  />
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              {/* <div>{data.id}</div> */}
-
-              {/* Info */}
-              <Stars score={data.score} size="small" />
-              <div className="w-full mt-3 text-xl font-bold truncate ">
-                {data.title}
-              </div>
-              <div className="mt-1 text-xl">{data.name}</div>
-              <div></div>
+            <div className="flex text-lg cursor-pointer">
+              {username && type == 2 ? (
+                <div onClick={isCreateModal}>리뷰 작성하기 | </div>
+              ) : (
+                <div></div>
+              )}
+              {type == 2 && (
+                <div className="cursor-pointer" onClick={isReviewModal}>
+                  {" "}
+                  모든 리뷰 보기
+                </div>
+              )}
             </div>
-          ))}{" "}
-        </ItemsCarousel>
-        {!data.length && (
-          <div className="flex items-center justify-center text-xl text-center h-[350px]">
-            <div>리뷰가 없습니다.</div>
           </div>
-        )}
-        {reviewModalData ? (
-          <Modal close={handleReviewModal} data={reviewModalData} type={0} />
-        ) : (
-          <></>
-        )}
 
-        {/* Modal */}
-        {/* <div>
+          <ItemsCarousel
+            requestToChangeActive={setActiveItemIndex}
+            activeItemIndex={activeItemIndex}
+            numberOfCards={windowWidth < 1280 ? 3 : 4}
+            gutter={20}
+            leftChevron={
+              <button className="h-full">
+                <LuChevronLeftCircle size={30} />
+              </button>
+            }
+            rightChevron={
+              <button className="h-full">
+                <LuChevronRightCircle size={30} />
+              </button>
+            }
+            outsideChevron
+            chevronWidth={chevronWidth}
+          >
+            {data.map((data: any, i: number) => (
+              <div key={i} onClick={() => handelReviewDetailModal(data)}>
+                {/* Images */}
+                <div className="mb-3">
+                  {data.reviewimage_set.length ? (
+                    <img
+                      className="w-full rounded-2xl"
+                      src={
+                        process.env.REACT_APP_API_URL +
+                        data.reviewimage_set[0].image
+                      }
+                      alt="Cafe"
+                    />
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                {/* <div>{data.id}</div> */}
+
+                {/* Info */}
+                <Stars score={data.score} size="small" />
+                <div className="w-full mt-3 text-xl font-bold truncate ">
+                  {data.title}
+                </div>
+                <div className="mt-1 text-xl">{data.name}</div>
+                <div></div>
+              </div>
+            ))}{" "}
+          </ItemsCarousel>
+          {!data.length && (
+            <div className="flex items-center justify-center text-xl text-center h-[350px]">
+              <div>리뷰가 없습니다.</div>
+            </div>
+          )}
+          {reviewModalData ? (
+            <Modal close={handleReviewModal} data={reviewModalData} type={0} />
+          ) : (
+            <></>
+          )}
+
+          {/* Modal */}
+          {/* <div>
           {reviewModalData ? (
             <div className="review-Modal">
               <div onClick={handleReviewModal}>
@@ -221,6 +226,72 @@ export default function CardContainer({
             </div>
           ) : null}
         </div> */}
+        </div>
+      </>
+    );
+  // Mobile View
+  return (
+    <>
+      <div className="w-full pl-5 pr-5 mt-12 mb-10 ">
+        {/* <div className="element"> */}
+
+        <div className="w-full">
+          <div className="text-xl font-bold mb-7">{title}</div>
+          <div className="flex">
+            <div className="w-full">
+              <ItemsCarousel
+                requestToChangeActive={setActiveItemIndex}
+                activeItemIndex={activeItemIndex}
+                numberOfCards={2}
+                gutter={1}
+                leftChevron={
+                  <button className="h-full">
+                    <LuChevronLeftCircle size={30} />
+                  </button>
+                }
+                rightChevron={
+                  <button className="h-full">
+                    <LuChevronRightCircle size={30} />
+                  </button>
+                }
+                // outsideChevron
+                chevronWidth={100}
+              >
+                {data.map((x, i) => (
+                  <Link
+                    to={`coffeecafe/${x.id}`}
+                    style={{ textDecoration: "none" }}
+                    key={i}
+                  >
+                    <div className="text-lg ">
+                      <div className="mb-5 h-30">
+                        {x.coffeecafeimage_set &&
+                          x.coffeecafeimage_set.length > 0 && (
+                            <div className="w-full h-full">
+                              <img
+                                className="object-cover w-full h-full rounded-2xl"
+                                src={
+                                  process.env.REACT_APP_API_URL +
+                                  x.coffeecafeimage_set[0].image
+                                }
+                                alt="Cafe"
+                              />
+                            </div>
+                          )}
+                      </div>
+
+                      <div className="w-[90%]">
+                        <Stars score={x.total_score} size="small" />
+                      </div>
+                      <div className="text-lg font-bold">{x.name}</div>
+                      <div className="text-sm ">{x.address}</div>
+                    </div>
+                  </Link>
+                ))}
+              </ItemsCarousel>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

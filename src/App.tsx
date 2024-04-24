@@ -57,8 +57,15 @@ export default function App() {
 
   return (
     <>
-      <Nav />
-      <Router />
+      <BrowserView>
+        <Nav />
+        <Router />
+      </BrowserView>
+      <MobileView>
+        <MobileNav />
+        <MobileFooter />
+        <Router />
+      </MobileView>
     </>
   );
 }
