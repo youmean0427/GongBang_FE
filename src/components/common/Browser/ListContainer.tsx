@@ -63,28 +63,18 @@ export default function ListContainer({ type, data }: ListContainer) {
           {cafeData.name}
         </div>
       )}
-      <div className="flex justify-center mb-2 item-center">
-        <div className="w-full h-full col-span-2 text-2xl font-bold ">
-          {data.title}
-        </div>
-        <div>
-          <div className="w-10 h-full">
-            {userId === data.user ? (
-              <div
-                className="h-full text-base font-bold cursor-pointer"
-                onClick={() => handleDelete(data.id)}
-              >
-                {/* <Link to={`/review/${data.id}`}>
-                  <span>수정</span>
-                </Link>
-                <span> | </span> */}
-                삭제
-              </div>
-            ) : (
-              <></>
-            )}
+      <div className="flex items-center justify-between mb-2">
+        <div className="w-full h-full text-2xl font-bold ">{data.title}</div>
+        {userId === data.user ? (
+          <div
+            className="font-bold cursor-pointer w-13 btn btn-sm text-end"
+            onClick={() => handleDelete(data.id)}
+          >
+            삭제
           </div>
-        </div>
+        ) : (
+          <></>
+        )}
       </div>
       <div className="grid grid-cols-2 mb-5">
         <Stars score={data.score} size="small" />

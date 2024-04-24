@@ -104,7 +104,10 @@ export default function CardContainer({
                             <div className="w-full h-full">
                               <img
                                 className="object-cover w-full h-full rounded-2xl"
-                                src={x.coffeecafeimage_set[0].image}
+                                src={
+                                  process.env.REACT_APP_API_URL +
+                                  x.coffeecafeimage_set[0].image
+                                }
                                 alt="Cafe"
                               />
                             </div>
