@@ -56,7 +56,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       {/* Info */}
       {type == 2 && cafeData && cafeId && (
         <div
-          className="mb-2 text-xl cursor-pointer"
+          className="mb-2 text-lg font-medium cursor-pointer"
           onClick={() => {
             window.location.href = `/coffeecafe/${cafeId}`;
           }}
@@ -65,7 +65,7 @@ export default function ListContainer({ type, data }: ListContainer) {
         </div>
       )}
       <div className="flex items-center justify-between mb-2">
-        <div className="w-full h-full text-2xl font-bold ">{data.title}</div>
+        <div className="w-full h-full text-xl font-semibold ">{data.title}</div>
         {userId === data.user ? (
           <div
             className="font-bold cursor-pointer w-13 btn btn-sm text-end"
@@ -80,11 +80,11 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="grid grid-cols-2 mb-5">
         <Stars score={data.score} size="small" />
 
-        <div className="text-xl font-bold text-end">{data.name}</div>
-        <div className="p-3 mt-3 text-base font-bold badge badge-outline">
+        <div className="text-lg font-medium text-end">{data.name}</div>
+        <div className="p-3 mt-3 text-base font-semibold badge badge-outline">
           {typeCode[data.type]}
         </div>
-        <div className="pb-3 mt-3 text-lg text-end">{data.date}</div>
+        <div className="pb-3 mt-3 text-base text-end">{data.date}</div>
       </div>
       {/* Image */}
       <div className="flex mb-5">

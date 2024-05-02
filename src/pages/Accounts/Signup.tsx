@@ -81,7 +81,6 @@ export default function Signup() {
     return regExp.test(data);
   };
 
-  console.log(signupInputs);
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div>
@@ -92,7 +91,7 @@ export default function Signup() {
         </div>
 
         <div className="w-72">
-          <div className="mt-3 mb-3 text-lg">닉네임</div>
+          <div className="mt-3 mb-3 text-lg font-semibold">닉네임</div>
 
           <input
             className="w-full input input-bordered"
@@ -100,7 +99,7 @@ export default function Signup() {
             onChange={handleChange}
           />
 
-          <div className="mt-3 mb-3 text-lg">이메일</div>
+          <div className="mt-3 mb-3 text-lg font-semibold">이메일</div>
           <div>
             <input
               className="w-full input input-bordered"
@@ -108,10 +107,10 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg font-semibold">
+          <div className="mt-3 mb-3 text-lg font-medium">
             {!isSignupError ? "" : "존재하는 닉네임 또는 이메일입니다."}{" "}
           </div>
-          <div className="mt-3 mb-3 text-lg">비밀번호</div>
+          <div className="mt-3 mb-3 text-lg font-semibold">비밀번호</div>
           <div>
             <input
               className="w-full input input-bordered"
@@ -120,11 +119,11 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg font-semibold">
+          <div className="mt-3 mb-3 text-lg font-medium">
             {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
           </div>
 
-          <div className="mt-3 mb-3 text-lg">비밀번호 확인</div>
+          <div className="mt-3 mb-3 text-lg font-semibold">비밀번호 확인</div>
           <div>
             <input
               className="w-full input input-bordered"
@@ -133,7 +132,7 @@ export default function Signup() {
               onChange={handleChange}
             />
           </div>
-          <div className="mt-3 mb-3 text-lg font-semibold">
+          <div className="mt-3 mb-3 text-lg font-medium">
             {isPasswordMatch ? "" : "비밀번호를 확인해주세요."}{" "}
           </div>
 

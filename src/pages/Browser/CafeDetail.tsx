@@ -118,12 +118,14 @@ export default function CafeDetail() {
                           className="flex-1 p-2 h-1/3"
                           key={i}
                           onClick={() => {
-                            handleNowImage(x.image);
+                            handleNowImage(
+                              process.env.REACT_APP_API_URL + x.image
+                            );
                           }}
                         >
                           <img
                             className="object-cover w-full h-full rounded-xl"
-                            src={x.image}
+                            src={process.env.REACT_APP_API_URL + x.image}
                           />
                         </div>
                       )

@@ -7,6 +7,8 @@ import userSlice from "../../redux/userSlice";
 import { AccessToken } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import logoImage from "../../images/gongbang_logo.png";
+import { isBrowser } from "react-device-detect";
+import Modal from "../../components/common/Browser/Modal";
 
 interface Login {
   email: String;
@@ -77,7 +79,7 @@ export default function Login() {
       </div>
 
       <div className="w-72">
-        <div className="mb-3 text-lg">이메일</div>
+        <div className="mb-3 text-lg font-semibold">이메일</div>
         <input
           name="email"
           className="w-full input input-bordered"
@@ -86,7 +88,7 @@ export default function Login() {
       </div>
 
       <div className="w-72">
-        <div className="mt-3 mb-3 text-lg">비밀번호</div>
+        <div className="mt-3 mb-3 text-lg font-semibold">비밀번호</div>
         <input
           type="password"
           className="w-full input input-bordered "
@@ -95,7 +97,7 @@ export default function Login() {
         />
       </div>
 
-      <div className="h-10 mt-3 text-lg font-semibold">
+      <div className="h-10 mt-3 text-lg font-medium">
         {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
       </div>
 

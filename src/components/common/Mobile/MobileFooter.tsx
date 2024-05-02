@@ -12,9 +12,18 @@ export default function MobileFooter() {
   const location = useLocation();
 
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
+  const [isOpenProfileModal, setISOpenProfileModal] = useState(false);
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
   };
+  const handleSignupModal = () => {
+    setISOpenSignupModal(!isOpenSignupModal);
+  };
+  const handleProfileModal = () => {
+    setISOpenProfileModal(!isOpenProfileModal);
+  };
+
   return (
     <div className="fixed bottom-0 z-10 w-full h-14">
       <hr />
@@ -65,7 +74,12 @@ export default function MobileFooter() {
               <FaRegCircleUser color="gray" className="w-full h-full" />
             </div>
             {username ? (
-              <div className="text-xs text-gray-500">마이페이지</div>
+              <div
+                className="text-xs text-gray-500"
+                onClick={handleProfileModal}
+              >
+                마이페이지
+              </div>
             ) : (
               <div
                 className="text-xs text-gray-500 "
@@ -78,6 +92,8 @@ export default function MobileFooter() {
         </div>
       </div>
       {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
+      {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
+      {isOpenProfileModal && <Modal close={handleProfileModal} type={5} />}
     </div>
   );
 }

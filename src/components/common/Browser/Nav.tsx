@@ -102,10 +102,7 @@ export default function Nav() {
               // Before 로그인
               <div className="flex gap-5">
                 <div className="cursor-pointer ">
-                  <button
-                    className="text-lg text-black border-black btn"
-                    onClick={handleLoginModal}
-                  >
+                  <button className="text-lg btn" onClick={handleLoginModal}>
                     로그인
                   </button>
                   {/* <Link to={"/login"}>로그인</Link> */}

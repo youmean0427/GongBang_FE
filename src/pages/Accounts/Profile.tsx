@@ -1,10 +1,11 @@
 import React from "react";
-import { useQueries, useQuery } from "react-query";
+import { useMutation, useQueries, useQuery } from "react-query";
 import { useSelector } from "react-redux";
-import { getProfileReview } from "../../apis/api";
+import { getProfileReview, logoutAPI } from "../../apis/api";
 import ListContainer from "../../components/common/Browser/ListContainer";
 import { RootState } from "../../redux/store";
 import emStar from "../../images/em_star.png";
+import { isBrowser } from "react-device-detect";
 export default function Profile() {
   const userName = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
@@ -13,19 +14,61 @@ export default function Profile() {
     queryFn: () => getProfileReview(userId),
   });
 
+  const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
+    onSuccess: () => {
+      localStorage.clear();
+      window.location.reload();
+    },
+  });
+  const handleLogout = () => {
+    logoutMutation.mutate({});
+  };
+
   if (isLoading || isFetching) return <>isLoading</>;
+  if (isBrowser)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-centerh-full">
+          <div>
+            <img src={emStar} className="w-10 h-10 mb-4" />
+          </div>
+          <div className="text-3xl font-semibold">{userName}</div>
+          {data && (
+            <div className="mt-2 mb-10 text-lg font-semibold">
+              {data.length}개의 리뷰
+            </div>
+          )}
+        </div>
+        <hr />
+        <div className="mt-10">
+          {data &&
+            data.map((x: any, i: any) => (
+              <div key={i} className="w-full">
+                <ListContainer data={x} type={2} />
+                <hr />
+              </div>
+            ))}
+        </div>
+      </>
+    );
   return (
     <>
       <div className="flex flex-col items-center justify-centerh-full">
         <div>
           <img src={emStar} className="w-10 h-10 mb-4" />
         </div>
-        <div className="text-3xl font-bold">{userName}</div>
+        <div className="text-3xl font-semibold">{userName}</div>
         {data && (
-          <div className="mt-2 mb-10 text-lg font-bold">
+          <div className="mt-2 mb-3 text-lg font-semibold">
             {data.length}개의 리뷰
           </div>
         )}
+        <div
+          onClick={handleLogout}
+          className="mb-3 ml-8 mr-8 text-base font-semibold btn"
+        >
+          로그아웃
+        </div>
       </div>
       <hr />
       <div className="mt-10">

@@ -20,7 +20,6 @@ export default function Router() {
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
-        {isMobile && <Route path="/login" element={<MobileLogin />} />}
       </Routes>
     </>
   );

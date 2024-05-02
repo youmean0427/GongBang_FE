@@ -18,7 +18,7 @@ interface UserData {
   username: String;
 }
 
-export default function MobileLogin() {
+export default function MobileLogin({ handleMobileSignup }: any) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -78,7 +78,7 @@ export default function MobileLogin() {
       </div>
 
       <div className="w-72">
-        <div className="mb-3 text-lg">이메일</div>
+        <div className="mb-3 text-base font-semibold">이메일</div>
         <input
           name="email"
           className="w-full input input-bordered"
@@ -87,7 +87,7 @@ export default function MobileLogin() {
       </div>
 
       <div className="w-72">
-        <div className="mt-3 mb-3 text-lg">비밀번호</div>
+        <div className="mt-3 mb-3 text-base font-semibold">비밀번호</div>
         <input
           type="password"
           className="w-full input input-bordered "
@@ -96,18 +96,21 @@ export default function MobileLogin() {
         />
       </div>
 
-      <div className="h-10 mt-3 text-lg font-semibold">
+      <div className="h-10 mt-3 text-base font-medium">
         {isLoginError ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}
       </div>
 
       <div>
         <button
-          className="mt-5 text-xl text-white btn bg-gongbang w-72"
+          className="mt-5 text-base text-white btn bg-gongbang w-72"
           onClick={handleLogin}
           disabled={isValid}
         >
           로그인
         </button>
+      </div>
+      <div className="mt-2 w-72 btn" onClick={handleMobileSignup}>
+        회원가입
       </div>
     </div>
   );

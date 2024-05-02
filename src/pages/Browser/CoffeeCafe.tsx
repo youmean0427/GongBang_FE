@@ -167,7 +167,10 @@ export default function CoffeeCafe() {
                           <div className="w-2/3 mb-2">
                             <img
                               className="object-cover w-full h-full rounded-lg"
-                              src={cafe.coffeecafeimage_set[0].image}
+                              src={
+                                process.env.REACT_APP_API_URL +
+                                cafe.coffeecafeimage_set[0].image
+                              }
                             />
                           </div>
                         ) : (
