@@ -16,6 +16,20 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* @font-face {
+  font-family: "Noto Sans KR", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+} */
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
