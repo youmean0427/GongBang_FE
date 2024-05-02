@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Stars from "./Stars";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
+import { TypeCode } from "../../../types/type";
 
 interface ListContainer {
   data: any;
@@ -13,7 +14,7 @@ interface ListContainer {
 }
 
 export default function ListContainer({ type, data }: ListContainer) {
-  const typeCode: any = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
+  const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const [cafeId, setCafeId] = useState();
   const [images, setImages] = useState<any>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);

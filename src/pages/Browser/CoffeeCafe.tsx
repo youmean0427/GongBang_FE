@@ -154,7 +154,7 @@ export default function CoffeeCafe() {
               ></MapMarker>
               <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
                 {isOpen && index === isClickIdx && (
-                  <div className="bg-white shadow-lg rounded-xl w-72 h-72">
+                  <div className="bg-white shadow-lg rounded-xl w-72 h-80">
                     <div
                       className="absolute cursor-pointer right-1 top-2"
                       onClick={() => setIsOpen(false)}
@@ -162,7 +162,7 @@ export default function CoffeeCafe() {
                       <LuX size={25} />
                     </div>
                     <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-center w-full h-full mt-1">
+                      <div className="flex flex-col items-center justify-center w-full h-full ">
                         {cafe.coffeecafeimage_set.length ? (
                           <div className="w-2/3 mb-2">
                             <img
@@ -174,11 +174,13 @@ export default function CoffeeCafe() {
                           <div></div>
                         )}
 
-                        <div className="text-xl font-bold">{cafe.name}</div>
+                        <div className="mb-1 text-xl font-bold">
+                          {cafe.name}
+                        </div>
                         <div>
                           <Stars score={cafe.total_score} size="small" />
                         </div>
-                        <div className="text-base">{cafe.address}</div>
+                        <div className="mt-1 text-base">{cafe.address}</div>
                       </div>
                     </Link>
                   </div>

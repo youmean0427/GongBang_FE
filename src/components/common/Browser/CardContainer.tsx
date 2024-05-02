@@ -14,7 +14,7 @@ import { RootState } from "../../../redux/store";
 import Stars from "./Stars";
 import ListContainer from "./ListContainer";
 import Modal from "./Modal";
-import { CardData } from "../../../types/type";
+import { CardData, TypeCode } from "../../../types/type";
 import { LuChevronLeftCircle } from "react-icons/lu";
 import { isBrowser } from "react-device-detect";
 export default function CardContainer({
@@ -29,7 +29,7 @@ export default function CardContainer({
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
   const [reviewModalData, setReviewModalData] = useState("");
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
+  const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
     (id: number) => deleteReviewAPI(id),
@@ -71,7 +71,7 @@ export default function CardContainer({
         {/* <div className="element"> */}
 
         <div className="w-full">
-          <div className="text-2xl font-bold mb-7">{title}</div>
+          <div className="text-2xl font-semibold mb-7">{title}</div>
           <div className="flex">
             <div className="w-full">
               <ItemsCarousel
@@ -118,7 +118,7 @@ export default function CardContainer({
                       <div className="">
                         <Stars score={x.total_score} size="small" />
                       </div>
-                      <div className="text-xl font-bold">{x.name}</div>
+                      <div className="text-xl font-medium">{x.name}</div>
                       <div className="text-base ">{x.address}</div>
                     </div>
                   </Link>
@@ -136,17 +136,21 @@ export default function CardContainer({
         <div className="mt-5 mb-5 ">
           <div className="flex items-center justify-between mb-10">
             {title.length > 0 && (
-              <div className="text-2xl font-bold">📝 {title}</div>
+              <div className="text-2xl font-semibold">📝 {title}</div>
             )}
-            <div className="flex text-lg cursor-pointer">
+            <div className="flex ">
               {username && type == 2 ? (
-                <div onClick={isCreateModal}>리뷰 작성하기 | </div>
+                <div onClick={isCreateModal} className="text-base btn">
+                  리뷰 작성하기
+                </div>
               ) : (
                 <div></div>
               )}
               {type == 2 && (
-                <div className="cursor-pointer" onClick={isReviewModal}>
-                  {" "}
+                <div
+                  className="ml-5 text-base cursor-pointer btn"
+                  onClick={isReviewModal}
+                >
                   모든 리뷰 보기
                 </div>
               )}
@@ -192,10 +196,15 @@ export default function CardContainer({
 
                 {/* Info */}
                 <Stars score={data.score} size="small" />
-                <div className="w-full mt-3 text-xl font-bold truncate ">
+                <div className="w-full mt-3 text-xl font-medium truncate ">
                   {data.title}
                 </div>
-                <div className="mt-1 text-xl">{data.name}</div>
+                <div className="flex items-center justify-between mt-2">
+                  <div className="p-3 text-base font-medium badge badge-outline">
+                    {typeCode[data.type]}
+                  </div>
+                  <div className="text-base">{data.name}</div>
+                </div>
                 <div></div>
               </div>
             ))}{" "}

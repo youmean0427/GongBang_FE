@@ -36,9 +36,9 @@ export default function FilterContainer({ data }: any) {
   return (
     <div>
       <div className="w-full">
-        <span className="text-2xl">🪄 </span>
+        <span className="text-xl">🪄 </span>
         <select
-          className="text-2xl font-bold w-1/8 select select-bordered"
+          className="text-xl font-semibold w-1/8 select select-bordered"
           onChange={handleTypeSelect}
           value={typeSelect}
         >
@@ -50,7 +50,7 @@ export default function FilterContainer({ data }: any) {
             );
           })}
         </select>
-        <span className="ml-5 text-2xl font-bold"> 리뷰 </span>
+        <span className="ml-5 text-xl font-semibold"> 리뷰 </span>
       </div>
       <div>
         <CardContainer

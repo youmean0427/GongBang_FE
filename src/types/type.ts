@@ -50,3 +50,7 @@ export interface CardData {
   isReviewModal?: () => void;
   isCreateModal?: () => void;
 }
+
+export interface TypeCode {
+  [key: number]: string;
+}

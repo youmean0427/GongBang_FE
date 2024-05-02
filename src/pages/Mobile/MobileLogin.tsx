@@ -18,13 +18,13 @@ interface UserData {
   username: String;
 }
 
-export default function Login() {
+export default function MobileLogin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isLoginError, setIsLoginError] = useState(false);
   const [isValid, setIsValid] = useState(false);
-
+  const [accessToken, setAccessToken] = useRecoilState(AccessToken);
   const [loginInputs, setLoginInputs] = useState<Login>({
     email: "",
     password: "",
@@ -42,11 +42,12 @@ export default function Login() {
     onSuccess: async (res) => {
       localStorage.setItem("access_token", res.data.access);
       localStorage.setItem("refresh_token", res.data.refresh);
-
+      setAccessToken(res.data.access);
       try {
         const userData = await userAPI(res.data.access);
         dispatch(userSlice.actions.post(userData.data.last_name));
         dispatch(userSlice.actions.postId(userData.data.pk));
+
         window.location.reload();
       } catch (error) {
         console.log(error);

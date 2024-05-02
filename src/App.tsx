@@ -12,12 +12,14 @@ import userSlice from "./redux/userSlice";
 import Footer from "./components/common/Browser/Footer";
 import MobileNav from "./components/common/Mobile/MobileNav";
 import MobileFooter from "./components/common/Mobile/MobileFooter";
+import { useRecoilState } from "recoil";
+import { AccessToken } from "./recoil/atom";
 
 export default function App() {
   const accessToken: null | string = localStorage.getItem("access_token");
   const refreshToken: null | string = localStorage.getItem("refresh_token");
   const dispatch = useDispatch();
-
+  const [recoilAccessToken, setRecoilAccessToken] = useRecoilState(AccessToken);
   useEffect(() => {
     const refreshTok: { refresh: null | string } = { refresh: refreshToken };
     if (accessToken) {
@@ -28,6 +30,7 @@ export default function App() {
           // console.log(userData.data);
           dispatch(userSlice.actions.post(userData.data.last_name));
           dispatch(userSlice.actions.postId(userData.data.pk));
+          setRecoilAccessToken(accessToken);
         })
         .catch(async (error) => {
           tokenRefreshAPI(refreshTok)
@@ -36,6 +39,7 @@ export default function App() {
               const userData = await userAPI(res.data.access);
               dispatch(userSlice.actions.post(userData.data.last_name));
               dispatch(userSlice.actions.postId(userData.data.pk));
+              setRecoilAccessToken(res.data.access);
             })
             .catch((error) => {
               console.log("[Refresh Expired] Login Again");
@@ -48,6 +52,7 @@ export default function App() {
           const userData = await userAPI(res.data.access);
           dispatch(userSlice.actions.post(userData.data.last_name));
           dispatch(userSlice.actions.postId(userData.data.pk));
+          setRecoilAccessToken(res.data.access);
         })
         .catch((error) => {
           console.log("[Refresh Expired] Login Again");

@@ -85,11 +85,10 @@ export default function Signup() {
   return (
     <div className="flex items-center justify-center w-full h-full">
       <div>
-        <div className="flex items-center justify-center gap-5 mt-7 mb-7">
+        <div className="flex items-center justify-center mb-8 mt-7">
           <div className="w-10 h-10 ">
             <img src={logoImage} />
           </div>
-          <div className="text-3xl font-bold text-center">공방</div>
         </div>
 
         <div className="w-72">

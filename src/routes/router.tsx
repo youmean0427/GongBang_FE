@@ -8,6 +8,8 @@ import CoffeeCafe from "../pages/Browser/CoffeeCafe";
 import Profile from "../pages/Accounts/Profile";
 import FilterContainer from "../components/common/Browser/FilterContainer";
 import Banner from "../components/common/Browser/Banner";
+import { isMobile } from "react-device-detect";
+import MobileLogin from "../pages/Mobile/MobileLogin";
 export default function Router() {
   return (
     <>
@@ -18,6 +20,7 @@ export default function Router() {
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
+        {isMobile && <Route path="/login" element={<MobileLogin />} />}
       </Routes>
     </>
   );

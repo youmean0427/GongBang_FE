@@ -59,14 +59,10 @@ export default function Nav() {
     { title: "일반 카페", url: "/coffeecafe" },
     { title: "스터디 카페", url: "/studycafe" },
   ];
-  useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
-  }, [username]);
-
   return (
     <>
       <div className="flex flex-row w-full pl-[10%] pr-[10%]">
-        <div className="flex items-center justify-between w-full h-20 text-xl">
+        <div className="flex items-center justify-between w-full h-20 text-lg">
           {/* Logo & Link */}
           <div className="flex items-center gap-14">
             <Link to={"/"}>
@@ -77,27 +73,27 @@ export default function Nav() {
 
             {links.map((link, index) => (
               <Link to={link.url} key={index}>
-                <div className="font-semibold ">{link.title}</div>
+                <div className="font-medium ">{link.title}</div>
               </Link>
             ))}
           </div>
 
           {/* Login / Logout */}
           <div>
-            {username ? (
+            {username && accessToken ? (
               // After 로그인
-              <div className="flex items-baseline justify-center">
+              <div className="flex items-baseline justify-center ">
                 <img src={fullStar} className="w-5 h-5" />
                 <div
-                  className="ml-2 text-2xl font-bold cursor-pointer "
+                  className="ml-2 text-xl font-semibold cursor-pointer "
                   onClick={handleProfileModal}
                 >
                   {username}
                 </div>
-                <div className="ml-4 mr-4"> | </div>
+
                 <div
                   onClick={handleLogout}
-                  className="mr-8 text-xl cursor-pointer "
+                  className="ml-8 mr-8 text-base font-semibold btn"
                 >
                   로그아웃
                 </div>

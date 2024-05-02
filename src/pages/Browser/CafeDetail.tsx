@@ -111,11 +111,11 @@ export default function CafeDetail() {
               {/* Images */}
               {windowWidth >= 1280 && (
                 <div className="flex items-center justify-center h-[450px]">
-                  <div className="w-1/4 h-full">
+                  <div className="flex flex-col justify-between w-1/4 h-[450px]">
                     {coffecafeDetail.coffeecafeimage_set.map(
                       (x: CafeImageType, i: number) => (
                         <div
-                          className=" h-1/3"
+                          className="flex-1 p-2 h-1/3"
                           key={i}
                           onClick={() => {
                             handleNowImage(x.image);
