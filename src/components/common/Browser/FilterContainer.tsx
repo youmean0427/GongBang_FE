@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
+import { isBrowser, isMobile } from "react-device-detect";
 import { CoffeeCafeData, ReviewData } from "../../../types/type";
 import CardContainer from "./CardContainer";
 
@@ -33,12 +34,46 @@ export default function FilterContainer({ data }: any) {
   const handleReviewCreateMdoal = () => {
     setToggleReviewCreateModal(!toggleReviewCreateModal);
   };
+  if (isBrowser)
+    return (
+      <div>
+        <div className="w-full">
+          <span className="text-2xl">🪄 </span>
+          <select
+            className="text-2xl font-semibold w-1/8 select select-bordered"
+            onChange={handleTypeSelect}
+            value={typeSelect}
+          >
+            {typeList.map((item) => {
+              return (
+                <option value={item.value} key={item.value}>
+                  {item.name}
+                </option>
+              );
+            })}
+          </select>
+          <span className="ml-5 text-2xl font-semibold"> 리뷰 </span>
+        </div>
+        <div>
+          <CardContainer
+            title=""
+            data={filteredData}
+            type={2.1}
+            isReviewModal={handleReviewModal}
+            isCreateModal={handleReviewCreateMdoal}
+            chevronWidth={100}
+          />
+        </div>
+      </div>
+    );
+
+  // Mobile
   return (
     <div>
       <div className="w-full">
         <span className="text-xl">🪄 </span>
         <select
-          className="text-xl font-semibold w-1/8 select select-bordered"
+          className="text-xl font-bold w-1/8 select select-bordered"
           onChange={handleTypeSelect}
           value={typeSelect}
         >
@@ -50,16 +85,16 @@ export default function FilterContainer({ data }: any) {
             );
           })}
         </select>
-        <span className="ml-5 text-xl font-semibold"> 리뷰 </span>
+        <span className="ml-2 text-xl font-bold"> 리뷰 </span>
       </div>
       <div>
         <CardContainer
           title=""
           data={filteredData}
-          type={2.1}
+          type={3}
           isReviewModal={handleReviewModal}
           isCreateModal={handleReviewCreateMdoal}
-          chevronWidth={100}
+          chevronWidth={1}
         />
       </div>
     </div>

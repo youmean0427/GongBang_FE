@@ -17,17 +17,17 @@ const modalsSize: ModalType = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "xl:w-2/5 w-1/2 overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
-  3: "w-[500px] overflow-y-auto bg-white h-[500px] rounded-xl",
+  3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
   4: "w-[500px] overflow-y-auto bg-white h-[700px] rounded-xl",
   5: "w-2/5 overflow-y-auto bg-white h-4/5 rounded-xl",
 };
 
 const MobileModalsSize: ModalType = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
-  1: "xl:w-2/5 w-1/2 overflow-y-auto bg-white h-4/5 rounded-xl",
+  1: "w-full m-5 overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   3: "w-full m-5 bg-white h-[500px] rounded-xl",
-  4: "w-[500px] m-5 overflow-y-auto bg-white h-[700px] rounded-xl",
+  4: "w-[500px] m-5 overflow-y bg-white h-4/5 rounded-xl",
   5: "w-full m-5 overflow-y-auto bg-white h-[700px] rounded-xl",
 };
 
@@ -72,8 +72,8 @@ export default function Modal({ close, data, type }: any) {
     );
   return (
     <>
-      <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
-        {mobileSignup === false ? (
+      {mobileSignup === false ? (
+        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
           <div className={`${mobileModalSize}`}>
             <div
               className="flex justify-end m-3 cursor-pointer"
@@ -89,21 +89,24 @@ export default function Modal({ close, data, type }: any) {
             )}
 
             {type === 5 && mobileSignup === false && <Profile />}
+            {type === 1 && <Review data={data} />}
           </div>
-        ) : (
-          <div className={MobileModalsSize[4]}>
+        </div>
+      ) : (
+        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 ">
+          <div className={`${MobileModalsSize[4]}`}>
             <div
               className="flex justify-end m-3 cursor-pointer"
               onClick={close}
             >
               <LuX size={30} />
             </div>
-            <div className="flex items-center justify-center w-full h-4/5 ">
+            <div className="flex items-center justify-center w-full h-4/5">
               <Signup />
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 }

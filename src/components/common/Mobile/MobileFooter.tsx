@@ -8,12 +8,13 @@ import { useLocation } from "react-router-dom";
 import Modal from "../Browser/Modal";
 import { useState } from "react";
 export default function MobileFooter() {
-  const username = useSelector((state: RootState) => state.user.username);
   const location = useLocation();
+  const username = useSelector((state: RootState) => state.user.username);
 
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
   const [isOpenProfileModal, setISOpenProfileModal] = useState(false);
+
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
   };
@@ -70,27 +71,52 @@ export default function MobileFooter() {
         </Link>
         <div className="flex-1">
           <div className="flex flex-col items-center justify-center ">
-            <div className="w-8 h-8 p-0.5">
-              <FaRegCircleUser color="gray" className="w-full h-full" />
-            </div>
             {username ? (
-              <div
-                className="text-xs text-gray-500"
-                onClick={handleProfileModal}
-              >
-                마이페이지
-              </div>
+              <>
+                <div className="w-8 h-8 p-0.5">
+                  <FaRegCircleUser
+                    onClick={handleProfileModal}
+                    color={isOpenProfileModal ? "#E7B98E" : "gray"}
+                    className="w-full h-full"
+                  />
+                </div>
+                <div
+                  className={
+                    isOpenProfileModal
+                      ? "text-xs text-gongbang"
+                      : "text-xs text-gray-500"
+                  }
+                  onClick={handleProfileModal}
+                >
+                  마이페이지
+                </div>
+              </>
             ) : (
-              <div
-                className="text-xs text-gray-500 "
-                onClick={handleLoginModal}
-              >
-                로그인
-              </div>
+              <>
+                <div className="w-8 h-8 p-0.5">
+                  <FaRegCircleUser
+                    onClick={handleLoginModal}
+                    color={isOpenLoginModal ? "#E7B98E" : "gray"}
+                    className="w-full h-full"
+                  />
+                </div>
+                <div
+                  className={
+                    isOpenLoginModal
+                      ? "text-xs text-gongbang"
+                      : "text-xs text-gray-500"
+                  }
+                  onClick={handleLoginModal}
+                >
+                  로그인
+                </div>
+              </>
             )}
           </div>
         </div>
       </div>
+
+      {/* Modal */}
       {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
       {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
       {isOpenProfileModal && <Modal close={handleProfileModal} type={5} />}

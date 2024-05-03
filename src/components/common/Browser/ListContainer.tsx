@@ -16,7 +16,7 @@ interface ListContainer {
 export default function ListContainer({ type, data }: ListContainer) {
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const [cafeId, setCafeId] = useState();
-  const [images, setImages] = useState<any>([]);
+  const [images, setImages] = useState<string[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
   const reviewDeleteMutation = useMutation(
     ["deleteReview"],
@@ -56,7 +56,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       {/* Info */}
       {type == 2 && cafeData && cafeId && (
         <div
-          className="mb-2 text-lg font-medium cursor-pointer"
+          className="mb-2 text-base font-medium cursor-pointer"
           onClick={() => {
             window.location.href = `/coffeecafe/${cafeId}`;
           }}
@@ -80,8 +80,8 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="grid grid-cols-2 mb-5">
         <Stars score={data.score} size="small" />
 
-        <div className="text-lg font-medium text-end">{data.name}</div>
-        <div className="p-3 mt-3 text-base font-semibold badge badge-outline">
+        <div className="text-base font-medium text-end">{data.name}</div>
+        <div className="p-3 mt-3 text-sm font-medium badge badge-outline">
           {typeCode[data.type]}
         </div>
         <div className="pb-3 mt-3 text-base text-end">{data.date}</div>

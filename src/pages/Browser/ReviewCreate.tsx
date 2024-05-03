@@ -144,7 +144,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
   // if (coffeeLoading) return <></>
   return (
     <div className="mt-5 ml-10 mr-10">
-      <div className="mb-5 text-2xl font-bold">✏️ 리뷰 작성</div>
+      <div className="mb-5 text-xl font-semibold">✏️ 리뷰 작성</div>
       <hr />
       <div className="flex w-full mt-5 mb-5 h-44">
         {/* Image */}
@@ -163,7 +163,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
         {imageList.length < 3 ? (
           <div className="w-1/3 h-full border rounded-xl">
             <label className="flex flex-col items-center justify-center h-full ">
-              <LuCamera size={50} color="" />
+              <LuCamera size={40} color="" />
               <input
                 className="hidden "
                 type="file"
@@ -181,7 +181,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       <div className="">
         <input
           name="title"
-          className="w-full mb-2 text-lg font-bold input input-bordered"
+          className="w-full mb-2 text-lg font-semibold input input-bordered"
           placeholder="제목"
           onChange={handleInputChange}
         />
@@ -190,7 +190,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
           {/* Type */}
           <div className="w-full">
             <select
-              className="w-1/2 max-w-xs text-lg font-semibold select select-bordered"
+              className="w-1/2 max-w-xs text-base font-semibold select select-bordered"
               onChange={handleTypeSelect}
               value={typeSelect}
             >

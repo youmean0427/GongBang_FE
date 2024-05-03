@@ -1,0 +1,29 @@
+.img_fadeIn {
+  animation: fadeInAnimation 1s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.font_slideIn {
+  animation: slideInAnimation 1s ease-in-out forwards;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+@keyframes slideInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

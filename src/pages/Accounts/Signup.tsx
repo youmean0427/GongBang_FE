@@ -1,10 +1,11 @@
 import { useMutation } from "react-query";
 import React, { useEffect, useState } from "react";
 import { signupAPI } from "../../apis/api";
-import { Link, useNavigate } from "react-router-dom";
 import logoImage from "../../images/gongbang_logo.png";
+import { isBrowser, isMobile } from "react-device-detect";
+
+// Django REST AUTH 기본, 변경 금지
 interface Signup {
-  // Django REST AUTH 변경 금지
   username: string;
   email: string;
   password1: string;
@@ -12,11 +13,11 @@ interface Signup {
 }
 
 export default function Signup() {
-  const navigate = useNavigate();
   const [isValid, setIsValid] = useState(true);
   const [isPasswordMatch, setIsPasswordMatch] = useState(false);
   const [isPasswordLen8, setIsPasswordLen8] = useState(false);
   const [isSignupError, setIsSignupError] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
   const [signupInputs, setSignupInputs] = useState<Signup>({
     username: "",
     email: "",
@@ -33,10 +34,11 @@ export default function Signup() {
   };
 
   const signupMutation = useMutation(["signupAPI"], signupAPI, {
-    onSuccess: (res) => {
+    onSuccess: () => {
       window.location.reload();
     },
     onError: () => {
+      alert("존재하는 닉네임 또는 이메일입니다.");
       console.log("username, email Check");
       setIsSignupError(true);
     },
@@ -49,6 +51,10 @@ export default function Signup() {
       password1: signupInputs.password1,
       password2: signupInputs.password2,
     });
+  };
+
+  const handleCheckChange = () => {
+    setIsChecked(!isChecked);
   };
 
   useEffect(() => {
@@ -70,6 +76,9 @@ export default function Signup() {
         signupInputs.email &&
         signupInputs.password1 &&
         signupInputs.password2 &&
+        isChecked &&
+        isPasswordMatch &&
+        isPasswordLen8 &&
         checkEmail(signupInputs.email)
       )
     );
@@ -81,64 +90,140 @@ export default function Signup() {
     return regExp.test(data);
   };
 
-  return (
-    <div className="flex items-center justify-center w-full h-full">
-      <div>
-        <div className="flex items-center justify-center mb-8 mt-7">
+  if (isBrowser)
+    return (
+      <div className="flex flex-col items-center justify-center h-full gap-3 w-72 ">
+        <div className="flex items-center justify-center mb-5">
           <div className="w-10 h-10 ">
             <img src={logoImage} />
           </div>
         </div>
 
-        <div className="w-72">
-          <div className="mt-3 mb-3 text-lg font-semibold">닉네임</div>
+        <div className="w-full">
+          <input
+            className="w-full input input-bordered"
+            name="username"
+            onChange={handleChange}
+            placeholder="닉네임"
+          />
+        </div>
+        <div className="w-full">
+          <input
+            className="w-full input input-bordered"
+            name="email"
+            onChange={handleChange}
+            placeholder="이메일"
+          />
+        </div>
+        <div className="w-full">
+          <input
+            className="w-full input input-bordered"
+            type="password"
+            name="password1"
+            placeholder="비밀번호"
+            onChange={handleChange}
+          />
+
+          {!isPasswordLen8 && (
+            <div className="mt-2 text-center">
+              비밀번호를 9자리 이상 입력해주세요.
+            </div>
+          )}
+        </div>
+        <div className="w-full">
+          <input
+            className="w-full input input-bordered"
+            type="password"
+            name="password2"
+            onChange={handleChange}
+            placeholder="비밀번호 확인"
+          />
+
+          {!isPasswordMatch && (
+            <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
+          )}
+        </div>
+        <div className="flex items-center justify-center gap-2 mt-2">
+          <input
+            type="checkbox"
+            checked={isChecked}
+            onChange={handleCheckChange}
+            className="checkbox checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
+          />
+          <div className="text-gray-500">개인정보수집 및 이용동의</div>
+        </div>
+        <div className="w-full mt-2">
+          <button
+            className="w-full text-lg text-white btn bg-gongbang"
+            onClick={handleSignup}
+            disabled={isValid}
+          >
+            회원가입
+          </button>
+        </div>
+      </div>
+    );
+  if (isMobile)
+    return (
+      <div className="z-10 h-full w-72">
+        <div className="flex flex-col items-center justify-center h-full gap-3">
+          <div className="flex items-center justify-center mb-5 ">
+            <div className="w-10 h-10 ">
+              <img src={logoImage} />
+            </div>
+          </div>
 
           <input
             className="w-full input input-bordered"
             name="username"
             onChange={handleChange}
+            placeholder="닉네임"
           />
 
-          <div className="mt-3 mb-3 text-lg font-semibold">이메일</div>
-          <div>
-            <input
-              className="w-full input input-bordered"
-              name="email"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mt-3 mb-3 text-lg font-medium">
-            {!isSignupError ? "" : "존재하는 닉네임 또는 이메일입니다."}{" "}
-          </div>
-          <div className="mt-3 mb-3 text-lg font-semibold">비밀번호</div>
-          <div>
-            <input
-              className="w-full input input-bordered"
-              type="password"
-              name="password1"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="mt-3 mb-3 text-lg font-medium">
-            {isPasswordLen8 ? "" : "9자리 이상 입력해주세요."}{" "}
-          </div>
+          <input
+            className="w-full input input-bordered"
+            name="email"
+            onChange={handleChange}
+            placeholder="이메일"
+          />
 
-          <div className="mt-3 mb-3 text-lg font-semibold">비밀번호 확인</div>
-          <div>
+          <input
+            className="w-full input input-bordered"
+            type="password"
+            name="password1"
+            onChange={handleChange}
+            placeholder="비밀번호"
+          />
+          {!isPasswordLen8 && (
+            <div className="mt-2 text-center">
+              비밀번호를 9자리 이상 입력해주세요.
+            </div>
+          )}
+
+          <input
+            className="w-full input input-bordered"
+            type="password"
+            name="password2"
+            onChange={handleChange}
+            placeholder="비밀번호 확인"
+          />
+          {!isPasswordMatch && (
+            <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
+          )}
+
+          <div className="flex items-center justify-center gap-2 mt-2">
             <input
-              className="w-full input input-bordered"
-              type="password"
-              name="password2"
-              onChange={handleChange}
+              type="checkbox"
+              checked={isChecked}
+              onChange={handleCheckChange}
+              className="checkbox checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
             />
-          </div>
-          <div className="mt-3 mb-3 text-lg font-medium">
-            {isPasswordMatch ? "" : "비밀번호를 확인해주세요."}{" "}
+            <div className="text-gray-500">개인정보수집 및 이용동의</div>
           </div>
 
           <div>
             <button
-              className="mt-10 text-xl text-white btn w-72 bg-gongbang"
+              className="text-base text-white btn w-72 bg-gongbang"
               onClick={handleSignup}
               disabled={isValid}
             >
@@ -147,6 +232,6 @@ export default function Signup() {
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  return <></>;
 }
