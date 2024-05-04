@@ -19,6 +19,7 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import FilterContainer from "../../components/common/Browser/FilterContainer";
 import cafeMarker from "../../../src/images/cafe_marker.png";
 import { isBrowser } from "react-device-detect";
+import ReviewCard from "../../components/common/Browser/ReviewCard";
 
 interface CafeImageType {
   cafe: number;
@@ -64,70 +65,70 @@ export default function CafeDetail() {
   useEffect(() => {
     if (coffecafeDetail) {
       setNowImage(coffecafeDetail.coffeecafeimage_set[0].image);
-
-      // Review 최신순 정렬
-      // coffecafeDetail.review_set.sort(
-      //   (a: any, b: any) =>
-      //     new Date(b.date).getTime() - new Date(a.date).getTime()
-      // );
     }
+    // Review 최신순 정렬
+    // coffecafeDetail.review_set.sort(
+    //   (a: any, b: any) =>
+    //     new Date(b.date).getTime() - new Date(a.date).getTime()
+    // );
   }, [coffecafeDetail]);
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [window.innerWidth]);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setWindowWidth(window.innerWidth);
+  //   };
+  //   window.addEventListener("resize", handleResize);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, [window.innerWidth]);
 
   if (isFetching && !toggleReviewCreateModal) return <>isFetching</>;
   if (isLoading) return <div>isLoading</div>;
+
   if (isBrowser)
     return (
       <>
         <div className="flex flex-row w-full pl-[10%] pr-[10%]">
           <div className="w-full">
-            <div className="grid items-center w-full grid-cols-1 xl:grid-cols-2 mt-14">
+            <div className="grid w-full grid-cols-1 xl:grid-cols-2 mt-14">
               {/* Images */}
-              {windowWidth >= 1280 && (
-                <div className="flex items-center justify-center h-[450px]">
-                  <div className="flex flex-col justify-between w-1/4 h-[450px]">
-                    {coffecafeDetail.coffeecafeimage_set.map(
-                      (x: CafeImageType, i: number) => (
-                        <div
-                          className="h-[140px] w-[140px]"
-                          key={i}
-                          onClick={() => {
-                            handleNowImage(
-                              process.env.REACT_APP_API_URL + x.image
-                            );
-                          }}
-                        >
-                          <img
-                            className="object-cover w-full h-full rounded-xl"
-                            src={process.env.REACT_APP_API_URL + x.image}
-                          />
-                        </div>
-                      )
-                    )}
-                  </div>
 
-                  <div className="w-full h-full m-5 ">
-                    <img
-                      className="object-cover h-full rounded-2xl"
-                      src={nowImage}
-                    />
-                  </div>
+              <div className="flex justify-start w-full h-full gap-2">
+                <div className="flex flex-col justify-start gap-2 max-w-[130px] min-w-[50px] flex-1  ">
+                  {coffecafeDetail.coffeecafeimage_set.map(
+                    (x: CafeImageType, i: number) => (
+                      <div
+                        className=""
+                        key={i}
+                        onClick={() => {
+                          handleNowImage(
+                            process.env.REACT_APP_API_URL + x.image
+                          );
+                        }}
+                      >
+                        <img
+                          className="object-cover w-full h-full rounded-xl"
+                          src={process.env.REACT_APP_API_URL + x.image}
+                        />
+                      </div>
+                    )
+                  )}
                 </div>
-              )}
+
+                <div className=" flex-1 max-w-[550px] min-w-[400px] mr-5">
+                  <img
+                    className="object-cover w-full h-full rounded-2xl"
+                    src={coffecafeDetail.coffeecafeimage_set[0].image}
+                  />
+                </div>
+              </div>
+
               {/*  Info */}
-              <div className="">
+              <div className="m-3">
                 <div className="mb-3 text-3xl font-bold">
                   {coffecafeDetail.name}
                 </div>
@@ -136,32 +137,15 @@ export default function CafeDetail() {
                   {coffecafeDetail.address}
                 </div>
                 <div className="mb-4 text-lg"> {coffecafeDetail.time} </div>
-                {/* <div> {data.lat} </div>
-                        <div> {data.lng} </div> */}
-                {windowWidth >= 1280 && <hr />}
-                {windowWidth < 1280 && (
-                  <div className="flex w-full mt-10 mb-10">
-                    {coffecafeDetail.coffeecafeimage_set.map(
-                      (x: CafeImageType, i: number) => (
-                        <div className="w-full h-full mr-4">
-                          <img
-                            className="object-cover w-full h-full rounded-2xl"
-                            src={x.image}
-                          />
-                        </div>
-                      )
-                    )}
-                  </div>
-                )}
 
                 <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
-                <div className="grid grid-cols-2 text-lg">
+                <div className="grid grid-cols-2 text-lg gap-x-2">
                   <div className="flex items-center mt-1 mb-1">
                     <LuHome className="mr-2" />
-                    <div className="w-20">분위기</div>
-                    <div className="flex items-center justify-center flex-1 w-full">
+                    <div className="w-20 ">분위기</div>
+                    <div className="flex-1 min-w-[150px]">
                       <Stars score={coffecafeDetail.vibe} size="small" />
                     </div>
                   </div>
@@ -169,21 +153,21 @@ export default function CafeDetail() {
                   <div className="flex items-center mt-1 mb-1">
                     <LuCoffee className="mr-2" />
                     <div className="w-20 ">음료</div>
-                    <div className="flex items-center justify-center flex-1 w-full">
+                    <div className="flex-1 min-w-[150px]">
                       <Stars score={coffecafeDetail.coffee} size="small" />
                     </div>
                   </div>
-                  <div className="flex items-center justify-start w-full mt-1 mb-1">
+                  <div className="flex items-center justify-start w-full mt-1 mb-1 ">
                     <LuArmchair className="mr-2" />
                     <div className="w-20 ">좌석</div>
-                    <div className="flex items-center justify-center flex-1 w-full">
+                    <div className="flex-1 min-w-[150px]">
                       <Stars score={coffecafeDetail.seat} size="small" />
                     </div>
                   </div>
                   <div className="flex items-center justify-start w-full mt-1 mb-1">
                     <LuPlug className="mr-2" />
                     <div className="w-20 ">콘센트</div>
-                    <div className="flex items-center justify-center flex-1 w-full">
+                    <div className="flex-1 min-w-[150px]">
                       <Stars score={coffecafeDetail.plug} size="small" />
                     </div>
                   </div>
@@ -219,13 +203,12 @@ export default function CafeDetail() {
 
             {/* 통합 리뷰 */}
             <div className="mt-20 mb-20">
-              <CardContainer
+              <ReviewCard
+                type={1}
                 title={reviewTitle[0]}
                 data={coffecafeDetail.review_set}
-                type={2}
                 isReviewModal={handleReviewModal}
                 isCreateModal={handleReviewCreateMdoal}
-                chevronWidth={100}
               />
             </div>
 

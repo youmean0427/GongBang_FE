@@ -124,7 +124,7 @@ export default function Signup() {
             onChange={handleChange}
           />
 
-          {!isPasswordLen8 && (
+          {!isPasswordLen8 && signupInputs.password1 && (
             <div className="mt-2 text-center">
               비밀번호를 9자리 이상 입력해주세요.
             </div>
@@ -138,9 +138,8 @@ export default function Signup() {
             onChange={handleChange}
             placeholder="비밀번호 확인"
           />
-
-          {!isPasswordMatch && (
-            <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
+          {!isPasswordMatch && signupInputs.password2 && (
+            <div className="mt-2 text-center ">비밀번호를 확인해주세요.</div>
           )}
         </div>
         <div className="flex items-center justify-center gap-2 mt-2">
@@ -172,46 +171,52 @@ export default function Signup() {
               <img src={logoImage} />
             </div>
           </div>
+          <div className="w-full">
+            <input
+              className="w-full input input-bordered"
+              name="username"
+              onChange={handleChange}
+              placeholder="닉네임"
+            />
+          </div>
 
-          <input
-            className="w-full input input-bordered"
-            name="username"
-            onChange={handleChange}
-            placeholder="닉네임"
-          />
+          <div className="w-full">
+            <input
+              className="w-full input input-bordered"
+              name="email"
+              onChange={handleChange}
+              placeholder="이메일"
+            />
+          </div>
+          <div className="w-full">
+            <input
+              className="w-full input input-bordered"
+              type="password"
+              name="password1"
+              onChange={handleChange}
+              placeholder="비밀번호"
+            />
 
-          <input
-            className="w-full input input-bordered"
-            name="email"
-            onChange={handleChange}
-            placeholder="이메일"
-          />
+            {!isPasswordLen8 && signupInputs.password1 && (
+              <div className="mt-2 text-center">
+                비밀번호를 9자리 이상 입력해주세요.
+              </div>
+            )}
+          </div>
+          <div className="w-full">
+            <input
+              className="w-full input input-bordered"
+              type="password"
+              name="password2"
+              onChange={handleChange}
+              placeholder="비밀번호 확인"
+            />
+            {!isPasswordMatch && signupInputs.password2 && (
+              <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
+            )}
+          </div>
 
-          <input
-            className="w-full input input-bordered"
-            type="password"
-            name="password1"
-            onChange={handleChange}
-            placeholder="비밀번호"
-          />
-          {!isPasswordLen8 && (
-            <div className="mt-2 text-center">
-              비밀번호를 9자리 이상 입력해주세요.
-            </div>
-          )}
-
-          <input
-            className="w-full input input-bordered"
-            type="password"
-            name="password2"
-            onChange={handleChange}
-            placeholder="비밀번호 확인"
-          />
-          {!isPasswordMatch && (
-            <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
-          )}
-
-          <div className="flex items-center justify-center gap-2 mt-2">
+          <div className="flex items-center justify-center gap-2 mt-2 mb-2">
             <input
               type="checkbox"
               checked={isChecked}

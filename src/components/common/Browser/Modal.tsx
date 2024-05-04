@@ -13,21 +13,23 @@ type ModalType = {
   [key: number]: string;
 };
 
+// Browser
 const modalsSize: ModalType = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "xl:w-2/5 w-1/2 overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
-  4: "w-[500px] overflow-y-auto bg-white h-[700px] rounded-xl",
+  4: "w-[400px] overflow-y-auto bg-white h-[550px] rounded-xl",
   5: "w-2/5 overflow-y-auto bg-white h-4/5 rounded-xl",
 };
 
+// Mobile
 const MobileModalsSize: ModalType = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "w-full m-5 overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
-  3: "w-full m-5 bg-white h-[500px] rounded-xl",
-  4: "w-[500px] m-5 overflow-y bg-white h-4/5 rounded-xl",
+  3: "w-[500px] m-5 bg-white h-[400px] rounded-xl",
+  4: "w-[500px] m-5 overflow-y bg-white h-[550px] rounded-xl",
   5: "w-full m-5 overflow-y-auto bg-white h-[700px] rounded-xl",
 };
 

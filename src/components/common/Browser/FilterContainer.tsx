@@ -1,7 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { CoffeeCafeData, ReviewData } from "../../../types/type";
+import CafeCard from "./CafeCard";
 import CardContainer from "./CardContainer";
+import ReviewCard from "./ReviewCard";
 
 export default function FilterContainer({ data }: any) {
   const [nowType, setNowType] = useState(0);
@@ -55,13 +57,12 @@ export default function FilterContainer({ data }: any) {
           <span className="ml-5 text-2xl font-semibold"> 리뷰 </span>
         </div>
         <div>
-          <CardContainer
+          <ReviewCard
             title=""
             data={filteredData}
-            type={2.1}
+            type={2}
             isReviewModal={handleReviewModal}
             isCreateModal={handleReviewCreateMdoal}
-            chevronWidth={100}
           />
         </div>
       </div>

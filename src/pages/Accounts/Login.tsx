@@ -78,7 +78,7 @@ export default function Login() {
           placeholder="비밀번호"
         />
       </div>
-      <div className="mt-5 mb-1 font-medium text-gray-500">비밀번호 찾기</div>
+      <div className="mt-2 mb-2 font-medium text-gray-500 ">비밀번호 찾기</div>
 
       <div>
         <button
