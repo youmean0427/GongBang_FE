@@ -11,7 +11,6 @@ interface Login {
 }
 
 export default function Login() {
-  const [accessToken, setAccessToken] = useRecoilState(AccessToken);
   const [loginInputs, setLoginInputs] = useState<Login>({
     email: "",
     password: "",
@@ -19,7 +18,6 @@ export default function Login() {
 
   const loginMutation = useMutation(["loginAPI"], loginAPI, {
     onSuccess: (res) => {
-      setAccessToken(res.data.access);
       localStorage.setItem("access_token", res.data.access);
       localStorage.setItem("refresh_token", res.data.refresh);
       window.location.reload();
@@ -52,6 +50,17 @@ export default function Login() {
     });
   };
 
+  if (loginMutation.isLoading || loginMutation.isSuccess)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="loading loading-spinner loading-lg bg-gongbang"></div>
+          <div className="font-medium text-gray-500">
+            ... 로그인 하는 중 ...
+          </div>
+        </div>
+      </>
+    );
   return (
     <div className="flex flex-col items-center justify-center w-full h-full gap-2">
       <div className="flex items-center justify-center mb-8">

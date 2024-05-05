@@ -14,8 +14,8 @@ const starsSize: any = {
   large: "w-10",
 };
 const textsSize: any = {
-  small: "text-lg mr-2 font-bold text-amber-700",
-  large: "text-xl mr-2 font-bold text-amber-700",
+  small: "h-full text-lg mr-2 font-bold text-amber-700",
+  large: "h-full text-xl mr-2 font-bold text-amber-700",
 };
 
 export default function Stars({ score, size }: Stars) {

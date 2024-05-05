@@ -7,6 +7,9 @@ module.exports = {
       colors: {
         gongbang: "#E7B98E",
       },
+      screens: {
+        mobile: "800px",
+      },
     },
   },
   plugins: [require("@tailwindcss/line-clamp"), require("daisyui")],

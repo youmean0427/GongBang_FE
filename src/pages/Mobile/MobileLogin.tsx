@@ -61,7 +61,17 @@ export default function MobileLogin({ handleMobileSignup }: any) {
   useEffect(() => {
     setIsValid(!(loginInputs.email && loginInputs.password));
   });
-
+  if (loginMutation.isLoading || loginMutation.isSuccess)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="loading loading-spinner loading-lg bg-gongbang"></div>
+          <div className="font-medium text-gray-500">
+            ... 로그인 하는 중 ...
+          </div>
+        </div>
+      </>
+    );
   return (
     <div className="flex flex-col items-center justify-center w-full h-full gap-3">
       <div className="flex items-center justify-center mb-5">

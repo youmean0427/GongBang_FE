@@ -5,9 +5,10 @@ import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import { getCoffeeCafesAPI } from "../../apis/api";
 import Stars from "../../components/common/Browser/Stars";
-import nowMarker from "../../../src/images/now_marker.png";
+
 import moveMarker from "../../../src/images/move_marker.png";
 import cafeMarker from "../../../src/images/cafe_marker.png";
+import { isBrowser } from "react-device-detect";
 export default function CoffeeCafe() {
   const [filteredCafe, setFilteredCafe] = useState<any[]>([]);
   const [isOpen, setIsOpen] = useState(false);
@@ -79,6 +80,114 @@ export default function CoffeeCafe() {
   }, []);
 
   if (isLoading) return <></>;
+  if (isBrowser)
+    return (
+      <div className="">
+        <div className="">
+          <Map
+            center={{
+              // 지도의 중심좌표
+              lat: nowState.center.lat,
+              lng: nowState.center.lng,
+            }}
+            style={{
+              // 지도의 크기
+              width: "100%",
+              height: "91vh",
+            }}
+            level={3}
+            onClick={(_t, mouseEvent) =>
+              setMarkerState({
+                center: {
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
+                },
+              })
+            }
+          >
+            {/* <Circle
+            center={markerState.center}
+            radius={5000}
+            strokeWeight={1}
+            strokeColor="#ffd80b"
+            strokeOpacity={0.1}
+            strokeStyle="solid"
+            fillColor="#ffd80b"
+            fillOpacity={0.2}
+          /> */}
+
+            {filteredCafe.map((cafe, index) => (
+              <div className="relative " key={index}>
+                <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
+                  {isOpen && index === isClickIdx && (
+                    <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[350px] z-10">
+                      <div
+                        className="absolute cursor-pointer right-2 top-2"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <LuX size={25} />
+                      </div>
+                      <Link to={`/coffeecafe/${cafe.id}`}>
+                        <div className="flex flex-col items-center justify-center w-full h-full ">
+                          {cafe.coffeecafeimage_set.length ? (
+                            <div className="w-2/3 mb-3">
+                              <img
+                                className="object-cover w-full h-full rounded-lg"
+                                src={
+                                  process.env.REACT_APP_API_URL +
+                                  cafe.coffeecafeimage_set[0].image
+                                }
+                              />
+                            </div>
+                          ) : (
+                            <div></div>
+                          )}
+
+                          <div className="mt-2 mb-2 text-xl font-bold">
+                            {cafe.name}
+                          </div>
+                          <div>
+                            <Stars score={cafe.total_score} size="small" />
+                          </div>
+                          <div className="mt-2 text-base">{cafe.address}</div>
+                        </div>
+                      </Link>
+                    </div>
+                  )}
+                </CustomOverlayMap>
+                <MapMarker
+                  key={index}
+                  position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
+                  image={{
+                    src: cafeMarker, // 마커이미지의 주소입니다
+                    size: {
+                      width: 80,
+                      height: 90,
+                    }, // 마커이미지의 크기입니다
+                  }}
+                  clickable={true}
+                  onClick={() => {
+                    setIsOpen(true);
+                    setIsClickIdx(index);
+                  }}
+                ></MapMarker>
+
+                <MapMarker
+                  position={markerState.center}
+                  image={{
+                    src: moveMarker,
+                    size: {
+                      width: 90,
+                      height: 100,
+                    },
+                  }}
+                ></MapMarker>
+              </div>
+            ))}
+          </Map>
+        </div>
+      </div>
+    );
   return (
     <div className="">
       <div className="">
@@ -93,7 +202,7 @@ export default function CoffeeCafe() {
             width: "100%",
             height: "91vh",
           }}
-          level={5}
+          level={3}
           onClick={(_t, mouseEvent) =>
             setMarkerState({
               center: {
@@ -103,68 +212,41 @@ export default function CoffeeCafe() {
             })
           }
         >
-          <Circle
-            center={markerState.center}
-            radius={5000}
-            strokeWeight={1}
-            strokeColor="#ffd80b"
-            strokeOpacity={0.1}
-            strokeStyle="solid"
-            fillColor="#ffd80b"
-            fillOpacity={0.2}
-          />
-          <MapMarker
-            position={nowState.center}
-            image={{
-              src: nowMarker,
-              size: {
-                width: 1,
-                height: 1,
-              },
-            }}
-          ></MapMarker>
+          {/* <Circle
+        center={markerState.center}
+        radius={5000}
+        strokeWeight={1}
+        strokeColor="#ffd80b"
+        strokeOpacity={0.1}
+        strokeStyle="solid"
+        fillColor="#ffd80b"
+        fillOpacity={0.2}
+      /> */}
           <MapMarker
             position={markerState.center}
             image={{
               src: moveMarker,
               size: {
-                width: 90,
-                height: 100,
+                width: 70,
+                height: 80,
               },
             }}
           ></MapMarker>
-
           {filteredCafe.map((cafe, index) => (
-            <div>
-              <MapMarker
-                key={index}
-                position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
-                image={{
-                  src: cafeMarker, // 마커이미지의 주소입니다
-                  size: {
-                    width: 80,
-                    height: 90,
-                  }, // 마커이미지의 크기입니다
-                }}
-                clickable={true}
-                onClick={() => {
-                  setIsOpen(true);
-                  setIsClickIdx(index);
-                }}
-              ></MapMarker>
+            <div className="relative " key={index}>
               <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
                 {isOpen && index === isClickIdx && (
-                  <div className="bg-white shadow-lg rounded-xl w-72 h-80">
+                  <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[300px] z-10">
                     <div
-                      className="absolute cursor-pointer right-1 top-2"
+                      className="absolute cursor-pointer right-2 top-2"
                       onClick={() => setIsOpen(false)}
                     >
                       <LuX size={25} />
                     </div>
                     <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-center w-full h-full ">
+                      <div className="flex flex-col items-center justify-between w-full h-[300px] ">
                         {cafe.coffeecafeimage_set.length ? (
-                          <div className="w-2/3 mb-2">
+                          <div className="w-full h-[180px] ">
                             <img
                               className="object-cover w-full h-full rounded-lg"
                               src={
@@ -176,42 +258,26 @@ export default function CoffeeCafe() {
                         ) : (
                           <div></div>
                         )}
-
-                        <div className="mb-1 text-xl font-bold">
-                          {cafe.name}
+                        <div className="h-[120px] flex flex-col  justify-center items-center gap-2">
+                          <div className="text-lg font-bold ">{cafe.name}</div>
+                          <div>
+                            <Stars score={cafe.total_score} size="small" />
+                          </div>
+                          <div className="text-sm ">{cafe.address}</div>
                         </div>
-                        <div>
-                          <Stars score={cafe.total_score} size="small" />
-                        </div>
-                        <div className="mt-1 text-base">{cafe.address}</div>
                       </div>
                     </Link>
                   </div>
                 )}
               </CustomOverlayMap>
-
-              {/* <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
-                <div className="w-16 h-16 cursor-pointer">
-                  <div>
-                    <img
-                      src={cafeMarker}
-                      onClick={() => {
-                        setIsOpen(!isOpen);
-                        setIsClickIdx(index);
-                      }}
-                    />
-                  </div>
-                </div>
-              </CustomOverlayMap> */}
-
-              {/* <MapMarker
+              <MapMarker
                 key={index}
                 position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
                 image={{
                   src: cafeMarker, // 마커이미지의 주소입니다
                   size: {
-                    width: 80,
-                    height: 90,
+                    width: 70,
+                    height: 80,
                   }, // 마커이미지의 크기입니다
                 }}
                 clickable={true}
@@ -219,38 +285,7 @@ export default function CoffeeCafe() {
                   setIsOpen(true);
                   setIsClickIdx(index);
                 }}
-              > </MapMarker>
-                {isOpen && index === isClickIdx && (
-                  <div className=" w-72 h-72">
-                    <div
-                      className="absolute right-2 top-2"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <LuX size={25} />
-                    </div>
-                    <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-center w-full h-full mt-1">
-                        {cafe.coffeecafeimage_set.length ? (
-                          <div className="w-2/3 mb-2">
-                            <img
-                              className="object-cover w-full h-full rounded-lg"
-                              src={cafe.coffeecafeimage_set[0].image}
-                            />
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-
-                        <div className="text-xl font-bold">{cafe.name}</div>
-                        <div>
-                          <Stars score={cafe.total_score} size="small" />
-                        </div>
-                        <div className="text-base">{cafe.address}</div>
-                      </div>
-                    </Link>
-                  </div>
-                )}
-              </MapMarker> */}
+              ></MapMarker>
             </div>
           ))}
         </Map>

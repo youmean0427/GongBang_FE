@@ -1,9 +1,9 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { CoffeeCafeData, ReviewData } from "../../../types/type";
-import CafeCard from "./CafeCard";
-import CardContainer from "./CardContainer";
-import ReviewCard from "./ReviewCard";
+import CafeCard from "./Card/CafeCard";
+import CardContainer from "./Card/CardContainer";
+import ReviewCard from "./Card/ReviewCard";
 
 export default function FilterContainer({ data }: any) {
   const [nowType, setNowType] = useState(0);
@@ -42,7 +42,7 @@ export default function FilterContainer({ data }: any) {
         <div className="w-full">
           <span className="text-2xl">🪄 </span>
           <select
-            className="text-2xl font-semibold w-1/8 select select-bordered"
+            className="text-2xl font-bold  w-1/8 select select-bordered"
             onChange={handleTypeSelect}
             value={typeSelect}
           >
@@ -74,7 +74,7 @@ export default function FilterContainer({ data }: any) {
       <div className="w-full">
         <span className="text-xl">🪄 </span>
         <select
-          className="text-xl font-bold w-1/8 select select-bordered"
+          className="text-lg font-bold w-1/8 select select-bordered"
           onChange={handleTypeSelect}
           value={typeSelect}
         >

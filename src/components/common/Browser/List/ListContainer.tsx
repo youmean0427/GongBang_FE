@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../../apis/api";
+import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../../../apis/api";
 import { useMutation, useQuery } from "react-query";
 import { Link } from "react-router-dom";
 // import "../list/ListContainer.css";
-import Stars from "./Stars";
+import Stars from "../Stars";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { TypeCode } from "../../../types/type";
+import { RootState } from "../../../../redux/store";
+import { ReviewData, TypeCode } from "../../../../types/type";
+import { LuHome } from "react-icons/lu";
+import Badge from "../Badge/Badge";
 
 interface ListContainer {
-  data: any;
+  data: ReviewData;
   type?: number;
 }
 
@@ -27,7 +29,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       },
     }
   );
-
+  console.log(data);
   const {
     isFetching,
     isLoading,
@@ -45,14 +47,16 @@ export default function ListContainer({ type, data }: ListContainer) {
   };
 
   useEffect(() => {
-    data.reviewimage_set.map((x: any) => {
-      setImages([...images, x]);
-    });
+    if (data.reviewimage_set) {
+      data.reviewimage_set.map((x: any) => {
+        setImages([...images, x]);
+      });
+    }
   }, []);
 
   if (isLoading || isFetching) return <></>;
   return (
-    <div className="mt-5 mb-8 ml-8 mr-8">
+    <div className="pb-2 mt-8 mb-8 ml-8 mr-8">
       {/* Info */}
       {type == 2 && cafeData && cafeId && (
         <div
@@ -64,35 +68,48 @@ export default function ListContainer({ type, data }: ListContainer) {
           {cafeData.name}
         </div>
       )}
+
       <div className="flex items-center justify-between mb-2">
         <div className="w-full h-full text-xl font-semibold ">{data.title}</div>
-        {userId === data.user ? (
+        {userId === data.user && (
           <div
-            className="font-bold cursor-pointer w-13 btn btn-sm text-end"
+            className=" w-[30px] text-center text-sm font-medium cursor-pointer "
             onClick={() => handleDelete(data.id)}
           >
             삭제
           </div>
-        ) : (
-          <></>
         )}
       </div>
-      <div className="grid grid-cols-2 mb-5">
-        <Stars score={data.score} size="small" />
-
-        <div className="text-base font-medium text-end">{data.name}</div>
-        <div className="p-3 mt-3 text-sm font-medium badge badge-outline">
-          {typeCode[data.type]}
+      <div className="grid grid-cols-2 gap-3 mb-5">
+        <div>
+          <Stars score={data.score} size="small" />
         </div>
-        <div className="pb-3 mt-3 text-base text-end">{data.date}</div>
+        <div className="text-base font-medium text-end">{data.name}</div>
+        <Badge typeIdx={data.type} />
+        <div className="text-base text-end">{data.date}</div>
       </div>
       {/* Image */}
-      <div className="flex mb-5">
-        {data.reviewimage_set.map((x: any, i: any) => (
-          <div className="w-1/3 " key={i}>
-            <img className="rounded-2xl" src={x.image} />
-          </div>
-        ))}
+      <div className="flex w-full gap-3 mb-5">
+        {data.reviewimage_set &&
+          data.reviewimage_set.map((x: any, i: number) => (
+            <div className="w-1/3 h-[200px] " key={i}>
+              <img
+                className="object-cover w-full h-full rounded-2xl"
+                src={x.image}
+              />
+            </div>
+          ))}
+        {data.reviewimage_set?.length === 1 && (
+          <>
+            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
+            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
+          </>
+        )}
+        {data.reviewimage_set?.length === 2 && (
+          <>
+            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
+          </>
+        )}
       </div>
       <div className="">{data.content}</div>
     </div>

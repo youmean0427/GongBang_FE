@@ -5,7 +5,9 @@ export const getCoffeeCafesAPI = async (type: number) => {
   return data;
 };
 
-export const getCoffeeCafeDetailAPI = async (id: string | undefined) => {
+export const getCoffeeCafeDetailAPI = async (
+  id: string | number | undefined
+) => {
   const { data } = await axios.get(`/api/coffeecafes/detail/${id}`);
   return data;
 };
@@ -29,7 +31,7 @@ export const getReviewDetailAPI = async (id: number) => {
   return data;
 };
 export const postCoffeeCafeDetailReviewAPI = async (
-  id: number,
+  id: number | string | undefined,
   data: FormData,
   type: number
 ) => {

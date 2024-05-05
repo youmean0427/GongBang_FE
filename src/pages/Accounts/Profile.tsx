@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import { useSelector } from "react-redux";
 import { getProfileReview, logoutAPI } from "../../apis/api";
-import ListContainer from "../../components/common/Browser/ListContainer";
+import ListContainer from "../../components/common/Browser/List/ListContainer";
 import { RootState } from "../../redux/store";
 import emStar from "../../images/em_star.png";
 import { isBrowser, isMobile } from "react-device-detect";
@@ -23,15 +23,11 @@ export default function Profile() {
   const handleLogout = () => {
     logoutMutation.mutate({});
   };
-  console.log(data);
-  if (isLoading || isFetching) return <>isLoading</>;
+  if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
       <>
-        <div className="flex flex-col items-center justify-centerh-full">
-          <div>
-            <img src={emStar} className="w-10 h-10 mb-4" />
-          </div>
+        <div className="flex flex-col items-center justify-center mt-10">
           <div className="text-2xl font-semibold">{userName}</div>
           {data && (
             <div className="mt-2 mb-10 text-base font-semibold">
@@ -48,6 +44,11 @@ export default function Profile() {
                 <hr />
               </div>
             ))}
+          {data.length === 0 && (
+            <div className="w-full h-full text-center mt-[180px] text-gray-500 ">
+              작성한 리뷰가 없습니다.
+            </div>
+          )}
         </div>
       </>
     );

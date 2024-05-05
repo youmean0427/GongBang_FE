@@ -1,37 +1,22 @@
-// import { useQuery } from '@tanstack/react-query'
-import React from "react";
-// import {
-//   getAllReveiw,
-//   getCoffeeCafeDetailAPI,
-//   getReview,
-//   userAPI,
-// } from "../apis/api";
 import { useParams } from "react-router-dom";
-import ListContainer from "../../components/common/Browser/ListContainer";
-// import ListContainer from "../components/list/ListContainer";
-// import "./Review.css";
-import Stars from "../../components/common/Browser/Stars";
+import ListContainer from "../../components/common/Browser/List/ListContainer";
 
-export default function Review({ data }: any) {
+import Stars from "../../components/common/Browser/Stars";
+import { CoffeeCafeData } from "../../types/type";
+
+interface ReviewType {
+  data: CoffeeCafeData;
+}
+
+export default function Review({ data }: ReviewType) {
   const { id } = useParams();
 
-  //   const { isLoading, data } = useQuery({
-  //     queryKey: ['getCoffeeCafeDetailReview'],
-  //     queryFn: () => getCoffeeCafeDetailAPI(id),
-  //   })
-
-  // const { data: userInfo } = useQuery({
-  //   queryKey: ["userInfo"],
-  //   queryFn: () => userAPI(),
-  //   enabled: !!localStorage.getItem("access_token"),
-  // });
-
   return (
-    <div className="">
-      <div className="flex flex-col items-center mb-10">
+    <div className="mt-10">
+      <div className="flex flex-col items-center gap-2 mb-10">
         <div className="mb-2 text-2xl font-bold">{data.name}</div>
         <Stars score={data.total_score} size="small" />
-        <div className="mt-2 text-lg font-bold">
+        <div className="mt-2 text-xl font-bold">
           {data.review_set.length}개의 리뷰
         </div>
       </div>
@@ -47,6 +32,11 @@ export default function Review({ data }: any) {
           <></>
         )}
       </div>
+      {data.review_set.length === 0 && (
+        <div className="mt-[200px] w-full h-full text-center text-gray-500">
+          리뷰가 없습니다.
+        </div>
+      )}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   // getCoffeeCafeDetailReviewCreateAPI,
   userAPI,
 } from "../../apis/api";
-import { useNavigate, useParams } from "react-router-dom";
+import { Params, useNavigate, useParams } from "react-router-dom";
 // import "../components/list/ListContainer.css";
 // import "./Review.css";
 import { LuCamera } from "react-icons/lu";
@@ -27,6 +27,10 @@ interface InputState {
   type: number;
 }
 
+interface IdParamsType {
+  id: string | number;
+}
+
 function getToday(getDate: Date) {
   const today = `${getDate.getFullYear()}-${
     getDate.getMonth() + 1 >= 10
@@ -36,22 +40,12 @@ function getToday(getDate: Date) {
   return today;
 }
 export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
-  const { id }: any = useParams();
+  const { id }: Readonly<Params<string>> | undefined = useParams();
   const getDate = new Date();
   const today = getToday(getDate);
   const x = useRecoilValue(AccessToken);
   const username = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
-  // const { isLoading: coffeeLoading, data: coffeeCafe } = useQuery({
-  //   queryKey: ['getCoffeeCafeDetailReviewCreate'],
-  //   queryFn: () => getCoffeeCafeDetailAPI(id),
-  // })
-
-  // const { isLoading, data: userInfo } = useQuery({
-  //   queryKey: ['userInfoReviewCreate'],
-  //   queryFn: () => userAPI(),
-  //   enabled: !!localStorage.getItem('access_token'),
-  // })
   const [imageList, setImageList] = useState([]);
   const [inputs, setInputs] = useState<InputState>({
     title: "",
@@ -68,8 +62,17 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     { value: 4, name: "콘센트" },
   ];
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
+  const handleInputChange = (
+    event:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = event.target;
+    if (name === "content" && value.length >= 500) {
+      alert("500자까지 작성할 수 있습니다.");
+    } else if (name === "title" && value.length >= 50) {
+      alert("50자까지 작성할 수 있습니다.");
+    }
     setInputs({
       ...inputs,
       [name]: value,
@@ -84,28 +87,33 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
   };
 
   const handleReviewCreate = () => {
+    if (imageList.length === 0) {
+      alert("이미지를 1장 이상 넣어주세요.");
+      return;
+    }
+    if (inputs.title === "") {
+      alert("제목을 작성해주세요.");
+      return;
+    }
+    if (inputs.content === "") {
+      alert("내용을 작성해주세요.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("title", inputs.title);
     formData.append("content", inputs.content);
     formData.append("date", today);
     formData.append("score", `${inputs.score}`);
     formData.append("type", `${inputs.type}`);
-    // formData.append("user", `${userId}`);
-    // formData.append("name", username);
-    // Test
     formData.append("user", `${userId}`);
     formData.append("name", username);
 
     for (let i = 0; i < imageList.length; i++) {
       formData.append("image", imageList[i]);
     }
-    // * FormData Check *
-    // for (let value of formData.values()) {
-    //     console.log(value)
-    // }
 
     reviewCreateMutation.mutate(formData);
-    window.location.reload();
   };
 
   const reviewCreateMutation = useMutation(
@@ -114,6 +122,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     {
       onSuccess: (res) => {
         console.log(res, "Success");
+        window.location.reload();
       },
       onError: (res) => {
         console.log(res, "Error");
@@ -139,7 +148,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     });
     setTypeSelect(event.target.value);
   };
-
+  console.log(inputs);
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
   return (
@@ -163,7 +172,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
         {imageList.length < 3 ? (
           <div className="w-1/3 h-full border rounded-xl">
             <label className="flex flex-col items-center justify-center h-full ">
-              <LuCamera size={40} color="" />
+              <LuCamera size={40} color="gray" />
               <input
                 className="hidden "
                 type="file"
@@ -180,6 +189,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       {/* Review */}
       <div className="">
         <input
+          maxLength={50}
           name="title"
           className="w-full mb-2 text-lg font-semibold input input-bordered"
           placeholder="제목"
@@ -204,12 +214,6 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </select>
           </div>
 
-          {/* <input
-                className="input input-bordered"
-                name="score"
-                onChange={onChange}
-                placeholder="점수"
-              /> */}
           <div className="rating rating-lg rating-half">
             <input type="radio" name="rating-10" className="rating-hidden" />
             <input
@@ -294,21 +298,15 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             />
           </div>
         </div>
-
-        <div>
-          <div>{/* 점수 */}</div>
-          {/* <div>{data.username}</div>
-                        <div>{today}</div> */}
-        </div>
       </div>
 
       <div>
         <div>
           <textarea
-            className="w-full text-base textarea textarea-bordered"
+            maxLength={500}
+            className="w-full text-base textarea textarea-bordered max-h-[150px]"
             name="content"
             id=""
-            cols={10}
             rows={5}
             onChange={handleInputChange}
           ></textarea>

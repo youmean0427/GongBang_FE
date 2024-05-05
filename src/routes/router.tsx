@@ -7,7 +7,7 @@ import CafeDetail from "../pages/Browser/CafeDetail";
 import CoffeeCafe from "../pages/Browser/CoffeeCafe";
 import Profile from "../pages/Accounts/Profile";
 import FilterContainer from "../components/common/Browser/FilterContainer";
-import Banner from "../components/common/Browser/Banner";
+import Banner from "../components/common/Browser/Banner/Banner";
 import { isMobile } from "react-device-detect";
 import MobileLogin from "../pages/Mobile/MobileLogin";
 export default function Router() {

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
-import { ReviewData, TypeCode } from "../../../types/type";
-import Modal from "./Modal";
-import Stars from "./Stars";
+import { RootState } from "../../../../redux/store";
+import { ReviewData, TypeCode } from "../../../../types/type";
+import Badge from "../Badge/Badge";
+import Modal from "../Modal";
+import Stars from "../Stars";
 
 interface ReviewCardType {
   title: string;
@@ -53,17 +54,20 @@ export default function ReviewCard({
             <div className="text-2xl font-semibold">📝 {title}</div>
           )}
           <div className="flex ">
-            {username && type === 1 && (
-              <div onClick={isCreateModal} className="text-base btn">
-                리뷰 작성하기
-              </div>
-            )}
             {type === 1 && (
               <div
-                className="ml-5 text-base cursor-pointer btn"
+                className="text-base cursor-pointer btn"
                 onClick={isReviewModal}
               >
                 모든 리뷰 보기
+              </div>
+            )}
+            {username && type === 1 && (
+              <div
+                onClick={isCreateModal}
+                className="ml-5 text-base text-white btn bg-gongbang"
+              >
+                리뷰 작성하기
               </div>
             )}
           </div>
@@ -71,7 +75,12 @@ export default function ReviewCard({
       </div>
       <div className="relative w-full">
         <div className="w-full carousel carousel-center">
-          <div className="space-x-4 carousel-item h-[350px] ">
+          <div className="space-x-5 carousel-item h-[380px] ">
+            {data.length === 0 && (
+              <div className="absolute flex items-center justify-center w-full h-[380px]   ">
+                <div className="text-lg text-gray-500">리뷰가 없습니다.</div>
+              </div>
+            )}
             {data.map((data: ReviewData, i: number) => (
               <div
                 key={i}
@@ -83,31 +92,27 @@ export default function ReviewCard({
                 }}
               >
                 {/* Images */}
-                <div className="mb-3">
-                  {data.reviewimage_set ? (
+                <div className="mb-3 ">
+                  {data.reviewimage_set && (
                     <img
-                      className="w-full rounded-2xl"
+                      className=" h-[250px] w-[250px] object-cover rounded-2xl"
                       src={
                         process.env.REACT_APP_API_URL +
                         data.reviewimage_set[0].image
                       }
                       alt="Cafe"
                     />
-                  ) : (
-                    <div></div>
                   )}
                 </div>
                 {/* <div>{data.id}</div> */}
 
                 {/* Info */}
                 <Stars score={data.score} size="small" />
-                <div className="w-full mt-3 text-xl font-medium truncate ">
+                <div className="w-[250px] mt-2 text-xl font-medium truncate ">
                   {data.title}
                 </div>
                 <div className="flex items-center justify-between mt-2">
-                  <div className="p-3 text-sm font-medium badge badge-outline">
-                    {typeCode[data.type]}
-                  </div>
+                  <Badge typeIdx={data.type} />
                   <div className="text-base">{data.name}</div>
                 </div>
                 <div></div>
@@ -118,13 +123,13 @@ export default function ReviewCard({
         {data.length !== 0 && (
           <>
             <button
-              className="absolute btn btn-circle -left-5 top-1/2"
+              className="absolute btn btn-circle -left-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
               onClick={prevSlide}
             >
               ❮
             </button>
             <button
-              className="absolute btn btn-circle -right-5 top-1/2"
+              className="absolute btn btn-circle -right-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
               onClick={nextSlide}
             >
               ❯

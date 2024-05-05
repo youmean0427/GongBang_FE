@@ -1,5 +1,5 @@
-import banner_item1 from "../../../images/banner_item1.png";
-import banner_item2 from "../../../images/banner_item2.png";
+import banner_item1 from "../../../../images/banner_item1.png";
+import banner_item2 from "../../../../images/banner_item2.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import "./Banner.css";
 export default function Banner() {

@@ -7,20 +7,28 @@ import Signup from "../../../pages/Accounts/Signup";
 import Review from "../../../pages/Browser/Reveiw";
 import ReviewCreate from "../../../pages/Browser/ReviewCreate";
 import MobileLogin from "../../../pages/Mobile/MobileLogin";
-import ListContainer from "./ListContainer";
+import ListContainer from "./List/ListContainer";
 
 type ModalType = {
   [key: number]: string;
 };
 
+// Type
+// 0 : ListContainer
+// 1 : Review
+// 2 : ReviewCreate
+// 3 : Login
+// 4 : Signup
+// 5 : Profile
+
 // Browser
 const modalsSize: ModalType = {
   0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
-  1: "xl:w-2/5 w-1/2 overflow-y-auto bg-white h-4/5 rounded-xl",
+  1: "w-1/2 min-w-[650px] max-w-[800px] overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
   4: "w-[400px] overflow-y-auto bg-white h-[550px] rounded-xl",
-  5: "w-2/5 overflow-y-auto bg-white h-4/5 rounded-xl",
+  5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
 };
 
 // Mobile
@@ -40,7 +48,7 @@ export default function Modal({ close, data, type }: any) {
   const handleMobileSignup = () => {
     setMobileSignup(!mobileSignup);
   };
-  console.log(mobileSignup);
+
   if (isBrowser)
     return (
       <>
@@ -61,11 +69,6 @@ export default function Modal({ close, data, type }: any) {
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}
                 {type === 4 && <Signup />}
-                {/* {type === 0 ? (
-              <ListContainer data={data} />
-            ) : (
-              <>{type === 1 ? <div className=""></div> : <div></div>}</>
-            )} */}
               </div>
             )}
           </div>
