@@ -48,6 +48,7 @@ export default function Main() {
               </div>
             </div>
           </div>
+
           <div className="w-full opacity-50 h-60 bg-gongbang"></div>
         </div>
       </>
@@ -79,6 +80,7 @@ export default function Main() {
             </div>
           </div>
         </div>
+        <div className="w-full opacity-50 h-60 bg-gongbang"></div>
       </div>
     </>
   );

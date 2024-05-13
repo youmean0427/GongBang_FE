@@ -12,31 +12,31 @@ export default function Review({ data }: ReviewType) {
   const { id } = useParams();
 
   return (
-    <div className="mt-10">
-      <div className="flex flex-col items-center gap-2 mb-10">
-        <div className="mb-2 text-2xl font-bold">{data.name}</div>
-        <Stars score={data.total_score} size="small" />
-        <div className="mt-2 text-xl font-bold">
-          {data.review_set.length}개의 리뷰
+    <div className="h-[90%]">
+      <div className="flex flex-col items-center h-full gap-2 ">
+        <div className="flex flex-col items-center gap-2">
+          <div className="mb-2 text-2xl font-bold">{data.name}</div>
+          <Stars score={data.total_score} size="small" />
+          <div className="mt-2 text-xl font-bold">
+            {data.review_set.length}개의 리뷰
+          </div>
         </div>
-      </div>
-      <div className="">
-        {data ? (
-          data.review_set.map((x: any, i: number) => (
-            <div key={i}>
-              <ListContainer data={x} />
-              <hr />
-            </div>
-          ))
-        ) : (
-          <></>
+
+        <div className="w-full">
+          {data &&
+            data.review_set &&
+            data.review_set.map((x: any, i: number) => (
+              <div key={i}>
+                <ListContainer data={x} />
+              </div>
+            ))}
+        </div>
+        {data.review_set.length === 0 && (
+          <div className="flex items-center justify-center h-full">
+            <div>리뷰가 없습니다.</div>
+          </div>
         )}
       </div>
-      {data.review_set.length === 0 && (
-        <div className="mt-[200px] w-full h-full text-center text-gray-500">
-          리뷰가 없습니다.
-        </div>
-      )}
     </div>
   );
 }

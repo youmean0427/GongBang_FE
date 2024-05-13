@@ -96,14 +96,15 @@ export default function CoffeeCafe() {
               height: "91vh",
             }}
             level={3}
-            onClick={(_t, mouseEvent) =>
-              setMarkerState({
-                center: {
-                  lat: mouseEvent.latLng.getLat(),
-                  lng: mouseEvent.latLng.getLng(),
-                },
-              })
-            }
+            onClick={(_t, mouseEvent) => {
+              !isOpen &&
+                setMarkerState({
+                  center: {
+                    lat: mouseEvent.latLng.getLat(),
+                    lng: mouseEvent.latLng.getLng(),
+                  },
+                });
+            }}
           >
             {/* <Circle
             center={markerState.center}
@@ -128,9 +129,9 @@ export default function CoffeeCafe() {
                         <LuX size={25} />
                       </div>
                       <Link to={`/coffeecafe/${cafe.id}`}>
-                        <div className="flex flex-col items-center justify-center w-full h-full ">
+                        <div className="flex flex-col items-center justify-between w-full h-full ">
                           {cafe.coffeecafeimage_set.length ? (
-                            <div className="w-2/3 mb-3">
+                            <div className="w-full h-[200px] ">
                               <img
                                 className="object-cover w-full h-full rounded-lg"
                                 src={
@@ -142,14 +143,15 @@ export default function CoffeeCafe() {
                           ) : (
                             <div></div>
                           )}
-
-                          <div className="mt-2 mb-2 text-xl font-bold">
-                            {cafe.name}
+                          <div className="flex flex-col items-center justify-center h-full gap-2 ">
+                            <div className="text-xl font-bold ">
+                              {cafe.name}
+                            </div>
+                            <div>
+                              <Stars score={cafe.total_score} size="small" />
+                            </div>
+                            <div className="text-base ">{cafe.address}</div>
                           </div>
-                          <div>
-                            <Stars score={cafe.total_score} size="small" />
-                          </div>
-                          <div className="mt-2 text-base">{cafe.address}</div>
                         </div>
                       </Link>
                     </div>
@@ -171,19 +173,18 @@ export default function CoffeeCafe() {
                     setIsClickIdx(index);
                   }}
                 ></MapMarker>
-
-                <MapMarker
-                  position={markerState.center}
-                  image={{
-                    src: moveMarker,
-                    size: {
-                      width: 90,
-                      height: 100,
-                    },
-                  }}
-                ></MapMarker>
               </div>
             ))}
+            <MapMarker
+              position={markerState.center}
+              image={{
+                src: moveMarker,
+                size: {
+                  width: 90,
+                  height: 100,
+                },
+              }}
+            ></MapMarker>
           </Map>
         </div>
       </div>
@@ -236,7 +237,7 @@ export default function CoffeeCafe() {
             <div className="relative " key={index}>
               <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
                 {isOpen && index === isClickIdx && (
-                  <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[300px] z-10">
+                  <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[300px] z-30">
                     <div
                       className="absolute cursor-pointer right-2 top-2"
                       onClick={() => setIsOpen(false)}

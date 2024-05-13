@@ -35,20 +35,14 @@ export default function Profile() {
             </div>
           )}
         </div>
-        <hr />
+
         <div className="mt-10">
           {data &&
             data.map((x: ReviewData, i: number) => (
               <div key={i} className="w-full">
                 <ListContainer data={x} type={2} />
-                <hr />
               </div>
             ))}
-          {data.length === 0 && (
-            <div className="w-full h-full text-center mt-[180px] text-gray-500 ">
-              작성한 리뷰가 없습니다.
-            </div>
-          )}
         </div>
       </>
     );
@@ -79,7 +73,6 @@ export default function Profile() {
             data.map((x: ReviewData, i: any) => (
               <div key={i} className="w-full">
                 <ListContainer data={x} type={2} />
-                <hr />
               </div>
             ))}
         </div>

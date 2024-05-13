@@ -33,6 +33,20 @@ export default function CafeDetail() {
   const [nowImage, setNowImage] = useState<string>("");
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
+
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentSlide(
+      currentSlide === coffecafeDetail.coffeecafeimage_set.length - 1
+        ? 0
+        : currentSlide + 1
+    );
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
+  };
   const {
     isLoading,
     isFetching,
@@ -68,14 +82,17 @@ export default function CafeDetail() {
           <div className="w-full">
             <div className="grid w-full grid-cols-1 xl:grid-cols-2 mt-14">
               {/* Images */}
-
-              <div className="flex w-full h-full gap-2 xl:flex-row xl:justify-start ">
-                <div className="flex xl:flex-col flex-row justify-start gap-2 xl:max-w-[100px] xl:min-w-[100px] flex-1  w-full max-xl:mb-5">
+              <div className="relative w-full xl:max-w-[700px]">
+                <div className="  xl:h-[500px] h-[400px]   w-full carousel carousel-center">
                   {coffecafeDetail.coffeecafeimage_set.map(
                     (x: CafeImageType, i: number) => (
                       <div
-                        className="xl:h-[100px] max-xl:w-1/3 max-xl:min-w-[200px] xl:hover:scale-105"
+                        className="w-full  xl:h-[500px] h-[400px] carousel-item"
                         key={i}
+                        style={{
+                          transform: `translateX(-${currentSlide * 100}%)`,
+                          transition: "transform 0.5s ease",
+                        }}
                         onClick={() => {
                           handleNowImage(
                             process.env.REACT_APP_API_URL + x.image
@@ -89,25 +106,25 @@ export default function CafeDetail() {
                       </div>
                     )
                   )}
-                </div>
-
-                <div className=" flex-1 max-xl:hidden xl:max-w-[580px] xl:min-w-[400px] xl:min-h-[400px] xl:mr-5 max-w-[600px] min-w-[400px]">
-                  {nowImage === "" ? (
-                    <img
-                      className="object-cover w-full h-full rounded-2xl"
-                      src={coffecafeDetail.coffeecafeimage_set[0].image}
-                    />
-                  ) : (
-                    <img
-                      className="object-cover w-full h-full rounded-2xl"
-                      src={nowImage}
-                    />
-                  )}
+                  <>
+                    <button
+                      className="absolute opacity-40 shadow-black btn btn-circle hover:opacity-100 -left-5 top-1/2 "
+                      onClick={prevSlide}
+                    >
+                      ❮
+                    </button>
+                    <button
+                      className="absolute btn btn-circle -right-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
+                      onClick={nextSlide}
+                    >
+                      ❯
+                    </button>
+                  </>
                 </div>
               </div>
 
               {/*  Info */}
-              <div className="m-5">
+              <div className="mt-8 xl:m-8 ">
                 <div className="mb-4 text-3xl font-bold">
                   {coffecafeDetail.name}
                 </div>

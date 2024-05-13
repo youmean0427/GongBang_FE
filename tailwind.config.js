@@ -9,6 +9,12 @@ module.exports = {
       },
       screens: {
         mobile: "800px",
+        browserimage: "1690px",
+      },
+      fontFamily: {
+        medium: "Pretendard-Medium",
+        semibold: "Pretendard-SemiBold",
+        bold: "Pretendard-Bold",
       },
     },
   },

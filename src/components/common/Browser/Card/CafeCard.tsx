@@ -23,7 +23,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
     return (
       <div className="w-full mt-12 mb-10 ">
         <div className="w-full">
-          <div className="text-2xl font-semibold mb-7">{title}</div>
+          <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="relative w-full">
             <div className="w-full carousel carousel-center ">
               <div className="space-x-5 carousel-item h-[380px] ">
@@ -34,44 +34,47 @@ export default function CafeCard({ title, data }: CafeCardType) {
                     </div>
                   </div>
                 )}
-                {data.map((x, i) => (
-                  <div
-                    key={i}
-                    style={{
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.5s ease",
-                    }}
-                    className="h-full max-w-96"
-                  >
-                    <Link
-                      to={`coffeecafe/${x.id}`}
-                      style={{ textDecoration: "none" }}
+                {data &&
+                  data.map((x, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        transform: `translateX(-${currentSlide * 100}%)`,
+                        transition: "transform 0.5s ease",
+                      }}
+                      className="h-full max-w-96"
                     >
-                      <div className="text-lg">
-                        <div className="mb-5">
-                          {x.coffeecafeimage_set && (
-                            <div className="w-[250px] h-[250px]">
-                              <img
-                                className="object-cover w-full h-full rounded-2xl"
-                                src={
-                                  process.env.REACT_APP_API_URL +
-                                  x.coffeecafeimage_set[0].image
-                                }
-                                alt="Cafe"
-                              />
-                            </div>
-                          )}
-                        </div>
+                      <Link
+                        to={`coffeecafe/${x.id}`}
+                        style={{ textDecoration: "none" }}
+                      >
+                        <div className="text-lg">
+                          <div className="mb-5">
+                            {x.coffeecafeimage_set && (
+                              <div className="w-[250px] h-[250px]">
+                                <img
+                                  className="object-cover w-full h-full rounded-2xl"
+                                  src={
+                                    process.env.REACT_APP_API_URL +
+                                    x.coffeecafeimage_set[0].image
+                                  }
+                                  alt="Cafe"
+                                />
+                              </div>
+                            )}
+                          </div>
 
-                        <div className="mb-1">
-                          <Stars score={x.total_score} size="small" />
+                          <div className="mb-1">
+                            <Stars score={x.total_score} size="small" />
+                          </div>
+                          <div className="mb-1 text-xl font-semibold">
+                            {x.name}
+                          </div>
+                          <div className="text-base ">{x.address}</div>
                         </div>
-                        <div className="mb-1 text-xl font-medium">{x.name}</div>
-                        <div className="text-base ">{x.address}</div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
+                      </Link>
+                    </div>
+                  ))}
               </div>
             </div>
             {data.length > 0 && isBrowser && (
@@ -101,9 +104,9 @@ export default function CafeCard({ title, data }: CafeCardType) {
         <div className="text-xl font-semibold mb-7">{title}</div>
         <div className="relative w-full">
           <div className="w-full carousel carousel-center ">
-            <div className="space-x-5 carousel-item h-[380px] ">
+            <div className="space-x-5 carousel-item h-[320px] ">
               {data && data.length === 0 && (
-                <div className="absolute flex items-center justify-center w-full h-[380px]  ">
+                <div className="absolute flex items-center justify-center w-full h-[320px]  ">
                   <div className="text-base text-gray-500">
                     카페가 없습니다.
                   </div>
@@ -125,7 +128,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                     <div className="text-lg">
                       <div className="mb-5">
                         {x.coffeecafeimage_set && (
-                          <div className="w-[250px] h-[250px]">
+                          <div className="w-[200px] h-[200px]">
                             <img
                               className="object-cover w-full h-full rounded-2xl"
                               src={
@@ -138,10 +141,12 @@ export default function CafeCard({ title, data }: CafeCardType) {
                         )}
                       </div>
 
-                      <div className="mb-1">
+                      <div className="mb-2">
                         <Stars score={x.total_score} size="small" />
                       </div>
-                      <div className="mb-1 text-lg font-medium">{x.name}</div>
+                      <div className="mb-1 text-lg font-semibold ">
+                        {x.name}
+                      </div>
                       <div className="text-sm ">{x.address}</div>
                     </div>
                   </Link>

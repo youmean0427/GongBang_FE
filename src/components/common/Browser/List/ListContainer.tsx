@@ -29,7 +29,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       },
     }
   );
-  console.log(data);
+
   const {
     isFetching,
     isLoading,
@@ -73,20 +73,22 @@ export default function ListContainer({ type, data }: ListContainer) {
         <div className="w-full h-full text-xl font-semibold ">{data.title}</div>
         {userId === data.user && (
           <div
-            className=" w-[30px] text-center text-sm font-medium cursor-pointer "
+            className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
             onClick={() => handleDelete(data.id)}
           >
             삭제
           </div>
         )}
       </div>
-      <div className="grid grid-cols-2 gap-3 mb-5">
+      <div className="grid grid-cols-2 gap-3 mb-5 align-baseline">
         <div>
           <Stars score={data.score} size="small" />
         </div>
-        <div className="text-base font-medium text-end">{data.name}</div>
+        <div className="mt-1 mr-1 text-base font-medium text-end">
+          {data.name}
+        </div>
         <Badge typeIdx={data.type} />
-        <div className="text-base text-end">{data.date}</div>
+        <div className="mr-1 text-base text-end">{data.date}</div>
       </div>
       {/* Image */}
       <div className="flex w-full gap-3 mb-5">
@@ -111,7 +113,8 @@ export default function ListContainer({ type, data }: ListContainer) {
           </>
         )}
       </div>
-      <div className="">{data.content}</div>
+      <div className="mb-5">{data.content}</div>
+      <hr />
     </div>
   );
 }

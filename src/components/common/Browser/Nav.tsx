@@ -61,7 +61,7 @@ export default function Nav() {
 
             {links.map((link, index) => (
               <Link to={link.url} key={index}>
-                <div className="text-lg font-medium">{link.title}</div>
+                <div className="text-lg font-pm-5">{link.title}</div>
               </Link>
             ))}
           </div>
@@ -92,12 +92,12 @@ export default function Nav() {
                   </button>
                 </div>
                 <div className="cursor-pointer ">
-                  <button
+                  <div
                     className="text-base text-white btn bg-gongbang"
                     onClick={handleSignupModal}
                   >
                     회원가입
-                  </button>
+                  </div>
                 </div>
               </div>
             )}
