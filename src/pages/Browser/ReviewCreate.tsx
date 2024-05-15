@@ -148,7 +148,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     });
     setTypeSelect(event.target.value);
   };
-  console.log(inputs);
+
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
   return (

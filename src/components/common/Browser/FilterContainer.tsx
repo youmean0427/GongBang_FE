@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
 import { CoffeeCafeData, ReviewData } from "../../../types/type";
 import CafeCard from "./Card/CafeCard";
-import CardContainer from "./Card/CardContainer";
+
 import ReviewCard from "./Card/ReviewCard";
 
 export default function FilterContainer({ data }: any) {
@@ -42,7 +42,7 @@ export default function FilterContainer({ data }: any) {
         <div className="w-full">
           <span className="text-2xl">🪄 </span>
           <select
-            className="text-2xl font-bold  w-1/8 select select-bordered"
+            className="text-2xl font-bold w-1/8 select select-bordered"
             onChange={handleTypeSelect}
             value={typeSelect}
           >
@@ -69,35 +69,5 @@ export default function FilterContainer({ data }: any) {
     );
 
   // Mobile
-  return (
-    <div>
-      <div className="w-full">
-        <span className="text-xl">🪄 </span>
-        <select
-          className="text-lg font-bold w-1/8 select select-bordered"
-          onChange={handleTypeSelect}
-          value={typeSelect}
-        >
-          {typeList.map((item) => {
-            return (
-              <option value={item.value} key={item.value}>
-                {item.name}
-              </option>
-            );
-          })}
-        </select>
-        <span className="ml-2 text-xl font-bold"> 리뷰 </span>
-      </div>
-      <div>
-        <CardContainer
-          title=""
-          data={filteredData}
-          type={3}
-          isReviewModal={handleReviewModal}
-          isCreateModal={handleReviewCreateMdoal}
-          chevronWidth={1}
-        />
-      </div>
-    </div>
-  );
+  return <></>;
 }

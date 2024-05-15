@@ -1,5 +1,6 @@
 import axios from "axios";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 export const getCoffeeCafesAPI = async (type: number) => {
   const { data } = await axios.get(`/api/coffeecafes/all/${type}`);
   return data;

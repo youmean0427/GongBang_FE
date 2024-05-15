@@ -1,5 +1,4 @@
 import Banner from "../../components/common/Browser/Banner/Banner";
-import CardContainer from "../../components/common/Browser/Card/CardContainer";
 import { getCoffeeCafesAPI } from "../../apis/api";
 import { useQuery } from "react-query";
 import { isBrowser, isMobile } from "react-device-detect";

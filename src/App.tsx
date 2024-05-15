@@ -16,6 +16,7 @@ import { useRecoilState } from "recoil";
 import { AccessToken } from "./recoil/atom";
 
 export default function App() {
+  const [isLoading, setIsLoding] = useState(true);
   const accessToken: null | string = localStorage.getItem("access_token");
   const refreshToken: null | string = localStorage.getItem("refresh_token");
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export default function App() {
           dispatch(userSlice.actions.post(userData.data.last_name));
           dispatch(userSlice.actions.postId(userData.data.pk));
           setRecoilAccessToken(accessToken);
+          setIsLoding(false);
         })
         .catch(async (error) => {
           tokenRefreshAPI(refreshTok)
@@ -40,9 +42,11 @@ export default function App() {
               dispatch(userSlice.actions.post(userData.data.last_name));
               dispatch(userSlice.actions.postId(userData.data.pk));
               setRecoilAccessToken(res.data.access);
+              setIsLoding(false);
             })
             .catch((error) => {
               console.log("[Refresh Expired] Login Again");
+              setIsLoding(false);
             });
         });
     } else {
@@ -53,13 +57,15 @@ export default function App() {
           dispatch(userSlice.actions.post(userData.data.last_name));
           dispatch(userSlice.actions.postId(userData.data.pk));
           setRecoilAccessToken(res.data.access);
+          setIsLoding(false);
         })
         .catch((error) => {
           console.log("[Refresh Expired] Login Again");
+          setIsLoding(false);
         });
     }
   }, []);
-
+  if (isLoading) return <></>;
   return (
     <>
       <BrowserView>

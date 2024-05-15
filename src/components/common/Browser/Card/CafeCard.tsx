@@ -77,7 +77,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                   ))}
               </div>
             </div>
-            {data.length > 0 && isBrowser && (
+            {data && data.length > 0 && isBrowser && (
               <>
                 <button
                   className="absolute opacity-40 shadow-black btn btn-circle hover:opacity-100 -left-5 top-1/2 "

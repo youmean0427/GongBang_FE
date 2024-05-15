@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { getCoffeeCafeDetailAPI } from "../../apis/api";
 import { useParams } from "react-router-dom";
-import CardContainer from "../../components/common/Browser/Card/CardContainer";
-
 import {
   LuHome,
   LuArmchair,
