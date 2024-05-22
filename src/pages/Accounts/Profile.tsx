@@ -53,9 +53,9 @@ export default function Profile() {
       <>
         <div className="flex flex-col items-center justify-centerh-full">
           <div>
-            {data.length < 10 && <img src={emStar} className="w-8 h-8 mb-4" />}
+            {data.length < 10 && <img src={emStar} className="w-8 h-8 mb-2" />}
             {data.length >= 10 && (
-              <img src={fullStar} className="w-8 h-8 mb-4" />
+              <img src={fullStar} className="w-8 h-8 mb-2" />
             )}
           </div>
           <div className="text-2xl font-semibold">{userName}</div>
@@ -66,7 +66,7 @@ export default function Profile() {
           )}
           <div
             onClick={handleLogout}
-            className="mb-5 ml-8 mr-8 text-sm font-semibold btn"
+            className="mb-5 ml-8 mr-8 text-xs font-semibold btn btn-sm"
           >
             로그아웃
           </div>

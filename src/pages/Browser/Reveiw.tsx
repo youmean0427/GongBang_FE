@@ -41,7 +41,7 @@ export default function Review({ data }: ReviewType) {
       </div>
     );
   return (
-    <div className="h-[90%] mt-8">
+    <div className="h-[90%] mt-3">
       <div className="flex flex-col items-center h-full gap-2 ">
         <div className="flex flex-col items-center gap-2">
           <div className="mb-1 text-2xl font-bold">{data.name}</div>

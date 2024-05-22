@@ -237,7 +237,7 @@ export default function CoffeeCafe() {
             <div className="relative " key={index}>
               <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
                 {isOpen && index === isClickIdx && (
-                  <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[300px] z-30">
+                  <div className="absolute bg-white shadow-lg -top-[340px] -left-[125px] rounded-xl w-60 h-[250px] z-30">
                     <div
                       className="absolute cursor-pointer right-2 top-2"
                       onClick={() => setIsOpen(false)}
@@ -245,9 +245,9 @@ export default function CoffeeCafe() {
                       <LuX size={25} />
                     </div>
                     <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-between w-full h-[300px] ">
+                      <div className="flex flex-col items-center justify-between w-full h-[250px] ">
                         {cafe.coffeecafeimage_set.length ? (
-                          <div className="w-full h-[180px] ">
+                          <div className="w-full h-[150px] ">
                             <img
                               className="object-cover w-full h-full rounded-lg"
                               src={
@@ -259,7 +259,7 @@ export default function CoffeeCafe() {
                         ) : (
                           <div></div>
                         )}
-                        <div className="h-[120px] flex flex-col  justify-center items-center gap-2">
+                        <div className="h-[100px] flex flex-col  justify-center items-center gap-1">
                           <div className="text-lg font-bold ">{cafe.name}</div>
                           <div>
                             <Stars score={cafe.total_score} size="small" />

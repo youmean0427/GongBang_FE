@@ -35,7 +35,7 @@ const modalsSize: ModalType = {
 const MobileModalsSize: ModalType = {
   0: "w-full m-5 min-w-[300px] max-w-[500px] overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "w-full m-5 overflow-y-auto bg-white h-4/5 rounded-xl",
-  2: "w-full m-5  overflow-y-auto bg-white h-[650px] rounded-xl",
+  2: "w-full m-5  overflow-y-auto bg-white h-full max-h-[600px] rounded-xl",
   3: "w-[500px] m-5 bg-white h-[400px] rounded-xl",
   4: "w-[500px] m-5 overflow-y bg-white h-[550px] rounded-xl",
   5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
