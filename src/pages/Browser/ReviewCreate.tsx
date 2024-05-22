@@ -326,7 +326,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       </div>
     );
   return (
-    <div className="mt-5 ml-10 mr-10">
+    <div className="mt-5 ml-5 mr-5">
       <div className="mb-5 text-xl font-bold">✏️ 리뷰 작성</div>
       <hr />
       <div className="flex w-full mt-5 h-[180px]">

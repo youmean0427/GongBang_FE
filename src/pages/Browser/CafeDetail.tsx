@@ -60,10 +60,12 @@ export default function CafeDetail() {
 
   const handleReviewModal = () => {
     setToggleReviewModal(!toggleReviewModal);
+    document.body.style.overflow = "auto";
   };
 
   const handleReviewCreateMdoal = () => {
     setToggleReviewCreateModal(!toggleReviewCreateModal);
+    document.body.style.overflow = "auto";
   };
 
   useEffect(() => {
@@ -262,7 +264,7 @@ export default function CafeDetail() {
           <div className="w-full">
             <div className="grid w-full grid-cols-1 mt-10">
               {/*  Info */}
-              <div className="mb-5 ml-5 mr-5">
+              <div className="mb-5">
                 <div className="mb-2 text-2xl font-bold">
                   {coffecafeDetail.name}
                 </div>
@@ -272,7 +274,6 @@ export default function CafeDetail() {
                 </div>
                 <div className="mb-5 text-base"> {coffecafeDetail.time} </div>
 
-                <hr />
                 <div className=" h-[300px]   w-full carousel carousel-center">
                   {coffecafeDetail.coffeecafeimage_set.map(
                     (x: CafeImageType, i: number) => (
@@ -361,7 +362,7 @@ export default function CafeDetail() {
             </div>
 
             {/* 통합 리뷰 */}
-            <div className="mt-20 mb-20">
+            <div className="mt-16 mb-16">
               <ReviewCard
                 type={1}
                 title={reviewTitle[0]}
@@ -401,7 +402,7 @@ export default function CafeDetail() {
               </Map>
             </div>
             {/* 리뷰 필터 */}
-            <div className="mb-20 mt-36">
+            <div className="mt-16 mb-36">
               <FilterContainer data={coffecafeDetail.review_set} />
             </div>
           </div>

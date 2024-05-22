@@ -31,10 +31,12 @@ export default function ReviewCard({
   const handelReviewDetailModal = (modalData: ReviewData) => {
     setReviewModalData(modalData);
     setToggleReviewDetailModal(true);
+    document.body.style.overflow = "auto";
   };
 
   const handleReviewModal = () => {
     setReviewModalData(undefined);
+    document.body.style.overflow = "auto";
   };
 
   const nextSlide = () => {
@@ -154,7 +156,7 @@ export default function ReviewCard({
           <div className="flex ">
             {type === 1 && (
               <div
-                className="cursor-pointer btn btn-sm"
+                className="font-semibold cursor-pointer btn btn-sm"
                 onClick={isReviewModal}
               >
                 모든 리뷰
@@ -163,7 +165,7 @@ export default function ReviewCard({
             {username && type === 1 && (
               <div
                 onClick={isCreateModal}
-                className="ml-2 text-white btn btn-sm bg-gongbang"
+                className="ml-2 font-semibold text-white btn btn-sm bg-gongbang"
               >
                 리뷰 작성
               </div>
@@ -173,9 +175,9 @@ export default function ReviewCard({
       </div>
       <div className="relative w-full">
         <div className="w-full carousel carousel-center">
-          <div className="space-x-5 carousel-item h-[350px] ">
+          <div className="space-x-5 carousel-item h-[300px] ">
             {data.length === 0 && (
-              <div className="absolute flex items-center justify-center w-full h-[380px]   ">
+              <div className="absolute flex items-center justify-center w-full h-[330px]   ">
                 <div className="text-lg text-gray-500">리뷰가 없습니다.</div>
               </div>
             )}
@@ -207,11 +209,10 @@ export default function ReviewCard({
                 {/* Info */}
 
                 <Stars score={data.score} size="small" />
-
-                <div className="w-[200px] mt-2 text-lg font-medium truncate ">
+                <div className="w-[200px] mt-1 text-lg font-semibold truncate ">
                   {data.title}
                 </div>
-                <div className="flex items-center justify-between mt-2">
+                <div className="flex items-center justify-between mt-1">
                   <Badge typeIdx={data.type} />
                   <div className="text-base">{data.name}</div>
                 </div>

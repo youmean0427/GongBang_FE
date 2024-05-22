@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fullStar from "../../../images/full_star.png";
 import emStar from "../../../images/em_star.png";
-import { isBrowser } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 
 // import "./Star.css";
 
@@ -9,20 +9,40 @@ interface Stars {
   score: number;
   size: string;
 }
+type SizeType = {
+  [key: string]: string;
+  small: string;
+  large: string;
+};
 
-const starsSize: any = {
+const starsSize: SizeType = {
   small: "w-7",
   large: "w-10",
 };
-const textsSize: any = {
+const textsSize: SizeType = {
   small: "h-full text-lg mr-2 font-bold text-amber-700",
   large: "h-full text-xl mr-2 font-bold text-amber-700",
+};
+
+const mobiletextsSize: SizeType = {
+  small: "h-full text-base mr-2 font-semibold text-amber-700",
+  large: "h-full text-lg mr-2 font-semibold text-amber-700",
+};
+
+const mobilestarsSize: SizeType = {
+  small: "w-5",
+  large: "w-8",
 };
 
 export default function Stars({ score, size }: Stars) {
   const [stars, setStars] = useState([false, false, false, false, false]);
   let starSize = starsSize[size];
   let textSize = textsSize[size];
+  if (isMobile) {
+    textSize = mobiletextsSize[size];
+    starSize = mobilestarsSize[size];
+  }
+
   useEffect(() => {
     let arr = [false, false, false, false, false];
     for (let i = 0; i < Math.floor(score); i++) {

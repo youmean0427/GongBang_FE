@@ -24,7 +24,7 @@ type ModalType = {
 // Browser
 const modalsSize: ModalType = {
   0: "w-2/5 min-w-[650px] max-w-[800px] overflow-y-auto bg-white h-1.5/2 rounded-xl",
-  1: "w-1/2 min-w-[650px] max-w-[800px] overflow-y-auto bg-white h-4/5 rounded-xl",
+  1: "w-1/2 min-w-[650px] max-w-[800px]  bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
   4: "w-[400px] overflow-y-auto bg-white h-[550px] rounded-xl",
@@ -38,7 +38,7 @@ const MobileModalsSize: ModalType = {
   2: "w-full m-5  overflow-y-auto bg-white h-[650px] rounded-xl",
   3: "w-[500px] m-5 bg-white h-[400px] rounded-xl",
   4: "w-[500px] m-5 overflow-y bg-white h-[550px] rounded-xl",
-  5: "w-full m-5 overflow-y-auto bg-white h-[700px] rounded-xl",
+  5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
 };
 
 export default function Modal({ close, data, type }: any) {
@@ -48,11 +48,11 @@ export default function Modal({ close, data, type }: any) {
   const handleMobileSignup = () => {
     setMobileSignup(!mobileSignup);
   };
-
+  document.body.style.overflow = "hidden";
   if (isBrowser)
     return (
       <>
-        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
+        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50">
           <div className={`${modalSize}`}>
             <div
               className="flex justify-end m-3 cursor-pointer"
@@ -61,10 +61,23 @@ export default function Modal({ close, data, type }: any) {
               <LuX size={30} />
             </div>
 
-            {type === 0 && <ListContainer data={data} />}
-            {type === 1 && <Review data={data} />}
-            {type === 5 && <Profile />}
+            {type === 0 && (
+              <div className=" overflow-y-auto h-[90%]">
+                <ListContainer data={data} />
+              </div>
+            )}
+            {type === 1 && (
+              <div className=" overflow-y-auto h-[90%]">
+                <Review data={data} />
+              </div>
+            )}
+            {type === 5 && (
+              <div className=" overflow-y-auto h-[90%]">
+                <Profile />
+              </div>
+            )}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
+
             {(type === 3 || type == 4) && (
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}
@@ -92,10 +105,22 @@ export default function Modal({ close, data, type }: any) {
                 <MobileLogin handleMobileSignup={handleMobileSignup} />
               </div>
             )}
-            {type === 5 && mobileSignup === false && <Profile />}
-            {type === 0 && <ListContainer data={data} />}
+            {type === 5 && mobileSignup === false && (
+              <div className=" overflow-y-auto h-[90%]">
+                <Profile />
+              </div>
+            )}
+            {type === 0 && (
+              <div className=" overflow-y-auto h-[90%]">
+                <ListContainer data={data} />
+              </div>
+            )}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
-            {type === 1 && <Review data={data} />}
+            {type === 1 && (
+              <div className=" overflow-y-auto h-[90%]">
+                <Review data={data} />
+              </div>
+            )}
           </div>
         </div>
       ) : (

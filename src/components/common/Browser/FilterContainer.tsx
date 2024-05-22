@@ -1,9 +1,29 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
-import { CoffeeCafeData, ReviewData } from "../../../types/type";
+import {
+  CoffeeCafeData,
+  ReviewData,
+  ReveiwImageData,
+} from "../../../types/type";
 import CafeCard from "./Card/CafeCard";
 
 import ReviewCard from "./Card/ReviewCard";
+
+interface FilterDataType {
+  cafe: number;
+  id: number;
+  reviewimage_set: ReveiwImageData[];
+  title: string;
+  content: string;
+  date: string;
+  name: string;
+  score: number;
+  type: number;
+  user: number;
+}
+interface FilterData {
+  data: FilterDataType[];
+}
 
 export default function FilterContainer({ data }: any) {
   const [nowType, setNowType] = useState(0);

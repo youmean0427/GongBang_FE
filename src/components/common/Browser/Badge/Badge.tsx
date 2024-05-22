@@ -13,8 +13,8 @@ export default function Badge({ typeIdx }: BadgeType) {
       <div
         className={
           isBrowser
-            ? "p-2.5 text-sm font-medium badge badge-outline"
-            : "p-1.5 text-xs font-medium badge badge-outline"
+            ? "p-2.5 text-sm font-semibold badge badge-outline"
+            : "p-1.5 text-xs font-semibold badge badge-outline"
         }
       >
         {typeIdx === 1 && <LuHome className="mr-1" />}

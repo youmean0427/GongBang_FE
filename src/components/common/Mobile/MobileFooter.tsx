@@ -17,12 +17,15 @@ export default function MobileFooter() {
 
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
+    document.body.style.overflow = "auto";
   };
   const handleSignupModal = () => {
     setISOpenSignupModal(!isOpenSignupModal);
+    document.body.style.overflow = "auto";
   };
   const handleProfileModal = () => {
     setISOpenProfileModal(!isOpenProfileModal);
+    document.body.style.overflow = "auto";
   };
 
   return (

@@ -122,7 +122,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       </div>
     );
   return (
-    <div className="pb-2 mt-8 mb-8 ml-8 mr-8">
+    <div className="pb-2 mt-8 mb-8 ml-5 mr-5">
       {/* Info */}
       {type === 2 && cafeData && cafeId && (
         <div
@@ -160,10 +160,10 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="w-full space-x-2 carousel carousel-center">
         {data.reviewimage_set &&
           data.reviewimage_set.map((x: any, i: number) => (
-            <div className="carousel-item" key={i}>
+            <div className="carousel-item h-[200px]" key={i}>
               <img
-                className="object-cover w-[200px] h-full rounded-2xl"
-                src={x.image}
+                className="object-cover w-[200px] h-[200px] rounded-2xl"
+                src={process.env.REACT_APP_API_URL + x.image}
               />
             </div>
           ))}

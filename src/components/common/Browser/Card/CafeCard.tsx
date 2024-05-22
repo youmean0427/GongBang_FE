@@ -128,7 +128,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                       style={{ textDecoration: "none" }}
                     >
                       <div className="text-lg">
-                        <div className="mb-5">
+                        <div className="mb-4">
                           {x.coffeecafeimage_set && (
                             <div className="w-[200px] h-[200px]">
                               <img
@@ -143,12 +143,10 @@ export default function CafeCard({ title, data }: CafeCardType) {
                           )}
                         </div>
 
-                        <div className="mb-2">
+                        <div className="">
                           <Stars score={x.total_score} size="small" />
                         </div>
-                        <div className="mb-1 text-lg font-semibold ">
-                          {x.name}
-                        </div>
+                        <div className="text-lg font-semibold ">{x.name}</div>
                         <div className="text-sm ">{x.address}</div>
                       </div>
                     </Link>
