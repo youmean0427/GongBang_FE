@@ -6,6 +6,7 @@ import { RootState } from "../../redux/store";
 import emStar from "../../images/em_star.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import { ReviewData } from "../../types/type";
+import fullStar from "../../images/full_star.png";
 export default function Profile() {
   const userName = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
@@ -52,9 +53,12 @@ export default function Profile() {
       <>
         <div className="flex flex-col items-center justify-centerh-full">
           <div>
-            <img src={emStar} className="w-10 h-10 mb-4" />
+            {data.length < 10 && <img src={emStar} className="w-8 h-8 mb-4" />}
+            {data.length >= 10 && (
+              <img src={fullStar} className="w-8 h-8 mb-4" />
+            )}
           </div>
-          <div className="text-xl font-semibold">{userName}</div>
+          <div className="text-2xl font-semibold">{userName}</div>
           {data && (
             <div className="mt-2 mb-3 text-sm font-semibold">
               {data.length}개의 리뷰
@@ -62,12 +66,12 @@ export default function Profile() {
           )}
           <div
             onClick={handleLogout}
-            className="mb-3 ml-8 mr-8 text-sm font-semibold btn"
+            className="mb-5 ml-8 mr-8 text-sm font-semibold btn"
           >
             로그아웃
           </div>
         </div>
-        <hr />
+
         <div className="mt-10">
           {data &&
             data.map((x: ReviewData, i: any) => (

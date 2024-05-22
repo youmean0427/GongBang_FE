@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import fullStar from "../../../images/full_star.png";
 import emStar from "../../../images/em_star.png";
+import { isBrowser } from "react-device-detect";
 
 // import "./Star.css";
 
@@ -29,7 +30,52 @@ export default function Stars({ score, size }: Stars) {
     }
     setStars(arr);
   }, [score]);
-
+  if (isBrowser)
+    return (
+      <>
+        {score !== undefined && (
+          <div className="flex flex-row items-center ">
+            <div className={`${textSize}`}>{score.toFixed(2)}</div>
+            <div className={`${starSize}`}>
+              {stars[0] ? (
+                <img className="w-full" src={fullStar} />
+              ) : (
+                <img className="w-full" src={emStar} />
+              )}
+            </div>
+            <div className={`${starSize}`}>
+              {stars[1] ? (
+                <img className="w-full" src={fullStar} />
+              ) : (
+                <img className="w-full" src={emStar} />
+              )}
+            </div>
+            <div className={`${starSize}`}>
+              {stars[2] ? (
+                <img className="w-full" src={fullStar} />
+              ) : (
+                <img className="w-full" src={emStar} />
+              )}
+            </div>
+            <div className={`${starSize}`}>
+              {" "}
+              {stars[3] ? (
+                <img className="w-full" src={fullStar} />
+              ) : (
+                <img className="w-full" src={emStar} />
+              )}
+            </div>
+            <div className={`${starSize}`}>
+              {stars[4] ? (
+                <img className="w-full" src={fullStar} />
+              ) : (
+                <img className="w-full" src={emStar} />
+              )}
+            </div>
+          </div>
+        )}
+      </>
+    );
   return (
     <>
       {score !== undefined && (

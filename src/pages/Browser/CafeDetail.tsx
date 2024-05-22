@@ -260,23 +260,44 @@ export default function CafeDetail() {
       <>
         <div className="flex flex-row w-full    pl-[5%] pr-[5%]">
           <div className="w-full">
-            <div className="grid w-full grid-cols-1 mt-14">
-              {/* Images */}
-
+            <div className="grid w-full grid-cols-1 mt-10">
               {/*  Info */}
-              <div className="m-5">
-                <div className="mb-4 text-2xl font-bold">
+              <div className="mb-5 ml-5 mr-5">
+                <div className="mb-2 text-2xl font-bold">
                   {coffecafeDetail.name}
                 </div>
                 <Stars score={coffecafeDetail.total_score} size="large" />
-                <div className="mt-4 mb-1 text-base">
+                <div className="mt-2 mb-1 text-base">
                   {coffecafeDetail.address}
                 </div>
-                <div className="mb-4 text-base"> {coffecafeDetail.time} </div>
+                <div className="mb-5 text-base"> {coffecafeDetail.time} </div>
 
                 <hr />
-
-                <div className="mt-5 mb-4 text-lg font-semibold cafedetail-info-con">
+                <div className=" h-[300px]   w-full carousel carousel-center">
+                  {coffecafeDetail.coffeecafeimage_set.map(
+                    (x: CafeImageType, i: number) => (
+                      <div
+                        className="w-full  h-[300px] carousel-item"
+                        key={i}
+                        style={{
+                          transform: `translateX(-${currentSlide * 100}%)`,
+                          transition: "transform 0.5s ease",
+                        }}
+                        onClick={() => {
+                          handleNowImage(
+                            process.env.REACT_APP_API_URL + x.image
+                          );
+                        }}
+                      >
+                        <img
+                          className="object-cover w-full h-full rounded-xl"
+                          src={process.env.REACT_APP_API_URL + x.image}
+                        />
+                      </div>
+                    )
+                  )}
+                </div>
+                <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
                 <div className="grid grid-cols-1 text-base gap-x-2">
@@ -351,7 +372,7 @@ export default function CafeDetail() {
             </div>
 
             <div className="w-full mt-16 mb-16 h-96">
-              <div className="mb-10 text-2xl font-semibold">📌 카페 위치</div>
+              <div className="mb-10 text-xl font-bold">📌 카페 위치</div>
               <Map
                 center={{
                   lat: coffecafeDetail.lat,

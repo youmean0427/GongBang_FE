@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useRecoilValue } from "recoil";
 import { AccessToken } from "../../recoil/atom";
+import { isBrowser } from "react-device-detect";
 
 interface ReviewCreateData {
   coffeeCafe: CoffeeCafeData;
@@ -151,47 +152,221 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
 
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
-  return (
-    <div className="mt-5 ml-10 mr-10">
-      <div className="mb-5 text-xl font-semibold">✏️ 리뷰 작성</div>
-      <hr />
-      <div className="flex w-full mt-5 mb-5 h-44">
-        {/* Image */}
-        {imageList.map((image, index) => (
-          <>
-            <div className="w-1/3 h-full" key={index}>
-              <img
-                className="object-cover w-full h-full rounded-xl"
-                src={URL.createObjectURL(image)}
-                alt={`Preview ${index + 1}`}
+  if (isBrowser)
+    return (
+      <div className="mt-5 ml-10 mr-10">
+        <div className="mb-5 text-xl font-bold">✏️ 리뷰 작성</div>
+        <hr />
+        <div className="flex w-full mt-5 mb-5 h-44">
+          {/* Image */}
+          {imageList.map((image, index) => (
+            <>
+              <div className="w-1/3 h-full" key={index}>
+                <img
+                  className="object-cover w-full h-full rounded-xl"
+                  src={URL.createObjectURL(image)}
+                  alt={`Preview ${index + 1}`}
+                />
+              </div>
+              <div className="m-1"></div>
+            </>
+          ))}
+          {imageList.length < 3 ? (
+            <div className="w-1/3 h-full border rounded-xl">
+              <label className="flex flex-col items-center justify-center h-full ">
+                <LuCamera size={40} color="gray" />
+                <input
+                  className="hidden "
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageChange}
+                />
+              </label>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
+        {/* Review */}
+        <div className="">
+          <input
+            maxLength={50}
+            name="title"
+            className="w-full mb-2 text-lg font-semibold input input-bordered"
+            placeholder="제목"
+            onChange={handleInputChange}
+          />
+
+          <div className="flex justify-between mb-2">
+            {/* Type */}
+            <div className="w-full">
+              <select
+                className="w-1/2 max-w-xs text-base font-semibold select select-bordered"
+                onChange={handleTypeSelect}
+                value={typeSelect}
+              >
+                {typeList.map((item) => {
+                  return (
+                    <option value={item.value} key={item.value}>
+                      {item.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
+            <div className="rating rating-lg rating-half">
+              <input type="radio" name="rating-10" className="rating-hidden" />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(0.5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-1"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(1);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-2"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(1.5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-1"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(2);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-2"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(2.5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-1"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(3);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-2"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(3.5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-1"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(4);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-2"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(4.5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-1"
+              />
+              <input
+                type="radio"
+                name="rating-10"
+                onClick={() => {
+                  handleScore(5);
+                }}
+                className="bg-gongbang mask mask-star-2 mask-half-2"
               />
             </div>
-            <div className="m-1"></div>
-          </>
-        ))}
-        {imageList.length < 3 ? (
-          <div className="w-1/3 h-full border rounded-xl">
-            <label className="flex flex-col items-center justify-center h-full ">
-              <LuCamera size={40} color="gray" />
-              <input
-                className="hidden "
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-              />
-            </label>
           </div>
-        ) : (
-          <></>
-        )}
+        </div>
+
+        <div>
+          <div>
+            <textarea
+              maxLength={500}
+              className="w-full text-base textarea textarea-bordered max-h-[150px]"
+              name="content"
+              id=""
+              rows={5}
+              onChange={handleInputChange}
+            ></textarea>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center">
+          <div
+            className="mt-6 mb-5 text-lg text-white btn w-72 bg-gongbang"
+            onClick={handleReviewCreate}
+          >
+            작성
+          </div>
+        </div>
+      </div>
+    );
+  return (
+    <div className="mt-5 ml-10 mr-10">
+      <div className="mb-5 text-xl font-bold">✏️ 리뷰 작성</div>
+      <hr />
+      <div className="flex w-full mt-5 h-[180px]">
+        {/* Image */}
+        <div className="w-full h-[180px] space-x-2 carousel carousel-center">
+          {imageList.map((image, index) => (
+            <>
+              <div className="h-[180px] carousel-item" key={index}>
+                <img
+                  className="object-cover w-[180px] h-[180px] rounded-xl"
+                  src={URL.createObjectURL(image)}
+                  alt={`Preview ${index + 1}`}
+                />
+              </div>
+            </>
+          ))}
+          {imageList.length < 3 ? (
+            <div className="w-[150px] h-[150px] border rounded-xl carousel-item">
+              <label className="flex flex-col items-center justify-center w-full h-full ">
+                <LuCamera size={40} color="gray" />
+                <input
+                  className="hidden "
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageChange}
+                />
+              </label>
+            </div>
+          ) : (
+            <></>
+          )}
+        </div>
       </div>
       {/* Review */}
       <div className="">
         <input
           maxLength={50}
           name="title"
-          className="w-full mb-2 text-lg font-semibold input input-bordered"
+          className="w-full mb-2 text-base font-semibold input input-bordered"
           placeholder="제목"
           onChange={handleInputChange}
         />
@@ -200,7 +375,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
           {/* Type */}
           <div className="w-full">
             <select
-              className="w-1/2 max-w-xs text-base font-semibold select select-bordered"
+              className="w-[100px] max-w-xs text-sm font-semibold select select-bordered"
               onChange={handleTypeSelect}
               value={typeSelect}
             >
@@ -214,7 +389,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </select>
           </div>
 
-          <div className="rating rating-lg rating-half">
+          <div className="w-[150px] mt-1 rating rating-lg rating-half">
             <input type="radio" name="rating-10" className="rating-hidden" />
             <input
               type="radio"
@@ -304,7 +479,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
         <div>
           <textarea
             maxLength={500}
-            className="w-full text-base textarea textarea-bordered max-h-[150px]"
+            className="w-full text-base textarea textarea-bordered max-h-[100px]"
             name="content"
             id=""
             rows={5}
@@ -315,7 +490,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
 
       <div className="flex items-center justify-center">
         <div
-          className="mt-6 mb-5 text-lg text-white btn w-72 bg-gongbang"
+          className="w-full h-10 mt-3 mb-5 text-base text-white btn btn-sm bg-gongbang"
           onClick={handleReviewCreate}
         >
           작성

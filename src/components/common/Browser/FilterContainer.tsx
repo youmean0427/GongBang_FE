@@ -16,7 +16,7 @@ export default function FilterContainer({ data }: any) {
     { value: 3, name: "음료" },
     { value: 4, name: "콘센트" },
   ];
-  // console.log(data);
+  console.log(data);
   const [typeSelect, setTypeSelect] = useState<number | string>(1);
   const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     setTypeSelect(event.target.value);
@@ -42,7 +42,7 @@ export default function FilterContainer({ data }: any) {
         <div className="w-full">
           <span className="text-2xl">🪄 </span>
           <select
-            className="text-2xl font-bold w-1/8 select select-bordered"
+            className="text-xl font-bold w-1/8 select select-bordered"
             onChange={handleTypeSelect}
             value={typeSelect}
           >
@@ -69,5 +69,36 @@ export default function FilterContainer({ data }: any) {
     );
 
   // Mobile
-  return <></>;
+  return (
+    <>
+      <div>
+        <div className="w-full">
+          <span className="text-xl">🪄 </span>
+          <select
+            className="text-xl font-bold w-1/8 select select-bordered"
+            onChange={handleTypeSelect}
+            value={typeSelect}
+          >
+            {typeList.map((item) => {
+              return (
+                <option value={item.value} key={item.value}>
+                  {item.name}
+                </option>
+              );
+            })}
+          </select>
+          <span className="ml-5 text-xl font-bold"> 리뷰 </span>
+        </div>
+        <div>
+          <ReviewCard
+            title=""
+            data={filteredData}
+            type={2}
+            isReviewModal={handleReviewModal}
+            isCreateModal={handleReviewCreateMdoal}
+          />
+        </div>
+      </div>
+    </>
+  );
 }

@@ -20,7 +20,7 @@ export default function Banner() {
               <div className="mt-3 mb-2 text-3xl font-semibold font_slideIn">
                 공방
               </div>
-              <div className="text-base font-medium  font_slideIn">
+              <div className="text-base font-medium font_slideIn">
                 공부하기 좋은 카페
               </div>
               <div className="text-base font-medium font_slideIn ">
@@ -53,10 +53,10 @@ export default function Banner() {
               <div className="mt-3 mb-3 text-2xl font-bold font_slideIn">
                 공방
               </div>
-              <div className="mb-1 text-sm font-normal font_slideIn">
+              <div className="mb-1 text-sm font-medium font_slideIn">
                 공부하기 좋은 카페
               </div>
-              <div className="text-sm font-normal font_slideIn">
+              <div className="text-sm font-medium font_slideIn">
                 상세한 카페 리뷰
               </div>
             </div>

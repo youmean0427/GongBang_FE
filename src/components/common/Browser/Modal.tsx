@@ -23,7 +23,7 @@ type ModalType = {
 
 // Browser
 const modalsSize: ModalType = {
-  0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
+  0: "w-2/5 min-w-[650px] max-w-[800px] overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "w-1/2 min-w-[650px] max-w-[800px] overflow-y-auto bg-white h-4/5 rounded-xl",
   2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
@@ -33,9 +33,9 @@ const modalsSize: ModalType = {
 
 // Mobile
 const MobileModalsSize: ModalType = {
-  0: "w-2/5 overflow-y-auto bg-white h-1.5/2 rounded-xl",
+  0: "w-full m-5 min-w-[300px] max-w-[500px] overflow-y-auto bg-white h-1.5/2 rounded-xl",
   1: "w-full m-5 overflow-y-auto bg-white h-4/5 rounded-xl",
-  2: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
+  2: "w-full m-5  overflow-y-auto bg-white h-[650px] rounded-xl",
   3: "w-[500px] m-5 bg-white h-[400px] rounded-xl",
   4: "w-[500px] m-5 overflow-y bg-white h-[550px] rounded-xl",
   5: "w-full m-5 overflow-y-auto bg-white h-[700px] rounded-xl",
@@ -92,8 +92,9 @@ export default function Modal({ close, data, type }: any) {
                 <MobileLogin handleMobileSignup={handleMobileSignup} />
               </div>
             )}
-
             {type === 5 && mobileSignup === false && <Profile />}
+            {type === 0 && <ListContainer data={data} />}
+            {type === 2 && <ReviewCreate coffeeCafe={data} />}
             {type === 1 && <Review data={data} />}
           </div>
         </div>

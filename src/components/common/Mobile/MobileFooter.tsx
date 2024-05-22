@@ -33,19 +33,23 @@ export default function MobileFooter() {
           {location.pathname === "/coffeecafe" && !isOpenLoginModal ? (
             <>
               <div className="flex flex-col items-center justify-center ">
-                <div className="w-8 h-8">
+                <div className="w-8 h-8 ml-1">
                   <BiCoffee color="#E7B98E" className="w-full h-full" />
                 </div>
-                <div className="text-xs font-bold text-gongbang ">카페</div>
+                <div className="text-xs font-bold text-center text-gongbang">
+                  카페
+                </div>
               </div>
             </>
           ) : (
             <>
               <div className="flex flex-col items-center justify-center ">
-                <div className="w-8 h-8">
+                <div className="w-8 h-8 ml-1">
                   <BiCoffee color="gray" className="w-full h-full" />
                 </div>
-                <div className="text-xs text-gray-500">카페</div>
+                <div className="w-8 text-xs text-center text-gray-500">
+                  카페
+                </div>
               </div>
             </>
           )}
