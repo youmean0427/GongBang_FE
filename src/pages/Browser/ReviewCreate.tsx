@@ -327,16 +327,16 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     );
   return (
     <div className="mt-2 ml-5 mr-5">
-      <div className="mb-5 text-xl font-bold">✏️ 리뷰 작성</div>
+      <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
       <hr />
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
         <div className="w-full h-[180px] space-x-2 carousel carousel-center">
           {imageList.map((image, index) => (
             <>
-              <div className="h-[180px] carousel-item" key={index}>
+              <div className="h-[170px] carousel-item" key={index}>
                 <img
-                  className="object-cover w-[180px] h-[180px] rounded-xl"
+                  className="object-cover w-[170px] h-[170px] rounded-xl"
                   src={URL.createObjectURL(image)}
                   alt={`Preview ${index + 1}`}
                 />
@@ -344,7 +344,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </>
           ))}
           {imageList.length < 3 ? (
-            <div className="w-[150px] h-[150px] border rounded-xl carousel-item">
+            <div className="w-[170px] h-[170px] border rounded-xl carousel-item">
               <label className="flex flex-col items-center justify-center w-full h-full ">
                 <LuCamera size={40} color="gray" />
                 <input
@@ -366,7 +366,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
         <input
           maxLength={50}
           name="title"
-          className="w-full mb-2 text-base font-semibold input input-bordered"
+          className="w-full mt-1 mb-2 text-base font-semibold input input-bordered"
           placeholder="제목"
           onChange={handleInputChange}
         />

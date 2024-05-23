@@ -260,7 +260,7 @@ export default function CafeDetail() {
   if (isMobile)
     return (
       <>
-        <div className="flex flex-row w-full    pl-[5%] pr-[5%]">
+        <div className="flex flex-row w-full pl-[5%] pr-[5%]">
           <div className="w-full">
             <div className="grid w-full grid-cols-1 mt-10">
               {/*  Info */}
@@ -269,10 +269,13 @@ export default function CafeDetail() {
                   {coffecafeDetail.name}
                 </div>
                 <Stars score={coffecafeDetail.total_score} size="large" />
-                <div className="mt-2 mb-1 text-base">
+                <div className="mt-2 mb-1 text-base font-medium ">
                   {coffecafeDetail.address}
                 </div>
-                <div className="mb-5 text-base"> {coffecafeDetail.time} </div>
+                <div className="mb-5 text-base font-medium ">
+                  {" "}
+                  {coffecafeDetail.time}{" "}
+                </div>
 
                 <div className=" h-[300px]   w-full carousel carousel-center">
                   {coffecafeDetail.coffeecafeimage_set.map(
@@ -301,7 +304,7 @@ export default function CafeDetail() {
                 <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
-                <div className="grid grid-cols-1 text-base gap-x-2">
+                <div className="grid grid-cols-1 text-base font-medium gap-x-1 ">
                   <div className="flex items-center mt-1 mb-1">
                     <LuHome className="mr-2" />
                     <div className="w-20 ">분위기</div>
@@ -332,8 +335,7 @@ export default function CafeDetail() {
                     </div>
                   </div>
                   {/* */}
-                  <div className="mt-2 mb-2"></div>
-                  <div className="mt-2 mb-2"></div>
+                  <div className="mt-1 mb-1"></div>
                   <div className="flex items-center justify-start w-full mt-3 mb-1">
                     <LuWifi className="mr-2 " />
                     <div className="w-20">와이파이</div>

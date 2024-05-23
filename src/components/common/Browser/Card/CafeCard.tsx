@@ -104,9 +104,9 @@ export default function CafeCard({ title, data }: CafeCardType) {
         <div className="text-xl font-bold mb-7">{title}</div>
         <div className="relative w-full">
           <div className="w-full carousel carousel-center ">
-            <div className="space-x-5 carousel-item h-[320px] ">
+            <div className="space-x-5 carousel-item h-[280px] ">
               {data && data.length === 0 && (
-                <div className="absolute flex items-center justify-center w-full h-[320px]  ">
+                <div className="absolute flex items-center justify-center w-full h-[280px]  ">
                   <div className="text-base text-gray-500">
                     카페가 없습니다.
                   </div>
@@ -127,10 +127,10 @@ export default function CafeCard({ title, data }: CafeCardType) {
                       to={`coffeecafe/${x.id}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <div className="text-lg">
+                      <div className="text-lg w-[180px]">
                         <div className="mb-4">
                           {x.coffeecafeimage_set && (
-                            <div className="w-[200px] h-[200px]">
+                            <div className="w-[180px] h-[180px]">
                               <img
                                 className="object-cover w-full h-full rounded-2xl"
                                 src={
@@ -146,8 +146,10 @@ export default function CafeCard({ title, data }: CafeCardType) {
                         <div className="">
                           <Stars score={x.total_score} size="small" />
                         </div>
-                        <div className="text-lg font-semibold ">{x.name}</div>
-                        <div className="text-sm ">{x.address}</div>
+                        <div className="text-lg font-semibold truncate">
+                          {x.name}
+                        </div>
+                        <div className="text-sm truncate">{x.address}</div>
                       </div>
                     </Link>
                   </div>

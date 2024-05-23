@@ -149,29 +149,33 @@ export default function ReviewCard({
   return (
     <>
       <div className="mt-5 mb-5 ">
-        <div className="flex items-center justify-between mb-10">
-          {title.length > 0 && (
-            <div className="text-xl font-bold">📝 {title}</div>
-          )}
-          <div className="flex ">
-            {type === 1 && (
-              <div
-                className="font-semibold cursor-pointer btn btn-sm"
-                onClick={isReviewModal}
-              >
-                모든 리뷰
-              </div>
+        {title.length > 0 && (
+          <div className="flex items-center justify-between ">
+            {title.length > 0 && (
+              <div className="text-xl font-bold">📝 {title}</div>
             )}
-            {username && type === 1 && (
-              <div
-                onClick={isCreateModal}
-                className="ml-2 font-semibold text-white btn btn-sm bg-gongbang"
-              >
-                리뷰 작성
+            {type === 1 && (
+              <div className="flex ">
+                {type === 1 && (
+                  <div
+                    className="font-semibold cursor-pointer btn btn-sm"
+                    onClick={isReviewModal}
+                  >
+                    모든 리뷰
+                  </div>
+                )}
+                {username && type === 1 && (
+                  <div
+                    onClick={isCreateModal}
+                    className="ml-2 font-semibold text-white btn btn-sm bg-gongbang"
+                  >
+                    리뷰 작성
+                  </div>
+                )}
               </div>
             )}
           </div>
-        </div>
+        )}
       </div>
       <div className="relative w-full">
         <div className="w-full carousel carousel-center">
@@ -195,7 +199,7 @@ export default function ReviewCard({
                 <div className="mb-3 ">
                   {data.reviewimage_set && (
                     <img
-                      className=" h-[200px] w-[200px] object-cover rounded-2xl"
+                      className=" h-[180px] w-[180px] object-cover rounded-2xl"
                       src={
                         process.env.REACT_APP_API_URL +
                         data.reviewimage_set[0].image
@@ -209,7 +213,7 @@ export default function ReviewCard({
                 {/* Info */}
 
                 <Stars score={data.score} size="small" />
-                <div className="w-[200px] mt-1 text-lg font-semibold truncate ">
+                <div className="w-[180px] mt-1 text-lg font-semibold truncate ">
                   {data.title}
                 </div>
                 <div className="flex items-center justify-between mt-1">

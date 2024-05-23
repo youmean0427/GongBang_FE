@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isBrowser } from "react-device-detect";
 import { LuX } from "react-icons/lu";
 import Login from "../../../pages/Accounts/Login";
@@ -48,7 +48,13 @@ export default function Modal({ close, data, type }: any) {
   const handleMobileSignup = () => {
     setMobileSignup(!mobileSignup);
   };
-  document.body.style.overflow = "hidden";
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   if (isBrowser)
     return (
       <>
@@ -94,10 +100,10 @@ export default function Modal({ close, data, type }: any) {
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
           <div className={`${mobileModalSize}`}>
             <div
-              className="flex justify-end m-3 cursor-pointer"
+              className="flex justify-end mt-2 mr-2 cursor-pointer "
               onClick={close}
             >
-              <LuX size={30} />
+              <LuX size={25} />
             </div>
 
             {type === 3 && mobileSignup === false && (
@@ -127,10 +133,10 @@ export default function Modal({ close, data, type }: any) {
         <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 ">
           <div className={`${MobileModalsSize[4]}`}>
             <div
-              className="flex justify-end m-3 cursor-pointer"
+              className="flex justify-end mt-2 mr-2 cursor-pointer"
               onClick={close}
             >
-              <LuX size={30} />
+              <LuX size={25} />
             </div>
             <div className="flex items-center justify-center w-full h-4/5">
               <Signup />

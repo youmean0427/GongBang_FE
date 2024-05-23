@@ -53,9 +53,9 @@ export default function Profile() {
       <>
         <div className="flex flex-col items-center justify-centerh-full">
           <div>
-            {data.length < 10 && <img src={emStar} className="w-8 h-8 mb-2" />}
+            {data.length < 10 && <img src={emStar} className="w-5 h-5 mb-2" />}
             {data.length >= 10 && (
-              <img src={fullStar} className="w-8 h-8 mb-2" />
+              <img src={fullStar} className="w-5 h-5 mb-2" />
             )}
           </div>
           <div className="text-2xl font-semibold">{userName}</div>

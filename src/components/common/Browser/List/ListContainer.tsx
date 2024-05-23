@@ -101,7 +101,7 @@ export default function ListContainer({ type, data }: ListContainer) {
               <div className="w-1/3 h-[200px] " key={i}>
                 <img
                   className="object-cover w-full h-full rounded-2xl"
-                  src={x.image}
+                  src={process.env.REACT_APP_API_URL + x.image}
                 />
               </div>
             ))}
@@ -181,7 +181,12 @@ export default function ListContainer({ type, data }: ListContainer) {
           </>
         )}
       </div>
-      <div className="mb-5">{data.content}</div>
+      {data.content.length > 100 ? (
+        <div className="mb-5 h-[120px] overflow-y-auto">{data.content}</div>
+      ) : (
+        <div className="mb-5 ">{data.content}</div>
+      )}
+
       <hr />
     </div>
   );

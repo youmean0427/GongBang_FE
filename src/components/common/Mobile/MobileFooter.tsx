@@ -90,7 +90,7 @@ export default function MobileFooter() {
                 <div
                   className={
                     isOpenProfileModal
-                      ? "text-xs text-gongbang"
+                      ? "text-xs font-bold text-gongbang"
                       : "text-xs text-gray-500"
                   }
                   onClick={handleProfileModal}
