@@ -36,7 +36,7 @@ export default function FilterContainer({ data }: any) {
     { value: 3, name: "음료" },
     { value: 4, name: "콘센트" },
   ];
-  console.log(data);
+
   const [typeSelect, setTypeSelect] = useState<number | string>(1);
   const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     setTypeSelect(event.target.value);

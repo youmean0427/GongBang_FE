@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
 import Login from "../pages/Accounts/Login";
 import Signup from "../pages/Accounts/Signup";
 import Nav from "../components/common/Browser/Nav";
@@ -12,7 +12,7 @@ import { isMobile } from "react-device-detect";
 import MobileLogin from "../pages/Mobile/MobileLogin";
 export default function Router() {
   return (
-    <>
+    <div>
       <Routes>
         <Route path="/" element={<Main />} />
         {/* <Route path="/login" element={<Login />} /> */}
@@ -21,6 +21,6 @@ export default function Router() {
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
       </Routes>
-    </>
+    </div>
   );
 }

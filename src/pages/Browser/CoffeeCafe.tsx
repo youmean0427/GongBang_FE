@@ -88,8 +88,8 @@ export default function CoffeeCafe() {
   if (isLoading) return <></>;
   if (isBrowser)
     return (
-      <div className="">
-        <div className="">
+      <div className="h-[100vh]">
+        <div className="h-full">
           <Map
             center={{
               // 지도의 중심좌표
@@ -99,7 +99,8 @@ export default function CoffeeCafe() {
             style={{
               // 지도의 크기
               width: "100%",
-              height: "91vh",
+              height: "100%",
+              top: 0,
             }}
             level={3}
             onClick={(_t, mouseEvent) => {
@@ -200,8 +201,8 @@ export default function CoffeeCafe() {
       </div>
     );
   return (
-    <div className="">
-      <div className="">
+    <div className="h-[100vh]">
+      <div className="h-full">
         <Map
           center={{
             // 지도의 중심좌표
@@ -211,7 +212,7 @@ export default function CoffeeCafe() {
           style={{
             // 지도의 크기
             width: "100%",
-            height: "91vh",
+            height: "100%",
           }}
           level={3}
           onClick={(_t, mouseEvent) => {

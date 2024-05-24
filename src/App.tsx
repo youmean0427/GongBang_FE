@@ -14,6 +14,7 @@ import MobileNav from "./components/common/Mobile/MobileNav";
 import MobileFooter from "./components/common/Mobile/MobileFooter";
 import { useRecoilState } from "recoil";
 import { AccessToken } from "./recoil/atom";
+import { useLocation } from "react-router-dom";
 
 export default function App() {
   const [isLoading, setIsLoding] = useState(true);
@@ -65,15 +66,25 @@ export default function App() {
         });
     }
   }, []);
+  // eslint-disable-next-line no-restricted-globals
+  const location = useLocation();
+  const isNavMap = ["/coffeecafe"].includes(location.pathname);
   if (isLoading) return <></>;
   return (
     <>
-      <BrowserView>
-        <Nav />
+      <BrowserView className="relative h-full">
+        {!isNavMap && <Nav />}
+
         <Router />
+        {isNavMap && (
+          <div className="absolute top-0 z-10 w-full bg-white">
+            <Nav />
+          </div>
+        )}
       </BrowserView>
       <MobileView>
-        <MobileNav />
+        {isNavMap && <MobileNav path={"coffeecafe"} />}
+        {!isNavMap && <MobileNav path={""} />}
         <MobileFooter />
         <Router />
       </MobileView>

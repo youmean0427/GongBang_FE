@@ -37,7 +37,11 @@ export default function Profile() {
             </div>
           )}
         </div>
-
+        {data.length === 0 && (
+          <div className="fixed right-0 w-full text-center top-1/2">
+            리뷰가 없습니다.
+          </div>
+        )}
         <div className="mt-10">
           {data &&
             data.map((x: ReviewData, i: number) => (
@@ -52,7 +56,7 @@ export default function Profile() {
   if (isMobile)
     return (
       <>
-        <div className="flex flex-col items-center justify-center ">
+        <div className="flex flex-col items-center justify-center">
           <div>
             {data.length < 10 && <img src={emStar} className="w-5 h-5 mb-2" />}
             {data.length >= 10 && (
@@ -65,6 +69,7 @@ export default function Profile() {
               {data.length}개의 리뷰
             </div>
           )}
+
           <div
             onClick={handleLogout}
             className="mb-5 ml-8 mr-8 text-xs font-semibold btn btn-xs"
@@ -77,11 +82,11 @@ export default function Profile() {
           {data &&
             data.map((x: ReviewData, i: any) => (
               <div key={i} className="w-full">
-                <ListContainer data={x} type={2} />n
+                <ListContainer data={x} type={2} />
               </div>
             ))}
-          {data && data.length === 0 && (
-            <div className="flex-1 w-full h-[40vh] text-center">
+          {data.length === 0 && (
+            <div className="fixed right-0 w-full text-center top-1/2">
               리뷰가 없습니다.
             </div>
           )}
