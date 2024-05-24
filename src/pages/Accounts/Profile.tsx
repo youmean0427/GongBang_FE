@@ -25,6 +25,7 @@ export default function Profile() {
     logoutMutation.mutate({});
   };
   if (isLoading || isFetching) return <></>;
+
   if (isBrowser)
     return (
       <>
@@ -51,14 +52,14 @@ export default function Profile() {
   if (isMobile)
     return (
       <>
-        <div className="flex flex-col items-center justify-centerh-full">
+        <div className="flex flex-col items-center justify-center ">
           <div>
             {data.length < 10 && <img src={emStar} className="w-5 h-5 mb-2" />}
             {data.length >= 10 && (
               <img src={fullStar} className="w-5 h-5 mb-2" />
             )}
           </div>
-          <div className="text-2xl font-semibold">{userName}</div>
+          <div className="text-xl font-semibold">{userName}</div>
           {data && (
             <div className="mt-2 mb-3 text-sm font-semibold">
               {data.length}개의 리뷰
@@ -66,19 +67,24 @@ export default function Profile() {
           )}
           <div
             onClick={handleLogout}
-            className="mb-5 ml-8 mr-8 text-xs font-semibold btn btn-sm"
+            className="mb-5 ml-8 mr-8 text-xs font-semibold btn btn-xs"
           >
             로그아웃
           </div>
         </div>
 
-        <div className="mt-10">
+        <div className="mt-10 ">
           {data &&
             data.map((x: ReviewData, i: any) => (
               <div key={i} className="w-full">
-                <ListContainer data={x} type={2} />
+                <ListContainer data={x} type={2} />n
               </div>
             ))}
+          {data && data.length === 0 && (
+            <div className="flex-1 w-full h-[40vh] text-center">
+              리뷰가 없습니다.
+            </div>
+          )}
         </div>
       </>
     );

@@ -29,7 +29,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
               <div className="space-x-5 carousel-item h-[380px] ">
                 {data && data.length === 0 && (
                   <div className="absolute flex items-center justify-center w-full h-[380px]  ">
-                    <div className="text-lg text-gray-500">
+                    <div className="text-lg font-medium text-gray-500">
                       카페가 없습니다.
                     </div>
                   </div>
@@ -107,7 +107,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
             <div className="space-x-5 carousel-item h-[280px] ">
               {data && data.length === 0 && (
                 <div className="absolute flex items-center justify-center w-full h-[280px]  ">
-                  <div className="text-base text-gray-500">
+                  <div className="text-base font-medium text-gray-500">
                     카페가 없습니다.
                   </div>
                 </div>

@@ -18,7 +18,7 @@ export default function Main() {
     queryFn: () => getCoffeeCafesAPI(2),
   });
 
-  if (isLoading || isFetching) return <></>;
+  // if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
       <>
@@ -29,7 +29,7 @@ export default function Main() {
 
           <div className="pl-[10%] pr-[10%]">
             <div className="flex flex-row w-full">
-              <div className="w-full ">
+              <div className="w-full mb-16 ">
                 <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
 
                 <hr />
@@ -47,8 +47,6 @@ export default function Main() {
               </div>
             </div>
           </div>
-
-          <div className="w-full opacity-50 h-60 bg-gongbang"></div>
         </div>
       </>
     );
@@ -61,7 +59,7 @@ export default function Main() {
         </div>
         <div className="pl-[5%] pr-[5%]">
           <div className="flex flex-row w-full">
-            <div className="w-full ">
+            <div className="w-full mb-16 ">
               <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
 
               <hr />
@@ -79,7 +77,7 @@ export default function Main() {
             </div>
           </div>
         </div>
-        <div className="w-full opacity-50 h-60 bg-gongbang"></div>
+        {/* <div className="w-full opacity-50 h-60 bg-gongbang"></div> */}
       </div>
     </>
   );

@@ -152,6 +152,15 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
 
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
+  if (reviewCreateMutation.isLoading || reviewCreateMutation.isSuccess)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center w-full h-[90%]   gap-4">
+          <div className="loading loading-spinner loading-lg bg-gongbang"></div>
+          <div className="font-medium text-gray-500">리뷰 작성하는 중</div>
+        </div>
+      </>
+    );
   if (isBrowser)
     return (
       <div className="mt-5 ml-10 mr-10">
@@ -296,7 +305,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
                 onClick={() => {
                   handleScore(5);
                 }}
-                className="bg-gongbang mask mask-star-2 mask-half-2"
+                className="bg-gongbang mask mask-star-2 mask-half-2 checked:"
               />
             </div>
           </div>
@@ -490,7 +499,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
 
       <div className="flex items-center justify-center">
         <div
-          className="w-full h-10 mt-3 mb-5 text-base text-white btn btn-sm bg-gongbang"
+          className="w-full h-10 mt-3 mb-5 text-base font-medium text-white btn btn-sm bg-gongbang"
           onClick={handleReviewCreate}
         >
           작성

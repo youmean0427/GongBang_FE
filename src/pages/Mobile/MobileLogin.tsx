@@ -66,9 +66,7 @@ export default function MobileLogin({ handleMobileSignup }: any) {
       <>
         <div className="flex flex-col items-center justify-center gap-4">
           <div className="loading loading-spinner loading-lg bg-gongbang"></div>
-          <div className="font-medium text-gray-500">
-            ... 로그인 하는 중 ...
-          </div>
+          <div className="font-medium text-gray-500">로그인 하는 중</div>
         </div>
       </>
     );

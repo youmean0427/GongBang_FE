@@ -82,7 +82,9 @@ export default function ReviewCard({
             <div className="space-x-5 carousel-item h-[380px] ">
               {data.length === 0 && (
                 <div className="absolute flex items-center justify-center w-full h-[380px]   ">
-                  <div className="text-lg text-gray-500">리뷰가 없습니다.</div>
+                  <div className="text-lg font-medium text-gray-500">
+                    리뷰가 없습니다.
+                  </div>
                 </div>
               )}
               {data.map((data: ReviewData, i: number) => (
@@ -182,7 +184,9 @@ export default function ReviewCard({
           <div className="space-x-5 carousel-item h-[300px] ">
             {data.length === 0 && (
               <div className="absolute flex items-center justify-center w-full h-[330px]   ">
-                <div className="text-lg text-gray-500">리뷰가 없습니다.</div>
+                <div className="text-lg font-medium text-gray-500">
+                  리뷰가 없습니다.
+                </div>
               </div>
             )}
             {data.map((data: ReviewData, i: number) => (
@@ -218,7 +222,7 @@ export default function ReviewCard({
                 </div>
                 <div className="flex items-center justify-between mt-1">
                   <Badge typeIdx={data.type} />
-                  <div className="text-base">{data.name}</div>
+                  <div className="text-xs ">{data.name}</div>
                 </div>
                 <div></div>
               </div>

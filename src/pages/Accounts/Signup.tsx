@@ -27,6 +27,11 @@ export default function Signup() {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    if (name === "username" && value.length > 10) {
+      alert("10자 이내만 작성할 수 있습니다.");
+      event.target.value = value.slice(0, 10);
+      return;
+    }
     setSignupInputs({
       ...signupInputs,
       [name]: value,
@@ -89,7 +94,15 @@ export default function Signup() {
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     return regExp.test(data);
   };
-
+  if (signupMutation.isLoading || signupMutation.isSuccess)
+    return (
+      <>
+        <div className="flex flex-col items-center justify-center gap-4">
+          <div className="loading loading-spinner loading-lg bg-gongbang"></div>
+          <div className="font-medium text-gray-500">회원가입 하는 중</div>
+        </div>
+      </>
+    );
   if (isBrowser)
     return (
       <div className="flex flex-col items-center justify-center h-full gap-3 w-72 ">
@@ -125,7 +138,7 @@ export default function Signup() {
           />
 
           {!isPasswordLen8 && signupInputs.password1 && (
-            <div className="mt-2 text-center">
+            <div className="mt-2 text-center text-error">
               비밀번호를 9자리 이상 입력해주세요.
             </div>
           )}
@@ -139,7 +152,9 @@ export default function Signup() {
             placeholder="비밀번호 확인"
           />
           {!isPasswordMatch && signupInputs.password2 && (
-            <div className="mt-2 text-center ">비밀번호를 확인해주세요.</div>
+            <div className="mt-2 text-center text-error">
+              비밀번호를 확인해주세요.
+            </div>
           )}
         </div>
         <div className="flex items-center justify-center gap-2 mt-2">
@@ -149,11 +164,13 @@ export default function Signup() {
             onChange={handleCheckChange}
             className="checkbox checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
           />
-          <div className="text-gray-500">개인정보수집 및 이용동의</div>
+          <div className="font-medium text-gray-500">
+            개인정보수집 및 이용동의
+          </div>
         </div>
         <div className="w-full mt-2">
           <button
-            className="w-full text-lg text-white btn bg-gongbang"
+            className="w-full text-lg font-medium text-white btn bg-gongbang"
             onClick={handleSignup}
             disabled={isValid}
           >
@@ -198,7 +215,7 @@ export default function Signup() {
             />
 
             {!isPasswordLen8 && signupInputs.password1 && (
-              <div className="mt-2 text-center">
+              <div className="mt-2 text-center text-error">
                 비밀번호를 9자리 이상 입력해주세요.
               </div>
             )}
@@ -212,7 +229,9 @@ export default function Signup() {
               placeholder="비밀번호 확인"
             />
             {!isPasswordMatch && signupInputs.password2 && (
-              <div className="mt-2 text-center">비밀번호를 확인해주세요.</div>
+              <div className="mt-2 text-center text-error">
+                비밀번호를 확인해주세요.
+              </div>
             )}
           </div>
 
@@ -223,12 +242,14 @@ export default function Signup() {
               onChange={handleCheckChange}
               className="checkbox checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
             />
-            <div className="text-gray-500">개인정보수집 및 이용동의</div>
+            <div className="font-medium text-gray-500">
+              개인정보수집 및 이용동의
+            </div>
           </div>
 
           <div>
             <button
-              className="text-base text-white btn w-72 bg-gongbang"
+              className="text-base font-medium text-white btn w-72 bg-gongbang"
               onClick={handleSignup}
               disabled={isValid}
             >

@@ -9,8 +9,9 @@ import Stars from "../../components/common/Browser/Stars";
 import moveMarker from "../../../src/images/move_marker.png";
 import cafeMarker from "../../../src/images/cafe_marker.png";
 import { isBrowser } from "react-device-detect";
+import { CoffeeCafeData } from "../../types/type";
 export default function CoffeeCafe() {
-  const [filteredCafe, setFilteredCafe] = useState<any[]>([]);
+  const [filteredCafe, setFilteredCafe] = useState<CoffeeCafeData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isClickIdx, setIsClickIdx] = useState(-1);
   // 현재 위치
@@ -36,7 +37,7 @@ export default function CoffeeCafe() {
 
   useEffect(() => {
     if (data) {
-      const filtered = data.filter((cafe: any) => {
+      const filtered = data.filter((cafe: CoffeeCafeData) => {
         const distance = CalculateDistance(
           markerState.center.lat,
           markerState.center.lng,
@@ -48,6 +49,11 @@ export default function CoffeeCafe() {
       setFilteredCafe(filtered);
     }
   }, [markerState, data]);
+
+  // useEffect(() => {
+  //   setIsOpen(false);
+  //   setIsClickIdx(-1);
+  // }, [filteredCafe]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -97,13 +103,14 @@ export default function CoffeeCafe() {
             }}
             level={3}
             onClick={(_t, mouseEvent) => {
-              !isOpen &&
+              if (!isOpen) {
                 setMarkerState({
                   center: {
                     lat: mouseEvent.latLng.getLat(),
                     lng: mouseEvent.latLng.getLng(),
                   },
                 });
+              }
             }}
           >
             {/* <Circle
@@ -119,7 +126,10 @@ export default function CoffeeCafe() {
 
             {filteredCafe.map((cafe, index) => (
               <div className="relative " key={index}>
-                <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
+                <CustomOverlayMap
+                  position={{ lat: cafe.lat, lng: cafe.lng }}
+                  clickable={true}
+                >
                   {isOpen && index === isClickIdx && (
                     <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[350px] z-10">
                       <div
@@ -204,14 +214,14 @@ export default function CoffeeCafe() {
             height: "91vh",
           }}
           level={3}
-          onClick={(_t, mouseEvent) =>
+          onClick={(_t, mouseEvent) => {
             setMarkerState({
               center: {
                 lat: mouseEvent.latLng.getLat(),
                 lng: mouseEvent.latLng.getLng(),
               },
-            })
-          }
+            });
+          }}
         >
           {/* <Circle
         center={markerState.center}
@@ -235,7 +245,10 @@ export default function CoffeeCafe() {
           ></MapMarker>
           {filteredCafe.map((cafe, index) => (
             <div className="relative " key={index}>
-              <CustomOverlayMap position={{ lat: cafe.lat, lng: cafe.lng }}>
+              <CustomOverlayMap
+                position={{ lat: cafe.lat, lng: cafe.lng }}
+                clickable={true}
+              >
                 {isOpen && index === isClickIdx && (
                   <div className="absolute bg-white shadow-lg -top-[340px] -left-[125px] rounded-xl w-60 h-[250px] z-30">
                     <div
@@ -283,8 +296,14 @@ export default function CoffeeCafe() {
                 }}
                 clickable={true}
                 onClick={() => {
-                  setIsOpen(true);
+                  setIsOpen(!isOpen);
                   setIsClickIdx(index);
+                  setNowState({
+                    center: {
+                      lat: cafe.lat,
+                      lng: cafe.lng,
+                    },
+                  });
                 }}
               ></MapMarker>
             </div>

@@ -240,7 +240,7 @@ export default function CafeDetail() {
               </Map>
             </div>
             {/* 리뷰 필터 */}
-            <div className="mb-20 mt-36">
+            <div className="mt-20 mb-20">
               <FilterContainer data={coffecafeDetail.review_set} />
             </div>
           </div>
@@ -404,7 +404,7 @@ export default function CafeDetail() {
               </Map>
             </div>
             {/* 리뷰 필터 */}
-            <div className="mt-16 mb-36">
+            <div className="mt-16 mb-16">
               <FilterContainer data={coffecafeDetail.review_set} />
             </div>
           </div>
