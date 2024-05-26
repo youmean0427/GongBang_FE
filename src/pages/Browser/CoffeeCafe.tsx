@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { LuX } from "react-icons/lu";
 import { Circle, CustomOverlayMap, Map, MapMarker } from "react-kakao-maps-sdk";
 import { useQuery } from "react-query";
@@ -14,6 +14,7 @@ export default function CoffeeCafe() {
   const [filteredCafe, setFilteredCafe] = useState<CoffeeCafeData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const [isClickIdx, setIsClickIdx] = useState(-1);
+  const mapRef = useRef<kakao.maps.Map>(null);
   // 현재 위치
   const [nowState, setNowState] = useState({
     center: {
@@ -88,7 +89,7 @@ export default function CoffeeCafe() {
   if (isLoading) return <></>;
   if (isBrowser)
     return (
-      <div className="h-[100vh]">
+      <div className="h-[100vh] pt-20">
         <div className="h-full">
           <Map
             center={{
@@ -104,14 +105,21 @@ export default function CoffeeCafe() {
             }}
             level={3}
             onClick={(_t, mouseEvent) => {
-              if (!isOpen) {
-                setMarkerState({
-                  center: {
-                    lat: mouseEvent.latLng.getLat(),
-                    lng: mouseEvent.latLng.getLng(),
-                  },
-                });
-              }
+              setMarkerState({
+                center: {
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
+                },
+              });
+            }}
+            onDragEnd={(map) => {
+              const latlng = map.getCenter();
+              setNowState({
+                center: {
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                },
+              });
             }}
           >
             {/* <Circle
@@ -129,20 +137,21 @@ export default function CoffeeCafe() {
               <div className="relative " key={index}>
                 <CustomOverlayMap
                   position={{ lat: cafe.lat, lng: cafe.lng }}
+                  // 커스텀오버레이에서 지도 클릭 이벤트를 방지
                   clickable={true}
                 >
                   {isOpen && index === isClickIdx && (
-                    <div className="absolute bg-white shadow-lg -top-[450px] -left-[145px] rounded-xl w-72 h-[350px] z-10">
+                    <div className="absolute bg-white shadow-lg rounded-xl w-[250px] h-[220px] z-10 -top-[300px] -left-[125px] ">
                       <div
                         className="absolute cursor-pointer right-2 top-2"
                         onClick={() => setIsOpen(false)}
                       >
-                        <LuX size={25} />
+                        <LuX size={20} />
                       </div>
                       <Link to={`/coffeecafe/${cafe.id}`}>
                         <div className="flex flex-col items-center justify-between w-full h-full ">
                           {cafe.coffeecafeimage_set.length ? (
-                            <div className="w-full h-[200px] ">
+                            <div className="w-full h-[120px] ">
                               <img
                                 className="object-cover w-full h-full rounded-lg"
                                 src={
@@ -154,14 +163,14 @@ export default function CoffeeCafe() {
                           ) : (
                             <div></div>
                           )}
-                          <div className="flex flex-col items-center justify-center h-full gap-2 ">
+                          <div className="flex flex-col items-center justify-center h-full gap-0 ">
                             <div className="text-xl font-bold ">
                               {cafe.name}
                             </div>
                             <div>
                               <Stars score={cafe.total_score} size="small" />
                             </div>
-                            <div className="text-base ">{cafe.address}</div>
+                            <div className="mt-1 text-sm ">{cafe.address}</div>
                           </div>
                         </div>
                       </Link>
@@ -174,14 +183,20 @@ export default function CoffeeCafe() {
                   image={{
                     src: cafeMarker, // 마커이미지의 주소입니다
                     size: {
-                      width: 80,
-                      height: 90,
+                      width: 65,
+                      height: 75,
                     }, // 마커이미지의 크기입니다
                   }}
                   clickable={true}
                   onClick={() => {
                     setIsOpen(true);
                     setIsClickIdx(index);
+                    setNowState({
+                      center: {
+                        lat: cafe.lat,
+                        lng: cafe.lng,
+                      },
+                    });
                   }}
                 ></MapMarker>
               </div>
@@ -201,25 +216,36 @@ export default function CoffeeCafe() {
       </div>
     );
   return (
-    <div className="h-[100vh]">
+    <div className="h-[100vh] pt-14">
       <div className="h-full">
         <Map
+          // 지도의 중심 좌표
           center={{
-            // 지도의 중심좌표
             lat: nowState.center.lat,
             lng: nowState.center.lng,
           }}
+          // 지도의 크기 및 레벨
           style={{
-            // 지도의 크기
             width: "100%",
             height: "100%",
           }}
           level={3}
+          // 지도를 클릭했을 때, 마커를 이동
           onClick={(_t, mouseEvent) => {
             setMarkerState({
               center: {
                 lat: mouseEvent.latLng.getLat(),
                 lng: mouseEvent.latLng.getLng(),
+              },
+            });
+          }}
+          // 지도를 이동하면, 중심 좌표를 변경
+          onDragEnd={(map) => {
+            const latlng = map.getCenter();
+            setNowState({
+              center: {
+                lat: latlng.getLat(),
+                lng: latlng.getLng(),
               },
             });
           }}
@@ -251,7 +277,7 @@ export default function CoffeeCafe() {
                 clickable={true}
               >
                 {isOpen && index === isClickIdx && (
-                  <div className="absolute bg-white shadow-lg -top-[340px] -left-[125px] rounded-xl w-60 h-[250px] z-30">
+                  <div className="absolute bg-white shadow-lg -top-[220px] -left-[100px] rounded-xl w-[200px] h-[200px] z-30">
                     <div
                       className="absolute cursor-pointer right-2 top-2"
                       onClick={() => setIsOpen(false)}
@@ -259,9 +285,9 @@ export default function CoffeeCafe() {
                       <LuX size={25} />
                     </div>
                     <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-between w-full h-[250px] ">
+                      <div className="flex flex-col items-center justify-between w-full h-full">
                         {cafe.coffeecafeimage_set.length ? (
-                          <div className="w-full h-[150px] ">
+                          <div className="w-full h-[100px] ">
                             <img
                               className="object-cover w-full h-full rounded-lg"
                               src={
@@ -273,12 +299,14 @@ export default function CoffeeCafe() {
                         ) : (
                           <div></div>
                         )}
-                        <div className="h-[100px] flex flex-col  justify-center items-center gap-1">
-                          <div className="text-lg font-bold ">{cafe.name}</div>
+                        <div className="flex flex-col items-center justify-center w-full mb-4">
+                          <div className="text-base font-bold ">
+                            {cafe.name}
+                          </div>
                           <div>
                             <Stars score={cafe.total_score} size="small" />
                           </div>
-                          <div className="text-sm ">{cafe.address}</div>
+                          <div className="mt-1 text-xs">{cafe.address}</div>
                         </div>
                       </div>
                     </Link>

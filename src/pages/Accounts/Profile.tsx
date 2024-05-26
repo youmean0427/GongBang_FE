@@ -80,8 +80,8 @@ export default function Profile() {
 
         <div className="mt-10 ">
           {data &&
-            data.map((x: ReviewData, i: any) => (
-              <div key={i} className="w-full">
+            data.map((x: ReviewData) => (
+              <div key={x.id} className="w-full">
                 <ListContainer data={x} type={2} />
               </div>
             ))}

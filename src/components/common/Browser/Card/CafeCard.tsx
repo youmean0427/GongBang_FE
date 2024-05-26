@@ -15,10 +15,10 @@ export default function CafeCard({ title, data }: CafeCardType) {
   const nextSlide = () => {
     setCurrentSlide(currentSlide === data.length - 1 ? 0 : currentSlide + 1);
   };
-
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
   };
+
   if (isBrowser)
     return (
       <div className="w-full mt-12 mb-10 ">
@@ -37,7 +37,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                 {data &&
                   data.map((x, i) => (
                     <div
-                      key={i}
+                      key={x.id}
                       style={{
                         transform: `translateX(-${currentSlide * 100}%)`,
                         transition: "transform 0.5s ease",
@@ -116,7 +116,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                 data.length > 0 &&
                 data.map((x, i) => (
                   <div
-                    key={i}
+                    key={x.id}
                     style={{
                       transform: `translateX(-${currentSlide * 100}%)`,
                       transition: "transform 0.5s ease",

@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { deleteReviewAPI, getCoffeeCafeDetailAPI } from "../../../../apis/api";
 import { useMutation, useQuery } from "react-query";
-import { Link } from "react-router-dom";
-// import "../list/ListContainer.css";
 import Stars from "../Stars";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
-import { ReviewData, TypeCode } from "../../../../types/type";
-import { LuHome } from "react-icons/lu";
+import { ReveiwImageData, ReviewData, TypeCode } from "../../../../types/type";
 import Badge from "../Badge/Badge";
 import { isBrowser } from "react-device-detect";
 
@@ -16,20 +13,26 @@ interface ListContainer {
   type?: number;
 }
 
+interface ImageType {
+  id: number;
+  image: string;
+  review: number;
+}
+
 export default function ListContainer({ type, data }: ListContainer) {
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const [cafeId, setCafeId] = useState();
-  const [images, setImages] = useState<string[]>([]);
+  const [images, setImages] = useState<ReveiwImageData[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
-  const reviewDeleteMutation = useMutation(
-    ["deleteReview"],
-    (x: number) => deleteReviewAPI(x),
-    {
-      onSuccess: () => {
-        window.location.reload();
-      },
+
+  useEffect(() => {
+    if (data.reviewimage_set) {
+      data.reviewimage_set.map((x: ReveiwImageData) => {
+        console.log(x);
+        setImages([...images, x]);
+      });
     }
-  );
+  }, []);
 
   const {
     isFetching,
@@ -43,17 +46,19 @@ export default function ListContainer({ type, data }: ListContainer) {
     },
   });
 
+  const reviewDeleteMutation = useMutation(
+    ["deleteReview"],
+    (x: number) => deleteReviewAPI(x),
+    {
+      onSuccess: () => {
+        window.location.reload();
+      },
+    }
+  );
+
   const handleDelete = (review_id: number) => {
     reviewDeleteMutation.mutate(review_id);
   };
-
-  useEffect(() => {
-    if (data.reviewimage_set) {
-      data.reviewimage_set.map((x: any) => {
-        setImages([...images, x]);
-      });
-    }
-  }, []);
 
   if (type === 2 && isFetching) return <></>;
   if (isBrowser)
@@ -97,8 +102,8 @@ export default function ListContainer({ type, data }: ListContainer) {
         {/* Image */}
         <div className="flex w-full gap-3 mb-5">
           {data.reviewimage_set &&
-            data.reviewimage_set.map((x: any, i: number) => (
-              <div className="w-1/3 h-[200px] " key={i}>
+            data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
+              <div className="w-1/3 h-[200px] " key={x.id}>
                 <img
                   className="object-cover w-full h-full rounded-2xl"
                   src={process.env.REACT_APP_API_URL + x.image}
@@ -159,8 +164,8 @@ export default function ListContainer({ type, data }: ListContainer) {
       {/* Image */}
       <div className="w-full space-x-2 carousel carousel-center">
         {data.reviewimage_set &&
-          data.reviewimage_set.map((x: any, i: number) => (
-            <div className="carousel-item h-[200px]" key={i}>
+          data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
+            <div className="carousel-item h-[200px]" key={x.id}>
               <img
                 className="object-cover w-[200px] h-[200px] rounded-2xl"
                 src={process.env.REACT_APP_API_URL + x.image}

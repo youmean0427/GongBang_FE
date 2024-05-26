@@ -44,14 +44,13 @@ export default function ReviewCard({
       currentSlide === data.length - 1 ? currentSlide : currentSlide + 1
     );
   };
-
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
   };
+
   if (isBrowser)
     return (
       <>
-        {" "}
         <div className="mt-5 mb-5 ">
           <div className="flex items-center justify-between mb-10">
             {title.length > 0 && (
@@ -89,7 +88,7 @@ export default function ReviewCard({
               )}
               {data.map((data: ReviewData, i: number) => (
                 <div
-                  key={i}
+                  key={data.id}
                   onClick={() => handelReviewDetailModal(data)}
                   className="h-full max-w-96"
                   style={{
@@ -191,7 +190,7 @@ export default function ReviewCard({
             )}
             {data.map((data: ReviewData, i: number) => (
               <div
-                key={i}
+                key={data.id}
                 onClick={() => handelReviewDetailModal(data)}
                 className="h-full max-w-96"
                 style={{
@@ -212,10 +211,8 @@ export default function ReviewCard({
                     />
                   )}
                 </div>
-                {/* <div>{data.id}</div> */}
 
                 {/* Info */}
-
                 <Stars score={data.score} size="small" />
                 <div className="w-[180px] mt-1 text-lg font-semibold truncate ">
                   {data.title}

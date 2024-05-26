@@ -30,17 +30,13 @@ export default function FilterContainer({ data }: any) {
   const [filteredData, setFilteredData] = useState([]);
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
+  const [typeSelect, setTypeSelect] = useState<number | string>(1);
   const typeList = [
     { value: 1, name: "분위기" },
     { value: 2, name: "좌석" },
     { value: 3, name: "음료" },
     { value: 4, name: "콘센트" },
   ];
-
-  const [typeSelect, setTypeSelect] = useState<number | string>(1);
-  const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    setTypeSelect(event.target.value);
-  };
 
   useEffect(() => {
     setFilteredData(data.filter((x: ReviewData) => x.type == typeSelect));
@@ -49,6 +45,10 @@ export default function FilterContainer({ data }: any) {
     setFilteredData(data.filter((x: ReviewData) => x.type == 1));
   }, []);
 
+  const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
+    setTypeSelect(event.target.value);
+  };
+
   const handleReviewModal = () => {
     setToggleReviewModal(!toggleReviewModal);
   };
@@ -56,6 +56,7 @@ export default function FilterContainer({ data }: any) {
   const handleReviewCreateMdoal = () => {
     setToggleReviewCreateModal(!toggleReviewCreateModal);
   };
+
   if (isBrowser)
     return (
       <div>

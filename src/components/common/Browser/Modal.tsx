@@ -41,7 +41,13 @@ const MobileModalsSize: ModalType = {
   5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
 };
 
-export default function Modal({ close, data, type }: any) {
+interface ModalPropType {
+  close: () => void;
+  data?: any;
+  type: number;
+}
+
+export default function Modal({ close, data, type }: ModalPropType) {
   const modalSize = modalsSize[type];
   const mobileModalSize = MobileModalsSize[type];
   const [mobileSignup, setMobileSignup] = useState(false);

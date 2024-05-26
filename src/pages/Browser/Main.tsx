@@ -50,35 +50,35 @@ export default function Main() {
         </div>
       </>
     );
-
-  return (
-    <>
-      <div>
+  if (isMobile)
+    return (
+      <>
         <div>
-          <Banner />
-        </div>
-        <div className="pl-[5%] pr-[5%]">
-          <div className="flex flex-row w-full">
-            <div className="w-full mb-16 ">
-              <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
+          <div>
+            <Banner />
+          </div>
+          <div className="pl-[5%] pr-[5%]">
+            <div className="flex flex-row w-full">
+              <div className="w-full mb-16 ">
+                <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
 
-              <hr />
-              <CafeCard
-                title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
-                data={twoData}
-              />
+                <hr />
+                <CafeCard
+                  title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
+                  data={twoData}
+                />
 
-              <hr />
+                <hr />
 
-              <CafeCard
-                title={"✨ 새로운, 최근 오픈 신상 카페"}
-                data={oneData}
-              />
+                <CafeCard
+                  title={"✨ 새로운, 최근 오픈 신상 카페"}
+                  data={oneData}
+                />
+              </div>
             </div>
           </div>
         </div>
-        {/* <div className="w-full opacity-50 h-60 bg-gongbang"></div> */}
-      </div>
-    </>
-  );
+      </>
+    );
+  return <></>;
 }

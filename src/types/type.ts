@@ -25,7 +25,7 @@ export interface CoffeeCafeImageData {
 
 export interface ReveiwImageData {
   id: number;
-  cafe: number;
+  review: number;
   image: string;
 }
 

@@ -1,7 +1,7 @@
 import { isBrowser } from "react-device-detect";
 import { LuArmchair, LuCoffee, LuHome, LuPlug } from "react-icons/lu";
-import { Interface } from "readline";
 import { TypeCode } from "../../../../types/type";
+
 interface BadgeType {
   typeIdx: number;
 }

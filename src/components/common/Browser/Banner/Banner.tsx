@@ -41,12 +41,7 @@ export default function Banner() {
       <>
         <div className="w-full h-60 bg-[#EFDCCB]">
           <div className="flex items-center justify-center w-full h-full">
-            <div className="w-full h-full">
-              <div className="flex flex-col items-end justify-start w-full h-full mt-5">
-                <img className="w-[100px] img_fadeIn" src={banner_item1} />
-              </div>
-            </div>
-            <div className="flex flex-col items-center justify-center w-full h-full ">
+            <div className="flex flex-col items-start justify-end w-full h-full pb-8 pl-8 ">
               <div className="p-2 text-xs font-semibold text-white badge border-gongbang bg-gongbang font_slideIn">
                 공부다방
               </div>
@@ -60,8 +55,11 @@ export default function Banner() {
                 상세한 카페 리뷰
               </div>
             </div>
-            <div className="w-full h-full">
-              <div className="flex flex-col items-center justify-end w-full h-full pb-5">
+            <div className="relative flex items-center justify-center w-full h-full ">
+              <div className="absolute -left-3 top-8 w-[100px] flex items-start h-[100px] rotate-12">
+                <img className="w-[100px] img_fadeIn" src={banner_item1} />
+              </div>
+              <div className="absolute right-10 bottom-10 flex items-end w-[80px] h-[80px] -rotate-12">
                 <img className="w-[80px] img_fadeIn" src={banner_item2} />
               </div>
             </div>
