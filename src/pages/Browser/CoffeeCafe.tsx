@@ -151,26 +151,26 @@ export default function CoffeeCafe() {
                       <Link to={`/coffeecafe/${cafe.id}`}>
                         <div className="flex flex-col items-center justify-between w-full h-full ">
                           {cafe.coffeecafeimage_set.length ? (
-                            <div className="w-full h-[120px] ">
-                              <img
-                                className="object-cover w-full h-full rounded-lg"
-                                src={
-                                  process.env.REACT_APP_API_URL +
-                                  cafe.coffeecafeimage_set[0].image
-                                }
-                              />
-                            </div>
+                            <img
+                              className="object-cover w-full h-[120px] rounded-lg"
+                              src={
+                                process.env.REACT_APP_API_URL +
+                                cafe.coffeecafeimage_set[0].image
+                              }
+                            />
                           ) : (
-                            <div></div>
+                            <div className="w-full h-[120px] bg-gray-300 rounded-lg"></div>
                           )}
-                          <div className="flex flex-col items-center justify-center h-full gap-0 ">
-                            <div className="text-xl font-bold ">
+                          <div className="flex flex-col h-[130px] items-center justify-center  gap-0 ">
+                            <div className="text-xl font-bold w-[230px] text-center truncate ">
                               {cafe.name}
                             </div>
                             <div>
                               <Stars score={cafe.total_score} size="small" />
                             </div>
-                            <div className="mt-1 text-sm ">{cafe.address}</div>
+                            <div className="w-[230px] text-center truncate mt-1 text-sm ">
+                              {cafe.address}
+                            </div>
                           </div>
                         </div>
                       </Link>
@@ -216,41 +216,43 @@ export default function CoffeeCafe() {
       </div>
     );
   return (
-    <div className="h-[100vh] pt-14">
-      <div className="h-full">
-        <Map
-          // 지도의 중심 좌표
-          center={{
-            lat: nowState.center.lat,
-            lng: nowState.center.lng,
-          }}
-          // 지도의 크기 및 레벨
-          style={{
-            width: "100%",
-            height: "100%",
-          }}
-          level={3}
-          // 지도를 클릭했을 때, 마커를 이동
-          onClick={(_t, mouseEvent) => {
-            setMarkerState({
-              center: {
-                lat: mouseEvent.latLng.getLat(),
-                lng: mouseEvent.latLng.getLng(),
-              },
-            });
-          }}
-          // 지도를 이동하면, 중심 좌표를 변경
-          onDragEnd={(map) => {
-            const latlng = map.getCenter();
-            setNowState({
-              center: {
-                lat: latlng.getLat(),
-                lng: latlng.getLng(),
-              },
-            });
-          }}
-        >
-          {/* <Circle
+    <>
+      <div className="h-[100vh] pt-14">
+        <div className="h-full">
+          <Map
+            // 지도의 중심 좌표
+            center={{
+              lat: nowState.center.lat,
+              lng: nowState.center.lng,
+            }}
+            // 지도의 크기 및 레벨
+            style={{
+              width: "100%",
+              height: "100%",
+            }}
+            level={3}
+            // 지도를 클릭했을 때, 마커를 이동
+            onClick={(_t, mouseEvent) => {
+              setMarkerState({
+                center: {
+                  lat: mouseEvent.latLng.getLat(),
+                  lng: mouseEvent.latLng.getLng(),
+                },
+              });
+              setIsOpen(false);
+            }}
+            // 지도를 이동하면, 중심 좌표를 변경
+            onDragEnd={(map) => {
+              const latlng = map.getCenter();
+              setNowState({
+                center: {
+                  lat: latlng.getLat(),
+                  lng: latlng.getLng(),
+                },
+              });
+            }}
+          >
+            {/* <Circle
         center={markerState.center}
         radius={5000}
         strokeWeight={1}
@@ -260,86 +262,132 @@ export default function CoffeeCafe() {
         fillColor="#ffd80b"
         fillOpacity={0.2}
       /> */}
-          <MapMarker
-            position={markerState.center}
-            image={{
-              src: moveMarker,
-              size: {
-                width: 70,
-                height: 80,
-              },
-            }}
-          ></MapMarker>
-          {filteredCafe.map((cafe, index) => (
-            <div className="relative " key={index}>
-              <CustomOverlayMap
-                position={{ lat: cafe.lat, lng: cafe.lng }}
-                clickable={true}
-              >
+            <MapMarker
+              position={markerState.center}
+              image={{
+                src: moveMarker,
+                size: {
+                  width: 70,
+                  height: 80,
+                },
+              }}
+            ></MapMarker>
+            {filteredCafe.map((cafe, index) => (
+              <div key={cafe.id}>
                 {isOpen && index === isClickIdx && (
-                  <div className="absolute bg-white shadow-lg -top-[220px] -left-[100px] rounded-xl w-[200px] h-[200px] z-30">
-                    <div
-                      className="absolute cursor-pointer right-2 top-2"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <LuX size={25} />
-                    </div>
-                    <Link to={`/coffeecafe/${cafe.id}`}>
-                      <div className="flex flex-col items-center justify-between w-full h-full">
-                        {cafe.coffeecafeimage_set.length ? (
-                          <div className="w-full h-[100px] ">
-                            <img
-                              className="object-cover w-full h-full rounded-lg"
-                              src={
-                                process.env.REACT_APP_API_URL +
-                                cafe.coffeecafeimage_set[0].image
-                              }
-                            />
-                          </div>
-                        ) : (
-                          <div></div>
-                        )}
-                        <div className="flex flex-col items-center justify-center w-full mb-4">
-                          <div className="text-base font-bold ">
-                            {cafe.name}
-                          </div>
-                          <div>
-                            <Stars score={cafe.total_score} size="small" />
-                          </div>
-                          <div className="mt-1 text-xs">{cafe.address}</div>
+                  <div className="flex justify-between items-center fixed z-10 w-full bg-white  rounded-t-2xl bottom-14 h-[100px] gap-3 shadow-[0_0_5px_0_rgba(0,0,0,0.3)] ">
+                    <div>
+                      {cafe.coffeecafeimage_set.length ? (
+                        <div className="w-[120px] h-[100px] ">
+                          <img
+                            className="object-cover w-full h-full rounded-lg"
+                            src={
+                              process.env.REACT_APP_API_URL +
+                              cafe.coffeecafeimage_set[0].image
+                            }
+                          />
                         </div>
+                      ) : (
+                        <div className="w-[120px] h-[100px] bg-gray-300 rounded-lg"></div>
+                      )}
+                    </div>
+
+                    <div className="flex flex-col items-start justify-center w-full h-[120px] ">
+                      <div className="w-[90%] text-base font-bold truncate ">
+                        {cafe.name}
                       </div>
-                    </Link>
+                      <div>
+                        <Stars score={cafe.total_score} size="small" />
+                      </div>
+                      <div className="w-[90%] mt-1 text-xs truncate ">
+                        {cafe.address}
+                      </div>
+                    </div>
                   </div>
                 )}
-              </CustomOverlayMap>
-              <MapMarker
-                key={index}
-                position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
-                image={{
-                  src: cafeMarker, // 마커이미지의 주소입니다
-                  size: {
-                    width: 70,
-                    height: 80,
-                  }, // 마커이미지의 크기입니다
-                }}
-                clickable={true}
-                onClick={() => {
-                  setIsOpen(!isOpen);
-                  setIsClickIdx(index);
-                  setNowState({
-                    center: {
-                      lat: cafe.lat,
-                      lng: cafe.lng,
-                    },
-                  });
-                }}
-              ></MapMarker>
-            </div>
-          ))}
-        </Map>
+                <div className="relative " key={index}>
+                  {/* <CustomOverlayMap
+                    position={{ lat: cafe.lat, lng: cafe.lng }}
+                    clickable={true}
+                  >
+                    {isOpen && index === isClickIdx && (
+                      <div className="absolute bg-white shadow-lg -top-[300px] -left-[100px] rounded-xl w-[200px] h-[200px] z-30">
+                        <div
+                          className="absolute cursor-pointer right-2 top-2"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          <LuX size={25} />
+                        </div>
+                        <Link to={`/coffeecafe/${cafe.id}`}>
+                          <div className="flex flex-col items-center justify-between w-full h-full">
+                            {cafe.coffeecafeimage_set.length ? (
+                              <div className="w-full h-[100px] ">
+                                <img
+                                  className="object-cover w-full h-full rounded-lg"
+                                  src={
+                                    process.env.REACT_APP_API_URL +
+                                    cafe.coffeecafeimage_set[0].image
+                                  }
+                                />
+                              </div>
+                            ) : (
+                              <div></div>
+                            )}
+                            <div className="flex flex-col items-center justify-center w-full mb-4">
+                              <div className="w-[200px] text-center text-base font-bold truncate">
+                                {cafe.name}
+                              </div>
+                              <div>
+                                <Stars score={cafe.total_score} size="small" />
+                              </div>
+                              <div className="w-[200px] mt-1 text-xs text-center truncate">
+                                {cafe.address}
+                              </div>
+                            </div>
+                          </div>
+                        </Link>
+                      </div>
+                    )}
+                  </CustomOverlayMap> */}
+                  <MapMarker
+                    key={index}
+                    zIndex={isOpen && isClickIdx === index ? 10 : 1}
+                    position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
+                    image={{
+                      src: cafeMarker, // 마커이미지의 주소입니다
+
+                      size:
+                        isOpen && isClickIdx === index
+                          ? {
+                              width: 90,
+                              height: 100,
+                            }
+                          : {
+                              width: 55,
+                              height: 60,
+                            },
+
+                      // 마커이미지의 크기입니다
+                    }}
+                    clickable={true}
+                    onClick={() => {
+                      setIsOpen(true);
+                      setIsClickIdx(index);
+                      setNowState({
+                        center: {
+                          lat: cafe.lat,
+                          lng: cafe.lng,
+                        },
+                      });
+                    }}
+                  ></MapMarker>
+                </div>
+              </div>
+            ))}
+          </Map>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

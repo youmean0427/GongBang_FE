@@ -51,15 +51,17 @@ export default function CafeCard({ title, data }: CafeCardType) {
                         <div className="text-lg">
                           <div className="mb-5">
                             {x.coffeecafeimage_set && (
-                              <div className="w-[250px] h-[250px]">
-                                <img
-                                  className="object-cover w-full h-full rounded-2xl"
-                                  src={
-                                    process.env.REACT_APP_API_URL +
-                                    x.coffeecafeimage_set[0].image
-                                  }
-                                  alt="Cafe"
-                                />
+                              <div className="w-[250px] h-[250px] bg-gray-300 rounded-2xl">
+                                {x.coffeecafeimage_set.length > 0 && (
+                                  <img
+                                    className="object-cover w-full h-full rounded-2xl"
+                                    src={
+                                      process.env.REACT_APP_API_URL +
+                                      x.coffeecafeimage_set[0].image
+                                    }
+                                    alt="Cafe"
+                                  />
+                                )}
                               </div>
                             )}
                           </div>
@@ -67,10 +69,12 @@ export default function CafeCard({ title, data }: CafeCardType) {
                           <div className="mb-1">
                             <Stars score={x.total_score} size="small" />
                           </div>
-                          <div className="mb-1 text-xl font-semibold">
+                          <div className="w-[250px] mb-1 text-xl font-semibold truncate">
                             {x.name}
                           </div>
-                          <div className="text-base ">{x.address}</div>
+                          <div className="w-[250px] text-base truncate">
+                            {x.address}
+                          </div>
                         </div>
                       </Link>
                     </div>
@@ -129,17 +133,21 @@ export default function CafeCard({ title, data }: CafeCardType) {
                     >
                       <div className="text-lg w-[180px]">
                         <div className="mb-4">
-                          {x.coffeecafeimage_set && (
-                            <div className="w-[180px] h-[180px]">
-                              <img
-                                className="object-cover w-full h-full rounded-2xl"
-                                src={
-                                  process.env.REACT_APP_API_URL +
-                                  x.coffeecafeimage_set[0].image
-                                }
-                                alt="Cafe"
-                              />
-                            </div>
+                          {x.coffeecafeimage_set &&
+                            x.coffeecafeimage_set.length > 0 && (
+                              <div className="w-[180px] h-[180px]">
+                                <img
+                                  className="object-cover w-full h-full rounded-2xl"
+                                  src={
+                                    process.env.REACT_APP_API_URL +
+                                    x.coffeecafeimage_set[0].image
+                                  }
+                                  alt="Cafe"
+                                />
+                              </div>
+                            )}
+                          {x.coffeecafeimage_set.length === 0 && (
+                            <div className="w-[180px] h-[180px] bg-gray-300 rounded-2xl"></div>
                           )}
                         </div>
 

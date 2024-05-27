@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <div className="h-64 mt-10 bg-slate-400"></div>;
+  return <div className="h-60  bg-[#EFDCCB]"></div>;
 }

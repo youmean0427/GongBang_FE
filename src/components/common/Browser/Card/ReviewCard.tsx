@@ -202,7 +202,7 @@ export default function ReviewCard({
                 <div className="mb-3 ">
                   {data.reviewimage_set && (
                     <img
-                      className=" h-[180px] w-[180px] object-cover rounded-2xl"
+                      className=" h-[150px] w-[150px] object-cover rounded-2xl"
                       src={
                         process.env.REACT_APP_API_URL +
                         data.reviewimage_set[0].image
@@ -214,7 +214,7 @@ export default function ReviewCard({
 
                 {/* Info */}
                 <Stars score={data.score} size="small" />
-                <div className="w-[180px] mt-1 text-lg font-semibold truncate ">
+                <div className="w-[150px] mt-1 text-lg font-semibold truncate ">
                   {data.title}
                 </div>
                 <div className="flex items-center justify-between mt-1">

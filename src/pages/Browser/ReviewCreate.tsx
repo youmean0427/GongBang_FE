@@ -398,7 +398,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </select>
           </div>
 
-          <div className="w-[150px] mt-1 rating rating-lg rating-half">
+          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[1px]">
             <input type="radio" name="rating-10" className="rating-hidden" />
             <input
               type="radio"

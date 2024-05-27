@@ -219,7 +219,7 @@ export default function CafeDetail() {
                 }}
                 style={{
                   width: "100%",
-                  height: "100%",
+                  height: "80%",
                 }}
                 level={3}
                 draggable={false}

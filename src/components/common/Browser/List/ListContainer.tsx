@@ -165,15 +165,15 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="w-full space-x-2 carousel carousel-center">
         {data.reviewimage_set &&
           data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
-            <div className="carousel-item h-[200px]" key={x.id}>
+            <div className="carousel-item h-[170px]" key={x.id}>
               <img
-                className="object-cover w-[200px] h-[200px] rounded-2xl"
+                className="object-cover w-[170px] h-[170px] rounded-2xl"
                 src={process.env.REACT_APP_API_URL + x.image}
               />
             </div>
           ))}
       </div>
-      <div className="flex w-full gap-3 mb-5">
+      {/* <div className="flex w-full gap-3 mb-5">
         {data.reviewimage_set?.length === 1 && (
           <>
             <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
@@ -185,7 +185,7 @@ export default function ListContainer({ type, data }: ListContainer) {
             <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
           </>
         )}
-      </div>
+      </div> */}
       {data.content.length > 100 ? (
         <div className="mb-5 h-[120px] overflow-y-auto">{data.content}</div>
       ) : (

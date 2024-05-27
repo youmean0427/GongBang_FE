@@ -13,7 +13,7 @@ export default function Review({ data }: ReviewType) {
   const { id } = useParams();
   if (isBrowser)
     return (
-      <div className="h-[90%]">
+      <div className="h-[90%] mt-8">
         <div className="flex flex-col items-center h-full gap-2 ">
           <div className="flex flex-col items-center gap-2">
             <div className="mb-2 text-2xl font-bold">{data.name}</div>

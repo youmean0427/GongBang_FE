@@ -77,13 +77,15 @@ export default function Login() {
       </div>
 
       <div className="w-72">
-        <input
-          type="password"
-          className="w-full input input-bordered "
-          name="password"
-          onChange={handleChange}
-          placeholder="비밀번호"
-        />
+        <form>
+          <input
+            type="password"
+            className="w-full input input-bordered "
+            name="password"
+            onChange={handleChange}
+            placeholder="비밀번호"
+          />
+        </form>
       </div>
       <div className="mt-2 mb-2 font-medium text-gray-500 ">비밀번호 찾기</div>
 

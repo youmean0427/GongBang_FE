@@ -81,6 +81,7 @@ export default function App() {
             <Nav />
           </div>
         )}
+        {!isNavMap && <Footer />}
       </BrowserView>
       <MobileView>
         {isNavMap && <MobileNav path={"coffeecafe"} />}

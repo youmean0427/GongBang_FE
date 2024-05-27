@@ -103,7 +103,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
   return (
     <>
       {mobileSignup === false ? (
-        <div className="fixed top-0 left-0 z-10 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
+        <div className="fixed top-0 left-0 z-30 flex items-center justify-center w-full h-full bg-black bg-opacity-50 min-w-">
           <div className={`${mobileModalSize}`}>
             <div
               className="flex justify-end mt-2 mr-2 cursor-pointer "

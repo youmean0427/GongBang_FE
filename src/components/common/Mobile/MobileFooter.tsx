@@ -29,7 +29,7 @@ export default function MobileFooter() {
   };
 
   return (
-    <div className="fixed bottom-0 z-10 w-full h-14">
+    <div className="fixed bottom-0 z-20 w-full h-14">
       <hr />
       <div className="flex items-center justify-between h-full bg-white">
         <Link to={"/coffeecafe"} className="flex-1">
@@ -50,7 +50,7 @@ export default function MobileFooter() {
                 <div className="w-8 h-8 ml-1">
                   <BiCoffee color="gray" className="w-full h-full" />
                 </div>
-                <div className="w-8 text-xs text-center text-gray-500">
+                <div className="w-8 text-xs font-medium text-center text-gray-500">
                   카페
                 </div>
               </div>
@@ -71,7 +71,7 @@ export default function MobileFooter() {
                 <div className="w-8 h-8">
                   <TbHome color="gray" className="w-full h-full" />
                 </div>
-                <div className="text-xs text-gray-500 ">홈</div>
+                <div className="text-xs font-medium text-gray-500">홈</div>
               </>
             )}
           </div>
@@ -91,7 +91,7 @@ export default function MobileFooter() {
                   className={
                     isOpenProfileModal
                       ? "text-xs font-bold text-gongbang"
-                      : "text-xs text-gray-500"
+                      : "text-xs font-medium text-gray-500"
                   }
                   onClick={handleProfileModal}
                 >
@@ -110,8 +110,8 @@ export default function MobileFooter() {
                 <div
                   className={
                     isOpenLoginModal
-                      ? "text-xs text-gongbang"
-                      : "text-xs text-gray-500"
+                      ? "text-xs text-gongbang  font-bold"
+                      : "text-xs text-gray-500 font-medium"
                   }
                   onClick={handleLoginModal}
                 >

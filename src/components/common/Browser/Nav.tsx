@@ -24,7 +24,7 @@ export default function Nav() {
   const username = useSelector((state: RootState) => state.user.username);
   const links: NavLink[] = [
     { title: "일반 카페", url: "/coffeecafe" },
-    { title: "스터디 카페", url: "/studycafe" },
+    // { title: "스터디 카페", url: "/studycafe" },
   ];
 
   const handleLoginModal = () => {
