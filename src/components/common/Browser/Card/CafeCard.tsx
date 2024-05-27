@@ -119,14 +119,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
               {data &&
                 data.length > 0 &&
                 data.map((x, i) => (
-                  <div
-                    key={x.id}
-                    style={{
-                      transform: `translateX(-${currentSlide * 100}%)`,
-                      transition: "transform 0.5s ease",
-                    }}
-                    className="h-full max-w-96"
-                  >
+                  <div key={x.id} className="h-full max-w-96">
                     <Link
                       to={`coffeecafe/${x.id}`}
                       style={{ textDecoration: "none" }}
