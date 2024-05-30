@@ -54,3 +54,48 @@ export interface CardData {
 export interface TypeCode {
   [key: number]: string;
 }
+
+export interface LoginInputType {
+  email: String;
+  password: String;
+}
+
+export interface PassWordResetInputType {
+  email: string;
+}
+
+export interface PasswordResetConfrimInputType {
+  new_password1: string;
+  new_password2: string;
+  uid?: string;
+  token?: string;
+}
+
+// Django REST AUTH 기본, 변경 금지
+export interface SignupInputType {
+  username: string;
+  email: string;
+  password1: string;
+  password2: string;
+}
+
+export interface CafeImageType {
+  cafe: number;
+  id: number;
+  image: string;
+}
+
+export interface ReviewPropsType {
+  data: CoffeeCafeData;
+}
+
+export interface ReviewCreatePropsType {
+  coffeeCafe: CoffeeCafeData;
+}
+export interface ReviewCreateInputType {
+  title: string;
+  content: string;
+  date: string;
+  score: number;
+  type: number;
+}

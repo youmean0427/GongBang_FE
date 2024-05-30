@@ -3,14 +3,7 @@ import React, { useEffect, useState } from "react";
 import { signupAPI } from "../../apis/api";
 import logoImage from "../../images/gongbang_logo.png";
 import { isBrowser, isMobile } from "react-device-detect";
-
-// Django REST AUTH 기본, 변경 금지
-interface Signup {
-  username: string;
-  email: string;
-  password1: string;
-  password2: string;
-}
+import { SignupInputType } from "../../types/type";
 
 export default function Signup() {
   const [isValid, setIsValid] = useState(true);
@@ -18,53 +11,17 @@ export default function Signup() {
   const [isPasswordLen8, setIsPasswordLen8] = useState(false);
   const [isSignupError, setIsSignupError] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
-  const [signupInputs, setSignupInputs] = useState<Signup>({
+  const [signupInputs, setSignupInputs] = useState<SignupInputType>({
     username: "",
     email: "",
     password1: "",
     password2: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    if (name === "username" && value.length > 10) {
-      alert("10자 이내만 작성할 수 있습니다.");
-      event.target.value = value.slice(0, 10);
-      return;
-    }
-    setSignupInputs({
-      ...signupInputs,
-      [name]: value,
-    });
-  };
-
-  const signupMutation = useMutation(["signupAPI"], signupAPI, {
-    onSuccess: () => {
-      window.location.reload();
-    },
-    onError: () => {
-      alert("존재하는 닉네임 또는 이메일입니다.");
-      console.log("username, email Check");
-      setIsSignupError(true);
-    },
-  });
-
-  const handleSignup = () => {
-    signupMutation.mutate({
-      username: signupInputs.username,
-      email: signupInputs.email,
-      password1: signupInputs.password1,
-      password2: signupInputs.password2,
-    });
-  };
-
-  const handleCheckChange = () => {
-    setIsChecked(!isChecked);
-  };
-
+  // 유효성 검사
   useEffect(() => {
     {
-      signupInputs.password1.length && signupInputs.password1.length < 9
+      signupInputs.password1.length && signupInputs.password1.length < 8
         ? setIsPasswordLen8(false)
         : setIsPasswordLen8(true);
     }
@@ -89,11 +46,51 @@ export default function Signup() {
     );
   });
 
+  // * signupMutation
+  const signupMutation = useMutation(["signupAPI"], signupAPI, {
+    onSuccess: () => {
+      window.location.reload();
+    },
+    onError: () => {
+      alert("존재하는 닉네임 또는 이메일입니다.");
+      console.log("username, email Check");
+      setIsSignupError(true);
+    },
+  });
+  const handleSignup = () => {
+    signupMutation.mutate({
+      username: signupInputs.username,
+      email: signupInputs.email,
+      password1: signupInputs.password1,
+      password2: signupInputs.password2,
+    });
+  };
+  // *
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    if (name === "username" && value.length > 10) {
+      alert("10자 이내만 작성할 수 있습니다.");
+      event.target.value = value.slice(0, 10);
+      return;
+    }
+    setSignupInputs({
+      ...signupInputs,
+      [name]: value,
+    });
+  };
+
+  // 개인정보 CheckBox
+  const handleCheckChange = () => {
+    setIsChecked(!isChecked);
+  };
+
   const checkEmail = (data: string) => {
     var regExp =
       /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
     return regExp.test(data);
   };
+
   if (signupMutation.isLoading || signupMutation.isSuccess)
     return (
       <>
@@ -139,7 +136,7 @@ export default function Signup() {
 
           {!isPasswordLen8 && signupInputs.password1 && (
             <div className="mt-2 text-center text-error">
-              비밀번호를 9자리 이상 입력해주세요.
+              비밀번호를 8자리 이상 입력해주세요.
             </div>
           )}
         </div>

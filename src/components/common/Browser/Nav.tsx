@@ -11,18 +11,20 @@ import { AccessToken } from "../../../recoil/atom";
 import Modal from "./Modal";
 import fullStar from "../../../images/full_star.png";
 
-interface NavLink {
-  title: string;
-  url: string;
-}
-
 export default function Nav() {
+  // Modal
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
   const [isOpenProfileModal, setISOpenProfileModal] = useState(false);
+  // Recoil로 accessToken 가져오기
   const accessToken = useRecoilValue(AccessToken);
+  // Redux로 username 가져오기
   const username = useSelector((state: RootState) => state.user.username);
-  const links: NavLink[] = [
+  // Nav Links
+  const links: {
+    title: string;
+    url: string;
+  }[] = [
     { title: "일반 카페", url: "/coffeecafe" },
     // { title: "스터디 카페", url: "/studycafe" },
   ];
@@ -39,16 +41,18 @@ export default function Nav() {
     setISOpenProfileModal(!isOpenProfileModal);
     document.body.style.overflow = "auto";
   };
-  const handleLogout = () => {
-    logoutMutation.mutate({});
-  };
 
+  // * Logout Mutation
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
     onSuccess: () => {
       localStorage.clear();
       window.location.reload();
     },
   });
+  const handleLogout = () => {
+    logoutMutation.mutate({});
+  };
+  // *
 
   return (
     <>

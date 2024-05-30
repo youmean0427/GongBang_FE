@@ -69,19 +69,21 @@ export default function App() {
   // eslint-disable-next-line no-restricted-globals
   const location = useLocation();
   const isNavMap = ["/coffeecafe"].includes(location.pathname);
+  const isPasswordReset = ["/password/reset/"].includes(location.pathname);
+  const isPasswordResetConfirm = /\/password\/reset\/confirm\//.test(
+    location.pathname
+  );
+  console.log(isPasswordResetConfirm);
   if (isLoading) return <></>;
   return (
     <>
-      <BrowserView className="relative h-full">
-        {!isNavMap && <Nav />}
-
-        <Router />
-        {isNavMap && (
-          <div className="absolute top-0 z-10 w-full bg-white">
+      <BrowserView className="h-[100vh]">
+        {!isPasswordReset && !isPasswordResetConfirm && (
+          <div className="fixed top-0 z-10 w-full bg-white">
             <Nav />
           </div>
         )}
-        {!isNavMap && <Footer />}
+        <Router />
       </BrowserView>
       <MobileView>
         {isNavMap && <MobileNav path={"coffeecafe"} />}

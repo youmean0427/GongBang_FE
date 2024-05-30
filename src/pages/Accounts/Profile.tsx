@@ -8,13 +8,17 @@ import { isBrowser, isMobile } from "react-device-detect";
 import { ReviewData } from "../../types/type";
 import fullStar from "../../images/full_star.png";
 export default function Profile() {
+  // Redux를 통해, userName과 userId 가져오기
   const userName = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
+
+  // user가 작성한 모든 리뷰 가져오기
   const { isFetching, isLoading, data } = useQuery({
     queryKey: ["getProfileReview"],
     queryFn: () => getProfileReview(userId),
   });
 
+  // Logout Mutation
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
     onSuccess: () => {
       localStorage.clear();
@@ -24,8 +28,9 @@ export default function Profile() {
   const handleLogout = () => {
     logoutMutation.mutate({});
   };
-  if (isLoading || isFetching) return <></>;
+  // *
 
+  if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
       <>

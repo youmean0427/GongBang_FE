@@ -25,7 +25,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
         <div className="w-full">
           <div className="text-2xl font-bold mb-7">{title}</div>
           <div className="relative w-full">
-            <div className="w-full carousel carousel-center ">
+            <div className="w-full carousel carousel-start ">
               <div className="space-x-5 carousel-item h-[380px] ">
                 {data && data.length === 0 && (
                   <div className="absolute flex items-center justify-center w-full h-[380px]  ">
@@ -107,7 +107,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
       <div className="w-full">
         <div className="text-xl font-bold mb-7">{title}</div>
         <div className="relative w-full">
-          <div className="w-full carousel carousel-center ">
+          <div className="w-full carousel carousel-start ">
             <div className="space-x-5 carousel-item h-[280px] ">
               {data && data.length === 0 && (
                 <div className="absolute flex items-center justify-center w-full h-[280px]  ">

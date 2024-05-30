@@ -10,9 +10,12 @@ import FilterContainer from "../components/common/Browser/FilterContainer";
 import Banner from "../components/common/Browser/Banner/Banner";
 import { isMobile } from "react-device-detect";
 import MobileLogin from "../pages/Mobile/MobileLogin";
+import ReviewUpdate from "../pages/Browser/Review/ReviewUpdate";
+import PasswordReset from "../pages/Accounts/PasswordReset/PasswordReset";
+import PasswordResetConfirm from "../pages/Accounts/PasswordReset/PasswordResetConfirm";
 export default function Router() {
   return (
-    <div>
+    <>
       <Routes>
         <Route path="/" element={<Main />} />
         {/* <Route path="/login" element={<Login />} /> */}
@@ -20,7 +23,13 @@ export default function Router() {
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
+        <Route path="/review/update/:id" element={<ReviewUpdate />} />
+        <Route path="/password/reset" element={<PasswordReset />} />
+        <Route
+          path="/password/reset/confirm/:uid/:token"
+          element={<PasswordResetConfirm />}
+        />
       </Routes>
-    </div>
+    </>
   );
 }

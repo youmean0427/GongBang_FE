@@ -77,7 +77,7 @@ export default function ReviewCard({
           </div>
         </div>
         <div className="relative w-full">
-          <div className="w-full carousel carousel-center">
+          <div className="w-full carousel carousel-start">
             <div className="space-x-5 carousel-item h-[380px] ">
               {data.length === 0 && (
                 <div className="absolute flex items-center justify-center w-full h-[380px]   ">
@@ -179,7 +179,7 @@ export default function ReviewCard({
         )}
       </div>
       <div className="relative w-full">
-        <div className="w-full carousel carousel-center">
+        <div className="w-full carousel carousel-start">
           <div className="space-x-5 carousel-item h-[300px] ">
             {data.length === 0 && (
               <div className="absolute flex items-center justify-center w-full h-[330px]   ">

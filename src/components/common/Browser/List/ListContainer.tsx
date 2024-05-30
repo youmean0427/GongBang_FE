@@ -80,12 +80,16 @@ export default function ListContainer({ type, data }: ListContainer) {
           <div className="w-full h-full text-xl font-semibold ">
             {data.title}
           </div>
+
           {userId === data.user && (
-            <div
-              className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
-              onClick={() => handleDelete(data.id)}
-            >
-              삭제
+            <div>
+              <div>수정</div>
+              <div
+                className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
+                onClick={() => handleDelete(data.id)}
+              >
+                삭제
+              </div>
             </div>
           )}
         </div>

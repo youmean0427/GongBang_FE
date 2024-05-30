@@ -3,6 +3,7 @@ import banner_item2 from "../../../../images/banner_item2.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import "./Banner.css";
 export default function Banner() {
+  // Browser
   if (isBrowser)
     return (
       <>
@@ -36,6 +37,7 @@ export default function Banner() {
         </div>
       </>
     );
+  // Mobile
   if (isMobile)
     return (
       <>
@@ -67,6 +69,5 @@ export default function Banner() {
         </div>
       </>
     );
-
   return <></>;
 }

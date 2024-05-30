@@ -1,5 +1,11 @@
 import axios from "axios";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+interface PasswordResetConfrim {
+  new_password1: string;
+  new_password2: string;
+  uid?: string;
+  token?: string;
+}
 
 export const getCoffeeCafesAPI = async (type: number) => {
   const { data } = await axios.get(`/api/coffeecafes/all/${type}`);
@@ -27,7 +33,7 @@ export const getReveiwsAllAPI = async () => {
   return data;
 };
 
-export const getReviewDetailAPI = async (id: number) => {
+export const getReviewDetailAPI = async (id: string) => {
   const { data } = await axios.get(`/api/coffeecafes/review/${id}`);
   return data;
 };
@@ -121,4 +127,18 @@ export const tokenRefreshAPI = async (token: object) => {
 export const getProfileReview = async (user_id: number) => {
   const { data } = await axios.get(`/api/profile/${user_id}`);
   return data;
+};
+
+export const passwordResetAPI = async (email: object) => {
+  const response = await axios.post(`/password/reset/`, email);
+  return response;
+};
+
+export const passwordResetConfirmAPI = async (data: PasswordResetConfrim) => {
+  const response = await axios.post("/password/reset/confirm/", data, {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  return response;
 };

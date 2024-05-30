@@ -18,22 +18,21 @@ import FilterContainer from "../../components/common/Browser/FilterContainer";
 import cafeMarker from "../../../src/images/cafe_marker.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import ReviewCard from "../../components/common/Browser/Card/ReviewCard";
+import { CafeImageType } from "../../types/type";
 
-interface CafeImageType {
-  cafe: number;
-  id: number;
-  image: string;
-}
 export default function CafeDetail() {
   const { id } = useParams();
   const reviewTitle = ["통합 리뷰", "분위기", "좌석", "음료", "콘센트"];
-
   const [nowImage, setNowImage] = useState<string>("");
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
 
-  const [currentSlide, setCurrentSlide] = useState(0);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
+  // * CafeImage Slide
+  const [currentSlide, setCurrentSlide] = useState(0);
   const nextSlide = () => {
     setCurrentSlide(
       currentSlide === coffecafeDetail.coffeecafeimage_set.length - 1
@@ -41,10 +40,11 @@ export default function CafeDetail() {
         : currentSlide + 1
     );
   };
-
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
   };
+  // *
+
   const {
     isLoading,
     isFetching,
@@ -58,29 +58,26 @@ export default function CafeDetail() {
     setNowImage(image);
   };
 
+  // *Modal
   const handleReviewModal = () => {
     setToggleReviewModal(!toggleReviewModal);
     document.body.style.overflow = "auto";
   };
-
   const handleReviewCreateMdoal = () => {
     setToggleReviewCreateModal(!toggleReviewCreateModal);
     document.body.style.overflow = "auto";
   };
-
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }, []);
+  // *
 
   if (isFetching && !toggleReviewCreateModal) return <></>;
   if (isLoading) return <></>;
 
   if (isBrowser)
     return (
-      <>
+      <div className="pt-20">
         <div className="flex flex-row w-full    pl-[10%] pr-[10%]">
           <div className="w-full">
-            <div className="grid w-full grid-cols-1 xl:grid-cols-2 mt-14">
+            <div className="grid w-full grid-cols-1 mt-10 xl:grid-cols-2">
               {/* Images */}
               <div className="relative w-full xl:max-w-[700px]">
                 <div className="  xl:h-[500px] h-[400px]   w-full carousel carousel-center">
@@ -253,7 +250,7 @@ export default function CafeDetail() {
         {toggleReviewCreateModal && (
           <Modal close={handleReviewCreateMdoal} type={2} />
         )}
-      </>
+      </div>
     );
 
   // Mobile

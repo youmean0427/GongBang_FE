@@ -3,17 +3,14 @@ import { getCoffeeCafesAPI } from "../../apis/api";
 import { useQuery } from "react-query";
 import { isBrowser, isMobile } from "react-device-detect";
 import CafeCard from "../../components/common/Browser/Card/CafeCard";
-
+import { useMemo } from "react";
 export default function Main() {
-  const {
-    isLoading,
-    isFetching,
-    data: oneData,
-  } = useQuery({
+  const { data: sortedScoreData } = useQuery({
     queryKey: ["getCoffeeCafesScore"],
     queryFn: () => getCoffeeCafesAPI(1),
   });
-  const { data: twoData } = useQuery({
+
+  const { data: sortedCategoryData } = useQuery({
     queryKey: ["getCoffeeCafesOpt"],
     queryFn: () => getCoffeeCafesAPI(2),
   });
@@ -22,7 +19,7 @@ export default function Main() {
   if (isBrowser)
     return (
       <>
-        <div>
+        <div className="pt-20">
           <div>
             <Banner />
           </div>
@@ -30,19 +27,22 @@ export default function Main() {
           <div className="pl-[10%] pr-[10%]">
             <div className="flex flex-row w-full">
               <div className="w-full mb-16 ">
-                <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
+                <CafeCard
+                  title={"🔥 핫플, 인기 있는 카페"}
+                  data={sortedScoreData}
+                />
 
                 <hr />
                 <CafeCard
                   title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
-                  data={twoData}
+                  data={sortedCategoryData}
                 />
 
                 <hr />
 
                 <CafeCard
                   title={"✨ 새로운, 최근 오픈 신상 카페"}
-                  data={oneData}
+                  data={sortedScoreData}
                 />
               </div>
             </div>
@@ -60,19 +60,22 @@ export default function Main() {
           <div className="pl-[5%] pr-[5%]">
             <div className="flex flex-row w-full">
               <div className="w-full mb-16 ">
-                <CafeCard title={"🔥 핫플, 인기 있는 카페"} data={oneData} />
+                <CafeCard
+                  title={"🔥 핫플, 인기 있는 카페"}
+                  data={sortedScoreData}
+                />
 
                 <hr />
                 <CafeCard
                   title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
-                  data={twoData}
+                  data={sortedCategoryData}
                 />
 
                 <hr />
 
                 <CafeCard
                   title={"✨ 새로운, 최근 오픈 신상 카페"}
-                  data={oneData}
+                  data={sortedScoreData}
                 />
               </div>
             </div>

@@ -4,8 +4,8 @@ import { LuX } from "react-icons/lu";
 import Login from "../../../pages/Accounts/Login";
 import Profile from "../../../pages/Accounts/Profile";
 import Signup from "../../../pages/Accounts/Signup";
-import Review from "../../../pages/Browser/Reveiw";
-import ReviewCreate from "../../../pages/Browser/ReviewCreate";
+import Review from "../../../pages/Browser/Review/Reveiw";
+import ReviewCreate from "../../../pages/Browser/Review/ReviewCreate";
 import MobileLogin from "../../../pages/Mobile/MobileLogin";
 import ListContainer from "./List/ListContainer";
 

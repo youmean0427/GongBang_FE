@@ -1,15 +1,16 @@
 import { isBrowser } from "react-device-detect";
 import { useParams } from "react-router-dom";
-import ListContainer from "../../components/common/Browser/List/ListContainer";
+import ListContainer from "../../../components/common/Browser/List/ListContainer";
 
-import Stars from "../../components/common/Browser/Stars";
-import { CoffeeCafeData, ReviewData } from "../../types/type";
+import Stars from "../../../components/common/Browser/Stars";
+import {
+  CoffeeCafeData,
+  ReviewData,
+  ReviewPropsType,
+} from "../../../types/type";
 
-interface ReviewType {
-  data: CoffeeCafeData;
-}
-
-export default function Review({ data }: ReviewType) {
+// Review All
+export default function Review({ data }: ReviewPropsType) {
   const { id } = useParams();
   if (isBrowser)
     return (
@@ -33,7 +34,7 @@ export default function Review({ data }: ReviewType) {
               ))}
           </div>
           {data.review_set.length === 0 && (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-full text-lg text-gray-500">
               <div>리뷰가 없습니다.</div>
             </div>
           )}
@@ -61,7 +62,7 @@ export default function Review({ data }: ReviewType) {
             ))}
         </div>
         {data.review_set.length === 0 && (
-          <div className="flex items-center justify-center h-full">
+          <div className="flex items-center justify-center h-full text-base text-gray-500">
             <div>리뷰가 없습니다.</div>
           </div>
         )}

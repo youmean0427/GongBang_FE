@@ -22,7 +22,6 @@ export default function CoffeeCafe() {
       lng: 0,
     },
   });
-
   // 마커 위치
   const [markerState, setMarkerState] = useState({
     center: {
@@ -36,6 +35,7 @@ export default function CoffeeCafe() {
     queryFn: () => getCoffeeCafesAPI(1),
   });
 
+  // 마커 기준, 5km 이내의 카페만 필터링
   useEffect(() => {
     if (data) {
       const filtered = data.filter((cafe: CoffeeCafeData) => {
@@ -51,11 +51,7 @@ export default function CoffeeCafe() {
     }
   }, [markerState, data]);
 
-  // useEffect(() => {
-  //   setIsOpen(false);
-  //   setIsClickIdx(-1);
-  // }, [filteredCafe]);
-
+  // 현위치로 지도 중심을 이동하고, 마커도 이동
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -149,19 +145,19 @@ export default function CoffeeCafe() {
                         <LuX size={20} />
                       </div>
                       <Link to={`/coffeecafe/${cafe.id}`}>
-                        <div className="flex flex-col items-center justify-between w-full h-full ">
+                        <div className="flex flex-col items-center justify-between w-full h-[220px] ">
                           {cafe.coffeecafeimage_set.length ? (
                             <img
-                              className="object-cover w-full h-[120px] rounded-lg"
+                              className="object-cover w-full h-[125px] rounded-lg"
                               src={
                                 process.env.REACT_APP_API_URL +
                                 cafe.coffeecafeimage_set[0].image
                               }
                             />
                           ) : (
-                            <div className="w-full h-[120px] bg-gray-300 rounded-lg"></div>
+                            <div className="w-full h-[125px] bg-gray-300 rounded-lg"></div>
                           )}
-                          <div className="flex flex-col h-[130px] items-center justify-center  gap-0 ">
+                          <div className="flex flex-col h-[95px] items-center justify-center  gap-0 ">
                             <div className="text-xl font-bold w-[230px] text-center truncate ">
                               {cafe.name}
                             </div>
@@ -181,11 +177,11 @@ export default function CoffeeCafe() {
                   key={index}
                   position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
                   image={{
-                    src: cafeMarker, // 마커이미지의 주소입니다
+                    src: cafeMarker, // 마커이미지 주소
                     size: {
                       width: 65,
                       height: 75,
-                    }, // 마커이미지의 크기입니다
+                    }, // 마커이미지 크기
                   }}
                   clickable={true}
                   onClick={() => {
@@ -252,6 +248,7 @@ export default function CoffeeCafe() {
               });
             }}
           >
+            {/* 마커 위치 5km 반경의 원 */}
             {/* <Circle
         center={markerState.center}
         radius={5000}
@@ -275,86 +272,45 @@ export default function CoffeeCafe() {
             {filteredCafe.map((cafe, index) => (
               <div key={cafe.id}>
                 {isOpen && index === isClickIdx && (
-                  <div className="flex justify-between items-center fixed z-10 w-full bg-white  rounded-t-2xl bottom-14 h-[100px] gap-3 shadow-[0_0_5px_0_rgba(0,0,0,0.3)] ">
-                    <div>
-                      {cafe.coffeecafeimage_set.length ? (
-                        <div className="w-[120px] h-[100px] ">
-                          <img
-                            className="object-cover w-full h-full rounded-lg"
-                            src={
-                              process.env.REACT_APP_API_URL +
-                              cafe.coffeecafeimage_set[0].image
-                            }
-                          />
-                        </div>
-                      ) : (
-                        <div className="w-[120px] h-[100px] bg-gray-300 rounded-lg"></div>
-                      )}
-                    </div>
-
-                    <div className="flex flex-col items-start justify-center w-full h-[120px] ">
-                      <div className="w-[90%] text-base font-bold truncate ">
-                        {cafe.name}
-                      </div>
+                  <Link to={`/coffeecafe/${cafe.id}`}>
+                    <div className="flex justify-between items-center fixed z-10 w-full bg-white  rounded-t-2xl bottom-14 h-[100px] gap-3 shadow-[0_0_5px_0_rgba(0,0,0,0.3)] ">
                       <div>
-                        <Stars score={cafe.total_score} size="small" />
+                        {cafe.coffeecafeimage_set.length ? (
+                          <div className="w-[120px] h-[100px] ">
+                            <img
+                              className="object-cover w-full h-full rounded-lg"
+                              src={
+                                process.env.REACT_APP_API_URL +
+                                cafe.coffeecafeimage_set[0].image
+                              }
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-[120px] h-[100px] bg-gray-300 rounded-lg"></div>
+                        )}
                       </div>
-                      <div className="w-[90%] mt-1 text-xs truncate ">
-                        {cafe.address}
+
+                      <div className="flex flex-col items-start justify-center w-full h-[120px] ">
+                        <div className="w-[90%] text-base font-bold truncate ">
+                          {cafe.name}
+                        </div>
+                        <div>
+                          <Stars score={cafe.total_score} size="small" />
+                        </div>
+                        <div className="w-[90%] mt-1 text-xs truncate ">
+                          {cafe.address}
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 )}
                 <div className="relative " key={index}>
-                  {/* <CustomOverlayMap
-                    position={{ lat: cafe.lat, lng: cafe.lng }}
-                    clickable={true}
-                  >
-                    {isOpen && index === isClickIdx && (
-                      <div className="absolute bg-white shadow-lg -top-[300px] -left-[100px] rounded-xl w-[200px] h-[200px] z-30">
-                        <div
-                          className="absolute cursor-pointer right-2 top-2"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <LuX size={25} />
-                        </div>
-                        <Link to={`/coffeecafe/${cafe.id}`}>
-                          <div className="flex flex-col items-center justify-between w-full h-full">
-                            {cafe.coffeecafeimage_set.length ? (
-                              <div className="w-full h-[100px] ">
-                                <img
-                                  className="object-cover w-full h-full rounded-lg"
-                                  src={
-                                    process.env.REACT_APP_API_URL +
-                                    cafe.coffeecafeimage_set[0].image
-                                  }
-                                />
-                              </div>
-                            ) : (
-                              <div></div>
-                            )}
-                            <div className="flex flex-col items-center justify-center w-full mb-4">
-                              <div className="w-[200px] text-center text-base font-bold truncate">
-                                {cafe.name}
-                              </div>
-                              <div>
-                                <Stars score={cafe.total_score} size="small" />
-                              </div>
-                              <div className="w-[200px] mt-1 text-xs text-center truncate">
-                                {cafe.address}
-                              </div>
-                            </div>
-                          </div>
-                        </Link>
-                      </div>
-                    )}
-                  </CustomOverlayMap> */}
                   <MapMarker
                     key={index}
                     zIndex={isOpen && isClickIdx === index ? 10 : 1}
                     position={{ lat: cafe.lat, lng: cafe.lng }} // 마커를 표시할 위치
                     image={{
-                      src: cafeMarker, // 마커이미지의 주소입니다
+                      src: cafeMarker, // 마커이미지의 주소
 
                       size:
                         isOpen && isClickIdx === index
@@ -367,7 +323,7 @@ export default function CoffeeCafe() {
                               height: 60,
                             },
 
-                      // 마커이미지의 크기입니다
+                      // 마커이미지의 크기
                     }}
                     clickable={true}
                     onClick={() => {
@@ -391,6 +347,7 @@ export default function CoffeeCafe() {
   );
 }
 
+// 주변 거리 계산 (원)
 function CalculateDistance(
   lat1: number,
   lon1: number,

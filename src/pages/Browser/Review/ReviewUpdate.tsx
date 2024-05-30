@@ -1,20 +1,26 @@
 import { useMutation, useQuery } from "react-query";
-import React, { ReactEventHandler, useEffect, useState } from "react";
+import React, { ReactEventHandler, useEffect, useRef, useState } from "react";
 import {
   getCoffeeCafeDetailAPI,
   postCoffeeCafeDetailReviewAPI,
   // getCoffeeCafeDetailReviewCreateAPI,
   userAPI,
-} from "../../apis/api";
+  getReviewDetailAPI,
+  deleteReviewImageAPI,
+} from "../../../apis/api";
 import { Params, useNavigate, useParams } from "react-router-dom";
 // import "../components/list/ListContainer.css";
 // import "./Review.css";
-import { LuCamera } from "react-icons/lu";
-import { CoffeeCafeData, ReviewData } from "../../types/type";
+import { LuCamera, LuX } from "react-icons/lu";
+import {
+  CoffeeCafeData,
+  ReveiwImageData,
+  ReviewData,
+} from "../../../types/type";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 import { useRecoilValue } from "recoil";
-import { AccessToken } from "../../recoil/atom";
+import { AccessToken } from "../../../recoil/atom";
 import { isBrowser } from "react-device-detect";
 
 interface ReviewCreateData {
@@ -40,14 +46,16 @@ function getToday(getDate: Date) {
   }-${getDate.getDate()}`;
   return today;
 }
-export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
+export default function ReviewUpdate() {
   const { id }: Readonly<Params<string>> | undefined = useParams();
+  let [imageLength, setImageLength] = useState(0);
   const getDate = new Date();
   const today = getToday(getDate);
   const x = useRecoilValue(AccessToken);
   const username = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
-  const [imageList, setImageList] = useState([]);
+  const [imageList, setImageList] = useState<(File | string)[]>([]);
+  const [newimageList, setNewImageList] = useState<(File | string)[]>([]);
   const [inputs, setInputs] = useState<InputState>({
     title: "",
     content: "",
@@ -62,6 +70,15 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     { value: 3, name: "음료" },
     { value: 4, name: "콘센트" },
   ];
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const nextSlide = () => {
+    setCurrentSlide(
+      currentSlide >= imageList.length - 1 ? 0 : currentSlide + 1
+    );
+  };
+  const prevSlide = () => {
+    setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
+  };
 
   const handleInputChange = (
     event:
@@ -87,6 +104,20 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     });
   };
 
+  const handleDelete = (id: number) => {
+    reviewDeleteImageMutation.mutate(id);
+  };
+
+  const reviewDeleteImageMutation = useMutation(
+    ["deleteReviewImage"],
+    (x: number) => deleteReviewImageAPI(x),
+    {
+      onSuccess: () => {
+        setImageList(imageList);
+      },
+    }
+  );
+
   const handleReviewCreate = () => {
     if (imageList.length === 0) {
       alert("이미지를 1장 이상 넣어주세요.");
@@ -109,7 +140,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     formData.append("type", `${inputs.type}`);
     formData.append("user", `${userId}`);
     formData.append("name", username);
-
+    console.log(imageList);
     for (let i = 0; i < imageList.length; i++) {
       formData.append("image", imageList[i]);
     }
@@ -117,9 +148,34 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     reviewCreateMutation.mutate(formData);
   };
 
+  const { isLoading, data } = useQuery({
+    queryKey: ["reviewUpdate"],
+    queryFn: () => getReviewDetailAPI("13"),
+  });
+
+  useEffect(() => {
+    if (data) {
+      const newImageList = [...data.reviewimage_set];
+      setImageList(newImageList);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setInputs({
+        title: data.title,
+        content: data.content,
+        date: data.date,
+        score: data.score,
+        type: data.type,
+      });
+    }
+  }, [data]);
+
   const reviewCreateMutation = useMutation(
     ["createCoffeeCafeDetailReviewAPI"],
-    (formData: FormData) => postCoffeeCafeDetailReviewAPI(id, formData, 0),
+    // id는 cafe_id
+    (formData: FormData) => postCoffeeCafeDetailReviewAPI(1, formData, 13),
     {
       onSuccess: (res) => {
         console.log(res, "Success");
@@ -131,13 +187,23 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     }
   );
 
+  const handleDeleteFile = (index: number) => {
+    setImageList((prevImageList) =>
+      prevImageList.filter((_, i) => i !== index)
+    );
+  };
+
   const handleImageChange = (event: any) => {
     const files = event.target.files;
-    let imageUrl: any = [...imageList];
+    let imageUrl: (string | File)[] = [...imageList];
     for (let i = 0; i < files.length; i++) {
       imageUrl.push(files[i]);
       // * Blob *
       // imageUrl.push(URL.createObjectURL(files[i]))
+    }
+
+    if (imageUrl.length > 5) {
+      imageUrl.slice(0, 5);
     }
     setImageList(imageUrl);
   };
@@ -149,9 +215,10 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     });
     setTypeSelect(event.target.value);
   };
-
+  const fileInputRef = useRef<HTMLInputElement>(null);
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
+  if (isLoading) return <></>;
   if (reviewCreateMutation.isLoading || reviewCreateMutation.isSuccess)
     return (
       <>
@@ -163,11 +230,30 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
     );
   if (isBrowser)
     return (
-      <div className="mt-5 ml-10 mr-10">
-        <div className="mb-5 text-xl font-bold">✏️ 리뷰 작성</div>
+      <div className="mt-0 ml-10 mr-10">
+        <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
         <hr />
-        <div className="flex w-full mt-5 mb-5 h-44">
-          {/* Image */}
+        {imageList.length < 5 ? (
+          <div className="mt-2 w-full h-[50px] border rounded-xl carousel-item mb-2 cursor-pointer">
+            <label className="flex flex-col items-center justify-center w-full h-full ">
+              <LuCamera size={30} color="gray" />
+              <input
+                className="hidden "
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                multiple
+                onChange={handleImageChange}
+              />
+            </label>
+          </div>
+        ) : (
+          <div className="mt-2 flex items-center justify-center w-full h-[50px]">
+            사진은 5장까지 업로드 가능합니다.
+          </div>
+        )}
+        <div className="flex w-full mt-2 mb-5 h-[200px]">
+          {/* Image
           {imageList.map((image, index) => (
             <>
               <div className="w-1/3 h-full" key={index}>
@@ -195,7 +281,75 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </div>
           ) : (
             <></>
-          )}
+          )} */}
+
+          {/* Image */}
+          <div className="relative w-full">
+            <div className="w-full h-[200px] space-x-2 relative carousel carousel-end">
+              {imageList.map((x: ReveiwImageData | File | string, index) => (
+                <div key={index}>
+                  <div
+                    className="relative h-full carousel-item"
+                    style={{
+                      transform: `translateX(-${currentSlide * 208}px)`,
+                      transition: "transform 0.5s ease",
+                    }}
+                  >
+                    {x instanceof File && (
+                      <>
+                        <img
+                          className="object-cover w-[200px] h-[200px] rounded-xl"
+                          src={URL.createObjectURL(x)}
+                          alt={`Preview ${index + 1}`}
+                        />
+                        <div
+                          className="fixed cursor-pointer right-1 top-1 absoulte"
+                          onClick={() => handleDeleteFile(index)}
+                        >
+                          <LuX size={20} />
+                        </div>
+                      </>
+                    )}
+
+                    {!(x instanceof File) && typeof x === "object" && (
+                      <>
+                        <img
+                          className="object-cover w-[200px] h-[200px] rounded-xl"
+                          src={x.image}
+                          alt={`Preview ${index + 1}`}
+                        />
+                        <div
+                          className="fixed cursor-pointer right-1 top-1 absoulte"
+                          onClick={() => {
+                            handleDelete(x.id);
+                            imageList.splice(index, 1);
+                          }}
+                        >
+                          <LuX size={20} />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+            {imageList.length !== 0 && (
+              <>
+                <button
+                  className="absolute btn btn-circle -left-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
+                  onClick={prevSlide}
+                >
+                  ❮
+                </button>
+                <button
+                  className="absolute btn btn-circle -right-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
+                  onClick={nextSlide}
+                >
+                  ❯
+                </button>
+              </>
+            )}
+          </div>
         </div>
         {/* Review */}
         <div className="">
@@ -204,6 +358,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             name="title"
             className="w-full mb-2 text-lg font-semibold input input-bordered"
             placeholder="제목"
+            value={inputs.title}
             onChange={handleInputChange}
           />
 
@@ -310,7 +465,6 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </div>
           </div>
         </div>
-
         <div>
           <div>
             <textarea
@@ -318,12 +472,12 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
               className="w-full text-base textarea textarea-bordered max-h-[150px]"
               name="content"
               id=""
-              rows={5}
+              rows={3}
+              value={inputs.content}
               onChange={handleInputChange}
             ></textarea>
           </div>
         </div>
-
         <div className="flex items-center justify-center">
           <div
             className="mt-6 mb-5 text-lg text-white btn w-72 bg-gongbang"
@@ -340,19 +494,39 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
       <hr />
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
-        <div className="w-full h-[180px] space-x-2 carousel carousel-center">
+        <div className="w-full h-[180px]  space-x-2 carousel carousel-center">
           {imageList.map((image, index) => (
             <>
-              <div className="h-[170px] carousel-item" key={index}>
-                <img
-                  className="object-cover w-[170px] h-[170px] rounded-xl"
-                  src={URL.createObjectURL(image)}
-                  alt={`Preview ${index + 1}`}
-                />
+              <div
+                className="relative w-[170px] h-[170px]  carousel-item"
+                key={index}
+              >
+                {image instanceof File ? (
+                  <img
+                    className="object-cover w-[170px] h-[170px] rounded-xl"
+                    src={URL.createObjectURL(image)}
+                    alt={`Preview ${index + 1}`}
+                  />
+                ) : (
+                  <img
+                    className="object-cover w-[170px] h-[170px] rounded-xl"
+                    src={image}
+                    alt={`Preview ${index + 1}`}
+                  />
+                )}
+                <div
+                  className="absolute cursor-pointer top-1 right-1"
+                  onClick={() => {
+                    imageList.splice(index, 1);
+                    setImageList([...imageList]);
+                  }}
+                >
+                  <LuX size={20} />
+                </div>
               </div>
             </>
           ))}
-          {imageList.length < 3 ? (
+          {imageList.length < 5 ? (
             <div className="w-[170px] h-[170px] border rounded-xl carousel-item">
               <label className="flex flex-col items-center justify-center w-full h-full ">
                 <LuCamera size={40} color="gray" />
@@ -398,7 +572,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreateData) {
             </select>
           </div>
 
-          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[1px]">
+          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[0.9px]">
             <input type="radio" name="rating-10" className="rating-hidden" />
             <input
               type="radio"
