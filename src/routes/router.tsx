@@ -23,7 +23,7 @@ export default function Router() {
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
-        <Route path="/review/update/:id" element={<ReviewUpdate />} />
+
         <Route path="/password/reset" element={<PasswordReset />} />
         <Route
           path="/password/reset/confirm/:uid/:token"

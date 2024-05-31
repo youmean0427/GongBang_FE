@@ -28,7 +28,7 @@ export default function Review({ data }: ReviewPropsType) {
             {data &&
               data.review_set &&
               data.review_set.map((x: ReviewData, i: number) => (
-                <div key={i}>
+                <div key={i} className="w-full">
                   <ListContainer data={x} />
                 </div>
               ))}

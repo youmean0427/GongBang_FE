@@ -46,8 +46,12 @@ function getToday(getDate: Date) {
   }-${getDate.getDate()}`;
   return today;
 }
-export default function ReviewUpdate() {
-  const { id }: Readonly<Params<string>> | undefined = useParams();
+export default function ReviewUpdate({
+  reviewData,
+}: {
+  reviewData: ReviewData;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
   let [imageLength, setImageLength] = useState(0);
   const getDate = new Date();
   const today = getToday(getDate);
@@ -55,7 +59,9 @@ export default function ReviewUpdate() {
   const username = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
   const [imageList, setImageList] = useState<(File | string)[]>([]);
-  const [newimageList, setNewImageList] = useState<(File | string)[]>([]);
+  const [preImageList, setPreImageList] = useState<(File | ReveiwImageData)[]>(
+    []
+  );
   const [inputs, setInputs] = useState<InputState>({
     title: "",
     content: "",
@@ -63,13 +69,14 @@ export default function ReviewUpdate() {
     score: 5,
     type: 1,
   });
-  const [typeSelect, setTypeSelect] = useState("분위기");
+
   const typeList = [
     { value: 1, name: "분위기" },
     { value: 2, name: "좌석" },
     { value: 3, name: "음료" },
     { value: 4, name: "콘센트" },
   ];
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const nextSlide = () => {
     setCurrentSlide(
@@ -112,11 +119,24 @@ export default function ReviewUpdate() {
     ["deleteReviewImage"],
     (x: number) => deleteReviewImageAPI(x),
     {
-      onSuccess: () => {
-        setImageList(imageList);
-      },
+      // onSuccess: () => {
+      //   setImageList(imageList);
+      // },
     }
   );
+
+  useEffect(() => {
+    let imageBox: (File | string)[] = [];
+    preImageList.map((x) => {
+      if (!(x instanceof File)) {
+        imageBox.push(x.image);
+      } else {
+        imageBox.push(x);
+      }
+    });
+
+    setImageList(imageBox);
+  }, [preImageList]);
 
   const handleReviewCreate = () => {
     if (imageList.length === 0) {
@@ -140,7 +160,7 @@ export default function ReviewUpdate() {
     formData.append("type", `${inputs.type}`);
     formData.append("user", `${userId}`);
     formData.append("name", username);
-    console.log(imageList);
+
     for (let i = 0; i < imageList.length; i++) {
       formData.append("image", imageList[i]);
     }
@@ -148,34 +168,37 @@ export default function ReviewUpdate() {
     reviewCreateMutation.mutate(formData);
   };
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["reviewUpdate"],
-    queryFn: () => getReviewDetailAPI("13"),
-  });
+  // const { isLoading, data } = useQuery({
+  //   queryKey: ["reviewUpdate"],
+  //   queryFn: () => getReviewDetailAPI("13"),
+  // });
+
+  // useEffect(() => {
+  //   if (data) {
+  //     const newImageList = [...data.reviewimage_set];
+  //     setImageList(newImageList);
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (data) {
-      const newImageList = [...data.reviewimage_set];
-      setImageList(newImageList);
+    if (reviewData) {
+      setInputs({
+        title: reviewData.title,
+        content: reviewData.content,
+        date: reviewData.date,
+        score: reviewData.score,
+        type: reviewData.type,
+      });
+
+      setPreImageList([...reviewData.reviewimage_set]);
     }
   }, []);
-
-  useEffect(() => {
-    if (data) {
-      setInputs({
-        title: data.title,
-        content: data.content,
-        date: data.date,
-        score: data.score,
-        type: data.type,
-      });
-    }
-  }, [data]);
 
   const reviewCreateMutation = useMutation(
     ["createCoffeeCafeDetailReviewAPI"],
     // id는 cafe_id
-    (formData: FormData) => postCoffeeCafeDetailReviewAPI(1, formData, 13),
+    (formData: FormData) =>
+      postCoffeeCafeDetailReviewAPI(reviewData.cafe, formData, reviewData.id),
     {
       onSuccess: (res) => {
         console.log(res, "Success");
@@ -188,24 +211,24 @@ export default function ReviewUpdate() {
   );
 
   const handleDeleteFile = (index: number) => {
-    setImageList((prevImageList) =>
+    setPreImageList((prevImageList) =>
       prevImageList.filter((_, i) => i !== index)
     );
   };
 
   const handleImageChange = (event: any) => {
     const files = event.target.files;
-    let imageUrl: (string | File)[] = [...imageList];
+    let imageUrl: any[] = [...preImageList];
     for (let i = 0; i < files.length; i++) {
       imageUrl.push(files[i]);
       // * Blob *
       // imageUrl.push(URL.createObjectURL(files[i]))
     }
-
     if (imageUrl.length > 5) {
       imageUrl.slice(0, 5);
     }
-    setImageList(imageUrl);
+
+    setPreImageList(imageUrl);
   };
 
   const handleTypeSelect = (event: any) => {
@@ -213,12 +236,12 @@ export default function ReviewUpdate() {
       ...inputs,
       type: event.target.value,
     });
-    setTypeSelect(event.target.value);
+    // setTypeSelect(event.target.value);
   };
-  const fileInputRef = useRef<HTMLInputElement>(null);
+
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
-  if (isLoading) return <></>;
+
   if (reviewCreateMutation.isLoading || reviewCreateMutation.isSuccess)
     return (
       <>
@@ -231,9 +254,9 @@ export default function ReviewUpdate() {
   if (isBrowser)
     return (
       <div className="mt-0 ml-10 mr-10">
-        <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
+        <div className="mb-2 text-xl font-bold">✏️ 리뷰 수정</div>
         <hr />
-        {imageList.length < 5 ? (
+        {preImageList.length < 5 ? (
           <div className="mt-2 w-full h-[50px] border rounded-xl carousel-item mb-2 cursor-pointer">
             <label className="flex flex-col items-center justify-center w-full h-full ">
               <LuCamera size={30} color="gray" />
@@ -241,14 +264,13 @@ export default function ReviewUpdate() {
                 className="hidden "
                 type="file"
                 accept="image/*"
-                ref={fileInputRef}
                 multiple
                 onChange={handleImageChange}
               />
             </label>
           </div>
         ) : (
-          <div className="mt-2 flex items-center justify-center w-full h-[50px]">
+          <div className="mt-2 mb-2 flex items-center justify-center w-full h-[50px]">
             사진은 5장까지 업로드 가능합니다.
           </div>
         )}
@@ -286,10 +308,10 @@ export default function ReviewUpdate() {
           {/* Image */}
           <div className="relative w-full">
             <div className="w-full h-[200px] space-x-2 relative carousel carousel-end">
-              {imageList.map((x: ReveiwImageData | File | string, index) => (
+              {preImageList.map((x: ReveiwImageData | File | string, index) => (
                 <div key={index}>
                   <div
-                    className="relative h-full carousel-item"
+                    className="relative w-[200px] h-full carousel-item"
                     style={{
                       transform: `translateX(-${currentSlide * 208}px)`,
                       transition: "transform 0.5s ease",
@@ -304,7 +326,9 @@ export default function ReviewUpdate() {
                         />
                         <div
                           className="fixed cursor-pointer right-1 top-1 absoulte"
-                          onClick={() => handleDeleteFile(index)}
+                          onClick={() => {
+                            handleDeleteFile(index);
+                          }}
                         >
                           <LuX size={20} />
                         </div>
@@ -321,8 +345,8 @@ export default function ReviewUpdate() {
                         <div
                           className="fixed cursor-pointer right-1 top-1 absoulte"
                           onClick={() => {
+                            handleDeleteFile(index);
                             handleDelete(x.id);
-                            imageList.splice(index, 1);
                           }}
                         >
                           <LuX size={20} />
@@ -333,7 +357,7 @@ export default function ReviewUpdate() {
                 </div>
               ))}
             </div>
-            {imageList.length !== 0 && (
+            {preImageList.length !== 0 && (
               <>
                 <button
                   className="absolute btn btn-circle -left-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
@@ -368,7 +392,7 @@ export default function ReviewUpdate() {
               <select
                 className="w-1/2 max-w-xs text-base font-semibold select select-bordered"
                 onChange={handleTypeSelect}
-                value={typeSelect}
+                defaultValue={typeList[reviewData.type - 1].value}
               >
                 {typeList.map((item) => {
                   return (
@@ -382,7 +406,27 @@ export default function ReviewUpdate() {
 
             <div className="rating rating-lg rating-half">
               <input type="radio" name="rating-10" className="rating-hidden" />
-              <input
+              {Array.from({ length: 10 }).map((x, index) => {
+                let score = index * 0.5 + 0.5;
+                return (
+                  <input
+                    key={score}
+                    type="radio"
+                    name="rating-10"
+                    onClick={() => {
+                      handleScore(score);
+                    }}
+                    checked={index === inputs.score * 2 - 1}
+                    className={
+                      index % 2 === 0
+                        ? `bg-gongbang mask mask-star-2 mask-half-1`
+                        : `bg-gongbang mask mask-star-2 mask-half-2`
+                    }
+                  />
+                );
+              })}
+
+              {/* <input
                 type="radio"
                 name="rating-10"
                 onClick={() => {
@@ -461,7 +505,7 @@ export default function ReviewUpdate() {
                   handleScore(5);
                 }}
                 className="bg-gongbang mask mask-star-2 mask-half-2 checked:"
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -490,7 +534,7 @@ export default function ReviewUpdate() {
     );
   return (
     <div className="mt-2 ml-5 mr-5">
-      <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
+      <div className="mb-2 text-xl font-bold">✏️ 리뷰 수정</div>
       <hr />
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
@@ -560,7 +604,6 @@ export default function ReviewUpdate() {
             <select
               className="w-[100px] max-w-xs text-sm font-semibold select select-bordered"
               onChange={handleTypeSelect}
-              value={typeSelect}
             >
               {typeList.map((item) => {
                 return (

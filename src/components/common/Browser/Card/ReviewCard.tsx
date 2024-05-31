@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { isBrowser } from "react-device-detect";
 import { useSelector } from "react-redux";
+import { useRecoilState } from "recoil";
 import { RootState } from "../../../../redux/store";
 import { ReviewData, TypeCode } from "../../../../types/type";
 import Badge from "../Badge/Badge";
 import Modal from "../Modal";
 import Stars from "../Stars";
+import { ModalDatailData } from "../../../../recoil/atom";
 
 interface ReviewCardType {
   title: string;
@@ -13,6 +15,7 @@ interface ReviewCardType {
   type: number; // 1 : 통합리뷰 / 2: 필터리뷰
   isCreateModal: () => void;
   isReviewModal: () => void;
+  isReviewDetailIdx?: (idx: number) => void;
 }
 
 export default function ReviewCard({
@@ -21,17 +24,20 @@ export default function ReviewCard({
   type,
   isCreateModal,
   isReviewModal,
+  isReviewDetailIdx,
 }: ReviewCardType) {
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
+  const [test, setTest] = useRecoilState<ReviewData>(ModalDatailData);
   const [reviewModalData, setReviewModalData] = useState<ReviewData>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const username = useSelector((state: RootState) => state.user.username);
 
   const handelReviewDetailModal = (modalData: ReviewData) => {
-    setReviewModalData(modalData);
-    setToggleReviewDetailModal(true);
-    document.body.style.overflow = "auto";
+    // 옵셔널체이닝(?.)으로 정의되지 않을 가능성이 있는 개체 예외 처리
+    isReviewDetailIdx?.(modalData.id);
+    setTest(modalData);
+    document.body.style.overflow = "done";
   };
 
   const handleReviewModal = () => {
@@ -86,43 +92,44 @@ export default function ReviewCard({
                   </div>
                 </div>
               )}
-              {data.map((data: ReviewData, i: number) => (
-                <div
-                  key={data.id}
-                  onClick={() => handelReviewDetailModal(data)}
-                  className="h-full max-w-96"
-                  style={{
-                    transform: `translateX(-${currentSlide * 100}%)`,
-                    transition: "transform 0.5s ease",
-                  }}
-                >
-                  {/* Images */}
-                  <div className="mb-3 ">
-                    {data.reviewimage_set && (
-                      <img
-                        className=" h-[250px] w-[250px] object-cover rounded-2xl"
-                        src={
-                          process.env.REACT_APP_API_URL +
-                          data.reviewimage_set[0].image
-                        }
-                        alt="Cafe"
-                      />
-                    )}
-                  </div>
-                  {/* <div>{data.id}</div> */}
+              {data &&
+                data.map((data: ReviewData, i: number) => (
+                  <div
+                    key={data.id}
+                    onClick={() => handelReviewDetailModal(data)}
+                    className="h-full max-w-96"
+                    style={{
+                      transform: `translateX(-${currentSlide * 100}%)`,
+                      transition: "transform 0.5s ease",
+                    }}
+                  >
+                    {/* Images */}
+                    <div className="mb-3 ">
+                      {data.reviewimage_set && (
+                        <img
+                          className=" h-[250px] w-[250px] object-cover rounded-2xl"
+                          src={
+                            process.env.REACT_APP_API_URL +
+                            data.reviewimage_set[0].image
+                          }
+                          alt="Cafe"
+                        />
+                      )}
+                    </div>
+                    {/* <div>{data.id}</div> */}
 
-                  {/* Info */}
-                  <Stars score={data.score} size="small" />
-                  <div className="w-[250px] mt-2 text-xl font-medium truncate ">
-                    {data.title}
+                    {/* Info */}
+                    <Stars score={data.score} size="small" />
+                    <div className="w-[250px] mt-2 text-xl font-medium truncate ">
+                      {data.title}
+                    </div>
+                    <div className="flex items-center justify-between mt-2">
+                      <Badge typeIdx={data.type} />
+                      <div className="text-base">{data.name}</div>
+                    </div>
+                    <div></div>
                   </div>
-                  <div className="flex items-center justify-between mt-2">
-                    <Badge typeIdx={data.type} />
-                    <div className="text-base">{data.name}</div>
-                  </div>
-                  <div></div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
           {data.length !== 0 && (
@@ -142,7 +149,7 @@ export default function ReviewCard({
             </>
           )}
         </div>
-        {reviewModalData && (
+        {reviewModalData && toggleReviewDetailModal && (
           <Modal close={handleReviewModal} data={reviewModalData} type={0} />
         )}
       </>

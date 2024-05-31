@@ -18,7 +18,9 @@ import FilterContainer from "../../components/common/Browser/FilterContainer";
 import cafeMarker from "../../../src/images/cafe_marker.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import ReviewCard from "../../components/common/Browser/Card/ReviewCard";
-import { CafeImageType } from "../../types/type";
+import { CafeImageType, ReviewData } from "../../types/type";
+import { useRecoilValue } from "recoil";
+import { ModalDatailData } from "../../recoil/atom";
 
 export default function CafeDetail() {
   const { id } = useParams();
@@ -26,6 +28,10 @@ export default function CafeDetail() {
   const [nowImage, setNowImage] = useState<string>("");
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
+  const [toggleReviewDetail, setToggleReviewDetail] = useState(false);
+
+  const reviewDetail = useRecoilValue(ModalDatailData);
+  const [reviewDetailIdx, setReviewDetailIdx] = useState(0);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -45,6 +51,10 @@ export default function CafeDetail() {
   };
   // *
 
+  const handleReviewDetailIndex = (idx: number) => {
+    setReviewDetailIdx(idx);
+  };
+
   const {
     isLoading,
     isFetching,
@@ -59,6 +69,10 @@ export default function CafeDetail() {
   };
 
   // *Modal
+  const handleReivewDetailModal = () => {
+    setReviewDetailIdx(0);
+  };
+
   const handleReviewModal = () => {
     setToggleReviewModal(!toggleReviewModal);
     document.body.style.overflow = "auto";
@@ -69,7 +83,10 @@ export default function CafeDetail() {
   };
   // *
 
-  if (isFetching && !toggleReviewCreateModal) return <></>;
+  console.log(reviewDetailIdx);
+
+  // if (isFetching && !toggleReviewCreateModal) return <></>;
+  // if (isFetching && !toggleReviewModal) return <></>;
   if (isLoading) return <></>;
 
   if (isBrowser)
@@ -204,6 +221,7 @@ export default function CafeDetail() {
                 data={coffecafeDetail.review_set}
                 isReviewModal={handleReviewModal}
                 isCreateModal={handleReviewCreateMdoal}
+                isReviewDetailIdx={handleReviewDetailIndex}
               />
             </div>
 
@@ -244,6 +262,11 @@ export default function CafeDetail() {
         </div>
 
         {/* Modal */}
+
+        {reviewDetailIdx && (
+          <Modal close={handleReivewDetailModal} data={reviewDetail} type={0} />
+        )}
+
         {toggleReviewModal && (
           <Modal close={handleReviewModal} data={coffecafeDetail} type={1} />
         )}

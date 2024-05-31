@@ -35,7 +35,7 @@ export interface ReviewData {
   date: string;
   id: number;
   name: string;
-  reviewimage_set?: ReveiwImageData[];
+  reviewimage_set: ReveiwImageData[];
   score: number;
   title: string;
   type: number;

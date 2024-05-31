@@ -7,6 +7,7 @@ import { RootState } from "../../../../redux/store";
 import { ReveiwImageData, ReviewData, TypeCode } from "../../../../types/type";
 import Badge from "../Badge/Badge";
 import { isBrowser } from "react-device-detect";
+import Modal from "../Modal";
 
 interface ListContainer {
   data: ReviewData;
@@ -24,7 +25,8 @@ export default function ListContainer({ type, data }: ListContainer) {
   const [cafeId, setCafeId] = useState();
   const [images, setImages] = useState<ReveiwImageData[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
-
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isOpenReviewUpdateModal, setIsOpenReviewUpdateModal] = useState(false);
   useEffect(() => {
     if (data.reviewimage_set) {
       data.reviewimage_set.map((x: ReveiwImageData) => {
@@ -55,9 +57,21 @@ export default function ListContainer({ type, data }: ListContainer) {
       },
     }
   );
+  const nextSlide = () => {
+    setCurrentSlide(
+      currentSlide === data.reviewimage_set.length - 1 ? 0 : currentSlide + 1
+    );
+  };
+  const prevSlide = () => {
+    setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
+  };
 
   const handleDelete = (review_id: number) => {
     reviewDeleteMutation.mutate(review_id);
+  };
+
+  const hadleUpdateModal = () => {
+    setIsOpenReviewUpdateModal(!isOpenReviewUpdateModal);
   };
 
   if (type === 2 && isFetching) return <></>;
@@ -75,7 +89,6 @@ export default function ListContainer({ type, data }: ListContainer) {
             {cafeData.name}
           </div>
         )}
-
         <div className="flex items-center justify-between mb-2">
           <div className="w-full h-full text-xl font-semibold ">
             {data.title}
@@ -83,7 +96,7 @@ export default function ListContainer({ type, data }: ListContainer) {
 
           {userId === data.user && (
             <div>
-              <div>수정</div>
+              <div onClick={hadleUpdateModal}>수정</div>
               <div
                 className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
                 onClick={() => handleDelete(data.id)}
@@ -103,9 +116,46 @@ export default function ListContainer({ type, data }: ListContainer) {
           <Badge typeIdx={data.type} />
           <div className="mr-1 text-base text-end">{data.date}</div>
         </div>
+
         {/* Image */}
-        <div className="flex w-full gap-3 mb-5">
-          {data.reviewimage_set &&
+        <div className="relative flex w-full gap-3 mb-5">
+          {/* Image */}
+          <div className="w-full space-x-2 carousel carousel-center">
+            {data &&
+              data.reviewimage_set &&
+              data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
+                <div
+                  className="carousel-item h-[200px]"
+                  style={{
+                    transform: `translateX(-${currentSlide * 100}%)`,
+                    transition: "transform 0.5s ease",
+                  }}
+                  key={x.id}
+                >
+                  <img
+                    className="object-cover w-[200px] h-[200px] rounded-2xl"
+                    src={process.env.REACT_APP_API_URL + x.image}
+                  />
+                </div>
+              ))}
+          </div>{" "}
+          {data && data.reviewimage_set && (
+            <>
+              <button
+                className="absolute btn btn-circle -left-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
+                onClick={prevSlide}
+              >
+                ❮
+              </button>
+              <button
+                className="absolute btn btn-circle -right-5 top-1/2 opacity-40 shadow-black hover:opacity-100"
+                onClick={nextSlide}
+              >
+                ❯
+              </button>
+            </>
+          )}
+          {/* {data.reviewimage_set &&
             data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
               <div className="w-1/3 h-[200px] " key={x.id}>
                 <img
@@ -124,10 +174,14 @@ export default function ListContainer({ type, data }: ListContainer) {
             <>
               <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
             </>
-          )}
+          )} */}
         </div>
+
         <div className="mb-5">{data.content}</div>
         <hr />
+        {isOpenReviewUpdateModal && (
+          <Modal close={hadleUpdateModal} data={data} type={6} />
+        )}
       </div>
     );
   return (
@@ -177,19 +231,7 @@ export default function ListContainer({ type, data }: ListContainer) {
             </div>
           ))}
       </div>
-      {/* <div className="flex w-full gap-3 mb-5">
-        {data.reviewimage_set?.length === 1 && (
-          <>
-            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-          </>
-        )}
-        {data.reviewimage_set?.length === 2 && (
-          <>
-            <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-          </>
-        )}
-      </div> */}
+
       {data.content.length > 100 ? (
         <div className="mb-5 h-[120px] overflow-y-auto">{data.content}</div>
       ) : (

@@ -6,6 +6,7 @@ import Profile from "../../../pages/Accounts/Profile";
 import Signup from "../../../pages/Accounts/Signup";
 import Review from "../../../pages/Browser/Review/Reveiw";
 import ReviewCreate from "../../../pages/Browser/Review/ReviewCreate";
+import ReviewUpdate from "../../../pages/Browser/Review/ReviewUpdate";
 import MobileLogin from "../../../pages/Mobile/MobileLogin";
 import ListContainer from "./List/ListContainer";
 
@@ -29,6 +30,7 @@ const modalsSize: ModalType = {
   3: "w-[400px] overflow-y-auto bg-white h-[500px] rounded-xl",
   4: "w-[400px] overflow-y-auto bg-white h-[550px] rounded-xl",
   5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
+  6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
 };
 
 // Mobile
@@ -89,7 +91,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
               </div>
             )}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
-
+            {type === 6 && <ReviewUpdate reviewData={data} />}
             {(type === 3 || type == 4) && (
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}
