@@ -73,7 +73,7 @@ export default function App() {
   const isPasswordResetConfirm = /\/password\/reset\/confirm\//.test(
     location.pathname
   );
-  console.log(isPasswordResetConfirm);
+
   if (isLoading) return <></>;
   return (
     <>

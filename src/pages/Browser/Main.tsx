@@ -3,10 +3,13 @@ import { getCoffeeCafesAPI } from "../../apis/api";
 import { useQuery } from "react-query";
 import { isBrowser, isMobile } from "react-device-detect";
 import CafeCard from "../../components/common/Browser/Card/CafeCard";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../components/common/Browser/Modal";
+import { useRecoilState } from "recoil";
+import { PopupHandle } from "../../recoil/atom";
 export default function Main() {
-  const [togglePopupModal, setTogglePopupModal] = useState(true);
+  const [togglePopupModal, setTogglePopupModal] = useRecoilState(PopupHandle);
+  let today = new Date();
   const { data: sortedScoreData } = useQuery({
     queryKey: ["getCoffeeCafesScore"],
     queryFn: () => getCoffeeCafesAPI(1),
@@ -21,6 +24,23 @@ export default function Main() {
     setTogglePopupModal(!togglePopupModal);
     document.body.style.overflow = "auto";
   };
+
+  useEffect(() => {
+    let localStroagePopupTime: null | string =
+      localStorage.getItem("popupTime");
+    if (localStroagePopupTime) {
+      let popupTime: Date = new Date(parseInt(localStroagePopupTime));
+      console.log(today.getTime() < popupTime.getTime());
+      if (today.getTime() < popupTime.getTime()) {
+        setTogglePopupModal(false);
+      } else {
+        setTogglePopupModal(true);
+      }
+    } else {
+      setTogglePopupModal(true);
+    }
+  }, []);
+
   // if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
@@ -54,9 +74,9 @@ export default function Main() {
             </div>
           </div>
         </div>
-        {/* {togglePopupModal && (
+        {togglePopupModal && (
           <Modal close={handlePopupModal} data={""} type={8} />
-        )} */}
+        )}
       </>
     );
   if (isMobile)
@@ -90,6 +110,9 @@ export default function Main() {
             </div>
           </div>
         </div>
+        {togglePopupModal && (
+          <Modal close={handlePopupModal} data={""} type={8} />
+        )}
       </>
     );
   return <></>;

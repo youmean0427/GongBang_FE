@@ -20,3 +20,8 @@ export const ModealDetailDataInProfileBool = atom({
   key: "reviewDetailDataInProfileBoll",
   default: false as Boolean,
 });
+
+export const PopupHandle = atom({
+  key: "popUpHandle",
+  default: false as Boolean,
+});

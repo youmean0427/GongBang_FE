@@ -37,7 +37,7 @@ const modalsSize: ModalType = {
   5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
   6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   7: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
-  8: "w-[400px] overflow-y-auto h-[500px] rounded-xl bg-[#EFDCCB]",
+  8: "w-[500px] overflow-y-auto h-[550px] rounded-xl bg-gray-100",
 };
 
 // Mobile
@@ -50,6 +50,7 @@ const MobileModalsSize: ModalType = {
   5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
   6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   7: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
+  8: "w-[400px] m-5 overflow-y-auto h-[400px] rounded-xl bg-gray-100",
 };
 
 interface ModalPropType {
@@ -143,6 +144,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
             {type === 6 && <ReviewUpdate reviewData={data} />}
             {type === 7 && <RecoCafe />}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
+            {type === 8 && <Popup />}
             {type === 1 && (
               <div className=" overflow-y-auto h-[90%]">
                 <Review data={data} />

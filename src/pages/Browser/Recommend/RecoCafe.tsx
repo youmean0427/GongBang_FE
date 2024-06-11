@@ -52,7 +52,7 @@ export default function RecoCafe() {
     {
       onSuccess: (res) => {
         alert(
-          "카페를 추천해주셔서 감사합니다. 확인 후 메일을 보내드리겠습니다."
+          "카페를 추천해주셔서 감사합니다.\n확인 후, 메일을 보내드리겠습니다."
         );
         window.location.reload();
       },
@@ -113,7 +113,7 @@ export default function RecoCafe() {
       }));
     }
   }, []);
-  if (recoCafeMutation.isLoading && recoCafeMutation.isSuccess)
+  if (recoCafeMutation.isLoading || recoCafeMutation.isSuccess)
     return (
       <div className="w-full ">
         <div className="fixed text-lg font-medium text-center text-gray-500 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
