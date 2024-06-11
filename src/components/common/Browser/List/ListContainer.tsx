@@ -29,6 +29,7 @@ interface ImageType {
 export default function ListContainer({ type, data }: ListContainer) {
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   const [cafeId, setCafeId] = useState();
+  const [cafeName, setCafeName] = useState("");
   const [images, setImages] = useState<ReveiwImageData[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
   const [reviewDataInProfile, setReviewDataInProfile] =
@@ -51,10 +52,11 @@ export default function ListContainer({ type, data }: ListContainer) {
     isLoading,
     data: cafeData,
   } = useQuery({
-    queryKey: ["listCafeData", data],
+    queryKey: ["listCafeData"],
     queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
     onSuccess: (x) => {
       setCafeId(x.id);
+      setCafeName(x.name);
     },
   });
 
@@ -89,7 +91,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   };
 
   // type 2 -> Profile
-  // if (type === 2 && isFetching) return <></>;
+  if (type === 2 && cafeName === "") return <></>;
   if (isBrowser)
     return (
       <div className="pb-2 mt-8 mb-8 ml-8 mr-8">
@@ -101,7 +103,7 @@ export default function ListContainer({ type, data }: ListContainer) {
               window.location.href = `/coffeecafe/${cafeId}`;
             }}
           >
-            {cafeData.name}
+            {cafeName}
           </div>
         ) : (
           <div className="mb-2 text-base h-[24px] "> </div>
@@ -211,12 +213,13 @@ export default function ListContainer({ type, data }: ListContainer) {
         )}
       </div>
     );
+
   return (
     <div className="pb-2 mt-8 mb-8 ml-5 mr-5">
       {/* Info */}
       {type === 2 && cafeData && cafeId ? (
         <div
-          className="mb-2 text-base font-medium cursor-pointer"
+          className="mb-2 text-sm font-medium cursor-pointer"
           onClick={() => {
             window.location.href = `/coffeecafe/${cafeId}`;
           }}

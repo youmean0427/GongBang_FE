@@ -51,7 +51,9 @@ export default function RecoCafe() {
     (formData: FormData) => RecoCafeAPI(formData),
     {
       onSuccess: (res) => {
-        alert("관리자 확인 후, 메일을 보내드리겠습니다.");
+        alert(
+          "카페를 추천해주셔서 감사합니다. 확인 후 메일을 보내드리겠습니다."
+        );
         window.location.reload();
       },
     }
@@ -184,7 +186,7 @@ export default function RecoCafe() {
               maxLength={500}
               className="w-full text-base textarea textarea-bordered max-h-[200px]"
               name="content"
-              placeholder="OO 카페가 공부하기 좋았습니다. 공방에 추가해주세요."
+              placeholder="OO 카페가 공부하기 좋았습니다."
               id=""
               rows={4}
               onChange={handleInputsChange}

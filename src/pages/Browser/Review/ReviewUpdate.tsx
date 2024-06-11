@@ -1,7 +1,6 @@
-import { useMutation, useQuery } from "react-query";
-import React, { ReactEventHandler, useEffect, useRef, useState } from "react";
+import { useMutation } from "react-query";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  getCoffeeCafeDetailAPI,
   postCoffeeCafeDetailReviewAPI,
   // getCoffeeCafeDetailReviewCreateAPI,
   userAPI,

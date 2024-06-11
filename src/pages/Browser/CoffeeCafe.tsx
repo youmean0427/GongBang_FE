@@ -273,12 +273,12 @@ export default function CoffeeCafe() {
               <div key={cafe.id}>
                 {isOpen && index === isClickIdx && (
                   <Link to={`/coffeecafe/${cafe.id}`}>
-                    <div className="flex justify-between items-center fixed z-10 w-full bg-white  rounded-t-2xl bottom-14 h-[100px] gap-3 shadow-[0_0_5px_0_rgba(0,0,0,0.3)] ">
+                    <div className="flex justify-between items-center fixed z-10 w-full bg-white  rounded-t-xl bottom-14 h-[100px] gap-3 shadow-[0_0_5px_0_rgba(0,0,0,0.3)] ">
                       <div>
                         {cafe.coffeecafeimage_set.length ? (
                           <div className="w-[120px] h-[100px] ">
                             <img
-                              className="object-cover w-full h-full rounded-lg"
+                              className="object-cover w-full h-full rounded-t-xl"
                               src={
                                 process.env.REACT_APP_API_URL +
                                 cafe.coffeecafeimage_set[0].image
@@ -286,7 +286,7 @@ export default function CoffeeCafe() {
                             />
                           </div>
                         ) : (
-                          <div className="w-[120px] h-[100px] bg-gray-300 rounded-lg"></div>
+                          <div className="w-[120px] h-[100px] bg-gray-300 rounded-t-xl"></div>
                         )}
                       </div>
 

@@ -58,38 +58,38 @@ export default function Stars({ score, size }: Stars) {
             <div className={`${textSize}`}>{score.toFixed(2)}</div>
             <div className={`${starSize}`}>
               {stars[0] ? (
-                <img className="w-full" src={fullStar} />
+                <img className="w-full" src={fullStar} alt="star" />
               ) : (
-                <img className="w-full" src={emStar} />
+                <img className="w-full" src={emStar} alt="star" />
               )}
             </div>
             <div className={`${starSize}`}>
               {stars[1] ? (
-                <img className="w-full" src={fullStar} />
+                <img className="w-full" src={fullStar} alt="star" />
               ) : (
-                <img className="w-full" src={emStar} />
+                <img className="w-full" src={emStar} alt="star" />
               )}
             </div>
             <div className={`${starSize}`}>
               {stars[2] ? (
-                <img className="w-full" src={fullStar} />
+                <img className="w-full" src={fullStar} alt="star" />
               ) : (
-                <img className="w-full" src={emStar} />
+                <img className="w-full" src={emStar} alt="star" />
               )}
             </div>
             <div className={`${starSize}`}>
               {" "}
               {stars[3] ? (
-                <img className="w-full" src={fullStar} />
+                <img className="w-full" src={fullStar} alt="star" />
               ) : (
-                <img className="w-full" src={emStar} />
+                <img className="w-full" src={emStar} alt="star" />
               )}
             </div>
             <div className={`${starSize}`}>
               {stars[4] ? (
-                <img className="w-full" src={fullStar} />
+                <img className="w-full" src={fullStar} alt="star" />
               ) : (
-                <img className="w-full" src={emStar} />
+                <img className="w-full" src={emStar} alt="star" />
               )}
             </div>
           </div>
@@ -103,38 +103,38 @@ export default function Stars({ score, size }: Stars) {
           <div className={`${textSize}`}>{score.toFixed(2)}</div>
           <div className={`${starSize}`}>
             {stars[0] ? (
-              <img className="w-full" src={fullStar} />
+              <img className="w-full" src={fullStar} alt="star" />
             ) : (
-              <img className="w-full" src={emStar} />
+              <img className="w-full" src={emStar} alt="star" />
             )}
           </div>
           <div className={`${starSize}`}>
             {stars[1] ? (
-              <img className="w-full" src={fullStar} />
+              <img className="w-full" src={fullStar} alt="star" />
             ) : (
-              <img className="w-full" src={emStar} />
+              <img className="w-full" src={emStar} alt="star" />
             )}
           </div>
           <div className={`${starSize}`}>
             {stars[2] ? (
-              <img className="w-full" src={fullStar} />
+              <img className="w-full" src={fullStar} alt="star" />
             ) : (
-              <img className="w-full" src={emStar} />
+              <img className="w-full" src={emStar} alt="star" />
             )}
           </div>
           <div className={`${starSize}`}>
             {" "}
             {stars[3] ? (
-              <img className="w-full" src={fullStar} />
+              <img className="w-full" src={fullStar} alt="star" />
             ) : (
-              <img className="w-full" src={emStar} />
+              <img className="w-full" src={emStar} alt="star" />
             )}
           </div>
           <div className={`${starSize}`}>
             {stars[4] ? (
-              <img className="w-full" src={fullStar} />
+              <img className="w-full" src={fullStar} alt="star" />
             ) : (
-              <img className="w-full" src={emStar} />
+              <img className="w-full" src={emStar} alt="star" />
             )}
           </div>
         </div>

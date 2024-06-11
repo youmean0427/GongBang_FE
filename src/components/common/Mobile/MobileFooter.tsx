@@ -59,7 +59,9 @@ export default function MobileFooter() {
         </Link>{" "}
         <Link to={"/"} className="flex-1">
           <div className="flex flex-col items-center justify-center ">
-            {location.pathname === "/" && !isOpenLoginModal ? (
+            {location.pathname === "/" &&
+            !isOpenLoginModal &&
+            !isOpenProfileModal ? (
               <>
                 <div className="w-8 h-8">
                   <TbHome color="#E7B98E" className="w-full h-full" />

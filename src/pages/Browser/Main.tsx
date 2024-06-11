@@ -3,8 +3,10 @@ import { getCoffeeCafesAPI } from "../../apis/api";
 import { useQuery } from "react-query";
 import { isBrowser, isMobile } from "react-device-detect";
 import CafeCard from "../../components/common/Browser/Card/CafeCard";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import Modal from "../../components/common/Browser/Modal";
 export default function Main() {
+  const [togglePopupModal, setTogglePopupModal] = useState(true);
   const { data: sortedScoreData } = useQuery({
     queryKey: ["getCoffeeCafesScore"],
     queryFn: () => getCoffeeCafesAPI(1),
@@ -15,6 +17,10 @@ export default function Main() {
     queryFn: () => getCoffeeCafesAPI(2),
   });
 
+  const handlePopupModal = () => {
+    setTogglePopupModal(!togglePopupModal);
+    document.body.style.overflow = "auto";
+  };
   // if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
@@ -48,6 +54,9 @@ export default function Main() {
             </div>
           </div>
         </div>
+        {/* {togglePopupModal && (
+          <Modal close={handlePopupModal} data={""} type={8} />
+        )} */}
       </>
     );
   if (isMobile)

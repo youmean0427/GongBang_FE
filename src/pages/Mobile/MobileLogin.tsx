@@ -1,9 +1,7 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation } from "react-query";
 import React, { useEffect, useState } from "react";
-import { loginAPI, userAPI } from "../../apis/api";
-import { Await, Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import userSlice from "../../redux/userSlice";
+import { loginAPI } from "../../apis/api";
+
 import { AccessToken } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import logoImage from "../../images/gongbang_logo.png";
@@ -14,9 +12,6 @@ interface Login {
 }
 
 export default function MobileLogin({ handleMobileSignup }: any) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const [isValid, setIsValid] = useState(false);
   const [accessToken, setAccessToken] = useRecoilState(AccessToken);
   const [loginInputs, setLoginInputs] = useState<Login>({

@@ -10,6 +10,7 @@ import ReviewCreate from "../../../pages/Browser/Review/ReviewCreate";
 import ReviewUpdate from "../../../pages/Browser/Review/ReviewUpdate";
 import MobileLogin from "../../../pages/Mobile/MobileLogin";
 import ListContainer from "./List/ListContainer";
+import Popup from "./Popup";
 
 type ModalType = {
   [key: number]: string;
@@ -24,6 +25,7 @@ type ModalType = {
 // 5 : Profile
 // 6 : ReviewUpdate
 // 7 : RecoCafe
+// 8 : Popup
 
 // Browser
 const modalsSize: ModalType = {
@@ -35,6 +37,7 @@ const modalsSize: ModalType = {
   5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
   6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   7: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
+  8: "w-[400px] overflow-y-auto h-[500px] rounded-xl bg-[#EFDCCB]",
 };
 
 // Mobile
@@ -99,6 +102,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
             {type === 6 && <ReviewUpdate reviewData={data} />}
             {type === 7 && <RecoCafe />}
+            {type === 8 && <Popup />}
             {(type === 3 || type == 4) && (
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}

@@ -106,13 +106,13 @@ export default function Profile() {
           <div>
             <div
               onClick={handleRecoModal}
-              className="mr-2 text-xs font-semibold text-white btn btn-xs bg-gongbang"
+              className="mr-2 text-xs font-semibold text-white btn btn-sm bg-gongbang"
             >
               카페추천
             </div>
             <div
               onClick={handleLogout}
-              className="ml-2 text-xs font-semibold btn btn-xs"
+              className="ml-2 text-xs font-semibold btn btn-sm"
             >
               로그아웃
             </div>

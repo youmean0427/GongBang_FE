@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import { getCoffeeCafeDetailAPI } from "../../apis/api";
 import { useParams } from "react-router-dom";
@@ -19,7 +19,7 @@ import cafeMarker from "../../../src/images/cafe_marker.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import ReviewCard from "../../components/common/Browser/Card/ReviewCard";
 import { CafeImageType, ReviewData } from "../../types/type";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { ModalDatailData } from "../../recoil/atom";
 
 export default function CafeDetail() {

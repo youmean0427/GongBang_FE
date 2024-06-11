@@ -1,11 +1,7 @@
-import { useMutation, useQuery } from "react-query";
-import React, { ReactEventHandler, useEffect, useState } from "react";
-import {
-  getCoffeeCafeDetailAPI,
-  postCoffeeCafeDetailReviewAPI,
-  userAPI,
-} from "../../../apis/api";
-import { Params, useNavigate, useParams } from "react-router-dom";
+import { useMutation } from "react-query";
+import React, { useState } from "react";
+import { postCoffeeCafeDetailReviewAPI } from "../../../apis/api";
+import { Params, useParams } from "react-router-dom";
 
 import { LuCamera, LuX } from "react-icons/lu";
 import {

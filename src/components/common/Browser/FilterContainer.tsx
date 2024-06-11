@@ -1,13 +1,8 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { isBrowser, isMobile } from "react-device-detect";
+import { isBrowser } from "react-device-detect";
 import { useRecoilValue } from "recoil";
 import { ModalDatailData } from "../../../recoil/atom";
-import {
-  CoffeeCafeData,
-  ReviewData,
-  ReveiwImageData,
-} from "../../../types/type";
-import CafeCard from "./Card/CafeCard";
+import { ReviewData, ReveiwImageData } from "../../../types/type";
 
 import ReviewCard from "./Card/ReviewCard";
 
