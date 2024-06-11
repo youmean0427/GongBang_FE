@@ -119,9 +119,9 @@ export default function ReviewUpdate({
     ["deleteReviewImage"],
     (x: number) => deleteReviewImageAPI(x),
     {
-      // onSuccess: () => {
-      //   setImageList(imageList);
-      // },
+      onSuccess: () => {
+        window.location.reload();
+      },
     }
   );
 
@@ -413,6 +413,9 @@ export default function ReviewUpdate({
                     key={score}
                     type="radio"
                     name="rating-10"
+                    onChange={() => {
+                      handleScore(score);
+                    }}
                     onClick={() => {
                       handleScore(score);
                     }}
@@ -425,87 +428,6 @@ export default function ReviewUpdate({
                   />
                 );
               })}
-
-              {/* <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(0.5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-1"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(1);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-2"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(1.5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-1"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(2);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-2"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(2.5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-1"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(3);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-2"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(3.5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-1"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(4);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-2"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(4.5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-1"
-              />
-              <input
-                type="radio"
-                name="rating-10"
-                onClick={() => {
-                  handleScore(5);
-                }}
-                className="bg-gongbang mask mask-star-2 mask-half-2 checked:"
-              /> */}
             </div>
           </div>
         </div>

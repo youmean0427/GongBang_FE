@@ -1,5 +1,5 @@
 import { useMutation } from "react-query";
-import React, { useEffect, useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import { loginAPI } from "../../apis/api";
 import logoImage from "../../images/gongbang_logo.png";
 import { useRecoilState } from "recoil";
@@ -44,6 +44,13 @@ export default function Login() {
     });
   };
 
+  // Enter Event 추가
+  const handleEnterPress = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   // loginMutation : 로그인 API가 로딩중이거나 성공했을 경우
   // ?? 성공했을 때 잠시 UI가 보이는 현상을 방지
   if (loginMutation.isLoading || loginMutation.isSuccess)
@@ -80,13 +87,14 @@ export default function Login() {
             className="w-full input input-bordered "
             name="password"
             onChange={handleChange}
+            onKeyDown={handleEnterPress}
             placeholder="비밀번호"
           />
         </form>
       </div>
       <Link to={"/password/reset/"}>
         <div className="mt-2 mb-2 font-medium text-gray-500 ">
-          비밀번호 찾기
+          비밀번호 재설정
         </div>
       </Link>
       <div>

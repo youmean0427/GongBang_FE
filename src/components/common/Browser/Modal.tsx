@@ -4,6 +4,7 @@ import { LuX } from "react-icons/lu";
 import Login from "../../../pages/Accounts/Login";
 import Profile from "../../../pages/Accounts/Profile";
 import Signup from "../../../pages/Accounts/Signup";
+import RecoCafe from "../../../pages/Browser/Recommend/RecoCafe";
 import Review from "../../../pages/Browser/Review/Reveiw";
 import ReviewCreate from "../../../pages/Browser/Review/ReviewCreate";
 import ReviewUpdate from "../../../pages/Browser/Review/ReviewUpdate";
@@ -21,6 +22,8 @@ type ModalType = {
 // 3 : Login
 // 4 : Signup
 // 5 : Profile
+// 6 : ReviewUpdate
+// 7 : RecoCafe
 
 // Browser
 const modalsSize: ModalType = {
@@ -31,6 +34,7 @@ const modalsSize: ModalType = {
   4: "w-[400px] overflow-y-auto bg-white h-[550px] rounded-xl",
   5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
   6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
+  7: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
 };
 
 // Mobile
@@ -41,6 +45,8 @@ const MobileModalsSize: ModalType = {
   3: "w-[500px] m-5 bg-white h-[400px] rounded-xl",
   4: "w-[500px] m-5 overflow-y bg-white h-[550px] rounded-xl",
   5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
+  6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
+  7: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
 };
 
 interface ModalPropType {
@@ -92,6 +98,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
             )}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
             {type === 6 && <ReviewUpdate reviewData={data} />}
+            {type === 7 && <RecoCafe />}
             {(type === 3 || type == 4) && (
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}
@@ -129,6 +136,8 @@ export default function Modal({ close, data, type }: ModalPropType) {
                 <ListContainer data={data} />
               </div>
             )}
+            {type === 6 && <ReviewUpdate reviewData={data} />}
+            {type === 7 && <RecoCafe />}
             {type === 2 && <ReviewCreate coffeeCafe={data} />}
             {type === 1 && (
               <div className=" overflow-y-auto h-[90%]">

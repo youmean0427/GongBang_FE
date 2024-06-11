@@ -1,33 +1,35 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useFetcher } from "react-router-dom";
 import { useMutation } from "react-query";
 import logoImage from "../../../images/gongbang_logo.png";
 import { logoutAPI } from "../../../apis/api";
 import { useSelector } from "react-redux";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { RootState } from "../../../redux/store";
 
-import { AccessToken } from "../../../recoil/atom";
+import { AccessToken, ModalDatailData } from "../../../recoil/atom";
 import Modal from "./Modal";
 import fullStar from "../../../images/full_star.png";
+import { ReviewData } from "../../../types/type";
 
 export default function Nav() {
   // Modal
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenSignupModal, setISOpenSignupModal] = useState(false);
   const [isOpenProfileModal, setISOpenProfileModal] = useState(false);
+  const [isOpenRecoModal, setISOpenRecoModal] = useState(false);
+
   // Recoil로 accessToken 가져오기
   const accessToken = useRecoilValue(AccessToken);
+  const [reviewData, setReviewData] =
+    useRecoilState<ReviewData>(ModalDatailData);
   // Redux로 username 가져오기
   const username = useSelector((state: RootState) => state.user.username);
   // Nav Links
   const links: {
     title: string;
     url: string;
-  }[] = [
-    { title: "일반 카페", url: "/coffeecafe" },
-    // { title: "스터디 카페", url: "/studycafe" },
-  ];
+  }[] = [{ title: "일반 카페", url: "/coffeecafe" }];
 
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
@@ -39,6 +41,10 @@ export default function Nav() {
   };
   const handleProfileModal = () => {
     setISOpenProfileModal(!isOpenProfileModal);
+    document.body.style.overflow = "auto";
+  };
+  const handleRecoModal = () => {
+    setISOpenRecoModal(!isOpenRecoModal);
     document.body.style.overflow = "auto";
   };
 
@@ -68,9 +74,12 @@ export default function Nav() {
 
             {links.map((link, index) => (
               <Link to={link.url} key={index}>
-                <div className="text-lg font-pm-5">{link.title}</div>
+                <div className="text-lg ">{link.title}</div>
               </Link>
             ))}
+            <div className="text-lg " onClick={handleRecoModal}>
+              카페 추천
+            </div>
           </div>
 
           {/* Login / Logout */}
@@ -117,6 +126,7 @@ export default function Nav() {
       {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
       {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
       {isOpenProfileModal && <Modal close={handleProfileModal} type={5} />}
+      {isOpenRecoModal && <Modal close={handleRecoModal} type={7} />}
     </>
   );
 }

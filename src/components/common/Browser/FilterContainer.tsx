@@ -1,5 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { isBrowser, isMobile } from "react-device-detect";
+import { useRecoilValue } from "recoil";
+import { ModalDatailData } from "../../../recoil/atom";
 import {
   CoffeeCafeData,
   ReviewData,
@@ -30,6 +32,7 @@ export default function FilterContainer({ data }: any) {
   const [filteredData, setFilteredData] = useState([]);
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
+  const reviewDetail = useRecoilValue(ModalDatailData);
   const [typeSelect, setTypeSelect] = useState<number | string>(1);
   const typeList = [
     { value: 1, name: "분위기" },

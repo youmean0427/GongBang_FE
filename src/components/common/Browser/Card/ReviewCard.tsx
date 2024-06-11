@@ -27,7 +27,8 @@ export default function ReviewCard({
   isReviewDetailIdx,
 }: ReviewCardType) {
   const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
-  const [test, setTest] = useRecoilState<ReviewData>(ModalDatailData);
+  const [reviewData, setReviewData] =
+    useRecoilState<ReviewData>(ModalDatailData);
   const [reviewModalData, setReviewModalData] = useState<ReviewData>();
   const [currentSlide, setCurrentSlide] = useState(0);
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
@@ -36,7 +37,7 @@ export default function ReviewCard({
   const handelReviewDetailModal = (modalData: ReviewData) => {
     // 옵셔널체이닝(?.)으로 정의되지 않을 가능성이 있는 개체 예외 처리
     isReviewDetailIdx?.(modalData.id);
-    setTest(modalData);
+    setReviewData(modalData);
     document.body.style.overflow = "done";
   };
 

@@ -7,16 +7,36 @@ import emStar from "../../images/em_star.png";
 import { isBrowser, isMobile } from "react-device-detect";
 import { ReviewData } from "../../types/type";
 import fullStar from "../../images/full_star.png";
+import { useState, useEffect } from "react";
+import Modal from "../../components/common/Browser/Modal";
+import { useRecoilState } from "recoil";
+import {
+  ModalDetailDataInProfile,
+  ModealDetailDataInProfileBool,
+} from "../../recoil/atom";
 export default function Profile() {
   // Redux를 통해, userName과 userId 가져오기
   const userName = useSelector((state: RootState) => state.user.username);
   const userId = useSelector((state: RootState) => state.user.user_id);
+  const [reviewDataInProfileBool, setReviewDataInProfileBool] =
+    useRecoilState<Boolean>(ModealDetailDataInProfileBool);
+  const [reviewDataInProfile, setReviewDataInProfile] =
+    useRecoilState<ReviewData>(ModalDetailDataInProfile);
+  const [isOpenRecoModal, setISOpenRecoModal] = useState(false);
+  const handleRecoModal = () => {
+    setISOpenRecoModal(!isOpenRecoModal);
+    document.body.style.overflow = "auto";
+  };
 
   // user가 작성한 모든 리뷰 가져오기
   const { isFetching, isLoading, data } = useQuery({
     queryKey: ["getProfileReview"],
     queryFn: () => getProfileReview(userId),
   });
+
+  const handleUpdateModal = () => {
+    setReviewDataInProfileBool(false);
+  };
 
   // Logout Mutation
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {
@@ -30,7 +50,7 @@ export default function Profile() {
   };
   // *
 
-  if (isLoading || isFetching) return <></>;
+  // if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
       <>
@@ -42,7 +62,7 @@ export default function Profile() {
             </div>
           )}
         </div>
-        {data.length === 0 && (
+        {data && data.length === 0 && (
           <div className="fixed right-0 w-full text-center top-1/2">
             리뷰가 없습니다.
           </div>
@@ -55,6 +75,13 @@ export default function Profile() {
               </div>
             ))}
         </div>
+        {reviewDataInProfileBool && (
+          <Modal
+            close={handleUpdateModal}
+            type={6}
+            data={reviewDataInProfile}
+          />
+        )}
       </>
     );
 
@@ -63,8 +90,10 @@ export default function Profile() {
       <>
         <div className="flex flex-col items-center justify-center">
           <div>
-            {data.length < 10 && <img src={emStar} className="w-5 h-5 mb-2" />}
-            {data.length >= 10 && (
+            {data && data.length < 10 && (
+              <img src={emStar} className="w-5 h-5 mb-2" />
+            )}
+            {data && data.length >= 10 && (
               <img src={fullStar} className="w-5 h-5 mb-2" />
             )}
           </div>
@@ -74,12 +103,19 @@ export default function Profile() {
               {data.length}개의 리뷰
             </div>
           )}
-
-          <div
-            onClick={handleLogout}
-            className="mb-5 ml-8 mr-8 text-xs font-semibold btn btn-xs"
-          >
-            로그아웃
+          <div>
+            <div
+              onClick={handleRecoModal}
+              className="mr-2 text-xs font-semibold text-white btn btn-xs bg-gongbang"
+            >
+              카페추천
+            </div>
+            <div
+              onClick={handleLogout}
+              className="ml-2 text-xs font-semibold btn btn-xs"
+            >
+              로그아웃
+            </div>
           </div>
         </div>
 
@@ -90,12 +126,13 @@ export default function Profile() {
                 <ListContainer data={x} type={2} />
               </div>
             ))}
-          {data.length === 0 && (
+          {data && data.length === 0 && (
             <div className="fixed right-0 w-full text-center top-1/2">
               리뷰가 없습니다.
             </div>
           )}
         </div>
+        {isOpenRecoModal && <Modal close={handleRecoModal} type={7} />}
       </>
     );
   return <></>;

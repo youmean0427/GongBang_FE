@@ -13,6 +13,7 @@ import MobileLogin from "../pages/Mobile/MobileLogin";
 import ReviewUpdate from "../pages/Browser/Review/ReviewUpdate";
 import PasswordReset from "../pages/Accounts/PasswordReset/PasswordReset";
 import PasswordResetConfirm from "../pages/Accounts/PasswordReset/PasswordResetConfirm";
+import RecoCafe from "../pages/Browser/Recommend/RecoCafe";
 export default function Router() {
   return (
     <>
@@ -23,7 +24,7 @@ export default function Router() {
         <Route path="/coffeecafe/:id" element={<CafeDetail />} />
         <Route path="/coffeecafe" element={<CoffeeCafe />} />
         <Route path="/filter" element={<FilterContainer />} />
-
+        <Route path="/recocafe" element={<RecoCafe />} />
         <Route path="/password/reset" element={<PasswordReset />} />
         <Route
           path="/password/reset/confirm/:uid/:token"

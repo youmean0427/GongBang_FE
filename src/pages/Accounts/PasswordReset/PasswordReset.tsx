@@ -41,13 +41,13 @@ export default function PasswordReset() {
           <img src={logoImage} />
         </div>
         <div className="w-full text-xl font-semibold text-center">
-          비밀번호 찾기
+          비밀번호 재설정
         </div>
         <div className="w-full">
           <input
             onChange={handleChange}
             name="email"
-            className="w-full text-lg input input-bordered"
+            className="w-full input input-bordered"
             placeholder="이메일"
           />
         </div>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RecoCafeInputType } from "../types/type";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 interface PasswordResetConfrim {
   new_password1: string;
@@ -138,6 +139,15 @@ export const passwordResetConfirmAPI = async (data: PasswordResetConfrim) => {
   const response = await axios.post("/password/reset/confirm/", data, {
     headers: {
       "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
+export const RecoCafeAPI = async (data: FormData) => {
+  const response = await axios.post("/api/coffeecafes/recommend", data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
     },
   });
   return response;

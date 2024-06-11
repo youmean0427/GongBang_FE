@@ -10,3 +10,13 @@ export const ModalDatailData = atom({
   key: "reviewDetailData",
   default: {} as ReviewData,
 });
+
+export const ModalDetailDataInProfile = atom({
+  key: "reviewDetailDataInProfile",
+  default: {} as ReviewData,
+});
+
+export const ModealDetailDataInProfileBool = atom({
+  key: "reviewDetailDataInProfileBoll",
+  default: false as Boolean,
+});

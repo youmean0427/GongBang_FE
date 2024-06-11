@@ -8,6 +8,12 @@ import { ReveiwImageData, ReviewData, TypeCode } from "../../../../types/type";
 import Badge from "../Badge/Badge";
 import { isBrowser } from "react-device-detect";
 import Modal from "../Modal";
+import {
+  ModalDatailData,
+  ModalDetailDataInProfile,
+  ModealDetailDataInProfileBool,
+} from "../../../../recoil/atom";
+import { useRecoilState } from "recoil";
 
 interface ListContainer {
   data: ReviewData;
@@ -25,6 +31,10 @@ export default function ListContainer({ type, data }: ListContainer) {
   const [cafeId, setCafeId] = useState();
   const [images, setImages] = useState<ReveiwImageData[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
+  const [reviewDataInProfile, setReviewDataInProfile] =
+    useRecoilState<ReviewData>(ModalDetailDataInProfile);
+  const [reviewDataInProfileBool, setReviewDataInProfileBool] =
+    useRecoilState<Boolean>(ModealDetailDataInProfileBool);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isOpenReviewUpdateModal, setIsOpenReviewUpdateModal] = useState(false);
   useEffect(() => {
@@ -70,16 +80,21 @@ export default function ListContainer({ type, data }: ListContainer) {
     reviewDeleteMutation.mutate(review_id);
   };
 
-  const hadleUpdateModal = () => {
+  const hadleUpdateModal = (data: ReviewData) => {
     setIsOpenReviewUpdateModal(!isOpenReviewUpdateModal);
   };
+  const handleUpdateModalInProfile = (data: ReviewData) => {
+    setReviewDataInProfile(data);
+    setReviewDataInProfileBool(true);
+  };
 
-  if (type === 2 && isFetching) return <></>;
+  // type 2 -> Profile
+  // if (type === 2 && isFetching) return <></>;
   if (isBrowser)
     return (
       <div className="pb-2 mt-8 mb-8 ml-8 mr-8">
         {/* Info */}
-        {type === 2 && cafeData && cafeId && (
+        {type === 2 && cafeData && cafeId ? (
           <div
             className="mb-2 text-base font-medium cursor-pointer"
             onClick={() => {
@@ -88,15 +103,27 @@ export default function ListContainer({ type, data }: ListContainer) {
           >
             {cafeData.name}
           </div>
+        ) : (
+          <div className="mb-2 text-base h-[24px] "> </div>
         )}
+
         <div className="flex items-center justify-between mb-2">
           <div className="w-full h-full text-xl font-semibold ">
             {data.title}
           </div>
 
           {userId === data.user && (
-            <div>
-              <div onClick={hadleUpdateModal}>수정</div>
+            <div className="flex gap-2">
+              {type === 1 ? (
+                <div onClick={() => handleUpdateModalInProfile(data)}>수2</div>
+              ) : (
+                <div
+                  className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
+                  onClick={() => hadleUpdateModal(data)}
+                >
+                  수정
+                </div>
+              )}
               <div
                 className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
                 onClick={() => handleDelete(data.id)}
@@ -180,14 +207,14 @@ export default function ListContainer({ type, data }: ListContainer) {
         <div className="mb-5">{data.content}</div>
         <hr />
         {isOpenReviewUpdateModal && (
-          <Modal close={hadleUpdateModal} data={data} type={6} />
+          <Modal close={() => hadleUpdateModal(data)} data={data} type={6} />
         )}
       </div>
     );
   return (
     <div className="pb-2 mt-8 mb-8 ml-5 mr-5">
       {/* Info */}
-      {type === 2 && cafeData && cafeId && (
+      {type === 2 && cafeData && cafeId ? (
         <div
           className="mb-2 text-base font-medium cursor-pointer"
           onClick={() => {
@@ -196,6 +223,8 @@ export default function ListContainer({ type, data }: ListContainer) {
         >
           {cafeData.name}
         </div>
+      ) : (
+        <div className="text-base mb-2 h-[24px]"></div>
       )}
 
       <div className="flex items-center justify-between mb-2">

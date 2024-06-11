@@ -99,3 +99,11 @@ export interface ReviewCreateInputType {
   score: number;
   type: number;
 }
+
+export interface RecoCafeInputType {
+  title: string;
+  content: string;
+  date: string;
+  name: string;
+  image: string;
+}

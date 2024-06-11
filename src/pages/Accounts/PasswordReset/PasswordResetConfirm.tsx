@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { passwordResetAPI, passwordResetConfirmAPI } from "../../../apis/api";
 import logoImage from "../../../images/gongbang_logo.png";
@@ -8,6 +8,9 @@ import { PasswordResetConfrimInputType } from "../../../types/type";
 export default function PasswordResetConfirm() {
   // URL에서 uid와 token을 가져옴
   const { uid, token } = useParams();
+  const [isValid, setIsValid] = useState(true);
+  const [isPasswordMatch, setIsPasswordMatch] = useState(false);
+  const [isPasswordLen8, setIsPasswordLen8] = useState(false);
   const [inputPasswordConfirm, setInputPasswordConfirm] =
     useState<PasswordResetConfrimInputType>({
       new_password1: "",
@@ -30,6 +33,22 @@ export default function PasswordResetConfirm() {
     }
   );
 
+  useEffect(() => {
+    {
+      inputPasswordConfirm.new_password1.length &&
+      inputPasswordConfirm.new_password1.length < 8
+        ? setIsPasswordLen8(false)
+        : setIsPasswordLen8(true);
+    }
+    {
+      inputPasswordConfirm.new_password1.length &&
+      inputPasswordConfirm.new_password2.length &&
+      inputPasswordConfirm.new_password1 !== inputPasswordConfirm.new_password2
+        ? setIsPasswordMatch(false)
+        : setIsPasswordMatch(true);
+    }
+    setIsValid(!(isPasswordMatch && isPasswordLen8));
+  });
   const handlePasswordReset = () => {
     passwordResetConfirmMutation.mutate({
       new_password1: inputPasswordConfirm.new_password1,
@@ -60,25 +79,40 @@ export default function PasswordResetConfirm() {
           <input
             onChange={handleChange}
             name="new_password1"
-            className="w-full text-lg input input-bordered"
+            type="password"
+            className="w-full input input-bordered"
             placeholder="비밀번호"
           />
+          {!isPasswordLen8 && inputPasswordConfirm.new_password1 && (
+            <div className="mt-2 text-center text-error">
+              비밀번호를 8자리 이상 입력해주세요.
+            </div>
+          )}
         </div>
+
         <div className="w-full">
           <input
             onChange={handleChange}
             name="new_password2"
-            className="w-full text-lg input input-bordered"
+            type="password"
+            className="w-full input input-bordered"
             placeholder="비밀번호 확인"
           />
+          {!isPasswordMatch && inputPasswordConfirm.new_password2 && (
+            <div className="mt-2 text-center text-error">
+              비밀번호를 확인해주세요.
+            </div>
+          )}
         </div>
+
         <div className="w-full">
-          <div
+          <button
             className="w-full text-lg text-white bg-gongbang btn"
             onClick={handlePasswordReset}
+            disabled={isValid}
           >
-            변경{" "}
-          </div>
+            변경
+          </button>
         </div>
       </div>
     </div>
