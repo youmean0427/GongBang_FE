@@ -113,6 +113,15 @@ export default function RecoCafe() {
       }));
     }
   }, []);
+  if (recoCafeMutation.isLoading && recoCafeMutation.isSuccess)
+    return (
+      <div className="w-full ">
+        <div className="fixed text-lg font-medium text-center text-gray-500 transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+          <div className="loading loading-spinner loading-lg bg-gongbang"></div>
+          <div className="font-medium text-gray-500">카페 추천 하는 중</div>
+        </div>
+      </div>
+    );
   if (!username)
     return (
       <div className="w-full ">
