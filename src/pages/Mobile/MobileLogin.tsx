@@ -5,6 +5,7 @@ import { loginAPI } from "../../apis/api";
 import { AccessToken } from "../../recoil/atom";
 import { useRecoilState } from "recoil";
 import logoImage from "../../images/gongbang_logo.png";
+import { Link } from "react-router-dom";
 
 interface Login {
   email: String;
@@ -94,7 +95,10 @@ export default function MobileLogin({ handleMobileSignup }: any) {
         </form>
       </div>
       <div className="flex justify-center w-full mt-2 font-medium text-gray-500">
-        <div>비밀번호 찾기</div>
+        <Link to={"/password/reset/"}>
+          <div className="text-gray-500">비밀번호 재설정</div>
+        </Link>
+
         <div className="ml-2 mr-2">|</div>
         <div onClick={handleMobileSignup}>회원가입</div>
       </div>

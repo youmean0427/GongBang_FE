@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { isBrowser } from "react-device-detect";
 import { useMutation } from "react-query";
 import { passwordResetAPI } from "../../../apis/api";
 import logoImage from "../../../images/gongbang_logo.png";
@@ -33,14 +34,40 @@ export default function PasswordReset() {
       email: value,
     });
   };
+  if (isBrowser)
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full ">
+        <div className="flex flex-col items-center justify-center gap-6 w-72">
+          <div className="w-10 h-10 ">
+            <img src={logoImage} />
+          </div>
+          <div className="w-full text-xl font-semibold text-center">
+            비밀번호 재설정
+          </div>
+          <div className="w-full">
+            <input
+              onChange={handleChange}
+              name="email"
+              className="w-full input input-bordered"
+              placeholder="이메일"
+            />
+          </div>
+          <div className="w-full">
+            <div
+              className="w-full text-lg text-white bg-gongbang btn"
+              onClick={handlePasswordReset}
+            >
+              확인
+            </div>
+          </div>
+        </div>
+      </div>
+    );
 
   return (
     <div className="flex flex-col items-center justify-center w-full h-full ">
-      <div className="flex flex-col items-center justify-center gap-6 w-72">
-        <div className="w-10 h-10 ">
-          <img src={logoImage} />
-        </div>
-        <div className="w-full text-xl font-semibold text-center">
+      <div className="flex flex-col items-center justify-center h-full gap-6 w-72 ">
+        <div className="w-full mt-5 text-lg font-semibold text-center">
           비밀번호 재설정
         </div>
         <div className="w-full">
@@ -53,7 +80,7 @@ export default function PasswordReset() {
         </div>
         <div className="w-full">
           <div
-            className="w-full text-lg text-white bg-gongbang btn"
+            className="w-full text-base text-white bg-gongbang btn"
             onClick={handlePasswordReset}
           >
             확인

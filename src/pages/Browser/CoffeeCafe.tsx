@@ -158,7 +158,7 @@ export default function CoffeeCafe() {
                             <div className="w-full h-[125px] bg-gray-300 rounded-lg"></div>
                           )}
                           <div className="flex flex-col h-[95px] items-center justify-center  gap-0 ">
-                            <div className="text-xl font-bold w-[230px] text-center truncate ">
+                            <div className="text-xl font-semibold w-[230px] text-center truncate ">
                               {cafe.name}
                             </div>
                             <div>
@@ -179,7 +179,7 @@ export default function CoffeeCafe() {
                   image={{
                     src: cafeMarker, // 마커이미지 주소
                     size: {
-                      width: 65,
+                      width: 70,
                       height: 75,
                     }, // 마커이미지 크기
                   }}

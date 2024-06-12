@@ -4,6 +4,7 @@ import { passwordResetAPI, passwordResetConfirmAPI } from "../../../apis/api";
 import logoImage from "../../../images/gongbang_logo.png";
 import { useParams } from "react-router-dom";
 import { PasswordResetConfrimInputType } from "../../../types/type";
+import { isBrowser } from "react-device-detect";
 
 export default function PasswordResetConfirm() {
   // URL에서 uid와 token을 가져옴
@@ -65,14 +66,62 @@ export default function PasswordResetConfirm() {
       [name]: value,
     });
   };
+  if (isBrowser)
+    return (
+      <div className="flex flex-col items-center justify-center w-full h-full ">
+        <div className="flex flex-col items-center justify-center gap-5 w-72">
+          <div className="w-10 h-10 ">
+            <img src={logoImage} />
+          </div>
+          <div className="w-full text-xl font-semibold text-center">
+            비밀번호 재설정
+          </div>
+          <div className="w-full">
+            <input
+              onChange={handleChange}
+              name="new_password1"
+              type="password"
+              className="w-full input input-bordered"
+              placeholder="비밀번호"
+            />
+            {!isPasswordLen8 && inputPasswordConfirm.new_password1 && (
+              <div className="mt-2 text-center text-error">
+                비밀번호를 8자리 이상 입력해주세요.
+              </div>
+            )}
+          </div>
 
+          <div className="w-full">
+            <input
+              onChange={handleChange}
+              name="new_password2"
+              type="password"
+              className="w-full input input-bordered"
+              placeholder="비밀번호 확인"
+            />
+            {!isPasswordMatch && inputPasswordConfirm.new_password2 && (
+              <div className="mt-2 text-center text-error">
+                비밀번호를 확인해주세요.
+              </div>
+            )}
+          </div>
+
+          <div className="w-full">
+            <button
+              className="w-full text-lg text-white bg-gongbang btn"
+              onClick={handlePasswordReset}
+              disabled={isValid}
+            >
+              변경
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   return (
     <div className="flex flex-col items-center justify-center w-full h-full ">
       <div className="flex flex-col items-center justify-center gap-5 w-72">
-        <div className="w-10 h-10 ">
-          <img src={logoImage} />
-        </div>
-        <div className="w-full text-xl font-semibold text-center">
+        <div className="w-full mt-5 text-lg font-semibold text-center">
           비밀번호 재설정
         </div>
         <div className="w-full">
@@ -84,7 +133,7 @@ export default function PasswordResetConfirm() {
             placeholder="비밀번호"
           />
           {!isPasswordLen8 && inputPasswordConfirm.new_password1 && (
-            <div className="mt-2 text-center text-error">
+            <div className="mt-2 text-sm text-center text-error">
               비밀번호를 8자리 이상 입력해주세요.
             </div>
           )}
@@ -99,7 +148,7 @@ export default function PasswordResetConfirm() {
             placeholder="비밀번호 확인"
           />
           {!isPasswordMatch && inputPasswordConfirm.new_password2 && (
-            <div className="mt-2 text-center text-error">
+            <div className="mt-2 text-sm text-center text-error">
               비밀번호를 확인해주세요.
             </div>
           )}
@@ -107,7 +156,7 @@ export default function PasswordResetConfirm() {
 
         <div className="w-full">
           <button
-            className="w-full text-lg text-white bg-gongbang btn"
+            className="w-full text-base text-white bg-gongbang btn"
             onClick={handlePasswordReset}
             disabled={isValid}
           >

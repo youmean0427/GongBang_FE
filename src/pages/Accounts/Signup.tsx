@@ -212,8 +212,8 @@ export default function Signup() {
             />
 
             {!isPasswordLen8 && signupInputs.password1 && (
-              <div className="mt-2 text-center text-error">
-                비밀번호를 9자리 이상 입력해주세요.
+              <div className="mt-2 text-sm text-center text-error">
+                비밀번호를 8자리 이상 입력해주세요.
               </div>
             )}
           </div>
@@ -226,7 +226,7 @@ export default function Signup() {
               placeholder="비밀번호 확인"
             />
             {!isPasswordMatch && signupInputs.password2 && (
-              <div className="mt-2 text-center text-error">
+              <div className="mt-2 text-sm text-center text-error">
                 비밀번호를 확인해주세요.
               </div>
             )}

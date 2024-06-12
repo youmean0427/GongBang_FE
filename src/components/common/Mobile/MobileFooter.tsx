@@ -28,6 +28,8 @@ export default function MobileFooter() {
     document.body.style.overflow = "auto";
   };
 
+  const isPasswordResetPage = ["/password/reset/"].includes(location.pathname);
+
   return (
     <div className="fixed bottom-0 z-20 w-full h-14">
       <hr />
@@ -105,13 +107,17 @@ export default function MobileFooter() {
                 <div className="w-8 h-8 p-0.5">
                   <FaRegCircleUser
                     onClick={handleLoginModal}
-                    color={isOpenLoginModal ? "#E7B98E" : "gray"}
+                    color={
+                      isOpenLoginModal && !isPasswordResetPage
+                        ? "#E7B98E"
+                        : "gray"
+                    }
                     className="w-full h-full"
                   />
                 </div>
                 <div
                   className={
-                    isOpenLoginModal
+                    isOpenLoginModal && !isPasswordResetPage
                       ? "text-xs text-gongbang  font-bold"
                       : "text-xs text-gray-500 font-medium"
                   }
@@ -126,9 +132,15 @@ export default function MobileFooter() {
       </div>
 
       {/* Modal */}
-      {isOpenLoginModal && <Modal close={handleLoginModal} type={3} />}
-      {isOpenSignupModal && <Modal close={handleSignupModal} type={4} />}
-      {isOpenProfileModal && <Modal close={handleProfileModal} type={5} />}
+      {!isPasswordResetPage && isOpenLoginModal && (
+        <Modal close={handleLoginModal} type={3} />
+      )}
+      {!isPasswordResetPage && isOpenSignupModal && (
+        <Modal close={handleSignupModal} type={4} />
+      )}
+      {!isPasswordResetPage && isOpenProfileModal && (
+        <Modal close={handleProfileModal} type={5} />
+      )}
     </div>
   );
 }

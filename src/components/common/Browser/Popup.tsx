@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRecoilState } from "recoil";
-import banner_item1 from "../../../images/banner_item1.png";
+import stats_item from "../../../images/stars_item.png";
 import banner_item2 from "../../../images/banner_item2.png";
 import { PopupHandle } from "../../../recoil/atom";
 import logoImage from "../../../images/gongbang_logo.png";
@@ -17,31 +17,30 @@ export default function Popup() {
   };
   if (isBrowser)
     return (
-      <div className="flex flex-col justify-center ml-5 mr-5 h-[450px] items-center pt-0 relative ">
+      <div className="flex flex-col justify-between ml-10 mr-5 h-[450px] items-center pt-0 relative ">
         <div className="w-full">
-          <div className="flex justify-center w-full mb-4 h-11">
-            <img src={logoImage} />
-          </div>
-          <div className="h-[2px] bg-gray-200 rounded-lg mb-2"></div>
-          <div className="w-full p-1 text-5xl font-bold text-center rounded-lg text-gongbang ">
-            공부하기 좋은 카페
-          </div>
-          <div className="h-[2px] bg-gray-200 rounded-lg mt-2"></div>
-          {/* <div className="text-lg font-semibold">공부 다방 | GongBang</div> */}
-          <div className="mt-7">
-            <div className="text-xl font-medium text-center">
-              공방에서 "공부하기 좋은 카페"를 추천해주세요.
+          <div className="flex flex-col items-start justify-start w-full h-full ">
+            <div className="p-3 text-base font-medium text-white badge border-[#E7B98E] bg-[#E7B98E] ">
+              공부다방
             </div>
-            <div className="mt-1 text-xl font-medium text-center">
-              💛 공방은 여러분의 카페 데이터가 필요합니다. 💛
+            <div className="mt-3 mb-3 text-4xl font-semibold ">공방</div>
+            <div className="text-lg font-medium ">
+              <span>공방에서 </span>{" "}
+              <span className=" text-amber-700">"공부하기 좋은 카페"</span>
+              <span>를 추천해주세요!</span>
             </div>
-          </div>
-          <div className="text-center mt-7">
-            <div className="p-2 mb-3 text-xl font-semibold text-white bg-gongbang rounded-xl">
+            <div className="text-lg font-medium ">
+              공방은 여러분의{" "}
+              <span className="text-amber-700">
+                카페 정보가 정말 필요합니다!
+              </span>
+            </div>
+            <div className="w-[350px] mt-5 p-1 text-xl font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
               로그인 → 상단 메뉴 → 카페 추천
             </div>
           </div>
         </div>
+
         <div className="absolute flex items-end justify-between w-full -bottom-5 ">
           <div className="">
             <div className="flex mb-2">
@@ -56,56 +55,56 @@ export default function Popup() {
               </div>
             </div>
           </div>
-          {/* <div className="h-40 w">
-          <img src={banner_item1} alt="banner1" />
-        </div> */}
+          <div className="mr-5 w-52 h-52">
+            <img src={stats_item} alt="banner1" />
+          </div>
         </div>
       </div>
     );
 
   return (
-    <div className="flex flex-col justify-center ml-5 mr-5 h-[320px] items-center pt-0 relative ">
+    <div className="flex flex-col justify-between ml-7 mr-5 h-[340px] items-center pt-0 relative ">
       <div className="w-full">
-        <div className="flex justify-center w-full h-8 mb-4">
-          <img src={logoImage} />
-        </div>
-        <div className="h-[2px] bg-gray-200 rounded-lg mb-2"></div>
-        <div className="w-full p-1 text-3xl font-bold text-center rounded-lg text-gongbang ">
-          공부하기 좋은 카페
-        </div>
-        <div className="h-[2px] bg-gray-200 rounded-lg mt-2"></div>
-        {/* <div className="text-lg font-semibold">공부 다방 | GongBang</div> */}
-        <div className="mt-3">
-          <div className="text-base font-medium text-center">
-            공방에서 "공부하기 좋은 카페"를 추천해주세요.
+        <div className="flex flex-col items-start justify-start w-full h-full ">
+          <div className="p-2 text-sm font-medium text-white badge border-[#E7B98E] bg-[#E7B98E] ">
+            공부다방
           </div>
-          <div className="mt-1 text-base font-medium text-center">
-            💛 공방은 카페 데이터가 필요합니다.💛
+          <div className="mt-2 mb-2 text-2xl font-bold ">공방</div>
+          <div className="text-sm font-medium ">
+            <span></span>
+            <span className=" text-amber-700">"공부하기 좋은 카페"</span>
+            <span>를 추천해주세요!</span>
           </div>
-        </div>
-        <div className="mt-3 text-center">
-          <div className="p-1 mb-2 text-lg font-semibold text-white bg-gongbang rounded-xl">
-            로그인 → 마이페이지 → 카페 추천
+          <div className="text-sm font-medium ">
+            여러분의
+            <span className="text-amber-700">
+              {" "}
+              카페 정보가 정말 필요합니다!
+            </span>
+          </div>
+          <div className=" mt-4 pl-2 pr-2 pt-1 pb-1 text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
+            로그인 → 마이페이지 → 카페추천
           </div>
         </div>
       </div>
-      <div className="absolute flex items-end justify-between w-full -bottom-10 h-[25px]">
+
+      <div className="absolute flex items-end justify-between w-full -bottom-5 ">
         <div className="">
-          <div className="flex mb-3">
+          <div className="flex mb-2">
             <input
               type="checkbox"
               checked={isChecked}
               onChange={() => handlePopupClose(1)}
-              className="checkbox checkbox-sm checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
+              className="checkbox checkbox-xs checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
             />
-            <div className="ml-2 text-sm text-gray-500">
+            <div className="w-full ml-2 text-xs font-medium text-gray-500">
               오늘 하루 그만 보기
             </div>
           </div>
         </div>
-        {/* <div className="h-40 w">
-        <img src={banner_item1} alt="banner1" />
-      </div> */}
+        <div className="mr-5 w-36 h-36">
+          <img src={stats_item} alt="banner1" />
+        </div>
       </div>
     </div>
   );

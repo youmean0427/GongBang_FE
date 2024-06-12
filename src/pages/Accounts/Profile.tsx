@@ -46,11 +46,14 @@ export default function Profile() {
     },
   });
   const handleLogout = () => {
-    logoutMutation.mutate({});
+    let logoutConfirm = window.confirm("로그아웃을 합니다.");
+    if (logoutConfirm) {
+      logoutMutation.mutate({});
+    }
   };
   // *
 
-  // if (isLoading || isFetching) return <></>;
+  if (isLoading || isFetching) return <></>;
   if (isBrowser)
     return (
       <>

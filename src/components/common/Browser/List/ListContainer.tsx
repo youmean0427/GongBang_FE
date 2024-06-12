@@ -79,7 +79,10 @@ export default function ListContainer({ type, data }: ListContainer) {
   };
 
   const handleDelete = (review_id: number) => {
-    reviewDeleteMutation.mutate(review_id);
+    var deleteConfirm = window.confirm("리뷰를 삭제합니다.");
+    if (deleteConfirm) {
+      reviewDeleteMutation.mutate(review_id);
+    }
   };
 
   const hadleUpdateModal = (data: ReviewData) => {
@@ -215,7 +218,7 @@ export default function ListContainer({ type, data }: ListContainer) {
     );
 
   return (
-    <div className="pb-2 mt-8 mb-8 ml-5 mr-5">
+    <div className="pb-2 mb-4 ml-5 mr-5 -mt-1">
       {/* Info */}
       {type === 2 && cafeData && cafeId ? (
         <div
