@@ -12,6 +12,7 @@ module.exports = {
         browserimage: "1690px",
       },
       fontFamily: {
+        normal: "Pretendard-Regular",
         medium: "Pretendard-Medium",
         semibold: "Pretendard-SemiBold",
         bold: "Pretendard-Bold",
