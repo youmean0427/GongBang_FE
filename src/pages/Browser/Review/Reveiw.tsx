@@ -62,7 +62,7 @@ export default function Review({ data }: ReviewPropsType) {
             ))}
         </div>
         {data.review_set.length === 0 && (
-          <div className="flex items-center justify-center h-full text-base text-gray-500">
+          <div className="flex items-center justify-center h-full text-base font-medium text-gray-500">
             <div>리뷰가 없습니다.</div>
           </div>
         )}

@@ -158,7 +158,7 @@ export default function CafeDetail() {
                 <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
-                <div className="grid grid-cols-2 text-lg gap-x-2">
+                <div className="grid grid-cols-2 text-lg font-normal gap-x-2">
                   <div className="flex items-center mt-1 mb-1">
                     <LuHome className="mr-2" />
                     <div className="w-20 ">분위기</div>

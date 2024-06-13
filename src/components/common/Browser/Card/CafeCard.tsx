@@ -103,7 +103,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
     );
 
   return (
-    <div className="w-full mt-12 mb-8 ">
+    <div className="w-full mt-12 mb-6 ">
       <div className="w-full">
         <div className="text-xl font-bold mb-7">{title}</div>
         <div className="relative w-full">
@@ -124,11 +124,11 @@ export default function CafeCard({ title, data }: CafeCardType) {
                       to={`coffeecafe/${x.id}`}
                       style={{ textDecoration: "none" }}
                     >
-                      <div className="text-lg w-[180px]">
+                      <div className="text-lg w-[150px]">
                         <div className="mb-4">
                           {x.coffeecafeimage_set &&
                             x.coffeecafeimage_set.length > 0 && (
-                              <div className="w-[180px] h-[180px]">
+                              <div className="w-[150px] h-[150px]">
                                 <img
                                   className="object-cover w-full h-full rounded-2xl"
                                   src={
@@ -147,7 +147,7 @@ export default function CafeCard({ title, data }: CafeCardType) {
                         <div className="">
                           <Stars score={x.total_score} size="small" />
                         </div>
-                        <div className="text-lg font-semibold truncate">
+                        <div className="text-base font-semibold truncate">
                           {x.name}
                         </div>
                         <div className="text-sm truncate">{x.address}</div>

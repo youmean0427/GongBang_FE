@@ -30,7 +30,7 @@ interface InputState {
   content: string;
   date: string;
   score: number;
-  type: number;
+  type: number | string;
 }
 
 interface IdParamsType {
@@ -117,11 +117,7 @@ export default function ReviewUpdate({
   const reviewDeleteImageMutation = useMutation(
     ["deleteReviewImage"],
     (x: number) => deleteReviewImageAPI(x),
-    {
-      onSuccess: () => {
-        window.location.reload();
-      },
-    }
+    {}
   );
 
   useEffect(() => {
@@ -240,13 +236,12 @@ export default function ReviewUpdate({
 
   // if (!accessToken) return <></>;
   // if (coffeeLoading) return <></>
-
   if (reviewCreateMutation.isLoading || reviewCreateMutation.isSuccess)
     return (
       <>
         <div className="flex flex-col items-center justify-center w-full h-[90%]   gap-4">
           <div className="loading loading-spinner loading-lg bg-gongbang"></div>
-          <div className="font-medium text-gray-500">리뷰 작성하는 중</div>
+          <div className="font-medium text-gray-500">리뷰 수정하는 중</div>
         </div>
       </>
     );
@@ -338,7 +333,7 @@ export default function ReviewUpdate({
                       <>
                         <img
                           className="object-cover w-[200px] h-[200px] rounded-xl"
-                          src={x.image}
+                          src={process.env.REACT_APP_API_URL + x.image}
                           alt={`Preview ${index + 1}`}
                         />
                         <div
@@ -391,6 +386,7 @@ export default function ReviewUpdate({
               <select
                 className="w-1/2 max-w-xs text-base font-semibold select select-bordered"
                 onChange={handleTypeSelect}
+                disabled
                 defaultValue={typeList[reviewData.type - 1].value}
               >
                 {typeList.map((item) => {
@@ -460,36 +456,53 @@ export default function ReviewUpdate({
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
         <div className="w-full h-[180px]  space-x-2 carousel carousel-center">
-          {imageList.map((image, index) => (
-            <>
+          {preImageList.map((x: ReveiwImageData | File | string, index) => (
+            <div key={index}>
               <div
-                className="relative w-[170px] h-[170px]  carousel-item"
-                key={index}
+                className="relative w-[180px] h-full carousel-item"
+                style={{
+                  transform: `translateX(-${currentSlide * 208}px)`,
+                  transition: "transform 0.5s ease",
+                }}
               >
-                {image instanceof File ? (
-                  <img
-                    className="object-cover w-[170px] h-[170px] rounded-xl"
-                    src={URL.createObjectURL(image)}
-                    alt={`Preview ${index + 1}`}
-                  />
-                ) : (
-                  <img
-                    className="object-cover w-[170px] h-[170px] rounded-xl"
-                    src={image}
-                    alt={`Preview ${index + 1}`}
-                  />
+                {x instanceof File && (
+                  <>
+                    <img
+                      className="object-cover w-[180px] h-[180px] rounded-xl"
+                      src={URL.createObjectURL(x)}
+                      alt={`Preview ${index + 1}`}
+                    />
+                    <div
+                      className="fixed cursor-pointer right-1 top-1 absoulte"
+                      onClick={() => {
+                        handleDeleteFile(index);
+                      }}
+                    >
+                      <LuX size={20} />
+                    </div>
+                  </>
                 )}
-                <div
-                  className="absolute cursor-pointer top-1 right-1"
-                  onClick={() => {
-                    imageList.splice(index, 1);
-                    setImageList([...imageList]);
-                  }}
-                >
-                  <LuX size={20} />
-                </div>
+
+                {!(x instanceof File) && typeof x === "object" && (
+                  <>
+                    <img
+                      className="object-cover w-[180px] h-[180px] rounded-xl"
+                      src={process.env.REACT_APP_API_URL + x.image}
+                      alt={`Preview ${index + 1}`}
+                    />
+                    <div
+                      className="fixed cursor-pointer right-1 top-1 absoulte"
+                      onClick={() => {
+                        handleDeleteFile(index);
+                        handleDelete(x.id);
+                      }}
+                    >
+                      <LuX size={20} />
+                    </div>
+                  </>
+                )}
               </div>
-            </>
+            </div>
           ))}
           {imageList.length < 5 ? (
             <div className="w-[170px] h-[170px] border rounded-xl carousel-item">
@@ -516,6 +529,7 @@ export default function ReviewUpdate({
           name="title"
           className="w-full mt-1 mb-2 text-base font-semibold input input-bordered"
           placeholder="제목"
+          value={inputs.title}
           onChange={handleInputChange}
         />
 
@@ -525,6 +539,8 @@ export default function ReviewUpdate({
             <select
               className="w-[100px] max-w-xs text-sm font-semibold select select-bordered"
               onChange={handleTypeSelect}
+              disabled
+              defaultValue={typeList[reviewData.type - 1].value}
             >
               {typeList.map((item) => {
                 return (
@@ -536,88 +552,30 @@ export default function ReviewUpdate({
             </select>
           </div>
 
-          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[0.9px]">
+          <div className="w-[150px] rating rating-lg rating-half -space-x-[0.8px]">
             <input type="radio" name="rating-10" className="rating-hidden" />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(0.5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-1"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(1);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-2"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(1.5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-1"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(2);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-2"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(2.5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-1"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(3);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-2"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(3.5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-1"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(4);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-2"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(4.5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-1"
-            />
-            <input
-              type="radio"
-              name="rating-10"
-              onClick={() => {
-                handleScore(5);
-              }}
-              className="bg-gongbang mask mask-star-2 mask-half-2"
-            />
+            {Array.from({ length: 10 }).map((x, index) => {
+              let score = index * 0.5 + 0.5;
+              return (
+                <input
+                  key={score}
+                  type="radio"
+                  name="rating-10"
+                  onChange={() => {
+                    handleScore(score);
+                  }}
+                  onClick={() => {
+                    handleScore(score);
+                  }}
+                  checked={index === inputs.score * 2 - 1}
+                  className={
+                    index % 2 === 0
+                      ? `bg-gongbang mask mask-star-2 mask-half-1`
+                      : `bg-gongbang mask mask-star-2 mask-half-2`
+                  }
+                />
+              );
+            })}
           </div>
         </div>
       </div>
@@ -630,6 +588,7 @@ export default function ReviewUpdate({
             name="content"
             id=""
             rows={5}
+            value={inputs.content}
             onChange={handleInputChange}
           ></textarea>
         </div>

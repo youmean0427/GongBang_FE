@@ -41,8 +41,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   useEffect(() => {
     if (data.reviewimage_set) {
       data.reviewimage_set.map((x: ReveiwImageData) => {
-        console.log(x);
-        setImages([...images, x]);
+       setImages([...images, x]);
       });
     }
   }, []);
@@ -120,7 +119,7 @@ export default function ListContainer({ type, data }: ListContainer) {
           {userId === data.user && (
             <div className="flex gap-2">
               {type === 1 ? (
-                <div onClick={() => handleUpdateModalInProfile(data)}>수2</div>
+                <div></div>
               ) : (
                 <div
                   className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
@@ -236,11 +235,19 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="flex items-center justify-between mb-2">
         <div className="w-full h-full text-lg font-bold ">{data.title}</div>
         {userId === data.user && (
-          <div
-            className=" w-[40px] bg-gray-200 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
-            onClick={() => handleDelete(data.id)}
-          >
-            삭제
+          <div className="flex items-center justify-center gap-2">
+            <div
+              className=" w-[40px] bg-gray-200 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
+              onClick={() => hadleUpdateModal(data)}
+            >
+              수정
+            </div>
+            <div
+              className=" w-[40px] bg-gray-200 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
+              onClick={() => handleDelete(data.id)}
+            >
+              삭제
+            </div>
           </div>
         )}
       </div>
@@ -258,9 +265,9 @@ export default function ListContainer({ type, data }: ListContainer) {
       <div className="w-full space-x-2 carousel carousel-center">
         {data.reviewimage_set &&
           data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
-            <div className="carousel-item h-[170px]" key={x.id}>
+            <div className="carousel-item h-[150px]" key={x.id}>
               <img
-                className="object-cover w-[170px] h-[170px] rounded-2xl"
+                className="object-cover w-[150px] h-[150px] rounded-2xl"
                 src={process.env.REACT_APP_API_URL + x.image}
               />
             </div>
@@ -274,6 +281,9 @@ export default function ListContainer({ type, data }: ListContainer) {
       )}
 
       <hr />
+      {isOpenReviewUpdateModal && (
+        <Modal close={() => hadleUpdateModal(data)} data={data} type={6} />
+      )}
     </div>
   );
 }

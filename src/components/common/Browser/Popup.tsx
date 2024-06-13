@@ -82,7 +82,7 @@ export default function Popup() {
               카페 정보가 정말 필요합니다!
             </span>
           </div>
-          <div className=" mt-4 pl-2 pr-2 pt-1 pb-1 text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
+          <div className=" mt-4 pl-3 pr-3 pt-1 pb-1 text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
             로그인 → 마이페이지 → 카페추천
           </div>
         </div>
@@ -97,7 +97,7 @@ export default function Popup() {
               onChange={() => handlePopupClose(1)}
               className="checkbox checkbox-xs checked:border-gongbang [--chkfg:white]  [--chkbg:theme(colors.gongbang)] "
             />
-            <div className="w-full ml-2 text-xs font-medium text-gray-500">
+            <div className="w-[100px] ml-2 text-xs font-medium text-gray-500">
               오늘 하루 그만 보기
             </div>
           </div>

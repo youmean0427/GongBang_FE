@@ -130,7 +130,7 @@ export default function Profile() {
               </div>
             ))}
           {data && data.length === 0 && (
-            <div className="fixed right-0 w-full text-center top-1/2">
+            <div className="fixed right-0 w-full text-sm font-medium text-center text-gray-500 top-1/2">
               리뷰가 없습니다.
             </div>
           )}

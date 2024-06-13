@@ -452,7 +452,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
             </select>
           </div>
 
-          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[0.9px]">
+          <div className="w-[150px] mt-1 rating rating-lg rating-half -space-x-[0.8px]">
             <input type="radio" name="rating-10" className="rating-hidden" />
             <input
               type="radio"
