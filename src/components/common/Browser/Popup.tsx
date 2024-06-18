@@ -31,11 +31,9 @@ export default function Popup() {
             </div>
             <div className="text-lg font-medium ">
               공방은 여러분의{" "}
-              <span className="text-amber-700">
-                카페 정보가 정말 필요합니다!
-              </span>
+              <span className="text-amber-700">카페 정보가 필요합니다!</span>
             </div>
-            <div className="w-[350px] mt-5 p-1 text-xl font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
+            <div className="w-[350px] mt-5 p-1 text-lg font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
               로그인 → 상단 메뉴 → 카페 추천
             </div>
           </div>
@@ -77,12 +75,9 @@ export default function Popup() {
           </div>
           <div className="text-sm font-medium ">
             여러분의
-            <span className="text-amber-700">
-              {" "}
-              카페 정보가 정말 필요합니다!
-            </span>
+            <span className="text-amber-700"> 카페 정보가 필요합니다!</span>
           </div>
-          <div className=" mt-4 pl-3 pr-3 pt-1 pb-1 text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
+          <div className=" mt-4 pl-4 pr-4 pt-[5px] pb-[5px] text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
             로그인 → 마이페이지 → 카페추천
           </div>
         </div>

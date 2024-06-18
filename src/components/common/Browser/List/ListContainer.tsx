@@ -41,7 +41,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   useEffect(() => {
     if (data.reviewimage_set) {
       data.reviewimage_set.map((x: ReveiwImageData) => {
-       setImages([...images, x]);
+        setImages([...images, x]);
       });
     }
   }, []);
@@ -122,14 +122,14 @@ export default function ListContainer({ type, data }: ListContainer) {
                 <div></div>
               ) : (
                 <div
-                  className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
+                  className=" w-[40px] bg-gray-100 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
                   onClick={() => hadleUpdateModal(data)}
                 >
                   수정
                 </div>
               )}
               <div
-                className=" w-[40px] bg-gray-200 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
+                className=" w-[40px] bg-gray-100 p-1 rounded-md text-center text-sm font-semibold cursor-pointer hover:bg-gray-300"
                 onClick={() => handleDelete(data.id)}
               >
                 삭제
@@ -237,13 +237,13 @@ export default function ListContainer({ type, data }: ListContainer) {
         {userId === data.user && (
           <div className="flex items-center justify-center gap-2">
             <div
-              className=" w-[40px] bg-gray-200 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
+              className=" w-[40px] bg-gray-100 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
               onClick={() => hadleUpdateModal(data)}
             >
               수정
             </div>
             <div
-              className=" w-[40px] bg-gray-200 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
+              className=" w-[40px] bg-gray-100 mt-1 p-1 rounded-md text-center text-xs font-semibold cursor-pointer hover:bg-gray-300"
               onClick={() => handleDelete(data.id)}
             >
               삭제

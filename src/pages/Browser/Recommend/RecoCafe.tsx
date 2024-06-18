@@ -135,12 +135,12 @@ export default function RecoCafe() {
       <div className="mt-0 ml-10 mr-10">
         <div>
           <div>
-            <div className="mb-3 text-xl font-bold">📌 카페 추천</div>
+            <div className="mb-3 text-2xl font-bold">카페 추천</div>
           </div>
           <hr />
-          <div className="mt-3 text-base font-medium">
-            <div>✨ 공부하기 좋은 카페를 추천해주세요.</div>
-            <div>✨ 카페의 외경 사진을 올려주세요.</div>
+          <div className="mt-3 text-lg font-medium">
+            <div>"공부하기 좋은 카페"를 추천해주세요.</div>
+            <div>"카페의 외경 사진"을 올려주세요.</div>
           </div>
 
           <div className="mt-3">
@@ -249,12 +249,12 @@ export default function RecoCafe() {
     <div className="mt-0 ml-5 mr-5">
       <div>
         <div>
-          <div className="mb-2 text-xl font-bold">📌 카페 추천</div>
+          <div className="mb-2 text-xl font-semibold">카페 추천</div>
         </div>
         <hr />
         <div className="mt-2 text-sm font-medium">
-          <div>✨ 공부하기 좋은 카페를 추천해주세요.</div>
-          <div>✨ 카페의 외경 사진을 올려주세요.</div>
+          <div>공부하기 좋은 카페를 추천해주세요.</div>
+          <div>카페의 외경 사진을 올려주세요.</div>
         </div>
 
         <div className="mt-5">

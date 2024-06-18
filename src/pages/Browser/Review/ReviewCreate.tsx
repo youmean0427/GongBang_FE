@@ -169,7 +169,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
   if (isBrowser)
     return (
       <div className="mt-0 ml-10 mr-10">
-        <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
+        <div className="mb-2 text-2xl font-bold">리뷰 작성</div>
         <hr />
 
         <div className="flex w-full mt-2 mb-5 h-[200px]">
@@ -378,7 +378,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
     );
   return (
     <div className="mt-2 ml-5 mr-5">
-      <div className="mb-2 text-xl font-bold">✏️ 리뷰 작성</div>
+      <div className="mb-2 text-xl font-semibold">리뷰 작성</div>
       <hr />
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
@@ -553,7 +553,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
 
       <div className="flex items-center justify-center">
         <div
-          className="w-full h-10 mt-3 mb-5 text-base font-medium text-white btn btn-sm bg-gongbang"
+          className="w-full h-10 mt-3 mb-5 text-base font-semibold text-white btn btn-sm bg-gongbang"
           onClick={handleReviewCreate}
         >
           작성

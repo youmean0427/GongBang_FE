@@ -121,7 +121,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-
+        <hr className="mt-10 ml-5 mr-5" />
         <div className="mt-10 ">
           {data &&
             data.map((x: ReviewData) => (

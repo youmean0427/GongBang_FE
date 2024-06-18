@@ -61,7 +61,7 @@ export default function ReviewCard({
         <div className="mt-5 mb-5 ">
           <div className="flex items-center justify-between mb-10">
             {title.length > 0 && (
-              <div className="text-2xl font-semibold">📝 {title}</div>
+              <div className="text-2xl font-semibold">{title}</div>
             )}
             <div className="flex ">
               {type === 1 && (
@@ -106,7 +106,7 @@ export default function ReviewCard({
                   >
                     {/* Images */}
                     <div className="mb-3 ">
-                      {data.reviewimage_set && (
+                      {data.reviewimage_set.length > 0 ? (
                         <img
                           className=" h-[250px] w-[250px] object-cover rounded-2xl"
                           src={
@@ -115,6 +115,8 @@ export default function ReviewCard({
                           }
                           alt="Cafe"
                         />
+                      ) : (
+                        <div className="h-[250px] w-[250px] bg-gray-400  rounded-2xl"></div>
                       )}
                     </div>
                     {/* <div>{data.id}</div> */}
@@ -161,7 +163,7 @@ export default function ReviewCard({
         {title.length > 0 && (
           <div className="flex items-center justify-between ">
             {title.length > 0 && (
-              <div className="text-xl font-bold">📝 {title}</div>
+              <div className="text-xl font-semibold"> {title}</div>
             )}
             {type === 1 && (
               <div className="flex ">
@@ -208,7 +210,7 @@ export default function ReviewCard({
               >
                 {/* Images */}
                 <div className="mb-3 ">
-                  {data.reviewimage_set && (
+                  {data.reviewimage_set.length > 0 ? (
                     <img
                       className=" h-[150px] w-[150px] object-cover rounded-2xl"
                       src={
@@ -217,6 +219,8 @@ export default function ReviewCard({
                       }
                       alt="Cafe"
                     />
+                  ) : (
+                    <div className="h-[150px] w-[150px] bg-gray-400  rounded-2xl"></div>
                   )}
                 </div>
 

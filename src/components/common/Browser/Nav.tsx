@@ -62,7 +62,7 @@ export default function Nav() {
 
   return (
     <>
-      <div className="flex flex-row w-full pl-[10%] pr-[10%]">
+      <div className="flex flex-row w-full pl-[10%] pr-[10%] font-medium">
         <div className="flex items-center justify-between w-full h-20">
           {/* Logo & Link */}
           <div className="flex items-center gap-14">

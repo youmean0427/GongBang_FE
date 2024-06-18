@@ -99,7 +99,7 @@ export default function Login() {
       </Link>
       <div>
         <button
-          className="text-lg text-white btn bg-gongbang w-72"
+          className="text-lg font-semibold text-white btn bg-gongbang w-72"
           onClick={handleLogin}
         >
           로그인

@@ -148,7 +148,7 @@ export default function CafeDetail() {
                   {coffecafeDetail.name}
                 </div>
                 <Stars score={coffecafeDetail.total_score} size="large" />
-                <div className="mt-4 mb-1 text-lg">
+                <div className="mt-4 mb-1 text-lg font-normal">
                   {coffecafeDetail.address}
                 </div>
                 <div className="mb-4 text-lg"> {coffecafeDetail.time} </div>
@@ -231,7 +231,7 @@ export default function CafeDetail() {
             </div>
 
             <div className="w-full mt-16 mb-16 h-96">
-              <div className="mb-10 text-2xl font-semibold">📌 카페 위치</div>
+              <div className="mb-10 text-2xl font-semibold">카페 위치</div>
               <Map
                 center={{
                   lat: coffecafeDetail.lat,
@@ -329,7 +329,7 @@ export default function CafeDetail() {
                     )
                   )}
                 </div>
-                <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
+                <div className="mt-5 mb-4 text-2xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
                 <div className="grid grid-cols-1 text-base font-medium gap-x-1 ">
@@ -404,7 +404,7 @@ export default function CafeDetail() {
             </div>
 
             <div className="w-full mt-16 mb-16 h-96">
-              <div className="mb-10 text-xl font-bold">📌 카페 위치</div>
+              <div className="mb-10 text-xl font-semibold">카페 위치</div>
               <Map
                 center={{
                   lat: coffecafeDetail.lat,

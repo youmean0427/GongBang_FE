@@ -58,8 +58,8 @@ export default function FilterContainer({ data }: any) {
   if (isBrowser)
     return (
       <div>
-        <div className="w-full">
-          <span className="text-2xl">🪄 </span>
+        <div className="flex flex-row justify-between w-full">
+          <div className="text-2xl font-semibold ">상세 리뷰</div>
           <select
             className="text-xl font-bold w-1/8 select select-bordered"
             onChange={handleTypeSelect}
@@ -73,7 +73,6 @@ export default function FilterContainer({ data }: any) {
               );
             })}
           </select>
-          <span className="ml-5 text-2xl font-semibold"> 리뷰 </span>
         </div>
         <div>
           <ReviewCard
@@ -91,10 +90,10 @@ export default function FilterContainer({ data }: any) {
   return (
     <>
       <div>
-        <div className="w-full">
-          <span className="text-xl">🪄 </span>
+        <div className="flex flex-row justify-between w-full">
+          <span className="text-xl font-semibold">상세 리뷰</span>
           <select
-            className="text-xl font-bold w-1/8 select select-bordered"
+            className="text-lg font-semibold w-1/8 select select-sm select-bordered"
             onChange={handleTypeSelect}
             value={typeSelect}
           >
@@ -106,7 +105,6 @@ export default function FilterContainer({ data }: any) {
               );
             })}
           </select>
-          <span className="ml-5 text-xl font-bold"> 리뷰 </span>
         </div>
         <div>
           <ReviewCard

@@ -104,7 +104,7 @@ export default function MobileLogin({ handleMobileSignup }: any) {
       </div>
       <div>
         <button
-          className="mt-2 text-base text-white btn bg-gongbang w-72"
+          className="mt-2 text-base font-semibold text-white btn bg-gongbang w-72"
           onClick={handleLogin}
           disabled={isValid}
         >

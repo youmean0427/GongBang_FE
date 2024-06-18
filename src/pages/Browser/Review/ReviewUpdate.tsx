@@ -248,7 +248,7 @@ export default function ReviewUpdate({
   if (isBrowser)
     return (
       <div className="mt-0 ml-10 mr-10">
-        <div className="mb-2 text-xl font-bold">✏️ 리뷰 수정</div>
+        <div className="mb-2 text-xl font-bold">리뷰 수정</div>
         <hr />
         {preImageList.length < 5 ? (
           <div className="mt-2 w-full h-[50px] border rounded-xl carousel-item mb-2 cursor-pointer">
@@ -451,7 +451,7 @@ export default function ReviewUpdate({
     );
   return (
     <div className="mt-2 ml-5 mr-5">
-      <div className="mb-2 text-xl font-bold">✏️ 리뷰 수정</div>
+      <div className="mb-2 text-xl font-semibold">리뷰 수정</div>
       <hr />
       <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
