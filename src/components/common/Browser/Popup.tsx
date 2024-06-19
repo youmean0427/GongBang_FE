@@ -64,9 +64,10 @@ export default function Popup() {
     <div className="flex flex-col justify-between ml-7 mr-5 h-[340px] items-center pt-0 relative ">
       <div className="w-full">
         <div className="flex flex-col items-start justify-start w-full h-full ">
-          <div className="p-2 text-sm font-medium text-white badge border-[#E7B98E] bg-[#E7B98E] ">
+          <div className="pt-1 pb-1 pl-2 pr-2 text-xs font-medium text-white  rounded-lg  border-[#E7B98E] bg-[#E7B98E] ">
             공부다방
           </div>
+
           <div className="mt-2 mb-2 text-2xl font-bold ">공방</div>
           <div className="text-sm font-medium ">
             <span></span>

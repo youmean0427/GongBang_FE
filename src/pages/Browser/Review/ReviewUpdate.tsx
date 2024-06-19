@@ -305,7 +305,7 @@ export default function ReviewUpdate({
               {preImageList.map((x: ReveiwImageData | File | string, index) => (
                 <div key={index}>
                   <div
-                    className="relative w-[200px] h-full carousel-item"
+                    className="relative w-[200px] h-[200px] carousel-item"
                     style={{
                       transform: `translateX(-${currentSlide * 208}px)`,
                       transition: "transform 0.5s ease",
@@ -453,13 +453,13 @@ export default function ReviewUpdate({
     <div className="mt-2 ml-5 mr-5">
       <div className="mb-2 text-xl font-semibold">리뷰 수정</div>
       <hr />
-      <div className="flex w-full mt-5 h-[180px]">
+      <div className="flex w-full mt-5 h-[170px]">
         {/* Image */}
-        <div className="w-full h-[180px]  space-x-2 carousel carousel-center">
+        <div className="w-full h-[170px]  space-x-2 carousel carousel-center">
           {preImageList.map((x: ReveiwImageData | File | string, index) => (
             <div key={index}>
               <div
-                className="relative w-[180px] h-full carousel-item"
+                className="relative w-[170px] h-[170px] carousel-item"
                 style={{
                   transform: `translateX(-${currentSlide * 208}px)`,
                   transition: "transform 0.5s ease",
@@ -468,7 +468,7 @@ export default function ReviewUpdate({
                 {x instanceof File && (
                   <>
                     <img
-                      className="object-cover w-[180px] h-[180px] rounded-xl"
+                      className="object-cover w-[170px] h-[170px] rounded-xl"
                       src={URL.createObjectURL(x)}
                       alt={`Preview ${index + 1}`}
                     />
@@ -486,7 +486,7 @@ export default function ReviewUpdate({
                 {!(x instanceof File) && typeof x === "object" && (
                   <>
                     <img
-                      className="object-cover w-[180px] h-[180px] rounded-xl"
+                      className="object-cover w-[170px] h-[170px] rounded-xl"
                       src={process.env.REACT_APP_API_URL + x.image}
                       alt={`Preview ${index + 1}`}
                     />

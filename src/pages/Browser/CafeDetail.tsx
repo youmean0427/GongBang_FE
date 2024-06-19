@@ -329,7 +329,7 @@ export default function CafeDetail() {
                     )
                   )}
                 </div>
-                <div className="mt-5 mb-4 text-2xl font-semibold cafedetail-info-con">
+                <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
                   편의시설
                 </div>
                 <div className="grid grid-cols-1 text-base font-medium gap-x-1 ">

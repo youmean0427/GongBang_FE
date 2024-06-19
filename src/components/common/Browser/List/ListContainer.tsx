@@ -209,7 +209,7 @@ export default function ListContainer({ type, data }: ListContainer) {
         </div>
 
         <div className="mb-5">{data.content}</div>
-        <hr />
+
         {isOpenReviewUpdateModal && (
           <Modal close={() => hadleUpdateModal(data)} data={data} type={6} />
         )}
@@ -275,12 +275,13 @@ export default function ListContainer({ type, data }: ListContainer) {
       </div>
 
       {data.content.length > 100 ? (
-        <div className="mb-5 h-[120px] overflow-y-auto">{data.content}</div>
+        <div className="mb-5 mt-2 h-[120px] overflow-y-auto">
+          {data.content}
+        </div>
       ) : (
-        <div className="mb-5 ">{data.content}</div>
+        <div className="mt-2 mb-5">{data.content}</div>
       )}
 
-      <hr />
       {isOpenReviewUpdateModal && (
         <Modal close={() => hadleUpdateModal(data)} data={data} type={6} />
       )}

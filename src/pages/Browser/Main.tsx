@@ -58,13 +58,10 @@ export default function Main() {
                   data={sortedScoreData}
                 />
 
-                <hr />
                 <CafeCard
                   title={"🎈 풀옵션, 모든 것이 갖춰진 카페"}
                   data={sortedCategoryData}
                 />
-
-                <hr />
 
                 <CafeCard
                   title={"✨ 새로운, 최근 오픈 신상 카페"}

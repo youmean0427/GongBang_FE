@@ -47,13 +47,13 @@ export default function Banner() {
               <div className="pt-1 pb-1 pl-2 pr-2 text-xs font-semibold text-white rounded-lg border-gongbang bg-gongbang font_slideIn">
                 공부다방
               </div>
-              <div className="mt-1 mb-1 text-2xl font-bold text-black font_slideIn">
+              <div className="mt-1 text-2xl font-bold text-black font_slideIn">
                 공방
               </div>
-              <div className="mb-[2px] text-base font-medium text-black font_slideIn">
+              <div className="mb-[1px] mt-1 text-sm font-medium text-black font_slideIn">
                 공부하기 좋은 카페
               </div>
-              <div className="text-base font-medium text-black font_slideIn">
+              <div className="text-sm font-medium text-black font_slideIn">
                 상세한 카페 리뷰
               </div>
             </div>
