@@ -156,7 +156,7 @@ export default function PasswordResetConfirm() {
 
         <div className="w-full">
           <button
-            className="w-full text-base text-white bg-gongbang btn"
+            className="w-full text-base font-bold text-white bg-gongbang btn"
             onClick={handlePasswordReset}
             disabled={isValid}
           >

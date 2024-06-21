@@ -226,7 +226,7 @@ export default function ReviewCard({
 
                 {/* Info */}
                 <Stars score={data.score} size="small" />
-                <div className="w-[150px] mt-1 text-lg font-semibold truncate ">
+                <div className="w-[150px] mt-1 text-base font-semibold truncate ">
                   {data.title}
                 </div>
                 <div className="flex items-center justify-between mt-1">

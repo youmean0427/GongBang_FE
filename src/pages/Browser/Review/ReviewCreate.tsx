@@ -166,6 +166,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
         </div>
       </>
     );
+
   if (isBrowser)
     return (
       <div className="mt-0 ml-10 mr-10">
@@ -553,7 +554,7 @@ export default function ReviewCreate({ coffeeCafe }: ReviewCreatePropsType) {
 
       <div className="flex items-center justify-center">
         <div
-          className="w-full h-10 mt-3 mb-5 text-base font-semibold text-white btn btn-sm bg-gongbang"
+          className="w-full h-10 mt-3 mb-5 text-sm font-bold text-white btn btn-sm bg-gongbang"
           onClick={handleReviewCreate}
         >
           작성

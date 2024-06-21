@@ -250,24 +250,7 @@ export default function ReviewUpdate({
       <div className="mt-0 ml-10 mr-10">
         <div className="mb-2 text-xl font-bold">리뷰 수정</div>
         <hr />
-        {preImageList.length < 5 ? (
-          <div className="mt-2 w-full h-[50px] border rounded-xl carousel-item mb-2 cursor-pointer">
-            <label className="flex flex-col items-center justify-center w-full h-full ">
-              <LuCamera size={30} color="gray" />
-              <input
-                className="hidden "
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={handleImageChange}
-              />
-            </label>
-          </div>
-        ) : (
-          <div className="mt-2 mb-2 flex items-center justify-center w-full h-[50px]">
-            사진은 5장까지 업로드 가능합니다.
-          </div>
-        )}
+
         <div className="flex w-full mt-2 mb-5 h-[200px]">
           {/* Image
           {imageList.map((image, index) => (
@@ -369,6 +352,24 @@ export default function ReviewUpdate({
             )}
           </div>
         </div>
+        {preImageList.length < 5 ? (
+          <div className="mt-2 w-full h-[50px] border rounded-xl carousel-item mb-2 cursor-pointer">
+            <label className="flex flex-col items-center justify-center w-full h-full ">
+              <LuCamera size={30} color="gray" />
+              <input
+                className="hidden "
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleImageChange}
+              />
+            </label>
+          </div>
+        ) : (
+          <div className="mt-2 mb-2 flex items-center justify-center w-full h-[50px]">
+            사진은 5장까지 업로드 가능합니다.
+          </div>
+        )}
         {/* Review */}
         <div className="">
           <input
@@ -444,7 +445,7 @@ export default function ReviewUpdate({
             className="mt-6 mb-5 text-lg text-white btn w-72 bg-gongbang"
             onClick={handleReviewCreate}
           >
-            작성
+            수정
           </div>
         </div>
       </div>
@@ -453,9 +454,9 @@ export default function ReviewUpdate({
     <div className="mt-2 ml-5 mr-5">
       <div className="mb-2 text-xl font-semibold">리뷰 수정</div>
       <hr />
-      <div className="flex w-full mt-5 h-[170px]">
+      <div className="flex w-full mt-5 h-[180px]">
         {/* Image */}
-        <div className="w-full h-[170px]  space-x-2 carousel carousel-center">
+        <div className="w-full h-[180px]  space-x-2 carousel carousel-center">
           {preImageList.map((x: ReveiwImageData | File | string, index) => (
             <div key={index}>
               <div
@@ -584,7 +585,7 @@ export default function ReviewUpdate({
         <div>
           <textarea
             maxLength={500}
-            className="w-full text-base textarea textarea-bordered max-h-[100px]"
+            className="w-full text-sm textarea textarea-bordered max-h-[100px]"
             name="content"
             id=""
             rows={5}
@@ -596,10 +597,10 @@ export default function ReviewUpdate({
 
       <div className="flex items-center justify-center">
         <div
-          className="w-full h-10 mt-3 mb-5 text-base font-medium text-white btn btn-sm bg-gongbang"
+          className="w-full h-10 mt-3 mb-5 text-sm font-bold text-white btn btn-sm bg-gongbang"
           onClick={handleReviewCreate}
         >
-          작성
+          수정
         </div>
       </div>
     </div>

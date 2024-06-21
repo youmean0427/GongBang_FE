@@ -37,7 +37,7 @@ const modalsSize: ModalType = {
   5: "w-2/5 min-w-[650px] max-w-[800px]  overflow-y-auto bg-white h-4/5 rounded-xl",
   6: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
   7: "w-[700px]  overflow-y-auto bg-white h-[700px] rounded-xl",
-  8: "w-[500px] overflow-y-auto h-[550px] rounded-xl bg-[#EFDCCB]",
+  8: "w-[500px] overflow-y-auto h-[550px] rounded-xl bg-[#F1D4B9]",
 };
 
 // Mobile
@@ -50,7 +50,7 @@ const MobileModalsSize: ModalType = {
   5: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
   6: "w-full m-5  overflow-y-auto bg-white h-full max-h-[600px] rounded-xl",
   7: "w-full m-5 overflow-y-auto bg-white h-full min-h-[400px] max-h-[80%] rounded-xl",
-  8: "w-[320px] m-5 overflow-y-auto h-[400px] rounded-xl bg-[#EFDCCB]",
+  8: "w-[320px] m-5 overflow-y-auto h-[400px] rounded-xl bg-[#F1D4B9]",
 };
 
 interface ModalPropType {

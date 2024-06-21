@@ -96,7 +96,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   if (type === 2 && cafeName === "") return <></>;
   if (isBrowser)
     return (
-      <div className="pb-2 mt-8 mb-8 ml-8 mr-8">
+      <div className="pb-2 mt-1 mb-8 ml-8 mr-8">
         {/* Info */}
         {type === 2 && cafeData && cafeId ? (
           <div
@@ -233,7 +233,7 @@ export default function ListContainer({ type, data }: ListContainer) {
       )}
 
       <div className="flex items-center justify-between mb-2">
-        <div className="w-full h-full text-lg font-bold ">{data.title}</div>
+        <div className="w-full h-full text-lg font-semibold ">{data.title}</div>
         {userId === data.user && (
           <div className="flex items-center justify-center gap-2">
             <div
@@ -275,11 +275,11 @@ export default function ListContainer({ type, data }: ListContainer) {
       </div>
 
       {data.content.length > 100 ? (
-        <div className="mb-5 mt-2 h-[120px] overflow-y-auto">
+        <div className="mb-5 mt-2 h-[120px] overflow-y-auto text-sm">
           {data.content}
         </div>
       ) : (
-        <div className="mt-2 mb-5">{data.content}</div>
+        <div className="mt-2 mb-5 text-sm">{data.content}</div>
       )}
 
       {isOpenReviewUpdateModal && (

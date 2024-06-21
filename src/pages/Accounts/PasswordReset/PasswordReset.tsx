@@ -80,7 +80,7 @@ export default function PasswordReset() {
         </div>
         <div className="w-full">
           <div
-            className="w-full text-base text-white bg-gongbang btn"
+            className="w-full text-base font-bold text-white bg-gongbang btn"
             onClick={handlePasswordReset}
           >
             확인

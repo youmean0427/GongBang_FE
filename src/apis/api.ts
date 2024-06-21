@@ -1,6 +1,6 @@
 import axios from "axios";
-import { RecoCafeInputType } from "../types/type";
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 interface PasswordResetConfrim {
   new_password1: string;
   new_password2: string;

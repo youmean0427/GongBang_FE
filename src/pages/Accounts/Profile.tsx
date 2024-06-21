@@ -91,7 +91,7 @@ export default function Profile() {
   if (isMobile)
     return (
       <>
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center mt-4">
           <div>
             {data && data.length < 10 && (
               <img src={emStar} className="w-5 h-5 mb-2" />
