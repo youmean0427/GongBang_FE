@@ -10,6 +10,7 @@ export default function Popup() {
   const [isChecked, setIsChecked] = useState(false);
   const [togglePopup, setTogglePopup] = useRecoilState(PopupHandle);
 
+  // LocalStorage에 시간을 저장
   const handlePopupClose = (expireDays: number) => {
     setIsChecked(true);
     setTogglePopup(false);

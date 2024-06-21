@@ -17,6 +17,14 @@ export interface CoffeeCafeData {
   vibe: number;
   wifi: number;
 }
+
+export interface PasswordResetConfrim {
+  new_password1: string;
+  new_password2: string;
+  uid?: string;
+  token?: string;
+}
+
 export interface CoffeeCafeImageData {
   id: number;
   cafe: number;

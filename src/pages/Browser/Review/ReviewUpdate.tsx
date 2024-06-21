@@ -50,7 +50,6 @@ export default function ReviewUpdate({
 }: {
   reviewData: ReviewData;
 }) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
   let [imageLength, setImageLength] = useState(0);
   const getDate = new Date();
   const today = getToday(getDate);
@@ -77,6 +76,8 @@ export default function ReviewUpdate({
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // * 이미지 버튼
   const nextSlide = () => {
     setCurrentSlide(
       currentSlide >= imageList.length - 1 ? 0 : currentSlide + 1
@@ -85,6 +86,7 @@ export default function ReviewUpdate({
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
   };
+  // *
 
   const handleInputChange = (
     event:
@@ -163,18 +165,6 @@ export default function ReviewUpdate({
     reviewCreateMutation.mutate(formData);
   };
 
-  // const { isLoading, data } = useQuery({
-  //   queryKey: ["reviewUpdate"],
-  //   queryFn: () => getReviewDetailAPI("13"),
-  // });
-
-  // useEffect(() => {
-  //   if (data) {
-  //     const newImageList = [...data.reviewimage_set];
-  //     setImageList(newImageList);
-  //   }
-  // }, []);
-
   useEffect(() => {
     if (reviewData) {
       setInputs({
@@ -252,36 +242,6 @@ export default function ReviewUpdate({
         <hr />
 
         <div className="flex w-full mt-2 mb-5 h-[200px]">
-          {/* Image
-          {imageList.map((image, index) => (
-            <>
-              <div className="w-1/3 h-full" key={index}>
-                <img
-                  className="object-cover w-full h-full rounded-xl"
-                  src={URL.createObjectURL(image)}
-                  alt={`Preview ${index + 1}`}
-                />
-              </div>
-              <div className="m-1"></div>
-            </>
-          ))}
-          {imageList.length < 3 ? (
-            <div className="w-1/3 h-full border rounded-xl">
-              <label className="flex flex-col items-center justify-center h-full ">
-                <LuCamera size={40} color="gray" />
-                <input
-                  className="hidden "
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleImageChange}
-                />
-              </label>
-            </div>
-          ) : (
-            <></>
-          )} */}
-
           {/* Image */}
           <div className="relative w-full">
             <div className="w-full h-[200px] space-x-2 relative carousel carousel-end">

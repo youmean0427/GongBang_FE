@@ -31,6 +31,7 @@ export default function Nav() {
     url: string;
   }[] = [{ title: "일반 카페", url: "/coffeecafe" }];
 
+  // * Modal Functions
   const handleLoginModal = () => {
     setIsOpenLoginModal(!isOpenLoginModal);
     document.body.style.overflow = "auto";
@@ -47,6 +48,7 @@ export default function Nav() {
     setISOpenRecoModal(!isOpenRecoModal);
     document.body.style.overflow = "auto";
   };
+  // *
 
   // * Logout Mutation
   const logoutMutation = useMutation(["logoutAPI"], logoutAPI, {

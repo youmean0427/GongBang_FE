@@ -9,7 +9,6 @@ import Badge from "../Badge/Badge";
 import { isBrowser } from "react-device-detect";
 import Modal from "../Modal";
 import {
-  ModalDatailData,
   ModalDetailDataInProfile,
   ModealDetailDataInProfileBool,
 } from "../../../../recoil/atom";
@@ -18,12 +17,6 @@ import { useRecoilState } from "recoil";
 interface ListContainer {
   data: ReviewData;
   type?: number;
-}
-
-interface ImageType {
-  id: number;
-  image: string;
-  review: number;
 }
 
 export default function ListContainer({ type, data }: ListContainer) {
@@ -38,6 +31,7 @@ export default function ListContainer({ type, data }: ListContainer) {
     useRecoilState<Boolean>(ModealDetailDataInProfileBool);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isOpenReviewUpdateModal, setIsOpenReviewUpdateModal] = useState(false);
+
   useEffect(() => {
     if (data.reviewimage_set) {
       data.reviewimage_set.map((x: ReveiwImageData) => {
@@ -46,11 +40,7 @@ export default function ListContainer({ type, data }: ListContainer) {
     }
   }, []);
 
-  const {
-    isFetching,
-    isLoading,
-    data: cafeData,
-  } = useQuery({
+  const { data: cafeData } = useQuery({
     queryKey: ["listCafeData"],
     queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
     onSuccess: (x) => {
@@ -98,6 +88,7 @@ export default function ListContainer({ type, data }: ListContainer) {
     return (
       <div className="pb-2 mt-1 mb-8 ml-8 mr-8">
         {/* Info */}
+        {/* Profile일 경우, 카페의 ID로 Cafe 이름을 찾고, 링크로 표시 */}
         {type === 2 && cafeData && cafeId ? (
           <div
             className="mb-2 text-base font-medium cursor-pointer"
@@ -186,26 +177,6 @@ export default function ListContainer({ type, data }: ListContainer) {
               </button>
             </>
           )}
-          {/* {data.reviewimage_set &&
-            data.reviewimage_set.map((x: ReveiwImageData, i: number) => (
-              <div className="w-1/3 h-[200px] " key={x.id}>
-                <img
-                  className="object-cover w-full h-full rounded-2xl"
-                  src={process.env.REACT_APP_API_URL + x.image}
-                />
-              </div>
-            ))}
-          {data.reviewimage_set?.length === 1 && (
-            <>
-              <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-              <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-            </>
-          )}
-          {data.reviewimage_set?.length === 2 && (
-            <>
-              <div className="w-1/3 bg-gray-200 rounded-2xl"></div>
-            </>
-          )} */}
         </div>
 
         <div className="mb-5">{data.content}</div>

@@ -12,6 +12,7 @@ interface CafeCardType {
 export default function CafeCard({ title, data }: CafeCardType) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // 이미지 버튼
   const nextSlide = () => {
     setCurrentSlide(currentSlide === data.length - 1 ? 0 : currentSlide + 1);
   };

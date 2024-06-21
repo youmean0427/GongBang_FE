@@ -2,11 +2,7 @@ import { isBrowser } from "react-device-detect";
 import { LuArmchair, LuCoffee, LuHome, LuPlug } from "react-icons/lu";
 import { TypeCode } from "../../../../types/type";
 
-interface BadgeType {
-  typeIdx: number;
-}
-
-export default function Badge({ typeIdx }: BadgeType) {
+export default function Badge({ typeIdx }: { typeIdx: number }) {
   const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
   return (
     <>

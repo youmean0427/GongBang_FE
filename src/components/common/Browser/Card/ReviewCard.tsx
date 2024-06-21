@@ -26,17 +26,17 @@ export default function ReviewCard({
   isReviewModal,
   isReviewDetailIdx,
 }: ReviewCardType) {
-  const [toggleReviewDetailModal, setToggleReviewDetailModal] = useState(false);
+  const [toggleReviewDetailModal] = useState(false);
+
   const [reviewData, setReviewData] =
     useRecoilState<ReviewData>(ModalDatailData);
   const [reviewModalData, setReviewModalData] = useState<ReviewData>();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const typeCode: TypeCode = { 1: "분위기", 2: "좌석", 3: "음료", 4: "콘센트" };
+
   const username = useSelector((state: RootState) => state.user.username);
 
   const handelReviewDetailModal = (modalData: ReviewData) => {
-    // 옵셔널체이닝(?.)으로 정의되지 않을 가능성이 있는 개체 예외 처리
-    isReviewDetailIdx?.(modalData.id);
+    isReviewDetailIdx?.(modalData.id); // 옵셔널체이닝(?.)으로 정의되지 않을 가능성이 있는 개체 예외 처리
     setReviewData(modalData);
     document.body.style.overflow = "done";
   };
@@ -46,6 +46,7 @@ export default function ReviewCard({
     document.body.style.overflow = "auto";
   };
 
+  // * 이미지 버튼
   const nextSlide = () => {
     setCurrentSlide(
       currentSlide === data.length - 1 ? currentSlide : currentSlide + 1
@@ -54,6 +55,7 @@ export default function ReviewCard({
   const prevSlide = () => {
     setCurrentSlide(currentSlide === 0 ? 0 : currentSlide - 1);
   };
+  // *
 
   if (isBrowser)
     return (
@@ -152,6 +154,7 @@ export default function ReviewCard({
             </>
           )}
         </div>
+        {/* ReviewDetail Modal */}
         {reviewModalData && toggleReviewDetailModal && (
           <Modal close={handleReviewModal} data={reviewModalData} type={0} />
         )}

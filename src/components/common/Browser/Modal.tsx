@@ -73,6 +73,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
       document.body.style.overflow = "auto";
     };
   }, []);
+
   if (isBrowser)
     return (
       <>
@@ -104,6 +105,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
             {type === 6 && <ReviewUpdate reviewData={data} />}
             {type === 7 && <RecoCafe />}
             {type === 8 && <Popup />}
+
             {(type === 3 || type == 4) && (
               <div className="flex items-center justify-center w-full h-4/5 ">
                 {type === 3 && <Login />}

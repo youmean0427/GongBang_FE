@@ -1,12 +1,7 @@
 import axios from "axios";
-axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+import { PasswordResetConfrim } from "../../src/types/type";
 
-interface PasswordResetConfrim {
-  new_password1: string;
-  new_password2: string;
-  uid?: string;
-  token?: string;
-}
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 export const getCoffeeCafesAPI = async (type: number) => {
   const { data } = await axios.get(`/api/coffeecafes/all/${type}`);

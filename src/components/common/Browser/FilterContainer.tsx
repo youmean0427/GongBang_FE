@@ -18,12 +18,8 @@ interface FilterDataType {
   type: number;
   user: number;
 }
-interface FilterData {
-  data: FilterDataType[];
-}
 
 export default function FilterContainer({ data }: any) {
-  const [nowType, setNowType] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
   const [toggleReviewModal, setToggleReviewModal] = useState(false);
   const [toggleReviewCreateModal, setToggleReviewCreateModal] = useState(false);
@@ -36,12 +32,16 @@ export default function FilterContainer({ data }: any) {
     { value: 4, name: "콘센트" },
   ];
 
+  // ** useEffect
+  // * type 변경에 따라, 데이터 filtering
   useEffect(() => {
     setFilteredData(data.filter((x: ReviewData) => x.type == typeSelect));
   }, [typeSelect]);
+  // * 초기 type은 1 -> "분위기"
   useEffect(() => {
     setFilteredData(data.filter((x: ReviewData) => x.type == 1));
   }, []);
+  // *
 
   const handleTypeSelect = (event: ChangeEvent<HTMLSelectElement>) => {
     setTypeSelect(event.target.value);

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import fullStar from "../../../images/full_star.png";
 import emStar from "../../../images/em_star.png";
 import { isBrowser, isMobile } from "react-device-detect";
-
 // import "./Star.css";
 
 interface Stars {
@@ -50,6 +49,7 @@ export default function Stars({ score, size }: Stars) {
     }
     setStars(arr);
   }, [score]);
+
   if (isBrowser)
     return (
       <>
