@@ -138,10 +138,8 @@ export default function RecoCafe() {
             <div className="mb-3 text-2xl font-bold">카페 추천</div>
           </div>
           <hr />
-          <div className="mt-3 text-lg font-medium">
-            <div>
-              {"<"}공부하기 좋은 카페{">"}를 추천해주세요.
-            </div>
+          <div className="mt-5 text-lg font-medium">
+            <div>공부하기 좋은 카페를 추천해주세요.</div>
             <div>카페의 외부 사진을 올려주세요.</div>
           </div>
 

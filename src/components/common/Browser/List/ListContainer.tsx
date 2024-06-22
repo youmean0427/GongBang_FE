@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../../../redux/store";
 import { ReveiwImageData, ReviewData, TypeCode } from "../../../../types/type";
 import Badge from "../Badge/Badge";
-import { isBrowser } from "react-device-detect";
+import { isBrowser, isMobile } from "react-device-detect";
 import Modal from "../Modal";
 import {
   ModalDetailDataInProfile,
@@ -83,7 +83,26 @@ export default function ListContainer({ type, data }: ListContainer) {
   };
 
   // type 2 -> Profile
-  if (type === 2 && cafeName === "") return <></>;
+  if (type === 2 && cafeName === "")
+    if (isMobile)
+      return (
+        <>
+          <div className="mt-5 ml-5 mr-5 ">
+            <div className="w-[180px] h-[20px] skeleton mb-2"></div>
+            <div className="w-full h-[25px] skeleton mb-2"></div>
+            <div className="grid w-full grid-cols-2 gap-2">
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+            </div>
+            <div className="w-[150px] h-[150px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+          </div>
+        </>
+      );
   if (isBrowser)
     return (
       <div className="pb-2 mt-1 mb-8 ml-8 mr-8">

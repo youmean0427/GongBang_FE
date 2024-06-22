@@ -14,6 +14,7 @@ import {
   ModalDetailDataInProfile,
   ModealDetailDataInProfileBool,
 } from "../../recoil/atom";
+import { Retryer } from "react-query/types/core/retryer";
 export default function Profile() {
   // Redux를 통해, userName과 userId 가져오기
   const userName = useSelector((state: RootState) => state.user.username);
@@ -52,8 +53,38 @@ export default function Profile() {
     }
   };
   // *
+  if (isLoading || isFetching)
+    if (isMobile)
+      return (
+        <>
+          <div className="flex flex-col items-center justify-center gap-2 mt-4">
+            <div className="w-[50px] h-[20px] skeleton"></div>
+            <div className="w-[80px] h-[28px] skeleton"></div>
+            <div className="w-[50px] h-[20px] skeleton"></div>
+            <div className="flex gap-2">
+              <div className="w-[70px] h-[30px] skeleton"></div>
+              <div className="w-[70px] h-[30px] skeleton"></div>
+            </div>
+          </div>
 
-  if (isLoading || isFetching) return <></>;
+          <div className="mt-20 ml-5 mr-5 ">
+            <div className="w-[180px] h-[20px] skeleton mb-2"></div>
+            <div className="w-full h-[25px] skeleton mb-2"></div>
+            <div className="grid w-full grid-cols-2 gap-2">
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton"></div>
+            </div>
+            <div className="w-[150px] h-[150px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+            <div className="w-full h-[20px] skeleton mt-2"></div>
+          </div>
+        </>
+      );
+    else return <></>;
+
   if (isBrowser)
     return (
       <>

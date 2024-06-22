@@ -64,7 +64,7 @@ export default function Popup() {
     );
 
   return (
-    <div className="flex flex-col justify-between ml-7 mr-5 h-[340px] items-center pt-0 relative ">
+    <div className="flex flex-col justify-between ml-7 mr-7 h-[340px] items-center pt-0 relative ">
       <div className="flex flex-col items-center w-full">
         <div className="mt-2 mb-7 w-44 h-44">
           <img src={stats_item} alt="banner1" />
@@ -73,10 +73,10 @@ export default function Popup() {
           <div className="mb-2 text-xl font-bold ">
             공부하기 좋은 카페 추천 하기
           </div>
-          <div className="text-sm font-semibold ">
+          <div className="text-sm font-medium ">
             공방에서 공부하기 좋은 카페를 추천해주세요.
           </div>
-          <div className="text-sm font-semibold ">
+          <div className="text-sm font-medium ">
             여러분의 카페 데이터가 필요합니다.
           </div>
           <div className=" mt-4 pl-4 pr-4 pt-[8px] w-full pb-[8px] text-sm font-semibold text-center text-white rounded-lg  bg-[#E7B98E]">
