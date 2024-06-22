@@ -392,7 +392,7 @@ export default function CafeDetail() {
             </div>
 
             {/* 통합 리뷰 */}
-            <div className="mt-16 mb-16">
+            <div className="mt-16 mb-14">
               <ReviewCard
                 type={1}
                 title={reviewTitle[0]}
