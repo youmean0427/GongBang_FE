@@ -40,12 +40,17 @@ export default function ListContainer({ type, data }: ListContainer) {
     }
   }, []);
 
-  const { data: cafeData } = useQuery({
+  const {
+    isLoading,
+    isFetching,
+    data: cafeData,
+  } = useQuery({
     queryKey: ["listCafeData"],
     queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
     onSuccess: (x) => {
-      setCafeId(x.id);
-      setCafeName(x.name);
+      // Rerendering Issue
+      // setCafeId(x.id);
+      // setCafeName(x.name);
     },
   });
 
@@ -83,7 +88,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   };
 
   // type 2 -> Profile
-  if (type === 2 && cafeName === "")
+  if (type === 2 && isLoading)
     if (isMobile)
       return (
         <>
@@ -92,9 +97,9 @@ export default function ListContainer({ type, data }: ListContainer) {
             <div className="w-full h-[25px] skeleton mb-2"></div>
             <div className="grid w-full grid-cols-2 gap-2">
               <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton justify-self-end"></div>
               <div className="w-[140px] h-[25px] skeleton"></div>
-              <div className="w-[140px] h-[25px] skeleton"></div>
-              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton justify-self-end"></div>
             </div>
             <div className="w-[150px] h-[150px] skeleton mt-2"></div>
             <div className="w-full h-[20px] skeleton mt-2"></div>
@@ -209,7 +214,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   return (
     <div className="pb-2 mb-4 ml-5 mr-5 -mt-1">
       {/* Info */}
-      {type === 2 && cafeData && cafeId ? (
+      {type === 2 && cafeData ? (
         <div
           className="mb-2 text-sm font-medium cursor-pointer"
           onClick={() => {

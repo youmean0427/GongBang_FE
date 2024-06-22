@@ -53,7 +53,7 @@ export default function Profile() {
     }
   };
   // *
-  if (isLoading || isFetching)
+  if (isLoading)
     if (isMobile)
       return (
         <>
@@ -66,15 +66,15 @@ export default function Profile() {
               <div className="w-[70px] h-[30px] skeleton"></div>
             </div>
           </div>
-
-          <div className="mt-20 ml-5 mr-5 ">
+          <hr className="mt-10 ml-5 mr-5" />
+          <div className="mt-10 ml-5 mr-5 ">
             <div className="w-[180px] h-[20px] skeleton mb-2"></div>
             <div className="w-full h-[25px] skeleton mb-2"></div>
-            <div className="grid w-full grid-cols-2 gap-2">
+            <div className="grid justify-between w-full grid-cols-2 grid-rows-2 gap-2">
               <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton justify-self-end"></div>
               <div className="w-[140px] h-[25px] skeleton"></div>
-              <div className="w-[140px] h-[25px] skeleton"></div>
-              <div className="w-[140px] h-[25px] skeleton"></div>
+              <div className="w-[140px] h-[25px] skeleton justify-self-end"></div>
             </div>
             <div className="w-[150px] h-[150px] skeleton mt-2"></div>
             <div className="w-full h-[20px] skeleton mt-2"></div>
