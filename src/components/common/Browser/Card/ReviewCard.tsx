@@ -193,9 +193,9 @@ export default function ReviewCard({
       </div>
       <div className="relative w-full">
         <div className="w-full carousel carousel-start">
-          <div className="space-x-5 carousel-item h-[300px] ">
+          <div className="space-x-5 carousel-item h-[250px] ">
             {data.length === 0 && (
-              <div className="absolute flex items-center justify-center w-full h-[330px]   ">
+              <div className="absolute flex items-center justify-center w-full h-[300px]   ">
                 <div className="text-base font-medium text-gray-500">
                   리뷰가 없습니다.
                 </div>

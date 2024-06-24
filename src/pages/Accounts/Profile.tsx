@@ -26,7 +26,9 @@ export default function Profile() {
   const [isOpenRecoModal, setISOpenRecoModal] = useState(false);
   const handleRecoModal = () => {
     setISOpenRecoModal(!isOpenRecoModal);
-    document.body.style.overflow = "auto";
+    if (isBrowser) {
+      document.body.style.overflow = "auto";
+    }
   };
 
   // user가 작성한 모든 리뷰 가져오기
@@ -153,11 +155,12 @@ export default function Profile() {
           </div>
         </div>
         <hr className="mt-10 ml-5 mr-5" />
-        <div className="mt-10 ">
+        <div className="">
           {data &&
             data.map((x: ReviewData) => (
-              <div key={x.id} className="w-full">
+              <div key={x.id} className="w-full mt-10">
                 <ListContainer data={x} type={2} />
+                <hr className="ml-5 mr-5" />
               </div>
             ))}
           {data && data.length === 0 && (

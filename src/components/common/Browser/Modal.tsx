@@ -70,7 +70,9 @@ export default function Modal({ close, data, type }: ModalPropType) {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "auto";
+      if (type !== 6 && type !== 7) {
+        document.body.style.overflow = "auto";
+      }
     };
   }, []);
 

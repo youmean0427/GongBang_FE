@@ -49,8 +49,8 @@ export default function ListContainer({ type, data }: ListContainer) {
     queryFn: () => getCoffeeCafeDetailAPI(data.cafe),
     onSuccess: (x) => {
       // Rerendering Issue
-      // setCafeId(x.id);
-      // setCafeName(x.name);
+      setCafeId(x.id);
+      setCafeName(x.name);
     },
   });
 
@@ -212,7 +212,7 @@ export default function ListContainer({ type, data }: ListContainer) {
     );
 
   return (
-    <div className="pb-2 mb-4 ml-5 mr-5 -mt-1">
+    <div className="pb-2 mb-2 ml-5 mr-5 -mt-1">
       {/* Info */}
       {type === 2 && cafeData ? (
         <div
@@ -224,7 +224,7 @@ export default function ListContainer({ type, data }: ListContainer) {
           {cafeData.name}
         </div>
       ) : (
-        <div className="text-base mb-2 h-[24px]"></div>
+        <div className="mb-2 text-base"></div>
       )}
 
       <div className="flex items-center justify-between mb-2">
@@ -274,7 +274,7 @@ export default function ListContainer({ type, data }: ListContainer) {
           {data.content}
         </div>
       ) : (
-        <div className="mt-2 mb-5 text-sm">{data.content}</div>
+        <div className="mt-2 mb-2 text-sm">{data.content}</div>
       )}
 
       {isOpenReviewUpdateModal && (

@@ -392,7 +392,7 @@ export default function CafeDetail() {
             </div>
 
             {/* 통합 리뷰 */}
-            <div className="mt-16 mb-14">
+            <div className="mt-16 ">
               <ReviewCard
                 type={1}
                 title={reviewTitle[0]}
@@ -403,7 +403,7 @@ export default function CafeDetail() {
               />
             </div>
 
-            <div className="w-full mt-16 mb-16 h-96">
+            <div className="w-full mb-16 mt-14 h-96">
               <div className="mb-10 text-xl font-semibold">카페 위치</div>
               <Map
                 center={{
@@ -433,7 +433,7 @@ export default function CafeDetail() {
               </Map>
             </div>
             {/* 리뷰 필터 */}
-            <div className="mt-16 mb-16">
+            <div className="mt-16 mb-20">
               <FilterContainer data={coffecafeDetail.review_set} />
             </div>
           </div>
