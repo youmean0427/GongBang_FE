@@ -224,7 +224,7 @@ export default function ListContainer({ type, data }: ListContainer) {
           {cafeData.name}
         </div>
       ) : (
-        <div className="mb-2 text-base"></div>
+        <div className="mt-4 mb-2 text-base"></div>
       )}
 
       <div className="flex items-center justify-between mb-2">
