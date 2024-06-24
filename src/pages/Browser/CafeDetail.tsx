@@ -329,8 +329,8 @@ export default function CafeDetail() {
                     )
                   )}
                 </div>
-                <div className="mt-5 mb-4 text-xl font-semibold cafedetail-info-con">
-                  편의시설
+                <div className="mt-8 mb-4 text-xl font-semibold cafedetail-info-con">
+                  편의 시설
                 </div>
                 <div className="grid grid-cols-1 text-base font-medium gap-x-1 ">
                   <div className="flex items-center mt-1 mb-1">
@@ -390,21 +390,8 @@ export default function CafeDetail() {
                 </div>
               </div>
             </div>
-
-            {/* 통합 리뷰 */}
-            <div className="mt-16 ">
-              <ReviewCard
-                type={1}
-                title={reviewTitle[0]}
-                data={coffecafeDetail.review_set}
-                isReviewModal={handleReviewModal}
-                isCreateModal={handleReviewCreateMdoal}
-                isReviewDetailIdx={handleReviewDetailIndex}
-              />
-            </div>
-
-            <div className="w-full mb-16 mt-14 h-96">
-              <div className="mb-10 text-xl font-semibold">카페 위치</div>
+            <div className="w-full mt-10 mb-8 h-[280px]">
+              <div className="mb-5 text-xl font-semibold">카페 위치</div>
               <Map
                 center={{
                   lat: coffecafeDetail.lat,
@@ -432,6 +419,18 @@ export default function CafeDetail() {
                 ></MapMarker>
               </Map>
             </div>
+            {/* 통합 리뷰 */}
+            <div className="mt-16 ">
+              <ReviewCard
+                type={1}
+                title={reviewTitle[0]}
+                data={coffecafeDetail.review_set}
+                isReviewModal={handleReviewModal}
+                isCreateModal={handleReviewCreateMdoal}
+                isReviewDetailIdx={handleReviewDetailIndex}
+              />
+            </div>
+
             {/* 리뷰 필터 */}
             <div className="mt-16 mb-20">
               <FilterContainer data={coffecafeDetail.review_set} />
