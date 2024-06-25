@@ -85,7 +85,6 @@ export default function Profile() {
           </div>
         </>
       );
-    else return <></>;
 
   if (isBrowser)
     return (
@@ -142,25 +141,24 @@ export default function Profile() {
           <div>
             <div
               onClick={handleRecoModal}
-              className="mr-2 text-xs font-semibold text-white btn btn-sm bg-gongbang"
+              className="mr-2 text-xs font-semibold text-white border-none btn btn-sm bg-gongbang"
             >
               카페추천
             </div>
             <div
               onClick={handleLogout}
-              className="ml-2 text-xs font-semibold btn btn-sm"
+              className="ml-2 text-xs font-semibold text-black border-none btn btn-sm bg-slate-300"
             >
               로그아웃
             </div>
           </div>
         </div>
-        <hr className="mt-10 ml-5 mr-5" />
+        <hr className="mt-10 mb-10 ml-5 mr-5 " />
         <div className="">
           {data &&
             data.map((x: ReviewData) => (
-              <div key={x.id} className="w-full mt-10">
+              <div key={x.id} className="w-full mb-6">
                 <ListContainer data={x} type={2} />
-                <hr className="ml-5 mr-5" />
               </div>
             ))}
           {data && data.length === 0 && (

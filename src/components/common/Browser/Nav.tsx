@@ -97,7 +97,10 @@ export default function Nav() {
                   {username}
                 </div>
 
-                <div onClick={handleLogout} className="ml-8 mr-8 text-base btn">
+                <div
+                  onClick={handleLogout}
+                  className="ml-8 mr-8 text-base font-medium text-black border-none btn bg-slate-200"
+                >
                   로그아웃
                 </div>
               </div>

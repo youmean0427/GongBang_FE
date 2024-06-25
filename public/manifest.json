@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "공방 | GongBang",
+  "name": "공부하기 좋은 카페",
   "icons": [
     {
       "src": "favicon.ico",

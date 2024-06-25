@@ -77,7 +77,7 @@ export default function MobileLogin({ handleMobileSignup }: any) {
       <div className="w-72">
         <input
           name="email"
-          className="w-full input input-bordered"
+          className="w-full bg-white input input-bordered"
           onChange={handleChange}
           placeholder="이메일"
         />
@@ -87,7 +87,7 @@ export default function MobileLogin({ handleMobileSignup }: any) {
         <form>
           <input
             type="password"
-            className="w-full input input-bordered "
+            className="w-full bg-white input input-bordered"
             name="password"
             onChange={handleChange}
             placeholder="비밀번호"
@@ -104,7 +104,7 @@ export default function MobileLogin({ handleMobileSignup }: any) {
       </div>
       <div>
         <button
-          className="mt-2 text-base font-semibold text-white btn bg-gongbang w-72"
+          className="mt-2 text-base font-semibold text-white border-none btn bg-gongbang w-72"
           onClick={handleLogin}
           disabled={isValid}
         >

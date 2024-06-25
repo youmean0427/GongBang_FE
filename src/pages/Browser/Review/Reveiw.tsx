@@ -28,7 +28,7 @@ export default function Review({ data }: ReviewPropsType) {
             {data &&
               data.review_set &&
               data.review_set.map((x: ReviewData, i: number) => (
-                <div key={i} className="w-full">
+                <div key={i} className="w-full -mb-8">
                   <ListContainer data={x} />
                 </div>
               ))}
@@ -43,7 +43,7 @@ export default function Review({ data }: ReviewPropsType) {
     );
   return (
     <div className="h-[90%] mt-5">
-      <div className="flex flex-col items-center h-full gap-2 ">
+      <div className="flex flex-col items-center gap-2 ">
         <div className="flex flex-col items-center gap-2">
           <div className="mb-1 text-xl font-bold">{data.name}</div>
           <Stars score={data.total_score} size="small" />
@@ -51,13 +51,14 @@ export default function Review({ data }: ReviewPropsType) {
             {data.review_set.length}개의 리뷰
           </div>
         </div>
-
+      </div>
+      <hr className="mt-10 mb-10 ml-5 mr-5 " />
+      <div>
         <div className="w-full mt-5">
           {data &&
             data.review_set &&
             data.review_set.map((x: ReviewData, i: number) => (
-              <div key={i} className="">
-                <hr className="ml-5 mr-5 mb-7" />
+              <div key={i} className="mb-6">
                 <ListContainer data={x} />
               </div>
             ))}

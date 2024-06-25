@@ -16,6 +16,7 @@ a:focus {
 
 body {
   overflow-y: overlay; /* 반드시 overlay 처리 */
+  color: #000000;
 }
 
 ::-webkit-scrollbar {

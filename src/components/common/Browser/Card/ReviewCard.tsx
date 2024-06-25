@@ -172,7 +172,7 @@ export default function ReviewCard({
               <div className="flex ">
                 {type === 1 && (
                   <div
-                    className="font-semibold cursor-pointer btn btn-sm"
+                    className="font-semibold text-black border-none cursor-pointer bg-slate-200 btn btn-sm"
                     onClick={isReviewModal}
                   >
                     모든 리뷰
@@ -181,7 +181,7 @@ export default function ReviewCard({
                 {username && type === 1 && (
                   <div
                     onClick={isCreateModal}
-                    className="ml-2 font-semibold text-white btn btn-sm bg-gongbang"
+                    className="ml-2 font-semibold text-white border-none btn btn-sm bg-gongbang"
                   >
                     리뷰 작성
                   </div>

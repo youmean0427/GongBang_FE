@@ -89,7 +89,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
             </div>
 
             {type === 0 && (
-              <div className=" overflow-y-auto h-[90%]">
+              <div className=" overflow-y-auto  h-[90%]">
                 <ListContainer data={data} />
               </div>
             )}
@@ -141,7 +141,7 @@ export default function Modal({ close, data, type }: ModalPropType) {
               </div>
             )}
             {type === 0 && (
-              <div className=" overflow-y-auto h-[90%]">
+              <div className=" overflow-y-auto mt-1 h-[90%]">
                 <ListContainer data={data} />
               </div>
             )}

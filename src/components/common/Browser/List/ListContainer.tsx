@@ -25,10 +25,7 @@ export default function ListContainer({ type, data }: ListContainer) {
   const [cafeName, setCafeName] = useState("");
   const [images, setImages] = useState<ReveiwImageData[]>([]);
   const userId = useSelector((state: RootState) => state.user.user_id);
-  const [reviewDataInProfile, setReviewDataInProfile] =
-    useRecoilState<ReviewData>(ModalDetailDataInProfile);
-  const [reviewDataInProfileBool, setReviewDataInProfileBool] =
-    useRecoilState<Boolean>(ModealDetailDataInProfileBool);
+
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isOpenReviewUpdateModal, setIsOpenReviewUpdateModal] = useState(false);
 
@@ -82,14 +79,10 @@ export default function ListContainer({ type, data }: ListContainer) {
   const hadleUpdateModal = (data: ReviewData) => {
     setIsOpenReviewUpdateModal(!isOpenReviewUpdateModal);
   };
-  const handleUpdateModalInProfile = (data: ReviewData) => {
-    setReviewDataInProfile(data);
-    setReviewDataInProfileBool(true);
-  };
 
   // type 2 -> Profile
   if (type === 2 && isLoading)
-    if (isMobile)
+    if (isMobile) {
       return (
         <>
           <div className="mt-5 ml-5 mr-5 ">
@@ -108,12 +101,14 @@ export default function ListContainer({ type, data }: ListContainer) {
           </div>
         </>
       );
+    }
+  if (type == 2 && isFetching && isBrowser) return <></>;
   if (isBrowser)
     return (
       <div className="pb-2 mt-1 mb-8 ml-8 mr-8">
         {/* Info */}
         {/* Profile일 경우, 카페의 ID로 Cafe 이름을 찾고, 링크로 표시 */}
-        {type === 2 && cafeData && cafeId ? (
+        {type === 2 && cafeData ? (
           <div
             className="mb-2 text-base font-medium cursor-pointer"
             onClick={() => {

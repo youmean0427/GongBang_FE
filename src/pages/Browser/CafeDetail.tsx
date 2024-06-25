@@ -96,7 +96,7 @@ export default function CafeDetail() {
 
   if (isBrowser)
     return (
-      <div className="pt-20">
+      <div className="pt-20 bg-white">
         <div className="flex flex-row w-full    pl-[10%] pr-[10%]">
           <div className="w-full">
             <div className="grid w-full grid-cols-1 mt-10 xl:grid-cols-2">
@@ -288,7 +288,7 @@ export default function CafeDetail() {
   if (isMobile)
     return (
       <>
-        <div className="flex flex-row w-full pl-[5%] pr-[5%]">
+        <div className="flex flex-row w-full pl-[5%] pr-[5%] bg-white">
           <div className="w-full">
             <div className="grid w-full grid-cols-1 mt-10">
               {/*  Info */}

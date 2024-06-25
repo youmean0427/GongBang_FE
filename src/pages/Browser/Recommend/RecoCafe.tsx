@@ -184,7 +184,7 @@ export default function RecoCafe() {
               <input
                 maxLength={50}
                 name="title"
-                className="w-full mb-2 text-lg font-semibold input input-bordered"
+                className="w-full mb-2 text-lg font-semibold bg-white input input-bordered"
                 placeholder="OO 카페 추천합니다."
                 onChange={handleInputsChange}
               />
@@ -193,7 +193,7 @@ export default function RecoCafe() {
           <div>
             <textarea
               maxLength={500}
-              className="w-full text-base textarea textarea-bordered max-h-[200px]"
+              className="w-full bg-white text-base textarea textarea-bordered max-h-[200px]"
               name="content"
               placeholder="OO 카페가 공부하기 좋았습니다."
               id=""
@@ -237,7 +237,7 @@ export default function RecoCafe() {
             </Map>
           </div>
           <div
-            className="w-full mt-1 mb-5 text-lg text-white btn bg-gongbang"
+            className="w-full mt-1 mb-5 text-lg text-white border-none btn bg-gongbang"
             onClick={handelReco}
           >
             작성
@@ -252,10 +252,8 @@ export default function RecoCafe() {
           <div className="mb-2 text-xl font-semibold">카페 추천</div>
         </div>
         <hr />
-        <div className="mt-2 text-sm font-medium">
-          <div>
-            {"<"}공부하기 좋은 카페{">"}를 추천해주세요.
-          </div>
+        <div className="mt-5 text-sm font-medium">
+          <div>공부하기 좋은 카페를 추천해주세요.</div>
           <div>카페의 외경 사진을 올려주세요.</div>
         </div>
 
@@ -300,7 +298,7 @@ export default function RecoCafe() {
             <input
               maxLength={50}
               name="title"
-              className="w-full mb-2 text-base font-semibold input input-bordered"
+              className="w-full mb-2 text-base font-semibold bg-white input input-bordered"
               placeholder="OO 카페 추천합니다."
               onChange={handleInputsChange}
             />
@@ -309,7 +307,7 @@ export default function RecoCafe() {
         <div>
           <textarea
             maxLength={500}
-            className="w-full text-base textarea textarea-bordered max-h-[200px]"
+            className="w-full text-base bg-white textarea textarea-bordered max-h-[200px]"
             name="content"
             placeholder="OO 카페가 공부하기 좋았습니다."
             id=""
@@ -353,7 +351,7 @@ export default function RecoCafe() {
           </Map>
         </div>
         <div
-          className="w-full mt-1 mb-5 text-base font-medium text-white btn bg-gongbang"
+          className="w-full mt-1 mb-5 text-base font-semibold text-white border-none btn bg-gongbang"
           onClick={handelReco}
         >
           작성
